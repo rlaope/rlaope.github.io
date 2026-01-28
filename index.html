@@ -1,9 +1,9 @@
-플<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heemang Kim</title>
+    <title>Hope Kim</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -18,7 +18,7 @@
 
     <main>
         <section class="hero">
-            <h1 data-en="Heemang Kim" data-kr="김희망">Heemang Kim</h1>
+            <h1>Hope Kim <span class="handle">@rlaope</span></h1>
             <p class="role" data-en="Software Engineer" data-kr="소프트웨어 엔지니어">Software Engineer</p>
         </section>
 
@@ -87,6 +87,7 @@
                 <span>JVM</span>
                 <span>Kotlin</span>
                 <span>Java</span>
+                <span>Go</span>
                 <span>Netty</span>
                 <span>TCP/IP</span>
                 <span>SRE</span>
@@ -96,14 +97,38 @@
         </section>
 
         <section class="projects">
-            <h2>Projects</h2>
+            <h2>Open Source</h2>
+
             <div class="project">
-                <h3>Argus</h3>
-                <p data-en="High-Performance JVM Monitoring OpenSource. Deep system-level improvements in Netty, TCP, Observability, and JVM."
-                   data-kr="High-Performance JVM Monitoring 오픈소스. Netty, TCP, Observability, JVM 레벨에서 시스템 개선함.">
-                   High-Performance JVM Monitoring OpenSource. Deep system-level improvements in Netty, TCP, Observability, and JVM.
+                <h3><a href="https://github.com/rlaope/Argus" target="_blank">Argus</a></h3>
+                <p data-en="A JFR-streaming profiler for JVM 21+ that monitors Virtual Threads (Project Loom) in real-time. Built with lock-free ring buffer architecture for low-overhead event collection. Features WebSocket-based live dashboard for thread lifecycle, GC events, memory allocation, and CPU profiling with automatic correlation analysis."
+                   data-kr="JVM 21+ 환경에서 Virtual Threads(Project Loom)를 실시간 모니터링하는 JFR-streaming 프로파일러. Lock-free ring buffer 아키텍처로 저오버헤드 이벤트 수집 구현함. 스레드 라이프사이클, GC 이벤트, 메모리 할당, CPU 프로파일링을 WebSocket 기반 실시간 대시보드로 제공하고 자동 상관관계 분석 지원함.">
+                   A JFR-streaming profiler for JVM 21+ that monitors Virtual Threads (Project Loom) in real-time. Built with lock-free ring buffer architecture for low-overhead event collection. Features WebSocket-based live dashboard for thread lifecycle, GC events, memory allocation, and CPU profiling with automatic correlation analysis.
                 </p>
-                <span class="status" data-en="In Development" data-kr="개발중">In Development</span>
+            </div>
+
+            <div class="project">
+                <h3><a href="https://github.com/rlaope/kar98k" target="_blank">kar98k</a></h3>
+                <p data-en="A 24/7 high-intensity traffic simulator written in Go for chaos engineering. Supports HTTP/1.1, HTTP/2, and gRPC protocols with Poisson-distributed spike patterns and micro-fluctuations. Features interactive TUI for configuration, real-time monitoring dashboard, and detailed latency distribution reports (P50/P95/P99)."
+                   data-kr="Go로 작성된 24/7 고강도 트래픽 시뮬레이터로 카오스 엔지니어링용. HTTP/1.1, HTTP/2, gRPC 프로토콜 지원하고 Poisson 분포 스파이크 패턴과 미세 변동 구현함. 인터랙티브 TUI 설정, 실시간 모니터링 대시보드, 상세 레이턴시 분포 리포트(P50/P95/P99) 제공함.">
+                   A 24/7 high-intensity traffic simulator written in Go for chaos engineering. Supports HTTP/1.1, HTTP/2, and gRPC protocols with Poisson-distributed spike patterns and micro-fluctuations. Features interactive TUI for configuration, real-time monitoring dashboard, and detailed latency distribution reports (P50/P95/P99).
+                </p>
+            </div>
+
+            <div class="project">
+                <h3><a href="https://github.com/rlaope/claude-code-savant" target="_blank">claude-code-savant</a></h3>
+                <p data-en="A Claude Code MCP plugin providing expert explanations through distinctive AI personas. Einstein persona delivers first-principles deep understanding for technical concepts. Shakespeare persona narrates code flows with Mermaid flowcharts. Transforms standard AI responses into structured, pedagogical explanations."
+                   data-kr="Claude Code MCP 플러그인으로 독특한 AI 페르소나를 통해 전문적인 설명 제공함. Einstein 페르소나는 기술 개념을 1차 원리부터 깊이있게 설명하고, Shakespeare 페르소나는 Mermaid 플로우차트와 함께 코드 흐름을 서술함. 일반적인 AI 응답을 구조화된 교육적 설명으로 변환함.">
+                   A Claude Code MCP plugin providing expert explanations through distinctive AI personas. Einstein persona delivers first-principles deep understanding for technical concepts. Shakespeare persona narrates code flows with Mermaid flowcharts. Transforms standard AI responses into structured, pedagogical explanations.
+                </p>
+            </div>
+
+            <div class="project">
+                <h3><a href="https://github.com/rlaope/mascot" target="_blank">Mascot</a></h3>
+                <p data-en="A lightweight IntelliJ IDEA plugin that displays a customizable mascot in the IDE corner. Published on JetBrains Marketplace. Users can set any local image as their mascot through the Settings UI without rebuilding the plugin. Settings persist across IDE restarts."
+                   data-kr="IntelliJ IDEA IDE 코너에 커스텀 마스코트를 표시하는 경량 플러그인. JetBrains Marketplace에 배포됨. 사용자가 플러그인 리빌드 없이 Settings UI에서 로컬 이미지를 마스코트로 설정 가능함. 설정은 IDE 재시작 후에도 유지됨.">
+                   A lightweight IntelliJ IDEA plugin that displays a customizable mascot in the IDE corner. Published on JetBrains Marketplace. Users can set any local image as their mascot through the Settings UI without rebuilding the plugin. Settings persist across IDE restarts.
+                </p>
             </div>
         </section>
 

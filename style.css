@@ -78,6 +78,12 @@ nav {
     margin-bottom: 8px;
 }
 
+.handle {
+    color: var(--text-dim);
+    font-weight: 400;
+    font-size: 20px;
+}
+
 .role {
     color: var(--accent);
     font-size: 16px;
@@ -146,22 +152,32 @@ section h2 {
 .project {
     padding-left: 16px;
     border-left: 1px solid #333;
+    margin-bottom: 32px;
+}
+
+.project:last-child {
+    margin-bottom: 0;
 }
 
 .project h3 {
     font-size: 16px;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+}
+
+.project h3 a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.project h3 a:hover {
+    color: var(--accent);
 }
 
 .project p {
     color: #999;
     font-size: 14px;
-    margin-bottom: 8px;
-}
-
-.status {
-    color: var(--accent);
-    font-size: 12px;
+    line-height: 1.8;
 }
 
 /* Contact */
