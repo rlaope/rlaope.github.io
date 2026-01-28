@@ -346,6 +346,39 @@ section h2 {
     line-height: 1.9;
 }
 
+/* Presentation */
+.presentation .item {
+    margin-bottom: 28px;
+}
+
+.presentation .item:last-child {
+    margin-bottom: 0;
+}
+
+.presentation .year {
+    display: block;
+    color: #e8e8e8;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.presentation .year a {
+    color: #e8e8e8;
+    text-decoration: none;
+}
+
+.presentation .year a:hover {
+    text-decoration: underline;
+}
+
+.presentation .item p {
+    color: #999;
+    font-size: 14px;
+    line-height: 1.9;
+}
+
 /* Tags (Interested) */
 .tags {
     display: flex;
