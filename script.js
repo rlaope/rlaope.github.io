@@ -1,3 +1,55 @@
+// Floating particles background
+let floatingParticles = [];
+let floatingCanvas, floatingCtx;
+
+function initFloatingParticles() {
+    floatingCanvas = document.getElementById('floating-particles');
+    if (!floatingCanvas) return;
+    floatingCtx = floatingCanvas.getContext('2d');
+
+    function resize() {
+        floatingCanvas.width = window.innerWidth;
+        floatingCanvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Create floating particles
+    for (let i = 0; i < 60; i++) {
+        floatingParticles.push({
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            char: Math.random() > 0.5 ? '1' : '0',
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
+            alpha: 0.1 + Math.random() * 0.2
+        });
+    }
+
+    function animateFloating() {
+        floatingCtx.clearRect(0, 0, floatingCanvas.width, floatingCanvas.height);
+        floatingCtx.font = '14px JetBrains Mono';
+        floatingCtx.textAlign = 'center';
+
+        floatingParticles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+
+            // Wrap around edges
+            if (p.x < 0) p.x = floatingCanvas.width;
+            if (p.x > floatingCanvas.width) p.x = 0;
+            if (p.y < 0) p.y = floatingCanvas.height;
+            if (p.y > floatingCanvas.height) p.y = 0;
+
+            floatingCtx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+            floatingCtx.fillText(p.char, p.x, p.y);
+        });
+
+        requestAnimationFrame(animateFloating);
+    }
+    animateFloating();
+}
+
 // Intro Animation - 3D Binary Cube
 (function() {
     const canvas = document.getElementById('cube-canvas');
@@ -11,9 +63,9 @@
     let isExploding = false;
     let mouseX = 0, mouseY = 0;
 
-    // Cube parameters
-    const cubeSize = 120;
-    const particleCount = 800;
+    // Cube parameters - bigger cube
+    const cubeSize = 220;
+    const particleCount = 1200;
     let rotationX = 0, rotationY = 0, rotationZ = 0;
 
     function resize() {
@@ -65,7 +117,7 @@
     }
 
     function project(x, y, z) {
-        const perspective = 400;
+        const perspective = 500;
         const scale = perspective / (perspective + z);
         return {
             x: x * scale + width / 2,
@@ -79,7 +131,7 @@
         particles.forEach(p => {
             const angle = Math.atan2(p.y, p.x);
             const angleZ = Math.atan2(p.z, Math.sqrt(p.x * p.x + p.y * p.y));
-            const speed = 8 + Math.random() * 15;
+            const speed = 10 + Math.random() * 20;
             p.vx = Math.cos(angle) * Math.cos(angleZ) * speed;
             p.vy = Math.sin(angle) * speed;
             p.vz = Math.sin(angleZ) * speed;
@@ -88,6 +140,7 @@
         setTimeout(() => {
             overlay.classList.add('fade-out');
             main.classList.add('visible');
+            initFloatingParticles();
             setTimeout(() => {
                 overlay.classList.add('hidden');
                 cancelAnimationFrame(animationId);
@@ -126,9 +179,10 @@
         }).sort((a, b) => a.rotated.z - b.rotated.z);
 
         sortedParticles.forEach(p => {
-            const brightness = Math.floor(100 + (p.rotated.z / cubeSize) * 100);
-            const green = Math.min(255, brightness + 50);
-            ctx.fillStyle = `rgba(0, ${green}, ${Math.floor(green * 0.6)}, ${p.alpha * p.projected.scale})`;
+            // White color with depth-based brightness
+            const brightness = Math.floor(150 + (p.rotated.z / cubeSize) * 105);
+            const color = Math.min(255, brightness);
+            ctx.fillStyle = `rgba(${color}, ${color}, ${color}, ${p.alpha * p.projected.scale})`;
             ctx.fillText(p.char, p.projected.x, p.projected.y);
         });
 
@@ -139,6 +193,7 @@
     if (sessionStorage.getItem('intro-seen')) {
         overlay.classList.add('hidden');
         main.classList.add('visible');
+        initFloatingParticles();
     } else {
         resize();
         createParticles();
