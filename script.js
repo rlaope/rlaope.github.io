@@ -454,10 +454,7 @@ function initEffectToggle() {
     if (sessionStorage.getItem('intro-seen')) {
         overlay.classList.add('hidden');
         main.classList.add('visible');
-        // Show all elements immediately without typing effect
-        main.querySelectorAll('h1, h2, h3, p, span.year, span.handle, a').forEach(el => {
-            el.style.opacity = '1';
-        });
+        main.classList.add('typing-started'); // Show all content immediately
         initFloatingParticles();
     } else {
         resize();
