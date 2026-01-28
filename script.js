@@ -72,6 +72,7 @@ function initTypingEffect() {
 // Floating particles background
 let floatingParticles = [];
 let floatingCanvas, floatingCtx;
+let particlesEnabled = true;
 
 function initFloatingParticles() {
     floatingCanvas = document.getElementById('floating-particles');
@@ -116,6 +117,12 @@ function initFloatingParticles() {
 
     function animateFloating() {
         floatingCtx.clearRect(0, 0, floatingCanvas.width, floatingCanvas.height);
+
+        if (!particlesEnabled) {
+            requestAnimationFrame(animateFloating);
+            return;
+        }
+
         floatingCtx.font = '14px JetBrains Mono';
         floatingCtx.textAlign = 'center';
 
@@ -153,6 +160,25 @@ function initFloatingParticles() {
         requestAnimationFrame(animateFloating);
     }
     animateFloating();
+}
+
+// Effect toggle
+function initEffectToggle() {
+    const btn = document.getElementById('btn-effect');
+    if (!btn) return;
+
+    // Load saved preference
+    const savedPref = localStorage.getItem('particles-enabled');
+    if (savedPref !== null) {
+        particlesEnabled = savedPref === 'true';
+    }
+    btn.classList.toggle('active', particlesEnabled);
+
+    btn.addEventListener('click', () => {
+        particlesEnabled = !particlesEnabled;
+        btn.classList.toggle('active', particlesEnabled);
+        localStorage.setItem('particles-enabled', particlesEnabled);
+    });
 }
 
 // Intro Animation - 3D Binary Cube
@@ -369,6 +395,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (savedLang) {
         setLanguage(savedLang);
     }
+
+    // Initialize effect toggle
+    initEffectToggle();
 
     // Optional: Typing effect for commands
     function typeWriter(element, text, speed = 50) {

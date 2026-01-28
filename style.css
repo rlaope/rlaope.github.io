@@ -191,6 +191,29 @@ body {
     color: var(--bg);
 }
 
+.effect-btn {
+    background: transparent;
+    border: 1px solid #333;
+    color: var(--text-dim);
+    padding: 6px 10px;
+    font-family: inherit;
+    font-size: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-left: 8px;
+}
+
+.effect-btn:hover {
+    border-color: var(--text);
+    color: var(--text);
+}
+
+.effect-btn.active {
+    background: var(--text);
+    border-color: var(--text);
+    color: var(--bg);
+}
+
 /* Main */
 main {
     max-width: 720px;
