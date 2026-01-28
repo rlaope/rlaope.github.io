@@ -1,38 +1,36 @@
-// Fast typing effect for resume content
+// Fast typing effect for resume content (excluding hero section)
 function initTypingEffect() {
     const main = document.querySelector('main');
-    const elements = main.querySelectorAll('h1, h2, h3, p, span.year, span.handle, a');
+    // Only select elements from sections other than hero
+    const sections = main.querySelectorAll('section:not(.hero)');
+    const elements = [];
+
+    sections.forEach(section => {
+        section.querySelectorAll('h2, h3, p, span.year').forEach(el => {
+            if (el.closest('.tags') || el.closest('.lang-switch')) {
+                return;
+            }
+            elements.push(el);
+        });
+    });
 
     // Store original content and hide elements
     const originalData = [];
-    elements.forEach((el, index) => {
-        if (el.closest('.tags') || el.closest('.lang-switch') || el.tagName === 'A' && el.closest('h3')) {
-            // Skip tag spans and language buttons and links inside h3
-            return;
-        }
+    elements.forEach(el => {
         const originalHTML = el.innerHTML;
-        const isLink = el.tagName === 'A';
-        if (!isLink) {
-            el.innerHTML = '';
-        }
-        el.style.opacity = '0';
-        originalData.push({ el, html: originalHTML, isLink });
+        el.setAttribute('data-original', originalHTML);
+        el.innerHTML = '';
+        el.style.visibility = 'visible';
+        originalData.push({ el, html: originalHTML });
     });
 
     // Type each element very fast
     let currentIndex = 0;
-    const typeSpeed = 2; // Very fast - 2ms per character
-    const elementDelay = 30; // Small delay between elements
+    const typeSpeed = 1; // Very fast - 1ms per character
+    const elementDelay = 15; // Small delay between elements
 
     function typeElement(data, callback) {
-        const { el, html, isLink } = data;
-        el.style.opacity = '1';
-
-        if (isLink) {
-            el.style.opacity = '1';
-            callback();
-            return;
-        }
+        const { el, html } = data;
 
         // Parse HTML to handle tags properly
         const tempDiv = document.createElement('div');
@@ -45,7 +43,7 @@ function initTypingEffect() {
         function type() {
             if (charIndex < textContent.length) {
                 // Add multiple characters at once for speed
-                const charsToAdd = Math.min(3, textContent.length - charIndex);
+                const charsToAdd = Math.min(5, textContent.length - charIndex);
                 el.textContent += textContent.substring(charIndex, charIndex + charsToAdd);
                 charIndex += charsToAdd;
                 setTimeout(type, typeSpeed);
@@ -67,8 +65,8 @@ function initTypingEffect() {
         }
     }
 
-    // Start typing after a brief delay
-    setTimeout(typeNext, 200);
+    // Start typing immediately
+    typeNext();
 }
 
 // Floating particles background
@@ -228,7 +226,7 @@ function initFloatingParticles() {
         const scale = perspective / (perspective + z);
         return {
             x: x * scale + width / 2,
-            y: y * scale + height / 2,
+            y: y * scale + height / 2 + 80, // Position cube lower to not overlap with hero
             scale
         };
     }
@@ -248,12 +246,15 @@ function initFloatingParticles() {
             overlay.classList.add('fade-out');
             main.classList.add('visible');
             initFloatingParticles();
-            initTypingEffect();
+            // Start typing effect after overlay fades
+            setTimeout(() => {
+                initTypingEffect();
+            }, 400);
             setTimeout(() => {
                 overlay.classList.add('hidden');
                 cancelAnimationFrame(animationId);
             }, 800);
-        }, 600);
+        }, 500);
     }
 
     function animate() {

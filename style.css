@@ -45,6 +45,9 @@
 
 #intro-hero {
     position: absolute;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
     text-align: center;
     z-index: 10;
     pointer-events: none;
@@ -53,14 +56,20 @@
 #intro-hero .intro-logo {
     width: 80px;
     height: 80px;
-    margin-bottom: 20px;
+    margin-bottom: 28px;
 }
 
 #intro-hero h1 {
     font-size: 36px;
     font-weight: 700;
     color: var(--text);
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+}
+
+#intro-hero h1 .handle {
+    color: var(--text-dim);
+    font-weight: 400;
+    font-size: 20px;
 }
 
 #intro-hero p {
@@ -94,11 +103,12 @@
     z-index: -1;
 }
 
-main {
+main .hero {
     opacity: 0;
+    transition: opacity 0.5s;
 }
 
-main.visible {
+main.visible .hero {
     opacity: 1;
 }
 
