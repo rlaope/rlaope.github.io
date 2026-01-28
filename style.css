@@ -236,6 +236,14 @@ section h2 {
     color: var(--accent);
 }
 
+/* Footer */
+footer {
+    text-align: center;
+    padding: 40px 32px;
+    color: var(--text-dim);
+    font-size: 12px;
+}
+
 /* Responsive */
 @media (max-width: 700px) {
     main {
