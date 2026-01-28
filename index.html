@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rlaope | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="terminal">
+        <header class="terminal-header">
+            <div class="terminal-buttons">
+                <span class="btn red"></span>
+                <span class="btn yellow"></span>
+                <span class="btn green"></span>
+            </div>
+            <div class="terminal-title">rlaope@portfolio:~</div>
+            <div class="lang-switch">
+                <button id="btn-en" class="lang-btn active">EN</button>
+                <button id="btn-kr" class="lang-btn">KR</button>
+            </div>
+        </header>
+
+        <main class="terminal-body">
+            <div class="line">
+                <span class="prompt">$</span>
+                <span class="command">whoami</span>
+            </div>
+            <div class="output">
+                <p class="name" data-en="Heemang Kim" data-kr="김희망">Heemang Kim</p>
+                <p class="title" data-en="Software Developer" data-kr="소프트웨어 개발자">Software Developer</p>
+            </div>
+
+            <div class="line">
+                <span class="prompt">$</span>
+                <span class="command">cat about.txt</span>
+            </div>
+            <div class="output">
+                <p data-en="Hello! I'm a passionate developer who loves building things."
+                   data-kr="안녕하세요! 저는 무언가를 만드는 것을 좋아하는 열정적인 개발자입니다.">
+                   Hello! I'm a passionate developer who loves building things.
+                </p>
+                <p data-en="I enjoy solving complex problems and learning new technologies."
+                   data-kr="복잡한 문제를 해결하고 새로운 기술을 배우는 것을 즐깁니다.">
+                   I enjoy solving complex problems and learning new technologies.
+                </p>
+            </div>
+
+            <div class="line">
+                <span class="prompt">$</span>
+                <span class="command">ls skills/</span>
+            </div>
+            <div class="output skills-grid">
+                <span class="skill">JavaScript</span>
+                <span class="skill">TypeScript</span>
+                <span class="skill">Python</span>
+                <span class="skill">React</span>
+                <span class="skill">Node.js</span>
+                <span class="skill">Git</span>
+            </div>
+
+            <div class="line">
+                <span class="prompt">$</span>
+                <span class="command">ls projects/</span>
+            </div>
+            <div class="output">
+                <div class="project">
+                    <span class="project-name">[01] project-alpha/</span>
+                    <p class="project-desc"
+                       data-en="A cool project description goes here."
+                       data-kr="멋진 프로젝트 설명이 여기에 들어갑니다.">
+                       A cool project description goes here.
+                    </p>
+                    <a href="#" class="project-link">→ github.com/rlaope/project-alpha</a>
+                </div>
+                <div class="project">
+                    <span class="project-name">[02] project-beta/</span>
+                    <p class="project-desc"
+                       data-en="Another amazing project description."
+                       data-kr="또 다른 멋진 프로젝트 설명입니다.">
+                       Another amazing project description.
+                    </p>
+                    <a href="#" class="project-link">→ github.com/rlaope/project-beta</a>
+                </div>
+            </div>
+
+            <div class="line">
+                <span class="prompt">$</span>
+                <span class="command">cat contact.txt</span>
+            </div>
+            <div class="output contact">
+                <p><span class="label">Email:</span> <a href="mailto:your@email.com">your@email.com</a></p>
+                <p><span class="label">GitHub:</span> <a href="https://github.com/rlaope" target="_blank">github.com/rlaope</a></p>
+                <p><span class="label">LinkedIn:</span> <a href="#" target="_blank">linkedin.com/in/yourprofile</a></p>
+            </div>
+
+            <div class="line input-line">
+                <span class="prompt">$</span>
+                <span class="cursor">_</span>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
