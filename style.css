@@ -47,7 +47,7 @@ nav {
 }
 
 .nav-link:hover {
-    color: var(--accent);
+    color: var(--text);
 }
 
 .lang-switch {
@@ -67,8 +67,8 @@ nav {
 }
 
 .lang-btn:hover {
-    border-color: var(--accent);
-    color: var(--accent);
+    border-color: var(--text);
+    color: var(--text);
 }
 
 .lang-btn.active {
