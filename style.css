@@ -75,9 +75,9 @@ nav {
 
 /* Main */
 main {
-    max-width: 800px;
+    max-width: 720px;
     margin: 0 auto;
-    padding: 120px 40px 80px;
+    padding: 120px 24px 80px;
 }
 
 /* Hero */
@@ -111,7 +111,7 @@ main {
 
 /* Sections */
 section {
-    margin-bottom: 80px;
+    margin-bottom: 70px;
 }
 
 section:last-child {
@@ -128,7 +128,7 @@ section h2 {
 
 /* About */
 .about p {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     color: #aaa;
     font-size: 14px;
 }
@@ -139,7 +139,7 @@ section h2 {
 
 /* History */
 .history .item {
-    margin-bottom: 28px;
+    margin-bottom: 24px;
     padding-left: 16px;
     border-left: 1px solid #222;
 }
@@ -194,8 +194,8 @@ section h2 {
 
 /* Projects */
 .project {
-    margin-bottom: 32px;
-    padding-bottom: 32px;
+    margin-bottom: 28px;
+    padding-bottom: 28px;
     border-bottom: 1px solid #151515;
 }
 
@@ -265,6 +265,6 @@ section h2 {
     }
 
     section {
-        margin-bottom: 60px;
+        margin-bottom: 50px;
     }
 }
