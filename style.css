@@ -449,31 +449,30 @@ section h2 {
 }
 
 .qna-item .question {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 700;
     color: var(--text);
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 
 .qna-item .question::before {
     content: 'Q. ';
-    color: #6eb5ff;
+    color: var(--accent);
 }
 
 .qna-item .question.sub-question {
-    font-size: 18px;
-    margin-top: 32px;
+    margin-top: 28px;
 }
 
 .qna-item .answer {
     color: #ddd;
-    font-size: 17px;
+    font-size: 16px;
     line-height: 2;
 }
 
 .qna-item .answer::before {
     content: 'A. ';
-    color: #7ee787;
+    color: var(--accent);
     font-weight: 700;
 }
 
