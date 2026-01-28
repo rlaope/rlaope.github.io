@@ -222,10 +222,11 @@ function initEffectToggle() {
     let animationId;
     let isExploding = false;
     let mouseX = 0, mouseY = 0;
+    let keyRotX = 0, keyRotY = 0; // Arrow key rotation
 
     // Cube parameters - bigger cube
-    const cubeSize = 220;
-    const particleCount = 1200;
+    const cubeSize = 200;
+    const particleCount = 1000;
     let rotationX = 0, rotationY = 0, rotationZ = 0;
 
     function resize() {
@@ -318,11 +319,11 @@ function initEffectToggle() {
     }
 
     function project(x, y, z) {
-        const perspective = 500;
+        const perspective = 600; // Increased for less distortion
         const scale = perspective / (perspective + z);
         return {
             x: x * scale + width / 2,
-            y: y * scale + height / 2 + 150, // Position cube much lower to not overlap with hero
+            y: y * scale + height / 2 + 120,
             scale
         };
     }
@@ -363,8 +364,14 @@ function initEffectToggle() {
             const targetRotX = (mouseY - height / 2) * 0.0008;
             rotationY += (targetRotY - rotationY * 0.1) * 0.05;
             rotationX += (targetRotX - rotationX * 0.1) * 0.05;
-            rotationZ += 0.003;
-            rotationY += 0.008;
+
+            // Add keyboard rotation
+            rotationX += keyRotX;
+            rotationY += keyRotY;
+
+            // Slow auto rotation
+            rotationZ += 0.002;
+            rotationY += 0.005;
         }
 
         ctx.font = '14px JetBrains Mono';
@@ -421,11 +428,42 @@ function initEffectToggle() {
             }
         });
 
-        // Also trigger on any key press
-        window.addEventListener('keydown', () => {
-            if (!isExploding && !overlay.classList.contains('hidden')) {
-                sessionStorage.setItem('intro-seen', 'true');
-                explode();
+        // Arrow keys to rotate cube
+        window.addEventListener('keydown', (e) => {
+            if (isExploding) return;
+
+            switch(e.key) {
+                case 'ArrowUp':
+                    keyRotX = -0.05;
+                    e.preventDefault();
+                    break;
+                case 'ArrowDown':
+                    keyRotX = 0.05;
+                    e.preventDefault();
+                    break;
+                case 'ArrowLeft':
+                    keyRotY = -0.05;
+                    e.preventDefault();
+                    break;
+                case 'ArrowRight':
+                    keyRotY = 0.05;
+                    e.preventDefault();
+                    break;
+                default:
+                    // Any other key triggers explosion
+                    if (!overlay.classList.contains('hidden')) {
+                        sessionStorage.setItem('intro-seen', 'true');
+                        explode();
+                    }
+            }
+        });
+
+        window.addEventListener('keyup', (e) => {
+            if (['ArrowUp', 'ArrowDown'].includes(e.key)) {
+                keyRotX = 0;
+            }
+            if (['ArrowLeft', 'ArrowRight'].includes(e.key)) {
+                keyRotY = 0;
             }
         });
     }
