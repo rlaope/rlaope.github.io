@@ -1,3 +1,76 @@
+// Fast typing effect for resume content
+function initTypingEffect() {
+    const main = document.querySelector('main');
+    const elements = main.querySelectorAll('h1, h2, h3, p, span.year, span.handle, a');
+
+    // Store original content and hide elements
+    const originalData = [];
+    elements.forEach((el, index) => {
+        if (el.closest('.tags') || el.closest('.lang-switch') || el.tagName === 'A' && el.closest('h3')) {
+            // Skip tag spans and language buttons and links inside h3
+            return;
+        }
+        const originalHTML = el.innerHTML;
+        const isLink = el.tagName === 'A';
+        if (!isLink) {
+            el.innerHTML = '';
+        }
+        el.style.opacity = '0';
+        originalData.push({ el, html: originalHTML, isLink });
+    });
+
+    // Type each element very fast
+    let currentIndex = 0;
+    const typeSpeed = 2; // Very fast - 2ms per character
+    const elementDelay = 30; // Small delay between elements
+
+    function typeElement(data, callback) {
+        const { el, html, isLink } = data;
+        el.style.opacity = '1';
+
+        if (isLink) {
+            el.style.opacity = '1';
+            callback();
+            return;
+        }
+
+        // Parse HTML to handle tags properly
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+        const textContent = tempDiv.textContent || tempDiv.innerText;
+
+        let charIndex = 0;
+        el.innerHTML = '';
+
+        function type() {
+            if (charIndex < textContent.length) {
+                // Add multiple characters at once for speed
+                const charsToAdd = Math.min(3, textContent.length - charIndex);
+                el.textContent += textContent.substring(charIndex, charIndex + charsToAdd);
+                charIndex += charsToAdd;
+                setTimeout(type, typeSpeed);
+            } else {
+                // Restore original HTML with formatting
+                el.innerHTML = html;
+                callback();
+            }
+        }
+        type();
+    }
+
+    function typeNext() {
+        if (currentIndex < originalData.length) {
+            typeElement(originalData[currentIndex], () => {
+                currentIndex++;
+                setTimeout(typeNext, elementDelay);
+            });
+        }
+    }
+
+    // Start typing after a brief delay
+    setTimeout(typeNext, 200);
+}
+
 // Floating particles background
 let floatingParticles = [];
 let floatingCanvas, floatingCtx;
@@ -7,6 +80,9 @@ function initFloatingParticles() {
     if (!floatingCanvas) return;
     floatingCtx = floatingCanvas.getContext('2d');
 
+    const mainWidth = 720;
+    const padding = 32;
+
     function resize() {
         floatingCanvas.width = window.innerWidth;
         floatingCanvas.height = window.innerHeight;
@@ -14,15 +90,29 @@ function initFloatingParticles() {
     resize();
     window.addEventListener('resize', resize);
 
-    // Create floating particles
-    for (let i = 0; i < 60; i++) {
+    // Create floating particles only on left and right sides (outside main content)
+    function getRandomSideX() {
+        const centerStart = (window.innerWidth - mainWidth) / 2 - padding;
+        const centerEnd = (window.innerWidth + mainWidth) / 2 + padding;
+
+        // Randomly choose left or right side
+        if (Math.random() > 0.5) {
+            // Left side
+            return Math.random() * Math.max(0, centerStart);
+        } else {
+            // Right side
+            return centerEnd + Math.random() * Math.max(0, window.innerWidth - centerEnd);
+        }
+    }
+
+    for (let i = 0; i < 40; i++) {
         floatingParticles.push({
-            x: Math.random() * window.innerWidth,
+            x: getRandomSideX(),
             y: Math.random() * window.innerHeight,
             char: Math.random() > 0.5 ? '1' : '0',
-            vx: (Math.random() - 0.5) * 0.5,
+            vx: (Math.random() - 0.5) * 0.3,
             vy: (Math.random() - 0.5) * 0.5,
-            alpha: 0.1 + Math.random() * 0.2
+            alpha: 0.15 + Math.random() * 0.25
         });
     }
 
@@ -31,15 +121,32 @@ function initFloatingParticles() {
         floatingCtx.font = '14px JetBrains Mono';
         floatingCtx.textAlign = 'center';
 
+        const centerStart = (floatingCanvas.width - mainWidth) / 2 - padding;
+        const centerEnd = (floatingCanvas.width + mainWidth) / 2 + padding;
+
         floatingParticles.forEach(p => {
             p.x += p.vx;
             p.y += p.vy;
 
-            // Wrap around edges
-            if (p.x < 0) p.x = floatingCanvas.width;
-            if (p.x > floatingCanvas.width) p.x = 0;
+            // Wrap around edges, but keep particles on sides
             if (p.y < 0) p.y = floatingCanvas.height;
             if (p.y > floatingCanvas.height) p.y = 0;
+
+            // Keep particles on left or right side only
+            if (p.x < centerStart) {
+                // Left side - wrap within left area
+                if (p.x < 0) p.x = centerStart - 10;
+            } else if (p.x > centerEnd) {
+                // Right side - wrap within right area
+                if (p.x > floatingCanvas.width) p.x = centerEnd + 10;
+            } else {
+                // Particle drifted to center, push it back to nearest side
+                if (p.x < floatingCanvas.width / 2) {
+                    p.x = centerStart - 10;
+                } else {
+                    p.x = centerEnd + 10;
+                }
+            }
 
             floatingCtx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
             floatingCtx.fillText(p.char, p.x, p.y);
@@ -141,6 +248,7 @@ function initFloatingParticles() {
             overlay.classList.add('fade-out');
             main.classList.add('visible');
             initFloatingParticles();
+            initTypingEffect();
             setTimeout(() => {
                 overlay.classList.add('hidden');
                 cancelAnimationFrame(animationId);
@@ -193,6 +301,10 @@ function initFloatingParticles() {
     if (sessionStorage.getItem('intro-seen')) {
         overlay.classList.add('hidden');
         main.classList.add('visible');
+        // Show all elements immediately without typing effect
+        main.querySelectorAll('h1, h2, h3, p, span.year, span.handle, a').forEach(el => {
+            el.style.opacity = '1';
+        });
         initFloatingParticles();
     } else {
         resize();

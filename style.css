@@ -96,11 +96,29 @@
 
 main {
     opacity: 0;
-    transition: opacity 0.8s ease-in;
 }
 
 main.visible {
     opacity: 1;
+}
+
+/* Typing effect */
+.typing-hidden {
+    opacity: 0;
+}
+
+.typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background: var(--text);
+    margin-left: 2px;
+    animation: blink 0.5s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
 }
 
 body {
@@ -168,6 +186,9 @@ main {
     max-width: 720px;
     margin: 0 auto;
     padding: 80px 32px 80px;
+    position: relative;
+    z-index: 1;
+    background: var(--bg);
 }
 
 /* Hero */
