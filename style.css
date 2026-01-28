@@ -5,9 +5,9 @@
 }
 
 :root {
-    --bg: #000;
-    --text: #fff;
-    --text-dim: #666;
+    --bg: #0a0a0a;
+    --text: #e8e8e8;
+    --text-dim: #777;
     --accent: #00ff00;
 }
 
@@ -15,18 +15,25 @@ body {
     font-family: 'JetBrains Mono', monospace;
     background: var(--bg);
     color: var(--text);
-    line-height: 1.7;
-    padding: 40px 20px;
-    max-width: 700px;
-    margin: 0 auto;
+    line-height: 1.9;
+    font-size: 15px;
 }
 
+/* Navigation - Fixed Top */
 nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 16px;
-    margin-bottom: 80px;
+    gap: 20px;
+    padding: 20px 40px;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #1a1a1a;
+    z-index: 100;
 }
 
 .nav-link {
@@ -42,14 +49,14 @@ nav {
 
 .lang-switch {
     display: flex;
-    gap: 4px;
+    gap: 6px;
 }
 
 .lang-btn {
     background: transparent;
-    border: 1px solid var(--text-dim);
+    border: 1px solid #333;
     color: var(--text-dim);
-    padding: 4px 10px;
+    padding: 6px 12px;
     font-family: inherit;
     font-size: 12px;
     cursor: pointer;
@@ -67,78 +74,98 @@ nav {
     color: var(--bg);
 }
 
+/* Main Content */
+main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 120px 24px 80px;
+}
+
 /* Hero */
 .hero {
-    margin-bottom: 60px;
+    margin-bottom: 100px;
+    text-align: center;
 }
 
 .hero h1 {
-    font-size: 36px;
+    font-size: 42px;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
+    letter-spacing: -1px;
 }
 
 .handle {
     color: var(--text-dim);
     font-weight: 400;
-    font-size: 20px;
+    font-size: 22px;
 }
 
 .role {
     color: var(--accent);
-    font-size: 16px;
+    font-size: 18px;
 }
 
 /* Sections */
 section {
-    margin-bottom: 60px;
+    margin-bottom: 120px;
 }
 
 section h2 {
-    font-size: 14px;
+    font-size: 12px;
     color: var(--text-dim);
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 24px;
+    letter-spacing: 3px;
+    margin-bottom: 40px;
 }
 
 /* About */
 .about p {
-    margin-bottom: 16px;
-    color: #ccc;
-    font-size: 15px;
+    margin-bottom: 28px;
+    color: #bbb;
+    font-size: 16px;
+}
+
+.about p:last-child {
+    margin-bottom: 0;
 }
 
 /* History */
 .history .item {
-    margin-bottom: 24px;
-    padding-left: 16px;
-    border-left: 1px solid #333;
+    margin-bottom: 40px;
+    padding-left: 24px;
+    border-left: 2px solid #222;
+}
+
+.history .item:last-child {
+    margin-bottom: 0;
 }
 
 .history .year {
     display: block;
     color: var(--accent);
     font-size: 13px;
-    margin-bottom: 8px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
 }
 
 .history .item p {
     color: #999;
     font-size: 14px;
+    line-height: 1.9;
 }
 
 /* Skills */
 .tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 12px;
 }
 
 .tags span {
-    padding: 6px 12px;
+    padding: 10px 18px;
     border: 1px solid #333;
-    font-size: 13px;
+    font-size: 14px;
     color: #ccc;
     transition: all 0.2s;
 }
@@ -149,10 +176,19 @@ section h2 {
 }
 
 /* Projects */
+.projects h2 {
+    margin-bottom: 48px;
+}
+
 .project {
-    padding-left: 16px;
-    border-left: 1px solid #333;
-    margin-bottom: 32px;
+    padding: 28px;
+    border: 1px solid #222;
+    margin-bottom: 24px;
+    transition: border-color 0.2s;
+}
+
+.project:hover {
+    border-color: #333;
 }
 
 .project:last-child {
@@ -160,8 +196,8 @@ section h2 {
 }
 
 .project h3 {
-    font-size: 16px;
-    margin-bottom: 12px;
+    font-size: 18px;
+    margin-bottom: 20px;
 }
 
 .project h3 a {
@@ -177,12 +213,13 @@ section h2 {
 .project p {
     color: #999;
     font-size: 14px;
-    line-height: 1.8;
+    line-height: 2;
 }
 
 /* Contact */
 .contact p {
-    margin-bottom: 8px;
+    margin-bottom: 16px;
+    font-size: 16px;
 }
 
 .contact a {
@@ -197,19 +234,32 @@ section h2 {
 
 /* Responsive */
 @media (max-width: 600px) {
-    body {
-        padding: 24px 16px;
+    nav {
+        padding: 16px 20px;
+        gap: 12px;
     }
 
-    nav {
-        margin-bottom: 48px;
+    main {
+        padding: 100px 20px 60px;
+    }
+
+    .hero {
+        margin-bottom: 80px;
     }
 
     .hero h1 {
-        font-size: 28px;
+        font-size: 32px;
+    }
+
+    .handle {
+        font-size: 18px;
     }
 
     section {
-        margin-bottom: 48px;
+        margin-bottom: 80px;
+    }
+
+    .project {
+        padding: 20px;
     }
 }
