@@ -148,11 +148,43 @@ body {
     color: var(--prompt-color);
 }
 
+/* History */
+.history-item {
+    margin-bottom: 16px;
+    padding: 8px 0 8px 12px;
+    border-left: 2px solid var(--border-color);
+    transition: border-color 0.2s ease;
+}
+
+.history-item:hover {
+    border-left-color: var(--prompt-color);
+}
+
+.year {
+    color: var(--accent-color);
+    font-weight: bold;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.history-item p {
+    margin-top: 6px;
+    color: #999;
+    font-size: 14px;
+}
+
+/* Projects */
 .project {
     margin-bottom: 20px;
     padding: 12px;
     border-left: 2px solid var(--border-color);
     transition: border-color 0.2s ease;
+}
+
+.project-status {
+    color: var(--prompt-color);
+    font-size: 12px;
+    opacity: 0.8;
 }
 
 .project:hover {
