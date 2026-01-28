@@ -165,6 +165,15 @@ section h2 {
     letter-spacing: 1px;
 }
 
+.history .year a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.history .year a:hover {
+    text-decoration: underline;
+}
+
 .history .item p {
     color: #888;
     font-size: 12px;
