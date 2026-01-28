@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Update all translatable elements
         document.querySelectorAll('[data-en]').forEach(el => {
-            el.textContent = el.getAttribute(`data-${lang}`);
+            el.innerHTML = el.getAttribute(`data-${lang}`);
         });
 
         // Update html lang attribute
