@@ -215,10 +215,23 @@ function initEffectToggle() {
 
 // Intro Animation - 3D Binary Cube
 (function() {
-    const canvas = document.getElementById('cube-canvas');
-    const ctx = canvas.getContext('2d');
     const overlay = document.getElementById('intro-overlay');
     const main = document.querySelector('main');
+
+    // Check if intro was already seen - handle this first
+    if (sessionStorage.getItem('intro-seen')) {
+        if (overlay) overlay.classList.add('hidden');
+        if (main) {
+            main.classList.add('visible');
+            main.classList.add('typing-started');
+        }
+        initFloatingParticles();
+        return; // Exit early, don't set up cube animation
+    }
+
+    const canvas = document.getElementById('cube-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
 
     let width, height;
     let particles = [];
@@ -450,73 +463,66 @@ function initEffectToggle() {
         animationId = requestAnimationFrame(animate);
     }
 
-    // Check if intro was already seen this session
-    if (sessionStorage.getItem('intro-seen')) {
-        overlay.classList.add('hidden');
-        main.classList.add('visible');
-        main.classList.add('typing-started'); // Show all content immediately
-        initFloatingParticles();
-    } else {
+    // Set up intro animation (only runs if intro not seen yet)
+    resize();
+    createParticles();
+    createSpotlightParticles();
+    animate();
+
+    window.addEventListener('resize', () => {
         resize();
-        createParticles();
         createSpotlightParticles();
-        animate();
+    });
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
 
-        window.addEventListener('resize', () => {
-            resize();
-            createSpotlightParticles(); // Recreate spotlight on resize
-        });
-        window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
+    overlay.addEventListener('click', () => {
+        if (!isExploding) {
+            sessionStorage.setItem('intro-seen', 'true');
+            explode();
+        }
+    });
 
-        overlay.addEventListener('click', () => {
-            if (!isExploding) {
-                sessionStorage.setItem('intro-seen', 'true');
-                explode();
-            }
-        });
+    // Arrow keys to rotate cube
+    window.addEventListener('keydown', (e) => {
+        if (isExploding) return;
 
-        // Arrow keys to rotate cube
-        window.addEventListener('keydown', (e) => {
-            if (isExploding) return;
+        switch(e.key) {
+            case 'ArrowUp':
+                keyRotX = -0.05;
+                e.preventDefault();
+                break;
+            case 'ArrowDown':
+                keyRotX = 0.05;
+                e.preventDefault();
+                break;
+            case 'ArrowLeft':
+                keyRotY = -0.05;
+                e.preventDefault();
+                break;
+            case 'ArrowRight':
+                keyRotY = 0.05;
+                e.preventDefault();
+                break;
+            default:
+                // Any other key triggers explosion
+                if (!overlay.classList.contains('hidden')) {
+                    sessionStorage.setItem('intro-seen', 'true');
+                    explode();
+                }
+        }
+    });
 
-            switch(e.key) {
-                case 'ArrowUp':
-                    keyRotX = -0.05;
-                    e.preventDefault();
-                    break;
-                case 'ArrowDown':
-                    keyRotX = 0.05;
-                    e.preventDefault();
-                    break;
-                case 'ArrowLeft':
-                    keyRotY = -0.05;
-                    e.preventDefault();
-                    break;
-                case 'ArrowRight':
-                    keyRotY = 0.05;
-                    e.preventDefault();
-                    break;
-                default:
-                    // Any other key triggers explosion
-                    if (!overlay.classList.contains('hidden')) {
-                        sessionStorage.setItem('intro-seen', 'true');
-                        explode();
-                    }
-            }
-        });
-
-        window.addEventListener('keyup', (e) => {
-            if (['ArrowUp', 'ArrowDown'].includes(e.key)) {
-                keyRotX = 0;
-            }
-            if (['ArrowLeft', 'ArrowRight'].includes(e.key)) {
-                keyRotY = 0;
-            }
-        });
-    }
+    window.addEventListener('keyup', (e) => {
+        if (['ArrowUp', 'ArrowDown'].includes(e.key)) {
+            keyRotX = 0;
+        }
+        if (['ArrowLeft', 'ArrowRight'].includes(e.key)) {
+            keyRotY = 0;
+        }
+    });
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
