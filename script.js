@@ -40,8 +40,8 @@ function initTypingEffect() {
     cursor.innerHTML = '&nbsp;';
 
     let currentIndex = 0;
-    const typeSpeed = 6; // ms per character batch (was 5, now 10% slower)
-    const elementDelay = 35; // delay between elements
+    const typeSpeed = 2; // ms per character batch - faster
+    const elementDelay = 15; // delay between elements
 
     function typeElement(data, callback) {
         const { el, html } = data;
@@ -69,7 +69,7 @@ function initTypingEffect() {
                 }
 
                 // Add characters (fast - 4 at a time)
-                const charsToAdd = Math.min(4, textContent.length - charIndex);
+                const charsToAdd = Math.min(8, textContent.length - charIndex);
                 el.insertAdjacentText('beforeend', textContent.substring(charIndex, charIndex + charsToAdd));
                 charIndex += charsToAdd;
 
@@ -228,6 +228,9 @@ function initEffectToggle() {
         initFloatingParticles();
         return; // Exit early, don't set up cube animation
     }
+
+    // Mark that intro is playing - hide content until typing
+    if (main) main.classList.add('intro-playing');
 
     const canvas = document.getElementById('cube-canvas');
     if (!canvas) return;

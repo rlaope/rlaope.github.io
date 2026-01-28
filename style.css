@@ -118,18 +118,18 @@ main.visible .hero {
     opacity: 1;
 }
 
-/* Hide all content initially until typing */
-main section:not(.hero) h2,
-main section:not(.hero) h3,
-main section:not(.hero) p,
-main section:not(.hero) .year {
+/* Hide content only when intro is playing */
+main.intro-playing section:not(.hero) h2,
+main.intro-playing section:not(.hero) h3,
+main.intro-playing section:not(.hero) p,
+main.intro-playing section:not(.hero) .year {
     visibility: hidden;
 }
 
-main.typing-started section:not(.hero) h2,
-main.typing-started section:not(.hero) h3,
-main.typing-started section:not(.hero) p,
-main.typing-started section:not(.hero) .year {
+main.intro-playing.typing-started section:not(.hero) h2,
+main.intro-playing.typing-started section:not(.hero) h3,
+main.intro-playing.typing-started section:not(.hero) p,
+main.intro-playing.typing-started section:not(.hero) .year {
     visibility: visible;
 }
 
