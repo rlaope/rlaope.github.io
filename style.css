@@ -30,8 +30,7 @@ nav {
     align-items: center;
     gap: 16px;
     padding: 20px 40px;
-    background: rgba(0, 0, 0, 0.9);
-    backdrop-filter: blur(10px);
+    background: #000;
     z-index: 100;
 }
 
@@ -75,9 +74,9 @@ nav {
 
 /* Main */
 main {
-    max-width: 860px;
+    max-width: 960px;
     margin: 0 auto;
-    padding: 120px 48px 80px;
+    padding: 120px 60px 80px;
 }
 
 /* Hero */
@@ -87,15 +86,15 @@ main {
 }
 
 .hero-logo {
-    width: 56px;
-    height: 56px;
-    margin-bottom: 24px;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 28px;
 }
 
 .hero h1 {
-    font-size: 32px;
+    font-size: 34px;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .handle {
@@ -106,7 +105,7 @@ main {
 
 .role {
     color: var(--accent);
-    font-size: 14px;
+    font-size: 15px;
 }
 
 /* Sections */
@@ -140,8 +139,6 @@ section h2 {
 /* History */
 .history .item {
     margin-bottom: 24px;
-    padding-left: 16px;
-    border-left: 1px solid #222;
 }
 
 .history .item:last-child {
@@ -176,38 +173,30 @@ section h2 {
 .tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
 }
 
 .tags span {
-    padding: 8px 14px;
-    border: 1px solid #222;
     font-size: 12px;
-    color: #aaa;
-    transition: all 0.2s;
+    color: #888;
 }
 
 .tags span:hover {
-    border-color: var(--accent);
     color: var(--accent);
 }
 
 /* Projects */
 .project {
-    margin-bottom: 28px;
-    padding-bottom: 28px;
-    border-bottom: 1px solid #151515;
+    margin-bottom: 32px;
 }
 
 .project:last-child {
     margin-bottom: 0;
-    padding-bottom: 0;
-    border-bottom: none;
 }
 
 .project h3 {
     font-size: 15px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .project h3 a {
@@ -243,17 +232,22 @@ section h2 {
 }
 
 /* Responsive */
-@media (max-width: 600px) {
+@media (max-width: 700px) {
     nav {
         padding: 16px 20px;
     }
 
     main {
-        padding: 100px 20px 60px;
+        padding: 100px 24px 60px;
     }
 
     .hero {
         margin-bottom: 60px;
+    }
+
+    .hero-logo {
+        width: 64px;
+        height: 64px;
     }
 
     .hero h1 {
