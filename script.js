@@ -252,7 +252,7 @@ function initEffectToggle() {
         const scale = perspective / (perspective + z);
         return {
             x: x * scale + width / 2,
-            y: y * scale + height / 2 + 80, // Position cube lower to not overlap with hero
+            y: y * scale + height / 2 + 150, // Position cube much lower to not overlap with hero
             scale
         };
     }
