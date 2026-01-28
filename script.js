@@ -1,10 +1,10 @@
-// Fast typing effect for resume content (excluding hero section)
+// Terminal-style typing effect with cursor
 function initTypingEffect() {
     const main = document.querySelector('main');
-    // Only select elements from sections other than hero
     const sections = main.querySelectorAll('section:not(.hero)');
     const elements = [];
 
+    // Collect all elements to type
     sections.forEach(section => {
         section.querySelectorAll('h2, h3, p, span.year').forEach(el => {
             if (el.closest('.tags') || el.closest('.lang-switch')) {
@@ -14,41 +14,54 @@ function initTypingEffect() {
         });
     });
 
-    // Store original content and hide elements
+    // Store original content
     const originalData = [];
     elements.forEach(el => {
         const originalHTML = el.innerHTML;
         el.setAttribute('data-original', originalHTML);
-        el.innerHTML = '';
-        el.style.visibility = 'visible';
+        el.innerHTML = '<span class="typing-cursor"></span>';
         originalData.push({ el, html: originalHTML });
     });
 
-    // Type each element very fast
+    // Create cursor element
+    const cursor = document.createElement('span');
+    cursor.className = 'typing-cursor';
+
     let currentIndex = 0;
-    const typeSpeed = 1; // Very fast - 1ms per character
-    const elementDelay = 15; // Small delay between elements
+    const typeSpeed = 8; // ms per character
+    const elementDelay = 50; // delay between elements
 
     function typeElement(data, callback) {
         const { el, html } = data;
 
-        // Parse HTML to handle tags properly
+        // Get plain text
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = html;
         const textContent = tempDiv.textContent || tempDiv.innerText;
 
         let charIndex = 0;
         el.innerHTML = '';
+        el.appendChild(cursor);
 
         function type() {
             if (charIndex < textContent.length) {
-                // Add multiple characters at once for speed
-                const charsToAdd = Math.min(5, textContent.length - charIndex);
-                el.textContent += textContent.substring(charIndex, charIndex + charsToAdd);
+                // Remove cursor, add chars, re-add cursor
+                if (cursor.parentNode === el) {
+                    el.removeChild(cursor);
+                }
+
+                // Add characters (fast - 3 at a time)
+                const charsToAdd = Math.min(3, textContent.length - charIndex);
+                el.insertAdjacentText('beforeend', textContent.substring(charIndex, charIndex + charsToAdd));
                 charIndex += charsToAdd;
+
+                el.appendChild(cursor);
                 setTimeout(type, typeSpeed);
             } else {
-                // Restore original HTML with formatting
+                // Done - restore original HTML and remove cursor
+                if (cursor.parentNode === el) {
+                    el.removeChild(cursor);
+                }
                 el.innerHTML = html;
                 callback();
             }
@@ -58,6 +71,13 @@ function initTypingEffect() {
 
     function typeNext() {
         if (currentIndex < originalData.length) {
+            // Clear cursor from previous element
+            const prevEl = currentIndex > 0 ? originalData[currentIndex - 1].el : null;
+            if (prevEl) {
+                const oldCursor = prevEl.querySelector('.typing-cursor');
+                if (oldCursor) oldCursor.remove();
+            }
+
             typeElement(originalData[currentIndex], () => {
                 currentIndex++;
                 setTimeout(typeNext, elementDelay);
@@ -65,8 +85,8 @@ function initTypingEffect() {
         }
     }
 
-    // Start typing immediately
-    typeNext();
+    // Start typing
+    setTimeout(typeNext, 100);
 }
 
 // Floating particles background
