@@ -87,6 +87,13 @@ main {
     text-align: center;
 }
 
+.hero-logo {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 32px;
+    border-radius: 50%;
+}
+
 .hero h1 {
     font-size: 42px;
     font-weight: 700;
