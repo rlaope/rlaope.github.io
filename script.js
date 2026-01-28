@@ -4,6 +4,9 @@ function initTypingEffect() {
     const sections = main.querySelectorAll('section:not(.hero)');
     const elements = [];
 
+    // Hide project boxes initially
+    document.querySelectorAll('.project').forEach(p => p.classList.add('typing-pending'));
+
     // Collect all elements to type
     sections.forEach(section => {
         section.querySelectorAll('h2, h3, p, span.year').forEach(el => {
@@ -24,20 +27,27 @@ function initTypingEffect() {
         el.style.minHeight = height + 'px';
 
         el.setAttribute('data-original', originalHTML);
-        el.innerHTML = '<span class="typing-cursor"></span>';
+        el.innerHTML = '';
         originalData.push({ el, html: originalHTML });
     });
 
     // Create cursor element
     const cursor = document.createElement('span');
     cursor.className = 'typing-cursor';
+    cursor.innerHTML = '&nbsp;';
 
     let currentIndex = 0;
-    const typeSpeed = 5; // ms per character batch
-    const elementDelay = 30; // delay between elements
+    const typeSpeed = 6; // ms per character batch (was 5, now 10% slower)
+    const elementDelay = 35; // delay between elements
 
     function typeElement(data, callback) {
         const { el, html } = data;
+
+        // Show project box when starting to type its content
+        const projectBox = el.closest('.project');
+        if (projectBox) {
+            projectBox.classList.remove('typing-pending');
+        }
 
         // Get plain text
         const tempDiv = document.createElement('div');
@@ -77,13 +87,6 @@ function initTypingEffect() {
 
     function typeNext() {
         if (currentIndex < originalData.length) {
-            // Clear cursor from previous element
-            const prevEl = currentIndex > 0 ? originalData[currentIndex - 1].el : null;
-            if (prevEl) {
-                const oldCursor = prevEl.querySelector('.typing-cursor');
-                if (oldCursor) oldCursor.remove();
-            }
-
             typeElement(originalData[currentIndex], () => {
                 currentIndex++;
                 setTimeout(typeNext, elementDelay);
@@ -91,8 +94,8 @@ function initTypingEffect() {
         }
     }
 
-    // Start typing
-    setTimeout(typeNext, 100);
+    // Start typing immediately
+    typeNext();
 }
 
 // Floating particles background

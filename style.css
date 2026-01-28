@@ -105,11 +105,20 @@
 
 main .hero {
     opacity: 0;
-    transition: opacity 0.5s;
 }
 
 main.visible .hero {
     opacity: 1;
+}
+
+/* Hide project boxes until typing starts */
+.project.typing-pending {
+    border-color: transparent;
+}
+
+.project.typing-pending h3,
+.project.typing-pending p {
+    visibility: hidden;
 }
 
 /* Typing effect */
@@ -119,16 +128,17 @@ main.visible .hero {
 
 .typing-cursor {
     display: inline-block;
-    width: 0.6em;
-    height: 1.1em;
-    background: var(--text);
+    width: 0.55em;
+    height: 1.15em;
+    background: #e8e8e8;
     vertical-align: text-bottom;
-    animation: cursor-blink 0.8s step-end infinite;
+    margin-left: 1px;
+    animation: cursor-blink 0.7s step-end infinite;
 }
 
 @keyframes cursor-blink {
     0%, 50% { opacity: 1; }
-    50.1%, 100% { opacity: 0; }
+    51%, 100% { opacity: 0; }
 }
 
 body {
