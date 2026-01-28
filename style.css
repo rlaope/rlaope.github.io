@@ -414,6 +414,60 @@ section h2 {
     color: var(--accent);
 }
 
+/* Q&A Page */
+.qna-intro {
+    position: relative;
+    margin-bottom: 60px;
+}
+
+.qna-intro h2 {
+    margin-bottom: 24px;
+}
+
+.qna-introduce {
+    color: #999;
+    font-size: 15px;
+    line-height: 1.9;
+}
+
+.qna-list {
+    margin-bottom: 80px;
+}
+
+.qna-item {
+    margin-bottom: 40px;
+    padding: 24px;
+    border: 1px solid #222;
+}
+
+.qna-item:last-child {
+    margin-bottom: 0;
+}
+
+.qna-item .question {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 16px;
+}
+
+.qna-item .question::before {
+    content: 'Q. ';
+    color: var(--accent);
+}
+
+.qna-item .answer {
+    color: #999;
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+.qna-item .answer::before {
+    content: 'A. ';
+    color: var(--accent);
+    font-weight: 700;
+}
+
 /* Footer */
 footer {
     text-align: center;

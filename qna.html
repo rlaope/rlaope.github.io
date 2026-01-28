@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q&A - Hope Kim</title>
+    <link rel="icon" type="image/png" href="rlaopelogo.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="visible typing-started">
+        <section class="hero">
+            <img src="rlaopelogo.png" alt="rlaope" class="hero-logo">
+            <h1>Hope Kim <span class="handle">@rlaope</span></h1>
+            <p class="role">Software Engineer</p>
+        </section>
+
+        <section class="qna-intro">
+            <nav class="about-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="https://github.com/rlaope/estudy" target="_blank" class="nav-link">Blog</a>
+                <div class="lang-switch">
+                    <button id="btn-en" class="lang-btn active">EN</button>
+                    <button id="btn-kr" class="lang-btn">KR</button>
+                </div>
+            </nav>
+            <h2>Q&A</h2>
+            <p class="qna-introduce" data-en="2026. 1. 1 — A new year has dawned. I've deeply reflected on the fundamental values I pursue as a developer, and documented my interpretations of computer science as a discipline through philosophical yet practical insights I've gathered so far."
+               data-kr="2026. 1. 1 — 새해가 밝았고, 내가 개발자로서 본질적으로 추구하는 가치에 대해서 깊게 생각해보고 철학적이며 현실적인 내용들로 지금까지 제가 느꼈던 컴퓨터 공학이라는 학문에 대한 해석들을 담았습니다.">
+               2026. 1. 1 — 새해가 밝았고, 내가 개발자로서 본질적으로 추구하는 가치에 대해서 깊게 생각해보고 철학적이며 현실적인 내용들로 지금까지 제가 느꼈던 컴퓨터 공학이라는 학문에 대한 해석들을 담았습니다.
+            </p>
+        </section>
+
+        <section class="qna-list">
+            <!-- Q&A items will be added here -->
+        </section>
+
+        <section class="contact">
+            <h2>Contact</h2>
+            <p><a href="mailto:piyrw9754@gmail.com">piyrw9754@gmail.com</a></p>
+            <p><a href="https://github.com/rlaope" target="_blank">github.com/rlaope</a></p>
+            <p><a href="https://www.linkedin.com/in/esperer/" target="_blank">linkedin.com/in/esperer</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Last updated 2026. 1. 28</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnEn = document.getElementById('btn-en');
+            const btnKr = document.getElementById('btn-kr');
+
+            function setLanguage(lang) {
+                btnEn.classList.toggle('active', lang === 'en');
+                btnKr.classList.toggle('active', lang === 'kr');
+
+                document.querySelectorAll('[data-en]').forEach(el => {
+                    el.innerHTML = el.getAttribute(`data-${lang}`);
+                });
+
+                document.documentElement.lang = lang === 'kr' ? 'ko' : 'en';
+                localStorage.setItem('preferred-lang', lang);
+            }
+
+            btnEn.addEventListener('click', () => setLanguage('en'));
+            btnKr.addEventListener('click', () => setLanguage('kr'));
+
+            const savedLang = localStorage.getItem('preferred-lang');
+            if (savedLang) {
+                setLanguage(savedLang);
+            }
+        });
+    </script>
+</body>
+</html>
