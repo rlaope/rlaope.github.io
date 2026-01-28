@@ -147,15 +147,15 @@ section h2 {
 
 .history .year {
     display: block;
-    color: var(--accent);
-    font-size: 12px;
+    color: #bbb;
+    font-size: 14px;
     font-weight: 700;
     margin-bottom: 10px;
     letter-spacing: 1px;
 }
 
 .history .year a {
-    color: var(--accent);
+    color: #bbb;
     text-decoration: none;
 }
 
