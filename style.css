@@ -66,6 +66,26 @@ body {
     color: #888;
 }
 
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-link {
+    color: #666;
+    text-decoration: none;
+    font-size: 12px;
+    padding: 4px 10px;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+    color: var(--prompt-color);
+    border-color: var(--prompt-color);
+}
+
 .lang-switch {
     display: flex;
     gap: 4px;
