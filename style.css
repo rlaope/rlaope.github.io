@@ -458,6 +458,7 @@ section h2 {
 .qna-item .question::before {
     content: 'Q. ';
     font-weight: 700;
+    color: #fff;
 }
 
 .qna-item .question.sub-question {
@@ -473,6 +474,7 @@ section h2 {
 .qna-item .answer::before {
     content: 'A. ';
     font-weight: 700;
+    color: #aaa;
 }
 
 /* Footer */
