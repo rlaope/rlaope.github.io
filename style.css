@@ -20,18 +20,17 @@ body {
 }
 
 /* Navigation */
-nav {
-    position: fixed;
+.about {
+    position: relative;
+}
+
+.about-nav {
+    position: absolute;
     top: 0;
-    left: 0;
     right: 0;
     display: flex;
-    justify-content: flex-end;
     align-items: center;
     gap: 16px;
-    padding: 20px 40px;
-    background: #000;
-    z-index: 100;
 }
 
 .nav-link {
@@ -76,7 +75,7 @@ nav {
 main {
     max-width: 720px;
     margin: 0 auto;
-    padding: 120px 32px 80px;
+    padding: 80px 32px 80px;
 }
 
 /* Hero */
@@ -239,12 +238,13 @@ section h2 {
 
 /* Responsive */
 @media (max-width: 700px) {
-    nav {
-        padding: 16px 20px;
+    main {
+        padding: 60px 20px 60px;
     }
 
-    main {
-        padding: 100px 20px 60px;
+    .about-nav {
+        position: static;
+        margin-bottom: 20px;
     }
 
     .hero {
