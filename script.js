@@ -4,6 +4,9 @@ function initTypingEffect() {
     const sections = main.querySelectorAll('section:not(.hero)');
     const elements = [];
 
+    // Mark typing as started to show elements
+    main.classList.add('typing-started');
+
     // Hide project boxes initially
     document.querySelectorAll('.project').forEach(p => p.classList.add('typing-pending'));
 

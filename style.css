@@ -111,6 +111,21 @@ main.visible .hero {
     opacity: 1;
 }
 
+/* Hide all content initially until typing */
+main section:not(.hero) h2,
+main section:not(.hero) h3,
+main section:not(.hero) p,
+main section:not(.hero) .year {
+    visibility: hidden;
+}
+
+main.typing-started section:not(.hero) h2,
+main.typing-started section:not(.hero) h3,
+main.typing-started section:not(.hero) p,
+main.typing-started section:not(.hero) .year {
+    visibility: visible;
+}
+
 /* Hide project boxes until typing starts */
 .project.typing-pending {
     border-color: transparent;
