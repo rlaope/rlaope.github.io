@@ -232,11 +232,52 @@ function initEffectToggle() {
 
     function createParticles() {
         particles = [];
-        for (let i = 0; i < particleCount; i++) {
-            // Create particles on cube surfaces
+        const half = cubeSize / 2;
+
+        // Create particles on cube edges (makes it look more like a wireframe cube)
+        const edgeParticles = 400;
+        const edges = [
+            // Bottom face edges
+            { start: [-half, -half, -half], end: [half, -half, -half] },
+            { start: [-half, -half, -half], end: [-half, -half, half] },
+            { start: [half, -half, -half], end: [half, -half, half] },
+            { start: [-half, -half, half], end: [half, -half, half] },
+            // Top face edges
+            { start: [-half, half, -half], end: [half, half, -half] },
+            { start: [-half, half, -half], end: [-half, half, half] },
+            { start: [half, half, -half], end: [half, half, half] },
+            { start: [-half, half, half], end: [half, half, half] },
+            // Vertical edges
+            { start: [-half, -half, -half], end: [-half, half, -half] },
+            { start: [half, -half, -half], end: [half, half, -half] },
+            { start: [-half, -half, half], end: [-half, half, half] },
+            { start: [half, -half, half], end: [half, half, half] },
+        ];
+
+        // Add particles along edges
+        edges.forEach(edge => {
+            const count = Math.floor(edgeParticles / edges.length);
+            for (let i = 0; i < count; i++) {
+                const t = i / count;
+                const x = edge.start[0] + (edge.end[0] - edge.start[0]) * t;
+                const y = edge.start[1] + (edge.end[1] - edge.start[1]) * t;
+                const z = edge.start[2] + (edge.end[2] - edge.start[2]) * t;
+
+                particles.push({
+                    x, y, z,
+                    originalX: x, originalY: y, originalZ: z,
+                    char: Math.random() > 0.5 ? '1' : '0',
+                    vx: 0, vy: 0, vz: 0,
+                    alpha: 0.7 + Math.random() * 0.3
+                });
+            }
+        });
+
+        // Add particles on faces (less dense)
+        const faceParticles = particleCount - edgeParticles;
+        for (let i = 0; i < faceParticles; i++) {
             const face = Math.floor(Math.random() * 6);
             let x, y, z;
-            const half = cubeSize / 2;
 
             switch(face) {
                 case 0: x = half; y = (Math.random() - 0.5) * cubeSize; z = (Math.random() - 0.5) * cubeSize; break;
@@ -252,7 +293,7 @@ function initEffectToggle() {
                 originalX: x, originalY: y, originalZ: z,
                 char: Math.random() > 0.5 ? '1' : '0',
                 vx: 0, vy: 0, vz: 0,
-                alpha: 0.3 + Math.random() * 0.7
+                alpha: 0.2 + Math.random() * 0.4
             });
         }
     }
