@@ -457,7 +457,7 @@ section h2 {
 
 .qna-item .question::before {
     content: 'Q. ';
-    color: var(--accent);
+    color: #6eb5ff;
 }
 
 .qna-item .question.sub-question {
@@ -473,7 +473,7 @@ section h2 {
 
 .qna-item .answer::before {
     content: 'A. ';
-    color: var(--accent);
+    color: #7ee787;
     font-weight: 700;
 }
 
