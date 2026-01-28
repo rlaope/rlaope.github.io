@@ -146,15 +146,15 @@ section h2 {
 
 .history .year {
     display: block;
-    color: #bbb;
-    font-size: 14px;
+    color: #e8e8e8;
+    font-size: 16px;
     font-weight: 700;
     margin-bottom: 10px;
     letter-spacing: 1px;
 }
 
 .history .year a {
-    color: #bbb;
+    color: #e8e8e8;
     text-decoration: none;
 }
 
