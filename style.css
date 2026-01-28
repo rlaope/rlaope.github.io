@@ -15,8 +15,8 @@ body {
     font-family: 'JetBrains Mono', monospace;
     background: var(--bg);
     color: var(--text);
-    line-height: 1.8;
-    font-size: 14px;
+    line-height: 1.9;
+    font-size: 15px;
 }
 
 /* Navigation */
@@ -37,7 +37,7 @@ nav {
 .nav-link {
     color: var(--text-dim);
     text-decoration: none;
-    font-size: 13px;
+    font-size: 14px;
     transition: color 0.2s;
 }
 
@@ -54,9 +54,9 @@ nav {
     background: transparent;
     border: 1px solid #333;
     color: var(--text-dim);
-    padding: 5px 10px;
+    padding: 6px 12px;
     font-family: inherit;
-    font-size: 11px;
+    font-size: 12px;
     cursor: pointer;
     transition: all 0.2s;
 }
@@ -74,9 +74,9 @@ nav {
 
 /* Main */
 main {
-    max-width: 960px;
+    max-width: 720px;
     margin: 0 auto;
-    padding: 120px 60px 80px;
+    padding: 120px 32px 80px;
 }
 
 /* Hero */
@@ -92,25 +92,25 @@ main {
 }
 
 .hero h1 {
-    font-size: 34px;
+    font-size: 36px;
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .handle {
     color: var(--text-dim);
     font-weight: 400;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .role {
     color: var(--accent);
-    font-size: 15px;
+    font-size: 16px;
 }
 
 /* Sections */
 section {
-    margin-bottom: 70px;
+    margin-bottom: 80px;
 }
 
 section:last-child {
@@ -118,18 +118,18 @@ section:last-child {
 }
 
 section h2 {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--text-dim);
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
 }
 
 /* About */
 .about p {
-    margin-bottom: 18px;
-    color: #aaa;
-    font-size: 14px;
+    margin-bottom: 20px;
+    color: #bbb;
+    font-size: 15px;
 }
 
 .about p:last-child {
@@ -138,7 +138,7 @@ section h2 {
 
 /* History */
 .history .item {
-    margin-bottom: 24px;
+    margin-bottom: 28px;
 }
 
 .history .item:last-child {
@@ -148,9 +148,9 @@ section h2 {
 .history .year {
     display: block;
     color: var(--accent);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     letter-spacing: 1px;
 }
 
@@ -164,30 +164,36 @@ section h2 {
 }
 
 .history .item p {
-    color: #888;
-    font-size: 13px;
-    line-height: 1.8;
+    color: #999;
+    font-size: 14px;
+    line-height: 1.9;
 }
 
 /* Tags (Interested) */
 .tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 10px;
 }
 
 .tags span {
-    font-size: 12px;
-    color: #888;
+    padding: 10px 16px;
+    border: 1px solid #333;
+    font-size: 13px;
+    color: #aaa;
+    transition: all 0.2s;
 }
 
 .tags span:hover {
+    border-color: var(--accent);
     color: var(--accent);
 }
 
 /* Projects */
 .project {
-    margin-bottom: 32px;
+    margin-bottom: 24px;
+    padding: 24px;
+    border: 1px solid #222;
 }
 
 .project:last-child {
@@ -195,8 +201,8 @@ section h2 {
 }
 
 .project h3 {
-    font-size: 15px;
-    margin-bottom: 10px;
+    font-size: 17px;
+    margin-bottom: 14px;
 }
 
 .project h3 a {
@@ -210,15 +216,15 @@ section h2 {
 }
 
 .project p {
-    color: #777;
-    font-size: 13px;
+    color: #888;
+    font-size: 14px;
     line-height: 1.9;
 }
 
 /* Contact */
 .contact p {
-    margin-bottom: 10px;
-    font-size: 14px;
+    margin-bottom: 12px;
+    font-size: 15px;
 }
 
 .contact a {
@@ -238,7 +244,7 @@ section h2 {
     }
 
     main {
-        padding: 100px 24px 60px;
+        padding: 100px 20px 60px;
     }
 
     .hero {
@@ -251,14 +257,18 @@ section h2 {
     }
 
     .hero h1 {
-        font-size: 26px;
+        font-size: 28px;
     }
 
     .handle {
-        font-size: 15px;
+        font-size: 16px;
     }
 
     section {
-        margin-bottom: 50px;
+        margin-bottom: 60px;
+    }
+
+    .project {
+        padding: 18px;
     }
 }
