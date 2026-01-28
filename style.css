@@ -421,7 +421,13 @@ section h2 {
 }
 
 .qna-intro h2 {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
+}
+
+.qna-date {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin-bottom: 20px;
 }
 
 .qna-introduce {
