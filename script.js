@@ -1,4 +1,4 @@
-// Terminal-style typing effect with cursor
+// Terminal-style typing effect with vim block cursor
 function initTypingEffect() {
     const main = document.querySelector('main');
     const sections = main.querySelectorAll('section:not(.hero)');
@@ -14,10 +14,15 @@ function initTypingEffect() {
         });
     });
 
-    // Store original content
+    // Store original content and pre-allocate space
     const originalData = [];
     elements.forEach(el => {
         const originalHTML = el.innerHTML;
+
+        // Get the rendered height to pre-allocate space
+        const height = el.offsetHeight;
+        el.style.minHeight = height + 'px';
+
         el.setAttribute('data-original', originalHTML);
         el.innerHTML = '<span class="typing-cursor"></span>';
         originalData.push({ el, html: originalHTML });
@@ -28,8 +33,8 @@ function initTypingEffect() {
     cursor.className = 'typing-cursor';
 
     let currentIndex = 0;
-    const typeSpeed = 8; // ms per character
-    const elementDelay = 50; // delay between elements
+    const typeSpeed = 5; // ms per character batch
+    const elementDelay = 30; // delay between elements
 
     function typeElement(data, callback) {
         const { el, html } = data;
@@ -50,8 +55,8 @@ function initTypingEffect() {
                     el.removeChild(cursor);
                 }
 
-                // Add characters (fast - 3 at a time)
-                const charsToAdd = Math.min(3, textContent.length - charIndex);
+                // Add characters (fast - 4 at a time)
+                const charsToAdd = Math.min(4, textContent.length - charIndex);
                 el.insertAdjacentText('beforeend', textContent.substring(charIndex, charIndex + charsToAdd));
                 charIndex += charsToAdd;
 
@@ -63,6 +68,7 @@ function initTypingEffect() {
                     el.removeChild(cursor);
                 }
                 el.innerHTML = html;
+                el.style.minHeight = ''; // Remove min-height after done
                 callback();
             }
         }
