@@ -77,6 +77,13 @@
     color: var(--accent);
 }
 
+#intro-hero .intro-tagline {
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--text-dim);
+    font-style: italic;
+}
+
 #click-hint {
     position: absolute;
     bottom: 60px;

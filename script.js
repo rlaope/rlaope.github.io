@@ -232,9 +232,30 @@ function initEffectToggle() {
     const particleCount = 1000;
     let rotationX = 0, rotationY = 0, rotationZ = 0;
 
+    // Spotlight particles
+    let spotlightParticles = [];
+
     function resize() {
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
+    }
+
+    function createSpotlightParticles() {
+        spotlightParticles = [];
+        const spotlightCount = 80;
+        const cubeBottomY = height / 2 + 120 + cubeSize / 2; // Below the cube
+
+        for (let i = 0; i < spotlightCount; i++) {
+            spotlightParticles.push({
+                x: width / 2 + (Math.random() - 0.5) * 60, // Start near center
+                y: cubeBottomY + Math.random() * 200,
+                char: Math.random() > 0.5 ? '1' : '0',
+                speed: 0.5 + Math.random() * 1.5,
+                spread: (Math.random() - 0.5) * 0.8,
+                alpha: 0.1 + Math.random() * 0.3,
+                baseY: cubeBottomY
+            });
+        }
     }
 
     function createParticles() {
@@ -401,6 +422,31 @@ function initEffectToggle() {
             ctx.fillText(p.char, p.projected.x, p.projected.y);
         });
 
+        // Draw spotlight particles below cube
+        if (!isExploding) {
+            ctx.font = '12px JetBrains Mono';
+            spotlightParticles.forEach(p => {
+                // Move down and spread out
+                p.y += p.speed;
+                p.x += p.spread;
+
+                // Calculate fade based on distance from cube
+                const distFromCube = p.y - p.baseY;
+                const maxDist = 250;
+                const fade = Math.max(0, 1 - distFromCube / maxDist);
+
+                // Reset when too far
+                if (distFromCube > maxDist || p.x < 0 || p.x > width) {
+                    p.y = p.baseY + Math.random() * 30;
+                    p.x = width / 2 + (Math.random() - 0.5) * 80;
+                    p.spread = (Math.random() - 0.5) * 1.2;
+                }
+
+                ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha * fade})`;
+                ctx.fillText(p.char, p.x, p.y);
+            });
+        }
+
         animationId = requestAnimationFrame(animate);
     }
 
@@ -416,9 +462,13 @@ function initEffectToggle() {
     } else {
         resize();
         createParticles();
+        createSpotlightParticles();
         animate();
 
-        window.addEventListener('resize', resize);
+        window.addEventListener('resize', () => {
+            resize();
+            createSpotlightParticles(); // Recreate spotlight on resize
+        });
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
