@@ -215,81 +215,72 @@ function initEffectToggle() {
 
 // Terminal Animation
 function initTerminalAnimation() {
+    // [plain text, highlighted HTML]
     const codeSnippets = [
         [
-            '$ cargo build --release',
-            '   Compiling airml-core v0.1.0',
-            '   Compiling airml-providers v0.1.0',
-            '    Finished release [optimized] target',
-            '$ ./airml run --model resnet50.onnx',
-            '✓ Model loaded in 0.02s',
-            '✓ Inference complete: cat (95.2%)'
+            ['$ cargo build --release', '<span class="terminal-prompt">$</span> <span class="terminal-command">cargo build</span> --release'],
+            ['   Compiling airml-core v0.1.0', '   <span class="terminal-comment">Compiling</span> airml-core v0.1.0'],
+            ['   Compiling airml-providers v0.1.0', '   <span class="terminal-comment">Compiling</span> airml-providers v0.1.0'],
+            ['    Finished release [optimized]', '    <span class="terminal-comment">Finished</span> release [optimized]'],
+            ['$ ./airml run --model resnet50.onnx', '<span class="terminal-prompt">$</span> ./airml <span class="terminal-command">run</span> --model resnet50.onnx'],
+            ['✓ Model loaded in 0.02s', '<span class="terminal-string">✓ Model loaded in 0.02s</span>'],
         ],
         [
-            'fn infer(input: Tensor) -> Result<Output> {',
-            '    let session = Session::builder()',
-            '        .with_provider(CoreML::new())',
-            '        .with_optimization(Level::All)',
-            '        .build()?;',
-            '    let output = session.run(input)?;',
-            '    Ok(output.into())',
-            '}'
+            ['fn infer(input: Tensor) -> Result {', '<span class="terminal-keyword">fn</span> <span class="terminal-command">infer</span>(input: Tensor) -> Result {'],
+            ['    let session = Session::builder()', '    <span class="terminal-keyword">let</span> session = Session::builder()'],
+            ['        .with_provider(CoreML::new())', '        .with_provider(CoreML::new())'],
+            ['        .build()?;', '        .build()?;'],
+            ['    let output = session.run(input)?;', '    <span class="terminal-keyword">let</span> output = session.<span class="terminal-command">run</span>(input)?;'],
+            ['    Ok(output.into())', '    <span class="terminal-keyword">Ok</span>(output.into())'],
         ],
         [
-            '$ git add .',
-            '$ git commit -m "feat: call khope"',
-            '[main 7f3a2b1] feat: call khope',
-            '$ git push origin main',
-            'Enumerating objects: 12, done.',
-            'Writing objects: 100% (12/12), done.',
-            '✓ Pushed to origin/main'
+            ['$ git add .', '<span class="terminal-prompt">$</span> <span class="terminal-command">git add</span> .'],
+            ['$ git commit -m "feat: call khope"', '<span class="terminal-prompt">$</span> <span class="terminal-command">git commit</span> -m <span class="terminal-string">"feat: call khope"</span>'],
+            ['[main 7f3a2b1] feat: call khope', '<span class="terminal-comment">[main 7f3a2b1]</span> feat: call khope'],
+            ['$ git push origin main', '<span class="terminal-prompt">$</span> <span class="terminal-command">git push</span> origin main'],
+            ['Enumerating objects: 12, done.', '<span class="terminal-comment">Enumerating objects: 12, done.</span>'],
+            ['✓ Pushed to origin/main', '<span class="terminal-string">✓ Pushed to origin/main</span>'],
         ],
         [
-            'class InferenceEngine {',
-            '    constructor(config) {',
-            '        this.model = loadModel(config);',
-            '        this.warmup();',
-            '    }',
-            '    async predict(input) {',
-            '        return this.model.forward(input);',
-            '    }',
-            '}'
+            ['export class InferenceEngine {', '<span class="terminal-keyword">export class</span> InferenceEngine {'],
+            ['    constructor(config) {', '    <span class="terminal-keyword">constructor</span>(config) {'],
+            ['        this.model = loadModel(config);', '        this.model = <span class="terminal-command">loadModel</span>(config);'],
+            ['    }', '    }'],
+            ['    async predict(input) {', '    <span class="terminal-keyword">async</span> <span class="terminal-command">predict</span>(input) {'],
+            ['        return this.model.forward(input);', '        <span class="terminal-keyword">return</span> this.model.<span class="terminal-command">forward</span>(input);'],
         ],
         [
-            '$ kubectl get pods -n ml-serving',
-            'NAME                    READY   STATUS',
-            'airml-7f8d9c-x2k4p     1/1     Running',
-            'airml-7f8d9c-m3n5q     1/1     Running',
-            '$ kubectl logs airml-7f8d9c-x2k4p',
-            '[INFO] Server listening on :8080',
-            '[INFO] Model warmed up, ready to serve'
+            ['$ kubectl get pods -n ml-serving', '<span class="terminal-prompt">$</span> <span class="terminal-command">kubectl get</span> pods -n ml-serving'],
+            ['NAME                    READY   STATUS', 'NAME                    READY   STATUS'],
+            ['airml-7f8d9c-x2k4p     1/1     Running', 'airml-7f8d9c-x2k4p     1/1     <span class="terminal-string">Running</span>'],
+            ['$ kubectl logs airml-7f8d9c-x2k4p', '<span class="terminal-prompt">$</span> <span class="terminal-command">kubectl logs</span> airml-7f8d9c-x2k4p'],
+            ['[INFO] Server listening on :8080', '<span class="terminal-comment">[INFO]</span> Server listening on :8080'],
+            ['[INFO] Model ready to serve', '<span class="terminal-comment">[INFO]</span> Model ready to serve'],
         ],
         [
-            '$ git commit -m "fix: plz work"',
-            '[main 2c4d6e8] fix: plz work',
-            '$ npm run test',
-            'PASS  src/engine.test.ts',
-            'PASS  src/model.test.ts',
-            '✓ All tests passed (42 total)',
-            '$ git push origin main'
+            ['$ git commit -m "fix: plz work"', '<span class="terminal-prompt">$</span> <span class="terminal-command">git commit</span> -m <span class="terminal-string">"fix: plz work"</span>'],
+            ['[main 2c4d6e8] fix: plz work', '<span class="terminal-comment">[main 2c4d6e8]</span> fix: plz work'],
+            ['$ npm run test', '<span class="terminal-prompt">$</span> <span class="terminal-command">npm run</span> test'],
+            ['PASS  src/engine.test.ts', '<span class="terminal-string">PASS</span>  src/engine.test.ts'],
+            ['PASS  src/model.test.ts', '<span class="terminal-string">PASS</span>  src/model.test.ts'],
+            ['✓ All tests passed (42 total)', '<span class="terminal-string">✓ All tests passed (42 total)</span>'],
         ],
         [
-            'async fn handle_request(req: Request) {',
-            '    let tensor = preprocess(req.body);',
-            '    let result = ENGINE.infer(tensor).await?;',
-            '    let response = postprocess(result);',
-            '    Ok(Json(response))',
-            '}'
+            ['$ docker build -t airml:latest .', '<span class="terminal-prompt">$</span> <span class="terminal-command">docker build</span> -t airml:latest .'],
+            ['Step 1/8 : FROM rust:alpine', '<span class="terminal-comment">Step 1/8</span> : FROM rust:alpine'],
+            ['Step 5/8 : RUN cargo build', '<span class="terminal-comment">Step 5/8</span> : RUN <span class="terminal-command">cargo build</span>'],
+            ['Successfully built a3f2c1d9e8b7', '<span class="terminal-string">Successfully built</span> a3f2c1d9e8b7'],
+            ['$ docker push registry/airml', '<span class="terminal-prompt">$</span> <span class="terminal-command">docker push</span> registry/airml'],
+            ['✓ Pushed to registry', '<span class="terminal-string">✓ Pushed to registry</span>'],
         ],
         [
-            '$ docker build -t airml:latest .',
-            'Step 1/8 : FROM rust:alpine',
-            'Step 5/8 : RUN cargo build --release',
-            'Step 8/8 : ENTRYPOINT ["./airml"]',
-            'Successfully built a3f2c1d9e8b7',
-            '$ docker push registry/airml:latest',
-            '✓ Pushed to registry'
-        ]
+            ['$ git commit -m "fix: cant fix it"', '<span class="terminal-prompt">$</span> <span class="terminal-command">git commit</span> -m <span class="terminal-string">"fix: cant fix it"</span>'],
+            ['[main 9a8b7c6] fix: cant fix it', '<span class="terminal-comment">[main 9a8b7c6]</span> fix: cant fix it'],
+            ['$ git commit -m "plz call khope"', '<span class="terminal-prompt">$</span> <span class="terminal-command">git commit</span> -m <span class="terminal-string">"plz call khope"</span>'],
+            ['[main 5d4e3f2] plz call khope', '<span class="terminal-comment">[main 5d4e3f2]</span> plz call khope'],
+            ['$ git push origin main', '<span class="terminal-prompt">$</span> <span class="terminal-command">git push</span> origin main'],
+            ['✓ Finally it works!', '<span class="terminal-string">✓ Finally it works!</span>'],
+        ],
     ];
 
     const terminals = document.querySelectorAll('.terminal-container');
@@ -302,40 +293,17 @@ function initTerminalAnimation() {
         const maxLines = 5;
         let isTyping = false;
 
-        function highlightSyntax(text) {
-            let result = text;
-            // Prompts at start
-            if (result.startsWith('$ ')) {
-                result = '<span class="terminal-prompt">$</span> ' + result.slice(2);
-            }
-            if (result.startsWith('✓')) {
-                result = '<span class="terminal-string">✓</span>' + result.slice(1);
-            }
-            // Keywords
-            result = result.replace(/\b(fn|let|async|await|return|class|constructor|const|if|else|for|while|import|export|from|Ok)\b/g, '<span class="terminal-keyword">$1</span>');
-            // Strings
-            result = result.replace(/"([^"]*)"/g, '<span class="terminal-string">"$1"</span>');
-            // Comments/info
-            result = result.replace(/\[INFO\]/g, '<span class="terminal-comment">[INFO]</span>');
-            result = result.replace(/\[main [a-f0-9]+\]/g, '<span class="terminal-comment">$&</span>');
-            result = result.replace(/\b(Compiling|Finished|PASS|Successfully|Running|Step|Enumerating|Writing)\b/g, '<span class="terminal-comment">$1</span>');
-            // Commands
-            result = result.replace(/\b(cargo|git|kubectl|docker|npm|build|push|commit|run|logs|get)\b/g, '<span class="terminal-command">$1</span>');
-            return result;
-        }
-
-        function typeLine(lineEl, text, callback) {
+        function typeLine(lineEl, plainText, htmlText, callback) {
             let charIndex = 0;
             isTyping = true;
 
             function typeChar() {
-                if (charIndex < text.length) {
-                    lineEl.textContent += text[charIndex];
+                if (charIndex < plainText.length) {
+                    lineEl.textContent += plainText[charIndex];
                     charIndex++;
                     setTimeout(typeChar, 25 + Math.random() * 35);
                 } else {
-                    // Apply syntax highlighting after typing complete
-                    lineEl.innerHTML = highlightSyntax(text);
+                    lineEl.innerHTML = htmlText;
                     isTyping = false;
                     if (callback) callback();
                 }
@@ -346,7 +314,7 @@ function initTerminalAnimation() {
         function addLine() {
             if (isTyping) return;
 
-            const lineText = snippet[currentLine % snippet.length];
+            const [plainText, htmlText] = snippet[currentLine % snippet.length];
             const lineEl = document.createElement('div');
             lineEl.className = 'terminal-line';
 
@@ -360,7 +328,7 @@ function initTerminalAnimation() {
             lines.push(lineEl);
             currentLine++;
 
-            typeLine(lineEl, lineText);
+            typeLine(lineEl, plainText, htmlText);
         }
 
         // Initial delay based on terminal position
@@ -649,7 +617,7 @@ function initTerminalAnimation() {
         }
     });
 
-    // Arrow keys to rotate cube
+    // Arrow keys to rotate cube, Enter/Space to skip intro
     window.addEventListener('keydown', (e) => {
         if (isExploding) return;
 
@@ -670,12 +638,15 @@ function initTerminalAnimation() {
                 keyRotY = 0.05;
                 e.preventDefault();
                 break;
-            default:
-                // Any other key triggers explosion
+            case 'Enter':
+            case ' ':
+                // Only Enter or Space triggers explosion
                 if (!overlay.classList.contains('hidden')) {
+                    e.preventDefault();
                     sessionStorage.setItem('intro-seen', 'true');
                     explode();
                 }
+                break;
         }
     });
 
