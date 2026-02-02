@@ -721,6 +721,15 @@ document.addEventListener('DOMContentLoaded', () => {
         setLanguage(savedLang);
     }
 
+    // Replay intro button
+    const replayBtn = document.getElementById('replay-intro');
+    if (replayBtn) {
+        replayBtn.addEventListener('click', () => {
+            sessionStorage.removeItem('intro-seen');
+            location.reload();
+        });
+    }
+
     // Initialize effect toggle
     initEffectToggle();
 
