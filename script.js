@@ -303,22 +303,25 @@ function initTerminalAnimation() {
         let isTyping = false;
 
         function highlightSyntax(text) {
-            return text
-                // Prompts
-                .replace(/^\$\s/g, '<span class="terminal-prompt">$ </span>')
-                .replace(/^✓/g, '<span class="terminal-string">✓</span>')
-                // Keywords
-                .replace(/\b(fn|let|async|await|return|class|constructor|const|if|else|for|while|import|export|from)\b/g, '<span class="terminal-keyword">$1</span>')
-                // Strings
-                .replace(/"([^"]*)"/g, '<span class="terminal-string">"$1"</span>')
-                // Comments/info
-                .replace(/\[INFO\]/g, '<span class="terminal-comment">[INFO]</span>')
-                .replace(/\[main [a-f0-9]+\]/g, '<span class="terminal-comment">$&</span>')
-                .replace(/(Compiling|Finished|PASS|Successfully|Running|done\.)/g, '<span class="terminal-comment">$1</span>')
-                // Commands
-                .replace(/\b(cargo|git|kubectl|docker|npm)\b/g, '<span class="terminal-command">$1</span>')
-                // Functions/methods
-                .replace(/\.([a-zA-Z_]+)\(/g, '.<span class="terminal-command">$1</span>(');
+            let result = text;
+            // Prompts at start
+            if (result.startsWith('$ ')) {
+                result = '<span class="terminal-prompt">$</span> ' + result.slice(2);
+            }
+            if (result.startsWith('✓')) {
+                result = '<span class="terminal-string">✓</span>' + result.slice(1);
+            }
+            // Keywords
+            result = result.replace(/\b(fn|let|async|await|return|class|constructor|const|if|else|for|while|import|export|from|Ok)\b/g, '<span class="terminal-keyword">$1</span>');
+            // Strings
+            result = result.replace(/"([^"]*)"/g, '<span class="terminal-string">"$1"</span>');
+            // Comments/info
+            result = result.replace(/\[INFO\]/g, '<span class="terminal-comment">[INFO]</span>');
+            result = result.replace(/\[main [a-f0-9]+\]/g, '<span class="terminal-comment">$&</span>');
+            result = result.replace(/\b(Compiling|Finished|PASS|Successfully|Running|Step|Enumerating|Writing)\b/g, '<span class="terminal-comment">$1</span>');
+            // Commands
+            result = result.replace(/\b(cargo|git|kubectl|docker|npm|build|push|commit|run|logs|get)\b/g, '<span class="terminal-command">$1</span>');
+            return result;
         }
 
         function typeLine(lineEl, text, callback) {
