@@ -432,7 +432,7 @@ function initEffectToggle() {
 
         sortedParticles.forEach(p => {
             // White color with depth-based brightness (front face brighter)
-            const brightness = Math.floor(200 + (p.rotated.z / cubeSize) * 80);
+            const brightness = Math.floor(200 - (p.rotated.z / cubeSize) * 80);
             const color = Math.min(255, Math.max(100, brightness));
             ctx.fillStyle = `rgba(${color}, ${color}, ${color}, ${p.alpha * p.projected.scale})`;
             ctx.fillText(p.char, p.projected.x, p.projected.y);
