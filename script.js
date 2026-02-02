@@ -217,30 +217,30 @@ function initEffectToggle() {
 function initTerminalAnimation() {
     const codeSnippets = [
         [
-            '<span class="terminal-prompt">$</span> <span class="terminal-command">cargo build</span> --release',
-            '<span class="terminal-comment">   Compiling</span> airml v0.1.0',
-            '<span class="terminal-comment">    Finished</span> release [optimized]',
-            '<span class="terminal-prompt">$</span> <span class="terminal-command">./target/release/airml</span> run',
-            '<span class="terminal-string">✓ Model loaded in 0.02s</span>'
+            '$ cargo build --release',
+            '   Compiling airml v0.1.0',
+            '    Finished release [optimized]',
+            '$ ./target/release/airml run',
+            '✓ Model loaded in 0.02s'
         ],
         [
-            '<span class="terminal-keyword">fn</span> <span class="terminal-command">main</span>() {',
-            '    <span class="terminal-keyword">let</span> engine = InferenceEngine::new();',
-            '    <span class="terminal-keyword">let</span> result = engine.<span class="terminal-command">run</span>(input);',
-            '    println!(<span class="terminal-string">"{:?}"</span>, result);',
+            'fn main() {',
+            '    let engine = Engine::new();',
+            '    let out = engine.run(input);',
+            '    println!("{:?}", out);',
             '}'
         ],
         [
-            '<span class="terminal-prompt">$</span> <span class="terminal-command">git</span> commit -m <span class="terminal-string">"feat: add"</span>',
-            '<span class="terminal-comment">[main 4a2b3c1]</span> feat: add',
-            '<span class="terminal-prompt">$</span> <span class="terminal-command">git</span> push origin main',
-            '<span class="terminal-comment">Enumerating objects: 5, done.</span>',
-            '<span class="terminal-string">✓ Pushed to origin/main</span>'
+            '$ git commit -m "feat: add"',
+            '[main 4a2b3c1] feat: add',
+            '$ git push origin main',
+            'Enumerating objects: 5, done.',
+            '✓ Pushed to origin/main'
         ],
         [
-            '<span class="terminal-keyword">class</span> <span class="terminal-command">Server</span> {',
-            '    <span class="terminal-keyword">async</span> <span class="terminal-command">handle</span>(req) {',
-            '        <span class="terminal-keyword">return</span> Response.<span class="terminal-command">ok</span>();',
+            'class Server {',
+            '    async handle(req) {',
+            '        return Response.ok();',
             '    }',
             '}'
         ]
@@ -254,12 +254,31 @@ function initTerminalAnimation() {
         let currentLine = 0;
         let lines = [];
         const maxLines = 5;
+        let isTyping = false;
+
+        function typeLine(lineEl, text, callback) {
+            let charIndex = 0;
+            isTyping = true;
+
+            function typeChar() {
+                if (charIndex < text.length) {
+                    lineEl.textContent += text[charIndex];
+                    charIndex++;
+                    setTimeout(typeChar, 25 + Math.random() * 35);
+                } else {
+                    isTyping = false;
+                    if (callback) callback();
+                }
+            }
+            typeChar();
+        }
 
         function addLine() {
+            if (isTyping) return;
+
             const lineText = snippet[currentLine % snippet.length];
             const lineEl = document.createElement('div');
             lineEl.className = 'terminal-line';
-            lineEl.innerHTML = lineText;
 
             if (lines.length >= maxLines) {
                 const oldLine = lines.shift();
@@ -270,13 +289,15 @@ function initTerminalAnimation() {
             terminal.appendChild(lineEl);
             lines.push(lineEl);
             currentLine++;
+
+            typeLine(lineEl, lineText);
         }
 
         // Initial delay based on terminal position
         setTimeout(() => {
             addLine();
-            setInterval(addLine, 1500 + index * 300);
-        }, index * 400);
+            setInterval(addLine, 2000 + index * 400);
+        }, index * 500);
     });
 }
 
