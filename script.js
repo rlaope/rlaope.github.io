@@ -302,6 +302,25 @@ function initTerminalAnimation() {
         const maxLines = 5;
         let isTyping = false;
 
+        function highlightSyntax(text) {
+            return text
+                // Prompts
+                .replace(/^\$\s/g, '<span class="terminal-prompt">$ </span>')
+                .replace(/^✓/g, '<span class="terminal-string">✓</span>')
+                // Keywords
+                .replace(/\b(fn|let|async|await|return|class|constructor|const|if|else|for|while|import|export|from)\b/g, '<span class="terminal-keyword">$1</span>')
+                // Strings
+                .replace(/"([^"]*)"/g, '<span class="terminal-string">"$1"</span>')
+                // Comments/info
+                .replace(/\[INFO\]/g, '<span class="terminal-comment">[INFO]</span>')
+                .replace(/\[main [a-f0-9]+\]/g, '<span class="terminal-comment">$&</span>')
+                .replace(/(Compiling|Finished|PASS|Successfully|Running|done\.)/g, '<span class="terminal-comment">$1</span>')
+                // Commands
+                .replace(/\b(cargo|git|kubectl|docker|npm)\b/g, '<span class="terminal-command">$1</span>')
+                // Functions/methods
+                .replace(/\.([a-zA-Z_]+)\(/g, '.<span class="terminal-command">$1</span>(');
+        }
+
         function typeLine(lineEl, text, callback) {
             let charIndex = 0;
             isTyping = true;
@@ -312,6 +331,8 @@ function initTerminalAnimation() {
                     charIndex++;
                     setTimeout(typeChar, 25 + Math.random() * 35);
                 } else {
+                    // Apply syntax highlighting after typing complete
+                    lineEl.innerHTML = highlightSyntax(text);
                     isTyping = false;
                     if (callback) callback();
                 }
