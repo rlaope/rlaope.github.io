@@ -218,31 +218,77 @@ function initTerminalAnimation() {
     const codeSnippets = [
         [
             '$ cargo build --release',
-            '   Compiling airml v0.1.0',
-            '    Finished release [optimized]',
-            '$ ./target/release/airml run',
-            '✓ Model loaded in 0.02s'
+            '   Compiling airml-core v0.1.0',
+            '   Compiling airml-providers v0.1.0',
+            '    Finished release [optimized] target',
+            '$ ./airml run --model resnet50.onnx',
+            '✓ Model loaded in 0.02s',
+            '✓ Inference complete: cat (95.2%)'
         ],
         [
-            'fn main() {',
-            '    let engine = Engine::new();',
-            '    let out = engine.run(input);',
-            '    println!("{:?}", out);',
+            'fn infer(input: Tensor) -> Result<Output> {',
+            '    let session = Session::builder()',
+            '        .with_provider(CoreML::new())',
+            '        .with_optimization(Level::All)',
+            '        .build()?;',
+            '    let output = session.run(input)?;',
+            '    Ok(output.into())',
             '}'
         ],
         [
-            '$ git commit -m "feat: add"',
-            '[main 4a2b3c1] feat: add',
+            '$ git add .',
+            '$ git commit -m "feat: call khope"',
+            '[main 7f3a2b1] feat: call khope',
             '$ git push origin main',
-            'Enumerating objects: 5, done.',
+            'Enumerating objects: 12, done.',
+            'Writing objects: 100% (12/12), done.',
             '✓ Pushed to origin/main'
         ],
         [
-            'class Server {',
-            '    async handle(req) {',
-            '        return Response.ok();',
+            'class InferenceEngine {',
+            '    constructor(config) {',
+            '        this.model = loadModel(config);',
+            '        this.warmup();',
+            '    }',
+            '    async predict(input) {',
+            '        return this.model.forward(input);',
             '    }',
             '}'
+        ],
+        [
+            '$ kubectl get pods -n ml-serving',
+            'NAME                    READY   STATUS',
+            'airml-7f8d9c-x2k4p     1/1     Running',
+            'airml-7f8d9c-m3n5q     1/1     Running',
+            '$ kubectl logs airml-7f8d9c-x2k4p',
+            '[INFO] Server listening on :8080',
+            '[INFO] Model warmed up, ready to serve'
+        ],
+        [
+            '$ git commit -m "fix: plz work"',
+            '[main 2c4d6e8] fix: plz work',
+            '$ npm run test',
+            'PASS  src/engine.test.ts',
+            'PASS  src/model.test.ts',
+            '✓ All tests passed (42 total)',
+            '$ git push origin main'
+        ],
+        [
+            'async fn handle_request(req: Request) {',
+            '    let tensor = preprocess(req.body);',
+            '    let result = ENGINE.infer(tensor).await?;',
+            '    let response = postprocess(result);',
+            '    Ok(Json(response))',
+            '}'
+        ],
+        [
+            '$ docker build -t airml:latest .',
+            'Step 1/8 : FROM rust:alpine',
+            'Step 5/8 : RUN cargo build --release',
+            'Step 8/8 : ENTRYPOINT ["./airml"]',
+            'Successfully built a3f2c1d9e8b7',
+            '$ docker push registry/airml:latest',
+            '✓ Pushed to registry'
         ]
     ];
 
