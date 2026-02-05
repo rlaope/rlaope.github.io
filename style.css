@@ -709,6 +709,11 @@ footer {
 }
 
 /* Grid Mode */
+.crafts.grid-mode {
+    max-width: 500px;
+    padding: 0 32px 80px;
+}
+
 .crafts.grid-mode .crafts-carousel {
     overflow: visible;
 }
