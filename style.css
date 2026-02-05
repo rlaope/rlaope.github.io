@@ -637,19 +637,54 @@ footer {
     background: var(--bg);
 }
 
-.crafts-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+.crafts-toggle {
+    text-align: right;
+    margin-bottom: 16px;
 }
 
-.craft-item {
-    aspect-ratio: 1;
+.carousel-btn {
+    background: transparent;
+    border: 1px solid #333;
+    color: var(--text-dim);
+    padding: 6px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 4px;
+}
+
+.carousel-btn:hover {
+    border-color: var(--text);
+    color: var(--text);
+}
+
+.carousel-btn.active {
+    background: var(--text);
+    border-color: var(--text);
+    color: var(--bg);
+}
+
+/* Carousel Mode (default) */
+.crafts-carousel {
     overflow: hidden;
-    border-radius: 8px;
+    width: 100%;
 }
 
-.craft-item img {
+.carousel-track {
+    display: flex;
+    gap: 12px;
+    animation: carousel-scroll 60s linear infinite;
+}
+
+.crafts-carousel .craft-item {
+    flex: 0 0 120px;
+    width: 120px;
+    height: 120px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.crafts-carousel .craft-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -658,9 +693,47 @@ footer {
     transition: filter 0.4s ease, transform 0.4s ease;
 }
 
-.craft-item:hover img {
+.crafts-carousel .craft-item:hover img {
     filter: grayscale(0%);
     transform: scale(1.05);
+}
+
+@keyframes carousel-scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-132px * 24));
+    }
+}
+
+/* Pause on hover */
+.crafts-carousel:hover .carousel-track {
+    animation-play-state: paused;
+}
+
+/* Grid Mode */
+.crafts.grid-mode .crafts-carousel {
+    overflow: visible;
+}
+
+.crafts.grid-mode .carousel-track {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    animation: none;
+}
+
+.crafts.grid-mode .craft-item {
+    flex: none;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+}
+
+/* Hide duplicates in grid mode */
+.crafts.grid-mode .craft-item:nth-child(n+25) {
+    display: none;
 }
 
 /* Responsive */
@@ -703,8 +776,23 @@ footer {
         padding: 0 20px 60px;
     }
 
-    .crafts-grid {
+    .crafts.grid-mode .carousel-track {
         grid-template-columns: repeat(3, 1fr);
         gap: 8px;
+    }
+
+    .crafts-carousel .craft-item {
+        flex: 0 0 100px;
+        width: 100px;
+        height: 100px;
+    }
+
+    @keyframes carousel-scroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(calc(-112px * 24));
+        }
     }
 }

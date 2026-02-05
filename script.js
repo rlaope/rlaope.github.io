@@ -707,6 +707,34 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize effect toggle
     initEffectToggle();
 
+    // Carousel toggle
+    const carouselBtn = document.getElementById('btn-carousel');
+    const craftsSection = document.querySelector('.crafts');
+
+    if (carouselBtn && craftsSection) {
+        // Load saved preference (default: carousel on)
+        const savedCarousel = localStorage.getItem('carousel-enabled');
+        const carouselEnabled = savedCarousel === null ? true : savedCarousel === 'true';
+
+        if (!carouselEnabled) {
+            craftsSection.classList.add('grid-mode');
+            carouselBtn.classList.remove('active');
+        }
+
+        carouselBtn.addEventListener('click', () => {
+            const isCarousel = !craftsSection.classList.contains('grid-mode');
+            if (isCarousel) {
+                craftsSection.classList.add('grid-mode');
+                carouselBtn.classList.remove('active');
+                localStorage.setItem('carousel-enabled', 'false');
+            } else {
+                craftsSection.classList.remove('grid-mode');
+                carouselBtn.classList.add('active');
+                localStorage.setItem('carousel-enabled', 'true');
+            }
+        });
+    }
+
     // Optional: Typing effect for commands
     function typeWriter(element, text, speed = 50) {
         let i = 0;
