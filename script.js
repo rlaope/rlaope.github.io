@@ -1,3 +1,11 @@
+// Lazy load craft images after intro
+function loadCraftImages() {
+    document.querySelectorAll('.craft-item img[data-src]').forEach(img => {
+        img.src = img.dataset.src;
+        img.removeAttribute('data-src');
+    });
+}
+
 // Terminal-style typing effect with vim block cursor
 function initTypingEffect() {
     const main = document.querySelector('main');
@@ -352,6 +360,7 @@ function initTerminalAnimation() {
             main.classList.add('typing-started');
         }
         initFloatingParticles();
+        loadCraftImages();
         return; // Exit early, don't set up cube animation
     }
 
@@ -372,9 +381,9 @@ function initTerminalAnimation() {
     let mouseX = 0, mouseY = 0;
     let keyRotX = 0, keyRotY = 0; // Arrow key rotation
 
-    // Cube parameters - bigger cube
+    // Cube parameters - optimized
     const cubeSize = 200;
-    const particleCount = 1000;
+    const particleCount = 600;
     let rotationX = 0, rotationY = 0, rotationZ = 0;
 
     // Spotlight particles
@@ -387,7 +396,7 @@ function initTerminalAnimation() {
 
     function createSpotlightParticles() {
         spotlightParticles = [];
-        const spotlightCount = 80;
+        const spotlightCount = 40;
         const cubeBottomY = height / 2 + 120 + cubeSize / 2; // Below the cube
 
         for (let i = 0; i < spotlightCount; i++) {
@@ -512,6 +521,7 @@ function initTerminalAnimation() {
             overlay.classList.add('fade-out');
             main.classList.add('visible');
             initFloatingParticles();
+            loadCraftImages();
             // Start typing effect after overlay fades
             setTimeout(() => {
                 initTypingEffect();
