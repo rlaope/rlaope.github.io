@@ -631,15 +631,16 @@ footer {
 
 /* Crafts Gallery */
 .crafts {
-    max-width: 720px;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 0 32px 80px;
+    padding: 0 0 80px;
     background: var(--bg);
 }
 
 .crafts-toggle {
     text-align: right;
     margin-bottom: 16px;
+    padding-right: 32px;
 }
 
 .carousel-btn {
@@ -677,9 +678,9 @@ footer {
 }
 
 .crafts-carousel .craft-item {
-    flex: 0 0 120px;
-    width: 120px;
-    height: 120px;
+    flex: 0 0 180px;
+    width: 180px;
+    height: 180px;
     border-radius: 8px;
     overflow: hidden;
 }
@@ -703,13 +704,8 @@ footer {
         transform: translateX(0);
     }
     100% {
-        transform: translateX(calc(-132px * 24));
+        transform: translateX(calc(-192px * 24));
     }
-}
-
-/* Pause on hover */
-.crafts-carousel:hover .carousel-track {
-    animation-play-state: paused;
 }
 
 /* Grid Mode */
@@ -782,17 +778,8 @@ footer {
     }
 
     .crafts-carousel .craft-item {
-        flex: 0 0 100px;
-        width: 100px;
-        height: 100px;
-    }
-
-    @keyframes carousel-scroll {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(calc(-112px * 24));
-        }
+        flex: 0 0 140px;
+        width: 140px;
+        height: 140px;
     }
 }
