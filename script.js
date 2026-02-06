@@ -119,9 +119,6 @@ function initFloatingParticles() {
     if (!floatingCanvas) return;
     floatingCtx = floatingCanvas.getContext('2d');
 
-    const mainWidth = 720;
-    const padding = 32;
-
     function resize() {
         floatingCanvas.width = window.innerWidth;
         floatingCanvas.height = window.innerHeight;
@@ -129,31 +126,25 @@ function initFloatingParticles() {
     resize();
     window.addEventListener('resize', resize);
 
-    // Create floating particles only on left and right sides (outside main content)
-    function getRandomSideX() {
-        const centerStart = (window.innerWidth - mainWidth) / 2 - padding;
-        const centerEnd = (window.innerWidth + mainWidth) / 2 + padding;
-
-        // Randomly choose left or right side
-        if (Math.random() > 0.5) {
-            // Left side
-            return Math.random() * Math.max(0, centerStart);
-        } else {
-            // Right side
-            return centerEnd + Math.random() * Math.max(0, window.innerWidth - centerEnd);
-        }
-    }
-
-    for (let i = 0; i < 40; i++) {
+    // Create floating particles spread across the entire screen
+    for (let i = 0; i < 50; i++) {
         floatingParticles.push({
-            x: getRandomSideX(),
+            x: Math.random() * window.innerWidth,
             y: Math.random() * window.innerHeight,
             char: Math.random() > 0.5 ? '1' : '0',
-            vx: (Math.random() - 0.5) * 0.3,
-            vy: (Math.random() - 0.5) * 0.5,
-            alpha: 0.15 + Math.random() * 0.25
+            // Gentle base velocity
+            baseVx: (Math.random() - 0.5) * 0.2,
+            baseVy: -0.3 - Math.random() * 0.3, // Slowly rise upward
+            // Sine wave parameters for organic movement
+            amplitude: 20 + Math.random() * 30,
+            frequency: 0.005 + Math.random() * 0.01,
+            phase: Math.random() * Math.PI * 2,
+            alpha: 0.08 + Math.random() * 0.15,
+            size: 12 + Math.random() * 6
         });
     }
+
+    let time = 0;
 
     function animateFloating() {
         floatingCtx.clearRect(0, 0, floatingCanvas.width, floatingCanvas.height);
@@ -163,36 +154,25 @@ function initFloatingParticles() {
             return;
         }
 
-        floatingCtx.font = '14px JetBrains Mono';
-        floatingCtx.textAlign = 'center';
-
-        const centerStart = (floatingCanvas.width - mainWidth) / 2 - padding;
-        const centerEnd = (floatingCanvas.width + mainWidth) / 2 + padding;
+        time += 1;
 
         floatingParticles.forEach(p => {
-            p.x += p.vx;
-            p.y += p.vy;
+            // Organic sine wave movement
+            const sineOffset = Math.sin(time * p.frequency + p.phase) * p.amplitude * 0.02;
 
-            // Wrap around edges, but keep particles on sides
-            if (p.y < 0) p.y = floatingCanvas.height;
-            if (p.y > floatingCanvas.height) p.y = 0;
+            p.x += p.baseVx + sineOffset;
+            p.y += p.baseVy;
 
-            // Keep particles on left or right side only
-            if (p.x < centerStart) {
-                // Left side - wrap within left area
-                if (p.x < 0) p.x = centerStart - 10;
-            } else if (p.x > centerEnd) {
-                // Right side - wrap within right area
-                if (p.x > floatingCanvas.width) p.x = centerEnd + 10;
-            } else {
-                // Particle drifted to center, push it back to nearest side
-                if (p.x < floatingCanvas.width / 2) {
-                    p.x = centerStart - 10;
-                } else {
-                    p.x = centerEnd + 10;
-                }
+            // Wrap around edges smoothly
+            if (p.y < -20) {
+                p.y = floatingCanvas.height + 20;
+                p.x = Math.random() * floatingCanvas.width;
             }
+            if (p.x < -20) p.x = floatingCanvas.width + 20;
+            if (p.x > floatingCanvas.width + 20) p.x = -20;
 
+            floatingCtx.font = `${p.size}px JetBrains Mono`;
+            floatingCtx.textAlign = 'center';
             floatingCtx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
             floatingCtx.fillText(p.char, p.x, p.y);
         });
