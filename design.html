@@ -90,7 +90,7 @@
 
         .art-line {
             display: block;
-            font-size: 72px;
+            font-size: 96px;
             font-weight: 700;
             letter-spacing: -1px;
             text-transform: uppercase;
@@ -98,7 +98,7 @@
 
         .ampersand-line {
             display: block;
-            font-size: 72px;
+            font-size: 96px;
             font-weight: 700;
             letter-spacing: -1px;
         }
@@ -110,7 +110,7 @@
         }
 
         .street-section .art-engineering {
-            padding-left: 40px;
+            padding-left: 100px;
         }
 
         .street-photo-row {
@@ -135,6 +135,62 @@
             width: 45%;
             display: block;
             object-fit: cover;
+        }
+
+        .machine-section {
+            max-width: 980px;
+            margin: 80px auto 0;
+            padding: 0 40px;
+            position: relative;
+        }
+
+        .machine-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .machine-text-left {
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+        .machine-text-left span {
+            display: block;
+            font-size: 80px;
+            font-weight: 700;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+
+        .machine-text-right {
+            position: absolute;
+            right: 0;
+            bottom: 40px;
+            z-index: 2;
+        }
+
+        .machine-text-right span {
+            display: block;
+            font-size: 96px;
+            font-weight: 700;
+            letter-spacing: -3px;
+            text-transform: uppercase;
+            line-height: 1.0;
+            color: #333;
+        }
+
+        .machine-wrap img {
+            width: 55%;
+            display: block;
+            object-fit: contain;
+            position: relative;
+            z-index: 1;
         }
 
         footer {
@@ -227,6 +283,19 @@
         <div class="street-photo-row">
             <span class="overlay-text">ENGINEERING</span>
             <img src="image/street22.jpeg" alt="street fashion">
+        </div>
+    </div>
+
+    <div class="machine-section">
+        <div class="machine-wrap">
+            <div class="machine-text-left">
+                <span>I M</span>
+                <span>NOT</span>
+            </div>
+            <img src="image/machineimage.png" alt="not machine">
+            <div class="machine-text-right">
+                <span>MACHINE</span>
+            </div>
         </div>
     </div>
 
