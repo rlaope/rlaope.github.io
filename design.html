@@ -67,34 +67,9 @@
             padding-left: 40px;
         }
 
-        .line-design-wrap {
-            position: relative;
-            padding-left: 160px;
-            line-height: 2.2;
-        }
-
-        .line-design {
-            display: block;
-            font-size: 84px;
-            font-weight: 700;
-            letter-spacing: -2px;
-            text-transform: uppercase;
-            color: #000;
-            position: relative;
-            z-index: 1;
-        }
-
-        .line-design-ghost {
-            position: absolute;
-            top: 6px;
-            left: 166px;
-            font-size: 84px;
-            font-weight: 700;
-            letter-spacing: -2px;
-            text-transform: uppercase;
-            color: #ccc;
-            z-index: 0;
-            transform: rotate(-3deg);
+        .line:nth-child(2) {
+            padding-left: 180px;
+            font-size: 88px;
         }
 
         .photo {
@@ -210,18 +185,9 @@
                 padding-left: 20px;
             }
 
-            .line-design-wrap {
-                padding-left: 80px;
-            }
-
-            .line-design,
-            .line-design-ghost {
-                font-size: 45px;
-            }
-
-            .line-design-ghost {
-                left: 84px;
-                top: 4px;
+            .line:nth-child(2) {
+                padding-left: 90px;
+                font-size: 47px;
             }
 
             .title {
@@ -248,10 +214,7 @@
         <div class="title">
             <a href="index.html">
                 <span class="line">HOPE.</span>
-                <div class="line-design-wrap">
-                    <span class="line-design-ghost">DESIGN</span>
-                    <span class="line-design">DESIGN</span>
-                </div>
+                <span class="line">DESIGN</span>
             </a>
         </div>
 
