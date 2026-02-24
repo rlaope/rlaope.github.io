@@ -85,10 +85,7 @@
         }
 
         .art-engineering {
-            max-width: 980px;
-            margin: 0 auto;
-            padding: 30px 40px 0;
-            padding-left: 80px;
+            padding: 0 0 12px;
         }
 
         .art-line {
@@ -109,11 +106,9 @@
         .street-photo-wrap {
             position: relative;
             max-width: 980px;
-            margin: 16px auto 0;
+            margin: 30px auto 0;
             padding: 0 40px;
-            display: flex;
-            justify-content: flex-end;
-            padding-right: 80px;
+            padding-left: 80px;
         }
 
         .street-photo-wrap img {
@@ -124,15 +119,14 @@
 
         .street-photo-wrap .overlay-text {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 55%;
+            left: 22%;
             transform: translate(-50%, -50%) rotate(90deg);
             font-size: 64px;
             font-weight: 700;
             letter-spacing: 8px;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.85);
-            mix-blend-mode: difference;
+            color: #555;
             white-space: nowrap;
             pointer-events: none;
             z-index: 2;
@@ -220,12 +214,11 @@
         </div>
     </div>
 
-    <div class="art-engineering">
-        <span class="art-line">ART</span>
-        <span class="ampersand-line">&</span>
-    </div>
-
     <div class="street-photo-wrap">
+        <div class="art-engineering">
+            <span class="art-line">ART</span>
+            <span class="ampersand-line">&</span>
+        </div>
         <img src="image/street22.jpeg" alt="street fashion">
         <span class="overlay-text">ENGINEERING</span>
     </div>
