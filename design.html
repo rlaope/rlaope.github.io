@@ -18,6 +18,8 @@
             color: #000;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            height: 100vh;
         }
 
         nav {
@@ -31,74 +33,107 @@
         nav a {
             color: #000;
             text-decoration: none;
-            font-size: 14px;
-            letter-spacing: 0.5px;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
             transition: opacity 0.3s ease;
         }
 
         nav a:hover {
-            opacity: 0.4;
+            opacity: 0.3;
         }
 
-        .hero {
+        .canvas {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
-            min-height: 70vh;
-            padding: 120px 20px 80px;
+            justify-content: center;
         }
 
-        .hero a {
-            text-decoration: none;
-            color: #000;
+        .diagonal-text {
+            position: absolute;
             font-family: 'Caveat', cursive;
-            font-size: 100px;
+            font-size: 160px;
             font-weight: 700;
-            letter-spacing: 2px;
+            transform: rotate(-35deg);
+            white-space: nowrap;
+            z-index: 2;
+            mix-blend-mode: difference;
+            color: #fff;
+            pointer-events: none;
+            user-select: none;
+            left: -5%;
+            top: 15%;
+        }
+
+        .diagonal-text-shadow {
+            position: absolute;
+            font-family: 'Caveat', cursive;
+            font-size: 160px;
+            font-weight: 700;
+            transform: rotate(-35deg);
+            white-space: nowrap;
+            z-index: 0;
+            color: rgba(0,0,0,0.04);
+            pointer-events: none;
+            user-select: none;
+            right: -10%;
+            bottom: 10%;
+        }
+
+        .photo-subject {
+            position: relative;
+            z-index: 1;
+            max-height: 75vh;
+            max-width: 50vw;
+            object-fit: contain;
+            filter: grayscale(0.1) contrast(1.05);
+            mix-blend-mode: multiply;
+            transition: filter 0.5s ease;
+        }
+
+        .photo-subject:hover {
+            filter: grayscale(0) contrast(1.1);
+        }
+
+        .click-area {
+            position: fixed;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .click-area a {
+            color: #000;
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.3;
             transition: opacity 0.3s ease;
         }
 
-        .hero a:hover {
-            opacity: 0.5;
-        }
-
-        .photos {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 24px 120px;
-            display: flex;
-            flex-direction: column;
-            gap: 60px;
-        }
-
-        .photos .photo-wrap {
-            overflow: hidden;
-        }
-
-        .photos img {
-            width: 100%;
-            display: block;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-
-        .photos .photo-wrap:hover img {
-            transform: scale(1.01);
+        .click-area a:hover {
+            opacity: 1;
         }
 
         @media (max-width: 600px) {
-            .hero a {
-                font-size: 60px;
+            .diagonal-text {
+                font-size: 80px;
+                left: -10%;
+                top: 20%;
             }
 
-            .hero {
-                min-height: 50vh;
-                padding: 100px 20px 60px;
+            .diagonal-text-shadow {
+                font-size: 80px;
             }
 
-            .photos {
-                gap: 40px;
-                padding: 0 16px 80px;
+            .photo-subject {
+                max-width: 75vw;
+                max-height: 60vh;
             }
 
             nav {
@@ -112,26 +147,14 @@
         <a href="index.html">Home</a>
     </nav>
 
-    <section class="hero">
-        <a href="index.html">rlaope</a>
-    </section>
+    <div class="canvas">
+        <span class="diagonal-text">rlaope</span>
+        <img class="photo-subject" src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1200&q=80" alt="editorial">
+        <span class="diagonal-text-shadow">rlaope</span>
+    </div>
 
-    <section class="photos">
-        <div class="photo-wrap">
-            <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1200&q=80" alt="fashion editorial" loading="lazy">
-        </div>
-        <div class="photo-wrap">
-            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1200&q=80" alt="fashion editorial" loading="lazy">
-        </div>
-        <div class="photo-wrap">
-            <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1200&q=80" alt="fashion editorial" loading="lazy">
-        </div>
-        <div class="photo-wrap">
-            <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=1200&q=80" alt="fashion editorial" loading="lazy">
-        </div>
-        <div class="photo-wrap">
-            <img src="https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?w=1200&q=80" alt="fashion editorial" loading="lazy">
-        </div>
-    </section>
+    <div class="click-area">
+        <a href="index.html">enter</a>
+    </div>
 </body>
 </html>
