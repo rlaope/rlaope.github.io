@@ -106,16 +106,33 @@
             letter-spacing: -1px;
         }
 
-        .engineering-text {
-            display: inline-block;
-            font-size: 48px;
+        .street-photo-wrap {
+            position: relative;
+            max-width: 980px;
+            margin: 40px auto 0;
+            padding: 0 40px;
+        }
+
+        .street-photo-wrap img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .street-photo-wrap .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(90deg);
+            font-size: 64px;
             font-weight: 700;
-            letter-spacing: -1px;
+            letter-spacing: 8px;
             text-transform: uppercase;
-            color: #999;
-            transform: rotate(90deg);
-            transform-origin: left top;
-            margin-top: 16px;
+            color: rgba(255, 255, 255, 0.85);
+            mix-blend-mode: difference;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 2;
         }
 
         footer {
@@ -170,6 +187,15 @@
             nav {
                 padding: 20px 24px;
             }
+
+            .street-photo-wrap {
+                padding: 0 24px;
+            }
+
+            .street-photo-wrap .overlay-text {
+                font-size: 36px;
+                letter-spacing: 4px;
+            }
         }
     </style>
 </head>
@@ -190,7 +216,11 @@
     <div class="art-engineering">
         <span class="art-line">ART</span>
         <span class="ampersand-line">&</span>
-        <span class="engineering-text">ENGINEERING</span>
+    </div>
+
+    <div class="street-photo-wrap">
+        <img src="image/street22.jpeg" alt="street fashion">
+        <span class="overlay-text">ENGINEERING</span>
     </div>
 
     <footer>
