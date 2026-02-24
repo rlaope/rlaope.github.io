@@ -84,29 +84,36 @@
         }
 
         .art-engineering {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
             max-width: 980px;
             margin: 0 auto;
             padding: 60px 40px 0;
         }
 
-        .art-text {
+        .art-line {
+            display: block;
             font-size: 48px;
             font-weight: 700;
             letter-spacing: -1px;
             text-transform: uppercase;
         }
 
+        .ampersand-line {
+            display: block;
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
         .engineering-text {
+            display: inline-block;
             font-size: 48px;
             font-weight: 700;
             letter-spacing: -1px;
             text-transform: uppercase;
             color: #999;
-            transform: scaleY(-1);
-            display: inline-block;
+            transform: rotate(90deg);
+            transform-origin: left top;
+            margin-top: 16px;
         }
 
         footer {
@@ -119,7 +126,7 @@
         }
 
         footer span {
-            font-size: 13px;
+            font-size: 24px;
             font-weight: 700;
             letter-spacing: 1px;
         }
@@ -183,8 +190,9 @@
     </div>
 
     <div class="art-engineering">
-        <span class="art-text">ART &</span>
-        <span class="engineering-text">Engineering</span>
+        <span class="art-line">ART</span>
+        <span class="ampersand-line">&</span>
+        <span class="engineering-text">ENGINEERING</span>
     </div>
 
     <footer>
