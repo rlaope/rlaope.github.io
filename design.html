@@ -103,43 +103,38 @@
             letter-spacing: -1px;
         }
 
-        .street-photo-wrap {
-            position: relative;
+        .street-section {
             max-width: 980px;
             margin: 30px auto 0;
             padding: 0 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            padding-right: 80px;
         }
 
-        .street-photo-wrap .art-engineering {
-            align-self: flex-start;
+        .street-section .art-engineering {
             padding-left: 40px;
         }
 
-        .street-photo-wrap img {
-            width: 45%;
-            display: block;
-            object-fit: cover;
+        .street-photo-row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0;
+            padding-right: 40px;
         }
 
-        .street-photo-wrap .overlay-text {
-            position: absolute;
-            top: 50%;
-            right: 48%;
-            left: auto;
-            transform: translateY(-50%) rotate(90deg);
-            transform-origin: center center;
+        .street-photo-row .overlay-text {
+            writing-mode: vertical-rl;
             font-size: 64px;
             font-weight: 700;
             letter-spacing: 8px;
             text-transform: uppercase;
             color: #555;
             white-space: nowrap;
-            pointer-events: none;
-            z-index: 2;
+        }
+
+        .street-photo-row img {
+            width: 45%;
+            display: block;
+            object-fit: cover;
         }
 
         footer {
@@ -224,13 +219,15 @@
         </div>
     </div>
 
-    <div class="street-photo-wrap">
+    <div class="street-section">
         <div class="art-engineering">
             <span class="art-line">ART</span>
             <span class="ampersand-line">&</span>
         </div>
-        <img src="image/street22.jpeg" alt="street fashion">
-        <span class="overlay-text">ENGINEERING</span>
+        <div class="street-photo-row">
+            <span class="overlay-text">ENGINEERING</span>
+            <img src="image/street22.jpeg" alt="street fashion">
+        </div>
     </div>
 
     <footer>
