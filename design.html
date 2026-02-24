@@ -83,6 +83,32 @@
             object-fit: contain;
         }
 
+        .art-engineering {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 60px 40px 0;
+        }
+
+        .art-text {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
+        .engineering-text {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            color: #999;
+            transform: scaleY(-1);
+            display: inline-block;
+        }
+
         footer {
             display: flex;
             justify-content: space-between;
@@ -108,8 +134,8 @@
         }
 
         footer svg {
-            width: 20px;
-            height: 20px;
+            width: 50px;
+            height: 50px;
             fill: #000;
         }
 
@@ -154,6 +180,11 @@
         <div class="photo">
             <img src="image/japanstreet_cutout.png" alt="street fashion">
         </div>
+    </div>
+
+    <div class="art-engineering">
+        <span class="art-text">ART &</span>
+        <span class="engineering-text">Engineering</span>
     </div>
 
     <footer>
