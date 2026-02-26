@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="scroll-behavior: smooth;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -294,6 +294,49 @@
             font-weight: 700;
         }
 
+        /* Article index / TOC */
+        .article-index {
+            margin-bottom: 48px;
+            padding: 20px 24px;
+            background: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 6px;
+        }
+        .article-index h4 {
+            font-size: 12px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+        .article-index ol {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            counter-reset: toc;
+        }
+        .article-index ol li {
+            counter-increment: toc;
+            margin-bottom: 8px;
+        }
+        .article-index ol li a {
+            color: #bbb;
+            text-decoration: none;
+            font-size: 14px;
+            line-height: 1.6;
+            display: inline-block;
+            transition: color 0.15s;
+        }
+        .article-index ol li a::before {
+            content: counter(toc) ". ";
+            color: var(--text-dim);
+            font-weight: 700;
+            margin-right: 4px;
+        }
+        .article-index ol li a:hover {
+            color: var(--text);
+        }
+
         @media (max-width: 700px) {
             main {
                 padding: 30px 20px 60px;
@@ -323,7 +366,15 @@
             <p class="honest-desc">해당 페이지는 <a href="https://honestai.tech/" target="_blank">HonestAI</a>에 근무하면서 마주했던 문제들과 고민, 해결방법 및 결과등을 상세하게 서술한 문서입니다.</p>
         </section>
 
-        <section class="article">
+        <nav class="article-index">
+            <h4>Index</h4>
+            <ol>
+                <li><a href="#article-proxy">전문통신서버(CB사 신용평점 제공기관 NICE/KCB 연동 시스템) Proxy 성능 개선기</a></li>
+                <li><a href="#article-gc">JVM Observability & Full GC Hang - Task Server Improve</a></li>
+            </ol>
+        </nav>
+
+        <section class="article" id="article-proxy">
             <h2 class="article-title">전문통신서버(CB사 신용평점 제공기관 NICE/KCB 연동 시스템) Proxy 성능 개선기</h2>
             <p class="article-body" style="margin-bottom: 16px;">본문에 들어가기 앞서 이 차트는 저희 어니스트펀드 BaaS 모델의 연계대출부터 투자까지의 시스템 구조도 입니다.<br>이 차트를 참고하시면 본문 내용의 이해가 좀 더 수월해질 수 있습니다.</p>
                 <details class="chart-toggle" open>
@@ -558,7 +609,7 @@ graph TD
 
         <hr style="border: none; border-top: 1px solid #222; margin: 80px 0;">
 
-        <section class="article">
+        <section class="article" id="article-gc">
             <h2 class="article-title">JVM Observability & Full GC Hang - Task Server Improve</h2>
             <div class="article-summary">
                 <h4>Summary</h4>
