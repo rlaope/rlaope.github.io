@@ -103,10 +103,17 @@
             overflow-x: auto;
             background: #0a0a0a;
             border-top: 1px solid #333;
+            max-width: 800px;
         }
         .chart-toggle .mermaid {
             display: flex;
             justify-content: center;
+            max-width: 100%;
+        }
+        .chart-toggle .mermaid svg {
+            max-width: 100%;
+            height: auto;
+            font-size: 11px;
         }
 
         @media (max-width: 700px) {
@@ -143,12 +150,12 @@
                     <div class="mermaid-wrapper">
                         <pre class="mermaid">
 graph TD
-    classDef b2c fill:#f9f9f9,stroke:#333,stroke-width:1px;
-    classDef sync fill:#e3f2fd,stroke:#1e88e5,stroke-width:2px;
-    classDef async fill:#fff8e1,stroke:#ffa000,stroke-width:2px;
-    classDef internal fill:#e8f5e9,stroke:#43a047,stroke-width:2px;
-    classDef external fill:#ffebee,stroke:#e53935,stroke-width:2px;
-    classDef shared fill:#f3e5f5,stroke:#8e24aa,stroke-width:2px;
+    classDef b2c fill:#1a1a2e,stroke:#555,stroke-width:1px,color:#ccc;
+    classDef sync fill:#0d1b2a,stroke:#1e88e5,stroke-width:1px,color:#90caf9;
+    classDef async fill:#1a1500,stroke:#ffa000,stroke-width:1px,color:#ffe082;
+    classDef internal fill:#0a1f0a,stroke:#43a047,stroke-width:1px,color:#a5d6a7;
+    classDef external fill:#1f0a0a,stroke:#e53935,stroke-width:1px,color:#ef9a9a;
+    classDef shared fill:#1a0a2e,stroke:#8e24aa,stroke-width:1px,color:#ce93d8;
 
     subgraph B2C_Channel ["제휴 채널"]
         Toss["Toss / KakaoPay"]:::b2c
@@ -230,7 +237,7 @@ graph TD
                 primaryColor: '#333',
                 primaryTextColor: '#e8e8e8',
                 lineColor: '#666',
-                fontSize: '13px',
+                fontSize: '11px',
                 fontFamily: 'JetBrains Mono, monospace'
             }
         });
