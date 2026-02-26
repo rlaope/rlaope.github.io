@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HonestAI - Hope Kim</title>
+    <link rel="icon" type="image/png" href="rlaopelogo.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <canvas id="floating-particles"></canvas>
+    <main class="visible typing-started">
+        <section class="hero">
+            <img src="rlaopelogo.png" alt="rlaope" class="hero-logo">
+            <h1>Hope Kim <span class="handle">@rlaope</span></h1>
+            <p class="role">Software Engineer</p>
+        </section>
+
+        <section class="qna-intro">
+            <nav class="about-nav">
+                <a href="https://github.com/rlaope/estudy" target="_blank" class="nav-link">Blog</a>
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="qna.html" class="nav-link">Q&A</a>
+                <a href="design.html" class="nav-link">Design</a>
+                <div class="lang-switch">
+                    <button id="btn-en" class="lang-btn active">EN</button>
+                    <button id="btn-kr" class="lang-btn">KR</button>
+                </div>
+                <button id="btn-effect" class="effect-btn" title="Toggle particle effect">FX</button>
+            </nav>
+            <h2>HonestAI</h2>
+            <p class="qna-date">2024. Dec ~ Now</p>
+            <p class="qna-introduce" data-en="Server Developer at <a href='https://honestai.tech/' target='_blank'>HonestAI</a>, a Vertical AI fintech company.<br>Here I document the technical challenges I faced and the problem-solving processes I went through."
+               data-kr="Vertical AI 금융 기업 <a href='https://honestai.tech/' target='_blank'>HonestAI</a>에서 서버 개발자로 근무하고 있습니다.<br>이곳에서 마주한 기술적 도전과 문제 해결 과정을 기록합니다.">
+               Server Developer at <a href="https://honestai.tech/" target="_blank">HonestAI</a>, a Vertical AI fintech company.<br>Here I document the technical challenges I faced and the problem-solving processes I went through.
+            </p>
+        </section>
+
+        <section class="history">
+            <h2 data-en="WHAT I DO" data-kr="WHAT I DO">WHAT I DO</h2>
+
+            <div class="item">
+                <span class="year" data-en="B2B Savings Bank BaaS Model" data-kr="B2B 저축은행 연계투자 BaaS 모델">B2B Savings Bank BaaS Model</span>
+                <p data-en="Developed a B2B Banking-as-a-Service model for savings bank integration investment.<br>Designed and implemented the core transaction flow connecting fintech services with savings bank systems."
+                   data-kr="저축은행 연계투자를 위한 B2B Banking-as-a-Service 모델을 개발했습니다.<br>핀테크 서비스와 저축은행 시스템을 연결하는 핵심 거래 플로우를 설계하고 구현했습니다.">
+                   Developed a B2B Banking-as-a-Service model for savings bank integration investment.<br>Designed and implemented the core transaction flow connecting fintech services with savings bank systems.
+                </p>
+            </div>
+
+            <div class="item">
+                <span class="year" data-en="JVM / K8s Observability" data-kr="JVM / K8s Observability">JVM / K8s Observability</span>
+                <p data-en="Built observability infrastructure for JVM applications running on Kubernetes.<br>Monitoring, tracing, and alerting pipelines to detect anomalies and maintain system reliability."
+                   data-kr="Kubernetes 환경에서 운영되는 JVM 애플리케이션의 관측성 인프라를 구축했습니다.<br>이상 징후를 감지하고 시스템 안정성을 유지하기 위한 모니터링, 트레이싱, 알림 파이프라인을 구성했습니다.">
+                   Built observability infrastructure for JVM applications running on Kubernetes.<br>Monitoring, tracing, and alerting pipelines to detect anomalies and maintain system reliability.
+                </p>
+            </div>
+
+            <div class="item">
+                <span class="year" data-en="TCP Performance Tuning" data-kr="TCP 성능 튜닝">TCP Performance Tuning</span>
+                <p data-en="Tuned TCP-level communication for financial integration protocols.<br>Optimized socket parameters, connection pooling, and buffer sizes to meet strict latency requirements of financial systems."
+                   data-kr="금융 연동 프로토콜의 TCP 레벨 통신을 튜닝했습니다.<br>금융 시스템의 엄격한 레이턴시 요구사항을 충족하기 위해 소켓 파라미터, 커넥션 풀링, 버퍼 사이즈를 최적화했습니다.">
+                   Tuned TCP-level communication for financial integration protocols.<br>Optimized socket parameters, connection pooling, and buffer sizes to meet strict latency requirements of financial systems.
+                </p>
+            </div>
+
+            <div class="item">
+                <span class="year" data-en="Netty System Bottleneck Analysis" data-kr="Netty 시스템 병목 분석/개선">Netty System Bottleneck Analysis</span>
+                <p data-en="Analyzed and resolved bottlenecks in the Netty-based server system.<br>Profiled event loop utilization, identified thread contention points, and improved throughput through systematic diagnosis."
+                   data-kr="Netty 기반 서버 시스템의 병목 현상을 분석하고 해결했습니다.<br>이벤트 루프 활용도를 프로파일링하고, 스레드 경합 지점을 식별하며, 체계적인 진단을 통해 처리량을 개선했습니다.">
+                   Analyzed and resolved bottlenecks in the Netty-based server system.<br>Profiled event loop utilization, identified thread contention points, and improved throughput through systematic diagnosis.
+                </p>
+            </div>
+
+            <div class="item">
+                <span class="year" data-en="Load Testing & Benchmark" data-kr="부하 테스트 & 벤치마크">Load Testing & Benchmark</span>
+                <p data-en="Conducted load testing and benchmarking using Locust and k6.<br>Designed realistic traffic scenarios, measured system limits, and validated performance improvements with data-driven evidence."
+                   data-kr="Locust와 k6를 활용한 부하 테스트 및 벤치마킹을 수행했습니다.<br>현실적인 트래픽 시나리오를 설계하고, 시스템 한계를 측정하며, 데이터 기반의 근거로 성능 개선을 검증했습니다.">
+                   Conducted load testing and benchmarking using Locust and k6.<br>Designed realistic traffic scenarios, measured system limits, and validated performance improvements with data-driven evidence.
+                </p>
+            </div>
+        </section>
+
+        <section class="qna-list">
+            <h2 data-en="PROBLEM SOLVING" data-kr="PROBLEM SOLVING">PROBLEM SOLVING</h2>
+
+            <div class="qna-item">
+                <p class="question" data-en="Netty System Bottleneck — Diagnosis & Resolution" data-kr="Netty 시스템 병목 — 진단 & 해결">Netty System Bottleneck — Diagnosis & Resolution</p>
+                <p class="answer" data-en="The Netty-based financial integration server was experiencing intermittent latency spikes under high concurrency.<br><br>Hypothesis: Event loop threads were being blocked by synchronous operations, causing head-of-line blocking across all channels sharing the same event loop.<br><br>Investigation: Profiled thread dumps and JFR recordings to trace where event loop threads spent time. Found that certain codec handlers were performing blocking I/O (database lookups) directly on the event loop thread.<br><br>Solution: Offloaded blocking operations to a dedicated thread pool using Netty's EventExecutorGroup, keeping event loops purely non-blocking. Verified with load tests — P99 latency dropped significantly and throughput increased under sustained load."
+                   data-kr="Netty 기반 금융 연동 서버가 높은 동시성 환경에서 간헐적인 레이턴시 스파이크를 경험하고 있었습니다.<br><br>가설: 이벤트 루프 스레드가 동기 작업에 의해 블로킹되어, 같은 이벤트 루프를 공유하는 모든 채널에서 Head-of-Line 블로킹이 발생하고 있었습니다.<br><br>조사: 스레드 덤프와 JFR 레코딩을 프로파일링하여 이벤트 루프 스레드가 시간을 소비하는 지점을 추적했습니다. 특정 코덱 핸들러가 이벤트 루프 스레드에서 직접 블로킹 I/O(데이터베이스 조회)를 수행하고 있는 것을 발견했습니다.<br><br>해결: Netty의 EventExecutorGroup을 사용하여 블로킹 작업을 전용 스레드 풀로 오프로드하고, 이벤트 루프는 순수하게 논블로킹 상태를 유지하도록 했습니다. 부하 테스트로 검증한 결과 — P99 레이턴시가 크게 감소했고, 지속적인 부하 하에서 처리량이 증가했습니다.">
+                   Netty 기반 금융 연동 서버가 높은 동시성 환경에서 간헐적인 레이턴시 스파이크를 경험하고 있었습니다.<br><br>가설: 이벤트 루프 스레드가 동기 작업에 의해 블로킹되어, 같은 이벤트 루프를 공유하는 모든 채널에서 Head-of-Line 블로킹이 발생하고 있었습니다.<br><br>조사: 스레드 덤프와 JFR 레코딩을 프로파일링하여 이벤트 루프 스레드가 시간을 소비하는 지점을 추적했습니다. 특정 코덱 핸들러가 이벤트 루프 스레드에서 직접 블로킹 I/O(데이터베이스 조회)를 수행하고 있는 것을 발견했습니다.<br><br>해결: Netty의 EventExecutorGroup을 사용하여 블로킹 작업을 전용 스레드 풀로 오프로드하고, 이벤트 루프는 순수하게 논블로킹 상태를 유지하도록 했습니다. 부하 테스트로 검증한 결과 — P99 레이턴시가 크게 감소했고, 지속적인 부하 하에서 처리량이 증가했습니다.
+                </p>
+            </div>
+
+            <div class="qna-item">
+                <p class="question" data-en="TCP Performance Tuning — Financial Protocol Optimization" data-kr="TCP 성능 튜닝 — 금융 프로토콜 최적화">TCP Performance Tuning — Financial Protocol Optimization</p>
+                <p class="answer" data-en="Financial integration protocols communicated over raw TCP with fixed-length message formats (10-byte length header, EUC-KR encoding).<br><br>Problem: Response times were inconsistent, with some transactions taking 2-3x longer than expected despite the server processing quickly.<br><br>Root Cause: TCP Nagle's algorithm was batching small packets, and delayed ACK on the receiving side compounded the issue. Additionally, socket buffer sizes were default values not optimized for the message sizes (10-14KB) typical in financial protocols.<br><br>Solution: Disabled Nagle's algorithm (TCP_NODELAY), tuned SO_RCVBUF/SO_SNDBUF to match typical message sizes, and configured connection keep-alive parameters for long-lived financial connections. Built a TCP mock server (tcp-css-loadtest) to validate improvements under realistic conditions."
+                   data-kr="금융 연동 프로토콜은 고정 길이 메시지 포맷(10바이트 길이 헤더, EUC-KR 인코딩)을 사용하여 Raw TCP로 통신했습니다.<br><br>문제: 서버 처리는 빠른데도 불구하고 응답 시간이 일관되지 않았으며, 일부 거래가 예상보다 2-3배 오래 걸렸습니다.<br><br>근본 원인: TCP Nagle 알고리즘이 작은 패킷을 배치하고 있었고, 수신 측의 Delayed ACK이 문제를 가중시켰습니다. 또한 소켓 버퍼 사이즈가 금융 프로토콜에서 일반적인 메시지 크기(10-14KB)에 최적화되지 않은 기본값이었습니다.<br><br>해결: Nagle 알고리즘 비활성화(TCP_NODELAY), SO_RCVBUF/SO_SNDBUF를 일반적인 메시지 크기에 맞게 튜닝, 장기 유지 금융 연결을 위한 connection keep-alive 파라미터를 설정했습니다. 현실적인 조건에서 개선 사항을 검증하기 위해 TCP 모킹 서버(tcp-css-loadtest)를 직접 구축했습니다.">
+                   금융 연동 프로토콜은 고정 길이 메시지 포맷(10바이트 길이 헤더, EUC-KR 인코딩)을 사용하여 Raw TCP로 통신했습니다.<br><br>문제: 서버 처리는 빠른데도 불구하고 응답 시간이 일관되지 않았으며, 일부 거래가 예상보다 2-3배 오래 걸렸습니다.<br><br>근본 원인: TCP Nagle 알고리즘이 작은 패킷을 배치하고 있었고, 수신 측의 Delayed ACK이 문제를 가중시켰습니다. 또한 소켓 버퍼 사이즈가 금융 프로토콜에서 일반적인 메시지 크기(10-14KB)에 최적화되지 않은 기본값이었습니다.<br><br>해결: Nagle 알고리즘 비활성화(TCP_NODELAY), SO_RCVBUF/SO_SNDBUF를 일반적인 메시지 크기에 맞게 튜닝, 장기 유지 금융 연결을 위한 connection keep-alive 파라미터를 설정했습니다. 현실적인 조건에서 개선 사항을 검증하기 위해 TCP 모킹 서버(tcp-css-loadtest)를 직접 구축했습니다.
+                </p>
+            </div>
+
+            <div class="qna-item">
+                <p class="question" data-en="Load Testing Strategy — Realistic Traffic Simulation" data-kr="부하 테스트 전략 — 현실적인 트래픽 시뮬레이션">Load Testing Strategy — Realistic Traffic Simulation</p>
+                <p class="answer" data-en="Needed to validate system capacity and identify breaking points before production deployment of the BaaS model.<br><br>Approach: Used both Locust (Python-based, for complex user scenario simulation) and k6 (Go-based, for raw protocol-level load generation). Designed test scenarios that reflected actual traffic patterns — peak hours, gradual ramp-up, sudden spike bursts.<br><br>Key Findings: Identified connection pool exhaustion under sustained load, GC pause impact on P99 latency, and thread pool saturation thresholds. Each finding led to targeted optimizations with measurable improvements verified through repeated benchmark cycles."
+                   data-kr="BaaS 모델의 프로덕션 배포 전에 시스템 용량을 검증하고 한계점을 식별해야 했습니다.<br><br>접근법: Locust(Python 기반, 복잡한 사용자 시나리오 시뮬레이션)와 k6(Go 기반, Raw 프로토콜 레벨 부하 생성) 두 가지를 활용했습니다. 실제 트래픽 패턴을 반영한 테스트 시나리오를 설계했습니다 — 피크 시간대, 점진적 증가, 급격한 스파이크 버스트.<br><br>주요 발견: 지속적인 부하 하에서의 커넥션 풀 고갈, GC pause가 P99 레이턴시에 미치는 영향, 스레드 풀 포화 임계값을 식별했습니다. 각 발견은 타겟팅된 최적화로 이어졌고, 반복적인 벤치마크 사이클을 통해 측정 가능한 개선을 검증했습니다.">
+                   BaaS 모델의 프로덕션 배포 전에 시스템 용량을 검증하고 한계점을 식별해야 했습니다.<br><br>접근법: Locust(Python 기반, 복잡한 사용자 시나리오 시뮬레이션)와 k6(Go 기반, Raw 프로토콜 레벨 부하 생성) 두 가지를 활용했습니다. 실제 트래픽 패턴을 반영한 테스트 시나리오를 설계했습니다 — 피크 시간대, 점진적 증가, 급격한 스파이크 버스트.<br><br>주요 발견: 지속적인 부하 하에서의 커넥션 풀 고갈, GC pause가 P99 레이턴시에 미치는 영향, 스레드 풀 포화 임계값을 식별했습니다. 각 발견은 타겟팅된 최적화로 이어졌고, 반복적인 벤치마크 사이클을 통해 측정 가능한 개선을 검증했습니다.
+                </p>
+            </div>
+
+            <div class="qna-item">
+                <p class="question" data-en="JVM / K8s Observability — Visibility into Production" data-kr="JVM / K8s Observability — 프로덕션 가시성 확보">JVM / K8s Observability — Visibility into Production</p>
+                <p class="answer" data-en="Operating JVM applications on Kubernetes without deep observability meant flying blind — unable to correlate application-level metrics (GC behavior, thread states, heap usage) with infrastructure-level signals (pod restarts, resource limits, network latency).<br><br>Built an observability stack that connected JVM internals (JFR, MBeans, GC logs) with Kubernetes metrics (resource utilization, pod lifecycle events). Created dashboards and alerting rules that could detect anomalies before they impacted users — such as GC pressure trends that predict OOM kills, or thread pool exhaustion patterns that precede timeout cascades."
+                   data-kr="Kubernetes에서 JVM 애플리케이션을 깊은 관측성 없이 운영하는 것은 눈을 감고 비행하는 것과 같았습니다 — 애플리케이션 레벨 메트릭(GC 동작, 스레드 상태, 힙 사용량)과 인프라 레벨 시그널(Pod 재시작, 리소스 제한, 네트워크 레이턴시)을 상관시킬 수 없었습니다.<br><br>JVM 내부(JFR, MBeans, GC 로그)와 Kubernetes 메트릭(리소스 사용률, Pod 라이프사이클 이벤트)을 연결하는 관측성 스택을 구축했습니다. 사용자에게 영향을 미치기 전에 이상 징후를 감지할 수 있는 대시보드와 알림 규칙을 만들었습니다 — OOM Kill을 예측하는 GC 압력 트렌드나, 타임아웃 캐스케이드에 선행하는 스레드 풀 고갈 패턴 등.">
+                   Kubernetes에서 JVM 애플리케이션을 깊은 관측성 없이 운영하는 것은 눈을 감고 비행하는 것과 같았습니다 — 애플리케이션 레벨 메트릭(GC 동작, 스레드 상태, 힙 사용량)과 인프라 레벨 시그널(Pod 재시작, 리소스 제한, 네트워크 레이턴시)을 상관시킬 수 없었습니다.<br><br>JVM 내부(JFR, MBeans, GC 로그)와 Kubernetes 메트릭(리소스 사용률, Pod 라이프사이클 이벤트)을 연결하는 관측성 스택을 구축했습니다. 사용자에게 영향을 미치기 전에 이상 징후를 감지할 수 있는 대시보드와 알림 규칙을 만들었습니다 — OOM Kill을 예측하는 GC 압력 트렌드나, 타임아웃 캐스케이드에 선행하는 스레드 풀 고갈 패턴 등.
+                </p>
+            </div>
+        </section>
+
+        <section class="contact">
+            <h2>Contact</h2>
+            <p><a href="mailto:piyrw9754@gmail.com">piyrw9754@gmail.com</a></p>
+            <p><a href="https://github.com/rlaope" target="_blank">github.com/rlaope</a></p>
+            <p><a href="https://www.linkedin.com/in/esperer/" target="_blank">linkedin.com/in/esperer</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Last updated 2026. 2. 26</p>
+    </footer>
+
+    <script>
+        // Floating particles
+        let floatingParticles = [];
+        let floatingCanvas, floatingCtx;
+        let particlesEnabled = true;
+
+        function initFloatingParticles() {
+            floatingCanvas = document.getElementById('floating-particles');
+            if (!floatingCanvas) return;
+            floatingCtx = floatingCanvas.getContext('2d');
+
+            const mainWidth = 720;
+            const padding = 32;
+
+            function resize() {
+                floatingCanvas.width = window.innerWidth;
+                floatingCanvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            function getRandomSideX() {
+                const centerStart = (window.innerWidth - mainWidth) / 2 - padding;
+                const centerEnd = (window.innerWidth + mainWidth) / 2 + padding;
+
+                if (Math.random() > 0.5) {
+                    return Math.random() * Math.max(0, centerStart);
+                } else {
+                    return centerEnd + Math.random() * Math.max(0, window.innerWidth - centerEnd);
+                }
+            }
+
+            for (let i = 0; i < 40; i++) {
+                floatingParticles.push({
+                    x: getRandomSideX(),
+                    y: Math.random() * window.innerHeight,
+                    char: Math.random() > 0.5 ? '1' : '0',
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    alpha: 0.15 + Math.random() * 0.25
+                });
+            }
+
+            function animateFloating() {
+                floatingCtx.clearRect(0, 0, floatingCanvas.width, floatingCanvas.height);
+
+                if (!particlesEnabled) {
+                    requestAnimationFrame(animateFloating);
+                    return;
+                }
+
+                floatingCtx.font = '14px JetBrains Mono';
+                floatingCtx.textAlign = 'center';
+
+                const centerStart = (floatingCanvas.width - mainWidth) / 2 - padding;
+                const centerEnd = (floatingCanvas.width + mainWidth) / 2 + padding;
+
+                floatingParticles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.y < 0) p.y = floatingCanvas.height;
+                    if (p.y > floatingCanvas.height) p.y = 0;
+
+                    if (p.x < centerStart) {
+                        if (p.x < 0) p.x = centerStart - 10;
+                    } else if (p.x > centerEnd) {
+                        if (p.x > floatingCanvas.width) p.x = centerEnd + 10;
+                    } else {
+                        if (p.x < floatingCanvas.width / 2) {
+                            p.x = centerStart - 10;
+                        } else {
+                            p.x = centerEnd + 10;
+                        }
+                    }
+
+                    floatingCtx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+                    floatingCtx.fillText(p.char, p.x, p.y);
+                });
+
+                requestAnimationFrame(animateFloating);
+            }
+            animateFloating();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnEn = document.getElementById('btn-en');
+            const btnKr = document.getElementById('btn-kr');
+            const btnEffect = document.getElementById('btn-effect');
+
+            // Language switching
+            function setLanguage(lang) {
+                btnEn.classList.toggle('active', lang === 'en');
+                btnKr.classList.toggle('active', lang === 'kr');
+
+                document.querySelectorAll('[data-en]').forEach(el => {
+                    el.innerHTML = el.getAttribute(`data-${lang}`);
+                });
+
+                document.documentElement.lang = lang === 'kr' ? 'ko' : 'en';
+                localStorage.setItem('preferred-lang', lang);
+            }
+
+            btnEn.addEventListener('click', () => setLanguage('en'));
+            btnKr.addEventListener('click', () => setLanguage('kr'));
+
+            const savedLang = localStorage.getItem('preferred-lang');
+            if (savedLang) {
+                setLanguage(savedLang);
+            }
+
+            // Effect toggle
+            const savedPref = localStorage.getItem('particles-enabled');
+            if (savedPref !== null) {
+                particlesEnabled = savedPref === 'true';
+            }
+            btnEffect.classList.toggle('active', particlesEnabled);
+
+            btnEffect.addEventListener('click', () => {
+                particlesEnabled = !particlesEnabled;
+                btnEffect.classList.toggle('active', particlesEnabled);
+                localStorage.setItem('particles-enabled', particlesEnabled);
+            });
+
+            // Initialize floating particles
+            initFloatingParticles();
+        });
+    </script>
+</body>
+</html>
