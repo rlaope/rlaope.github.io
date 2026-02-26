@@ -196,6 +196,14 @@
         .image-stack img + img {
             margin-top: 12px;
         }
+        .image-side {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        .image-side img {
+            max-width: calc(50% - 6px);
+        }
 
         /* Summary block */
         .article-summary {
@@ -458,7 +466,7 @@ graph TD
             <p class="article-body">
                 String 연산은 삭제 후 Builder를 사용하도록, 불필요한 복사를 통해 FullGC가 계속해서 발생하는것을 모니터링을 통해 확인후 수정작업 진행함
             </p>
-            <div class="article-image-block image-stack">
+            <div class="article-image-block image-side">
                 <img src="image/honest/gc-before.png" alt="GC monitoring before optimization">
                 <img src="image/honest/gc-after.png" alt="GC monitoring after optimization">
             </div>
