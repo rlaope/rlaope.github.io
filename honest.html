@@ -115,6 +115,134 @@
             font-size: 11px;
         }
 
+        /* Article sub-headings */
+        .article-subtitle {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--text);
+            margin-top: 48px;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #222;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        /* Lists */
+        .article-list {
+            color: #bbb;
+            font-size: 15px;
+            line-height: 2;
+            margin: 12px 0 20px 24px;
+        }
+        .article-list li {
+            margin-bottom: 6px;
+        }
+        .highlight-list {
+            list-style: none;
+            margin-left: 0;
+            padding: 16px 20px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 4px;
+        }
+        .highlight-list li::before {
+            content: '+ ';
+            color: #43a047;
+            font-weight: 700;
+        }
+
+        /* Tables */
+        .article-table-wrapper {
+            overflow-x: auto;
+            margin: 16px 0 24px;
+        }
+        .article-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            color: #ccc;
+        }
+        .article-table th {
+            background: #111;
+            padding: 10px 16px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+            color: var(--text);
+            font-weight: 700;
+        }
+        .article-table td {
+            padding: 10px 16px;
+            border-bottom: 1px solid #1a1a1a;
+        }
+        .article-table tr:hover td {
+            background: #0a0a0a;
+        }
+
+        /* Image blocks */
+        .article-image-block {
+            margin: 20px 0 24px;
+            padding: 16px;
+            background: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 6px;
+        }
+        .article-image-block img {
+            width: 100%;
+            max-width: 100%;
+            border-radius: 4px;
+            display: block;
+        }
+        .image-stack img + img {
+            margin-top: 12px;
+        }
+
+        /* Summary block */
+        .article-summary {
+            margin: 0 0 40px;
+            padding: 24px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 6px;
+        }
+        .article-summary h4 {
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .summary-col h5 {
+            font-size: 12px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        .summary-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            color: #bbb;
+            font-size: 13px;
+            line-height: 1.9;
+        }
+        .summary-col.to-be ul li::before {
+            content: '> ';
+            color: #43a047;
+            font-weight: 700;
+        }
+        .summary-col.as-is ul li::before {
+            content: '> ';
+            color: #e53935;
+            font-weight: 700;
+        }
+
         @media (max-width: 700px) {
             main {
                 padding: 30px 20px 60px;
@@ -124,6 +252,9 @@
             }
             .article-title {
                 font-size: 20px;
+            }
+            .summary-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -210,7 +341,168 @@ graph TD
                         </pre>
                     </div>
                 </details>
-            <p class="article-body">본문 준비중입니다.</p>
+            <div class="article-summary">
+                <h4>Summary</h4>
+                <div class="summary-grid">
+                    <div class="summary-col as-is">
+                        <h5>As-Is</h5>
+                        <ul>
+                            <li>Event Loop 스레드에서 blocking call (socketRead0) 직접 호출</li>
+                            <li>String += 연산으로 요청당 임시 객체 14,000개 생성</li>
+                            <li>Young GC 초당 5~10회, Full GC 15,364회 발생</li>
+                            <li>Old Generation 사용률 91~94% 포화</li>
+                            <li>전문 잘림 이슈 (flush 전 close)</li>
+                            <li>Short-lived Connection으로 TIME_WAIT 소켓 누적</li>
+                            <li>Nagle 알고리즘으로 대용량 전문 전송 지연 (~40ms 추가)</li>
+                        </ul>
+                    </div>
+                    <div class="summary-col to-be">
+                        <h5>To-Be</h5>
+                        <ul>
+                            <li>Blocking call을 전용 스레드풀로 오프로딩, 이후 channelRead() + ByteBuf 구조로 전환</li>
+                            <li>StringBuilder 전환으로 요청당 임시 객체 1개</li>
+                            <li>Young GC 빈도 58% 감소, Full GC 100% 제거</li>
+                            <li>GC 오버헤드 96% 감소, Old Gen 압박 대폭 해소</li>
+                            <li>ChannelFutureListener 적용으로 전문 잘림 해결</li>
+                            <li>Persistent Connection 전환으로 TIME_WAIT 제거, 3-way handshake 레이턴시 ~1.5ms 절감</li>
+                            <li>Nagle 비활성화(TCP_NODELAY)로 전문 전송 지연 ~40ms 절감</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="article-subtitle">Nice-Proxy</h3>
+            <p class="article-body">
+                nice-proxy라고 불리는 네티 기반의 프록시 서버가 존재합니다.
+                <br><br>
+                nice라는 신용평점제공 기관의 서버 시스템은 현재 4Mbps의 대역폭과 100개의 세션까지를 제공해주고 있었습니다.
+                <br><br>
+                그리고 아래와 같은 조건/문제들이 존재했습니다.
+            </p>
+            <ol class="article-list">
+                <li>nice 전문 통신 응답시간은 0.5~3s정도고 최악의 경우에는 10 ~ 60s까지 튈때도 있습니다.</li>
+                <li>NICE의 평균 전문사이즈는 14KB ~ 32KB정도로 무거운 사이즈를 자랑한다.</li>
+                <li>세션이 100개다 보니(심지어 이것도 증설해준거) 그 이상의 요청이 들어오게 되면, 실패처리 되어버립니다.</li>
+            </ol>
+            <p class="article-body">
+                NICE 전문 통신은 연계대출 프로세스를 진행하기위해서 무조건 필요한 데이터기 때문에 반드시 호출 후에 값을 받아내야합니다.
+                <br><br>
+                즉 NICE 서버 성능에 우리 어니스트펀드 서버 자체가 결합되어있다는 문제가 발생하게 됩니다.
+                <br><br>
+                그래서 아래와 같은 문제 해결과 이점을 위해 netty 기반의 nice-proxy가 배치되었습니다.
+            </p>
+            <ul class="article-list">
+                <li>외부 금융/B2B망의 엄격한 동시 접속 세션 제한(IP당 N개)을 준수하면서도, 내부의 수많은 동시 트래픽을 병목 없이 라우팅 필요</li>
+                <li>네티의 <strong>유연한 파이프라인 구조 (ChannelPipeline):</strong> 데이터가 흐르는 통로에 암복호화, 인코딩, 디코딩, 비즈니스 로직 등의 스트림 처리 단계를 체인(Chain) 형태로 깔끔하게 모듈화하여 배치</li>
+                <li><strong>고성능 바이트 조작 (ByteBuf & Zero-copy):</strong> 자체적인 메모리 버퍼 객체를 통해 거대한 바이트 스트림을 물리적인 메모리 복사 없이(Zero-copy) 자르고 붙일 수 있어 GC 부하를 최소화</li>
+            </ul>
+            <p class="article-body">
+                연계대출(투자)라는 무거운 콜에 대해 예측/발생 트래픽 발전은 200TPS까지로 확인되었습니다. 100개의 세션 고갈은 반드시 발생할것이고 그에 따라 장애 연쇄를 막기위해 배치된것입니다.
+            </p>
+
+            <h3 class="article-subtitle">그러던 어느날 올라온 슬랙</h3>
+            <div class="article-image-block">
+                <img src="image/honest/slack-message.png" alt="Slack message about event loop thread scaling">
+            </div>
+            <p class="article-body">
+                nice event loop thread의 수를 증설한다는 문구를 확인.
+                <br><br>
+                발생했던 현상은
+            </p>
+            <ul class="article-list">
+                <li>nice가 아닌 nice-proxy 서버의 이벤트 루프 스레드가 밀림.</li>
+                <li>nice-proxy 서버 자체가 느림</li>
+            </ul>
+            <p class="article-body">
+                이 두가지 였습니다. thread가 밀린다는 말에 스레드덤프를 먼저 확인했고, (별도의 observability가 없을때라 직접 접속해 jstack, jstat, jmap등으로 모니터링)
+                <br><br>
+                다음의 문제들을 확인했습니다.
+            </p>
+            <ol class="article-list">
+                <li><strong>(치명)</strong> blocking call (socketRead0)가 event loop 스레드에서 호출되는것을 확인</li>
+                <li><strong>(치명)</strong> string += 연산을 통한 힙메모리 복사비용 낭비로인한 FULL GC 비율이 90% 이상</li>
+            </ol>
+            <p class="article-body">2번 문제에 관한 정의는</p>
+            <div class="article-table-wrapper">
+                <table class="article-table">
+                    <thead>
+                        <tr><th>지표</th><th>값</th><th>설명</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>YGC (Young GC 횟수)</td><td>41,330,984회</td><td>4천만 번 발생</td></tr>
+                        <tr><td>YGCT (Young GC 총 시간)</td><td>35,150초</td><td>약 9.7시간 GC에 소요</td></tr>
+                        <tr><td>FGC (Full GC 횟수)</td><td>15,364회</td><td>1.5만 번 발생</td></tr>
+                        <tr><td>Old Generation 사용률</td><td>91~94%</td><td>거의 포화 상태</td></tr>
+                        <tr><td>실시간 YGC 빈도</td><td>초당 5~10회</td><td>매우 빈번</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="article-body">
+                별도로 Nice-Proxy에 관한 별도 문제들을 전반적으로 더 분석해 아래와 같은 문제들도 확인했습니다.
+            </p>
+            <ol class="article-list">
+                <li><strong>(치명)</strong> 전문이 잘리게 되는 이슈 (channelFutureListener 미사용으로 os에 write전에(flush) close해버리는 문제)</li>
+                <li>Backpressure, Circuit Breaker 메커니즘 존재안함.</li>
+                <li>Persistence Connection 방식으로 동작 안해 TIME_WAIT 상태 소켓 비율이 높음 (3-way-handshake latency)</li>
+                <li>Nagle 알고리즘 활성화 되어있음 (nice 전문사이즈가 커 비효율적으로 동작할 수 있음. 두 번이상의 콜로 처리될 수 있어서. mss가 1460이면 커버 다 안됨)</li>
+            </ol>
+
+            <h3 class="article-subtitle">처리량에 대한 개선</h3>
+            <p class="article-body">
+                1차적으로 blocking call을 별도 스레드로 오프로딩
+            </p>
+            <ul class="article-list">
+                <li>스레드풀을 100개로 두어 nice 세션을 넘지 않도록 했지만, 이는 아직 궁여지책. 이벤트 루프 스레드가 밀리진 않지만, 어찌되었든 100개의 스레드로 제약이 걸려버려. netty를 쓰는 이유가 없어짐</li>
+                <li>향후 nice증설도 진행했고 channelRead()로 bytebuf를 통해 전문을 받는구조로 변경해두었음. nice 커넥션의 값만 넘치않도록 semaphore 조정</li>
+            </ul>
+            <p class="article-body">
+                String 연산은 삭제 후 Builder를 사용하도록, 불필요한 복사를 통해 FullGC가 계속해서 발생하는것을 모니터링을 통해 확인후 수정작업 진행함
+            </p>
+            <div class="article-image-block image-stack">
+                <img src="image/honest/gc-before.png" alt="GC monitoring before optimization">
+                <img src="image/honest/gc-after.png" alt="GC monitoring after optimization">
+            </div>
+            <div class="article-table-wrapper">
+                <table class="article-table">
+                    <thead>
+                        <tr><th>지표</th><th>개선 전</th><th>개선 후 (예상)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>YGC 빈도</td><td>초당 5~10회</td><td>초당 0~1회</td></tr>
+                        <tr><td>요청당 임시 객체</td><td>14,000개</td><td>1개</td></tr>
+                        <tr><td>GC로 인한 지연</td><td>수십~수백 ms</td><td>최소화</td></tr>
+                        <tr><td>Old Gen 압박</td><td>91~94%</td><td>대폭 감소</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <ul class="article-list highlight-list">
+                <li>Young GC 빈도 58% 감소</li>
+                <li>Young GC 시간 72% 감소</li>
+                <li>Full GC 100% 제거</li>
+                <li>GC 오버헤드 96% 감소</li>
+            </ul>
+            <p class="article-body">
+                벤치마크 및 테스트(locust)도 진행 (아래 사진은 blocking call 오프로딩 기준)
+            </p>
+            <div class="article-image-block">
+                <img src="image/honest/locust-benchmark.png" alt="Locust load test benchmark results">
+            </div>
+
+            <h3 class="article-subtitle">향후 개선 (Network, Observability)</h3>
+            <div class="article-image-block">
+                <img src="image/honest/network-monitoring.png" alt="Network monitoring with netstat, ss, tcpdump">
+            </div>
+            <p class="article-body">
+                netstat, ss, tcpdump 등으로 커넥션, 패킷 흐름 모니터링 및 별도로 발생하는 레이턴시들 검출했음. 당장은 필요없을 수 있으나, 향후 발전됨에 따라 신경쓰면 좋을 부분들이라 진행함.
+            </p>
+            <ul class="article-list">
+                <li>Persistence Connection 방식으로 네티에서 nice session만큼 연결을 맺도록 진행</li>
+                <li>Nagle 비활성화로 데이터를 모아 보내는 방식으로 동작하지 않게함. 이로 인해 전문 사이즈가 커서 잘려서 모일때까지 대기하는 현상이 없어짐 (ex. 18kb전문에서 14Kb 전송 이후 그다음 버퍼가 모일때까지 4kb는 대기 같은 현상)</li>
+                <li>그 외에도 jvm observability에 관한 개선에 더욱 기여함 (이는 Netty + 아래 추가될 내용에 연관되어 있으므로 일단 여기선 뺌)</li>
+            </ul>
+            <p class="article-body">
+                결론적으로 netty event loop 스레드를 단순 증설한다. nice-proxy 서버를 단순히 늘린다. 라는 문제를 재정의하고 실제 존재했던 프록시 서버의 문제들을 파악하고 개선하는 작업 그 이후 observability 개선의 필요성을 느껴 새로 또 발전시킴과 동시에 추가적인 network, tcp 튜닝등으로 레이턴시를 개선함.
+            </p>
         </section>
 
         <section class="contact">
