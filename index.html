@@ -173,9 +173,9 @@
 
             <div class="project">
                 <h3><a href="https://github.com/art8engine/TatVTON" target="_blank">TatVTON</a></h3>
-                <p data-en="A tattoo virtual try-on pipeline using SAM 2 for body region mask extraction and SDXL Inpainting + ControlNet + IP-Adapter for photorealistic tattoo synthesis. Supports point and bounding box prompts via Python API and CLI. Configurable inference steps, strength, guidance scale, and IP-Adapter scale with GPU memory optimization through model offloading."
-                   data-kr="SAM 2 기반 신체 영역 마스크 추출과 SDXL Inpainting + ControlNet + IP-Adapter를 활용한 사실적 타투 합성 파이프라인. Python API와 CLI를 통한 포인트/바운딩 박스 프롬프트 지원. 추론 스텝, strength, guidance scale, IP-Adapter scale 설정 가능하며 모델 오프로딩을 통한 GPU 메모리 최적화 지원함.">
-                   A tattoo virtual try-on pipeline using SAM 2 for body region mask extraction and SDXL Inpainting + ControlNet + IP-Adapter for photorealistic tattoo synthesis. Supports point and bounding box prompts via Python API and CLI. Configurable inference steps, strength, guidance scale, and IP-Adapter scale with GPU memory optimization through model offloading.
+                <p data-en="A diffusion-based tattoo fitting pipeline. 4-phase architecture: SAM 2 skin region segmentation with multi-mask confidence scoring, SDXL Inpainting + ControlNet for body-aware generation, IP-Adapter for tattoo style transfer, and alpha-blended compositing with mask dilation/feathering. Sequential model load/unload strategy to fit the full pipeline within 12GB VRAM."
+                   data-kr="디퓨전 기반 타투 피팅 파이프라인. 4단계 아키텍처: SAM 2 기반 피부 영역 세그멘테이션(multi-mask confidence scoring), SDXL Inpainting + ControlNet 기반 신체 인식 생성, IP-Adapter 기반 타투 스타일 트랜스퍼, mask dilation/feathering을 적용한 알파 블렌딩 합성. 12GB VRAM 내에서 전체 파이프라인을 구동하기 위한 순차적 모델 로드/언로드 전략 적용함.">
+                   A diffusion-based tattoo fitting pipeline. 4-phase architecture: SAM 2 skin region segmentation with multi-mask confidence scoring, SDXL Inpainting + ControlNet for body-aware generation, IP-Adapter for tattoo style transfer, and alpha-blended compositing with mask dilation/feathering. Sequential model load/unload strategy to fit the full pipeline within 12GB VRAM.
                 </p>
             </div>
         </section>
