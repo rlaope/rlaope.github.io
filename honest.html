@@ -8,8 +8,69 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* Full width layout override */
+        main {
+            max-width: 1100px;
+            padding: 80px 60px 80px;
+        }
+
+        /* Big HonestAI title */
+        .honest-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+        .honest-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .honest-title a:hover {
+            color: var(--accent);
+        }
+
+        /* Subtitle info */
+        .honest-subtitle {
+            color: var(--text-dim);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+        .honest-desc {
+            color: #999;
+            font-size: 15px;
+            line-height: 1.9;
+            margin-bottom: 0;
+        }
+        .honest-desc a {
+            color: #bbb;
+            text-decoration: none;
+        }
+        .honest-desc a:hover {
+            color: var(--text);
+        }
+
+        /* Article format */
+        .article {
+            margin-bottom: 80px;
+        }
+        .article-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .article-body {
+            color: #bbb;
+            font-size: 15px;
+            line-height: 2;
+        }
+
+        /* Chart toggle */
         .chart-toggle {
             margin-top: 20px;
+            margin-bottom: 20px;
             border: 1px solid #333;
             border-radius: 4px;
         }
@@ -44,41 +105,36 @@
             display: flex;
             justify-content: center;
         }
+
+        @media (max-width: 700px) {
+            main {
+                padding: 60px 20px 60px;
+            }
+            .honest-title {
+                font-size: 32px;
+            }
+            .article-title {
+                font-size: 20px;
+            }
+        }
     </style>
 </head>
 <body>
     <canvas id="floating-particles"></canvas>
     <main class="visible typing-started">
-        <section class="hero">
-            <img src="rlaopelogo.png" alt="rlaope" class="hero-logo">
-            <h1>Hope Kim <span class="handle">@rlaope</span></h1>
-            <p class="role">Software Engineer</p>
+        <nav style="padding: 24px 0;">
+            <a href="index.html" class="nav-link" style="font-size: 14px; color: var(--text-dim); text-decoration: none;">&larr; Back</a>
+        </nav>
+
+        <section style="margin-bottom: 60px;">
+            <h1 class="honest-title"><a href="https://honestai.tech/" target="_blank">HonestAI</a></h1>
+            <p class="honest-subtitle">Vertical AI 금융 기업 HonestAI Software Engineer(Product, Server/Infra) 담당. 2024. DEC ~ 2026. MAR</p>
+            <p class="honest-desc">해당 페이지는 <a href="https://honestai.tech/" target="_blank">HonestAI</a>에 근무하면서 마주했던 문제들과 고민, 해결방법 및 결과등을 상세하게 서술한 문서입니다.</p>
         </section>
 
-        <section class="qna-intro">
-            <nav class="about-nav">
-                <a href="https://github.com/rlaope/estudy" target="_blank" class="nav-link">Blog</a>
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="qna.html" class="nav-link">Q&A</a>
-                <a href="design.html" class="nav-link">Design</a>
-                <div class="lang-switch">
-                    <button id="btn-en" class="lang-btn active">EN</button>
-                    <button id="btn-kr" class="lang-btn">KR</button>
-                </div>
-                <button id="btn-effect" class="effect-btn" title="Toggle particle effect">FX</button>
-            </nav>
-            <h2><a href="https://honestai.tech/" target="_blank" style="color: inherit; text-decoration: none;">HonestAI</a></h2>
-            <p class="qna-date" data-en="Vertical AI fintech company HonestAI Software Engineer(Product, Server/Infra). 2024. DEC ~ 2026. MAR" data-kr="Vertical AI 금융 기업 HonestAI Software Engineer(Product, Server/Infra) 담당. 2024. DEC ~ 2026. MAR">Vertical AI 금융 기업 HonestAI Software Engineer(Product, Server/Infra) 담당. 2024. DEC ~ 2026. MAR</p>
-            <p class="qna-introduce" data-en="This document details the problems I encountered while working at <a href='https://honestai.tech/' target='_blank'>HonestAI</a>, the considerations behind each decision, the solutions applied, and the results achieved."
-               data-kr="해당 페이지는 <a href='https://honestai.tech/' target='_blank'>HonestAI</a>에 근무하면서 마주했던 문제들과 고민, 해결방법 및 결과등을 상세하게 서술한 문서입니다.">
-               해당 페이지는 <a href="https://honestai.tech/" target="_blank">HonestAI</a>에 근무하면서 마주했던 문제들과 고민, 해결방법 및 결과등을 상세하게 서술한 문서입니다.
-            </p>
-        </section>
-
-        <section class="qna-list">
-            <div class="qna-item">
-                <p class="question">CB사(신용평점 전문) 연동 Proxy(Netty) 서버 성능 개선기</p>
-                <p class="answer" style="margin-bottom: 16px;">성능개선에 앞서 이 차트는 저희 어니스트펀드 BaaS 모델의 연계대출 ~ 투자 까지 시스템의 구조도입니다. 이 차트를 참고하시면 이해가 더욱 더 쉬워질 수 있습니다.</p>
+        <section class="article">
+            <h2 class="article-title">CB사(신용평점 전문) 연동 Proxy(Netty) 서버 성능 개선기</h2>
+            <p class="article-body" style="margin-bottom: 16px;">성능개선에 앞서 이 차트는 저희 어니스트펀드 BaaS 모델의 연계대출 ~ 투자 까지 시스템의 구조도입니다. 이 차트를 참고하시면 이해가 더욱 더 쉬워질 수 있습니다.</p>
                 <details class="chart-toggle" open>
                     <summary>Architecture Diagram</summary>
                     <div class="mermaid-wrapper">
@@ -145,8 +201,7 @@ graph TD
                         </pre>
                     </div>
                 </details>
-                <p class="answer">본문 준비중입니다.</p>
-            </div>
+            <p class="article-body">본문 준비중입니다.</p>
         </section>
 
         <section class="contact">
@@ -263,43 +318,11 @@ graph TD
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            const btnEn = document.getElementById('btn-en');
-            const btnKr = document.getElementById('btn-kr');
-            const btnEffect = document.getElementById('btn-effect');
-
-            // Language switching
-            function setLanguage(lang) {
-                btnEn.classList.toggle('active', lang === 'en');
-                btnKr.classList.toggle('active', lang === 'kr');
-
-                document.querySelectorAll('[data-en]').forEach(el => {
-                    el.innerHTML = el.getAttribute(`data-${lang}`);
-                });
-
-                document.documentElement.lang = lang === 'kr' ? 'ko' : 'en';
-                localStorage.setItem('preferred-lang', lang);
-            }
-
-            btnEn.addEventListener('click', () => setLanguage('en'));
-            btnKr.addEventListener('click', () => setLanguage('kr'));
-
-            const savedLang = localStorage.getItem('preferred-lang');
-            if (savedLang) {
-                setLanguage(savedLang);
-            }
-
             // Effect toggle
             const savedPref = localStorage.getItem('particles-enabled');
             if (savedPref !== null) {
                 particlesEnabled = savedPref === 'true';
             }
-            btnEffect.classList.toggle('active', particlesEnabled);
-
-            btnEffect.addEventListener('click', () => {
-                particlesEnabled = !particlesEnabled;
-                btnEffect.classList.toggle('active', particlesEnabled);
-                localStorage.setItem('particles-enabled', particlesEnabled);
-            });
 
             // Initialize floating particles
             initFloatingParticles();
