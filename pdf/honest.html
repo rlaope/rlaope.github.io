@@ -8,81 +8,60 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root { --bg: #000; --text: #e8e8e8; --text-dim: #666; --accent: #888; }
+        @page { size: A4; margin: 0; }
         body {
             font-family: 'JetBrains Mono', monospace;
             background: var(--bg); color: var(--text);
-            line-height: 1.9; font-size: 15px;
+            line-height: 1.7; font-size: 11px;
+            width: 210mm; margin: 0 auto;
         }
-        main { max-width: 100%; padding: 40px 96px 80px; margin: 0; }
-        .title { font-size: 48px; font-weight: 700; color: var(--text); letter-spacing: -1px; margin-bottom: 16px; }
-        .subtitle { color: var(--text-dim); font-size: 14px; margin-bottom: 12px; }
-        .desc { color: #999; font-size: 15px; line-height: 1.9; }
+        main { padding: 32px 36px 24px; }
+        .web-banner { text-align: center; padding: 10px; margin-bottom: 8px; }
+        .web-banner p { color: #555; font-size: 9px; }
+        .web-banner a { color: #43a047; text-decoration: none; border-bottom: 1px solid #43a047; padding-bottom: 1px; }
+        .title { font-size: 28px; font-weight: 700; color: var(--text); letter-spacing: -1px; margin-bottom: 8px; }
+        .subtitle { color: var(--text-dim); font-size: 11px; margin-bottom: 8px; }
+        .desc { color: #999; font-size: 11px; line-height: 1.7; }
         .desc a { color: #bbb; text-decoration: none; }
-        section { margin-bottom: 60px; }
-        section h2 { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 28px; }
+        section { margin-bottom: 20px; }
+        section h2 { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
         .resume-section {
-            margin-bottom: 48px; border-left: 3px solid #43a047;
-            background: #0a0a0a; border-radius: 0 6px 6px 0; padding: 24px;
+            margin-bottom: 20px; border-left: 3px solid #43a047;
+            background: #0a0a0a; border-radius: 0 6px 6px 0; padding: 16px 20px;
         }
         .resume-section h3 {
-            font-size: 18px; font-weight: 700; color: var(--text);
-            letter-spacing: 1px; margin-bottom: 20px;
+            font-size: 14px; font-weight: 700; color: var(--text);
+            letter-spacing: 1px; margin-bottom: 12px;
         }
         .resume-category {
-            font-size: 14px; font-weight: 700; color: #43a047;
+            font-size: 11px; font-weight: 700; color: #43a047;
             text-transform: uppercase; letter-spacing: 2px;
-            margin-top: 24px; margin-bottom: 12px;
+            margin-top: 14px; margin-bottom: 8px;
         }
         .resume-category:first-of-type { margin-top: 0; }
         .resume-list {
-            color: #aaa; font-size: 14px; line-height: 2;
-            margin: 0 0 12px 20px;
+            color: #aaa; font-size: 10px; line-height: 1.8;
+            margin: 0 0 8px 16px;
         }
-        .resume-list li { margin-bottom: 6px; }
+        .resume-list li { margin-bottom: 3px; }
         .resume-list strong { color: var(--text); }
-        .article { margin-bottom: 80px; }
-        .article-title {
-            font-size: 24px; font-weight: 700; color: var(--text);
-            margin-bottom: 20px; line-height: 1.5;
-        }
-        .article-body { color: #bbb; font-size: 15px; line-height: 2; }
-        .article-subtitle {
-            font-size: 19px; font-weight: 700; color: var(--text);
-            margin-top: 48px; margin-bottom: 16px; padding-bottom: 8px;
-            border-bottom: 1px solid #222;
-        }
-        .article-list { color: #bbb; font-size: 15px; line-height: 2; margin: 12px 0 20px 24px; }
-        .article-list li { margin-bottom: 6px; }
-        .highlight-list {
-            list-style: none; margin-left: 0; padding: 16px 20px;
-            background: #0a0a0a; border: 1px solid #333; border-radius: 4px;
-        }
-        .highlight-list li::before { content: '+ '; color: #43a047; font-weight: 700; }
-        .summary-box {
-            margin: 0 0 40px; padding: 24px; background: #0a0a0a;
-            border: 1px solid #333; border-radius: 6px;
-        }
-        .summary-box h4 { font-size: 14px; color: var(--text); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
-        .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .summary-col h5 { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
-        .summary-col ul { list-style: none; padding: 0; margin: 0; color: #bbb; font-size: 13px; line-height: 1.9; }
-        .summary-col.to-be ul li::before { content: '> '; color: #43a047; font-weight: 700; }
-        .summary-col.as-is ul li::before { content: '> '; color: #e53935; font-weight: 700; }
-        .article-table { width: 100%; border-collapse: collapse; font-size: 13px; color: #ccc; margin: 16px 0 24px; }
-        .article-table th { background: #111; padding: 10px 16px; text-align: left; border-bottom: 1px solid #333; color: var(--text); font-weight: 700; }
-        .article-table td { padding: 10px 16px; border-bottom: 1px solid #1a1a1a; }
-        .contact p { margin-bottom: 12px; font-size: 15px; }
-        .contact a { color: var(--text); text-decoration: none; }
-        footer { text-align: center; padding: 40px 32px; color: var(--text-dim); font-size: 12px; }
+        .contact-row { display: flex; gap: 24px; }
+        .contact-row p { font-size: 11px; }
+        .contact-row a { color: var(--text); text-decoration: none; }
+        footer { text-align: center; padding: 16px; color: var(--text-dim); font-size: 9px; }
         @media print {
             body { background: #000; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            .article, .resume-section { break-inside: avoid; }
+            .resume-section { break-inside: avoid; }
         }
     </style>
 </head>
 <body>
+    <div class="web-banner">
+        <p>웹에서 보면 더 편합니다 → <a href="https://rlaope.github.io/honest.html">rlaope.github.io/honest.html</a></p>
+    </div>
     <main>
-        <section style="margin-bottom: 60px;">
+        <section style="margin-bottom: 20px;">
+            <img src="../rlaopelogo.png" alt="rlaope" style="width: 40px; height: 40px; margin-bottom: 12px;">
             <h1 class="title">HonestAI</h1>
             <p class="subtitle">Software Engineer - develop product, server/infra engineering 2024. Dec ~ 2026. Mar</p>
             <p class="desc">HonestAI에 근무하면서 마주했던 문제들과 고민, 해결방법 및 결과등을 상세하게 서술한 문서입니다.
@@ -124,13 +103,15 @@
             </ul>
         </div>
 
-        <p class="desc" style="margin-top: 32px;">자세한 서술을 보고 싶다면 → <a href="https://rlaope.github.io/honest.html" style="color: #43a047; border-bottom: 1px solid #43a047; padding-bottom: 1px;">rlaope.github.io/honest.html</a></p>
+        <p class="desc" style="margin-top: 16px;">자세한 서술을 보고 싶다면 → <a href="https://rlaope.github.io/honest.html" style="color: #43a047; border-bottom: 1px solid #43a047; padding-bottom: 1px;">rlaope.github.io/honest.html</a></p>
 
-        <section class="contact" style="margin-top: 60px;">
+        <section style="margin-top: 24px;">
             <h2>Contact</h2>
-            <p><a href="mailto:piyrw9754@gmail.com">piyrw9754@gmail.com</a></p>
-            <p><a href="https://github.com/rlaope">github.com/rlaope</a></p>
-            <p><a href="https://www.linkedin.com/in/esperer/">linkedin.com/in/esperer</a></p>
+            <div class="contact-row">
+                <p><a href="mailto:piyrw9754@gmail.com">piyrw9754@gmail.com</a></p>
+                <p><a href="https://github.com/rlaope">github.com/rlaope</a></p>
+                <p><a href="https://www.linkedin.com/in/esperer/">linkedin.com/in/esperer</a></p>
+            </div>
         </section>
     </main>
     <footer><p>Last updated 2026. 3. 11</p></footer>

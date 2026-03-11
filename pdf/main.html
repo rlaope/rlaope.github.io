@@ -8,58 +8,55 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root { --bg: #000; --text: #e8e8e8; --text-dim: #666; --accent: #888; }
+        @page { size: A4; margin: 0; }
         body {
             font-family: 'JetBrains Mono', monospace;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.9;
-            font-size: 15px;
+            background: var(--bg); color: var(--text);
+            line-height: 1.6; font-size: 11px;
+            width: 210mm; margin: 0 auto;
         }
-        main {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 60px 32px 80px;
-        }
-        .hero {
-            margin-bottom: 80px;
-            text-align: center;
-        }
-        .hero h1 { font-size: 36px; font-weight: 700; margin-bottom: 12px; }
-        .handle { color: var(--text-dim); font-weight: 400; font-size: 20px; }
-        .role { color: var(--accent); font-size: 16px; }
-        section { margin-bottom: 60px; }
+        main { padding: 32px 36px 32px; }
+        .hero { margin-bottom: 24px; text-align: center; }
+        .hero img { width: 48px; height: 48px; margin-bottom: 12px; }
+        .hero h1 { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+        .handle { color: var(--text-dim); font-weight: 400; font-size: 14px; }
+        .role { color: var(--accent); font-size: 12px; }
+        section { margin-bottom: 20px; }
         section h2 {
-            font-size: 12px; color: var(--text-dim);
-            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 28px;
+            font-size: 10px; color: var(--text-dim);
+            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px;
+            border-bottom: 1px solid #222; padding-bottom: 6px;
         }
-        .about p { margin-bottom: 20px; color: #bbb; font-size: 15px; }
-        .item { margin-bottom: 28px; }
+        .about p { margin-bottom: 8px; color: #bbb; font-size: 11px; line-height: 1.6; }
+        .item { margin-bottom: 12px; }
         .year {
-            display: block; color: #e8e8e8; font-size: 16px;
-            font-weight: 700; margin-bottom: 10px; letter-spacing: 1px;
+            display: block; color: #e8e8e8; font-size: 12px;
+            font-weight: 700; margin-bottom: 4px; letter-spacing: 0.5px;
         }
-        .year a { color: #e8e8e8; text-decoration: none; border-bottom: 1px solid #444; padding-bottom: 2px; }
-        .item p { color: #999; font-size: 14px; line-height: 1.9; }
+        .year a { color: #e8e8e8; text-decoration: none; border-bottom: 1px solid #444; padding-bottom: 1px; }
+        .item p { color: #999; font-size: 10px; line-height: 1.6; }
         .projects-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;
         }
-        .project {
-            padding: 18px; border: 1px solid #222;
-        }
-        .project h3 { font-size: 15px; margin-bottom: 10px; }
+        .project { padding: 12px; border: 1px solid #222; }
+        .project h3 { font-size: 11px; margin-bottom: 6px; }
         .project h3 a { color: var(--text); text-decoration: none; }
-        .project p { color: #888; font-size: 12px; line-height: 1.7; }
-        .tags { display: flex; flex-wrap: wrap; gap: 10px; }
+        .project p { color: #888; font-size: 9px; line-height: 1.5; }
+        .tags { display: flex; flex-wrap: wrap; gap: 6px; }
         .tags span {
-            padding: 10px 16px; border: 1px solid #333;
-            font-size: 13px; color: #aaa;
+            padding: 4px 10px; border: 1px solid #333;
+            font-size: 9px; color: #aaa;
         }
-        .contact p { margin-bottom: 12px; font-size: 15px; }
-        .contact a { color: var(--text); text-decoration: none; }
-        footer {
-            text-align: center; padding: 40px 32px;
-            color: var(--text-dim); font-size: 12px;
-        }
+        .contact-row { display: flex; gap: 24px; }
+        .contact-row p { font-size: 11px; }
+        .contact-row a { color: var(--text); text-decoration: none; }
+        .pres-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+        .pres-item .pres-title { font-size: 12px; font-weight: 700; color: #e8e8e8; margin-bottom: 4px; }
+        .pres-item p { color: #999; font-size: 9px; line-height: 1.5; }
+        .web-banner { text-align: center; padding: 10px; margin-bottom: 8px; }
+        .web-banner p { color: #555; font-size: 9px; }
+        .web-banner a { color: #43a047; text-decoration: none; border-bottom: 1px solid #43a047; padding-bottom: 1px; }
+        footer { text-align: center; padding: 16px; color: var(--text-dim); font-size: 9px; }
         @media print {
             body { background: #000; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .project { break-inside: avoid; }
@@ -67,41 +64,44 @@
     </style>
 </head>
 <body>
+    <div class="web-banner">
+        <p>웹에서 보면 더 편합니다 → <a href="https://rlaope.github.io">rlaope.github.io</a></p>
+    </div>
     <main>
         <section class="hero">
-            <img src="../rlaopelogo.png" alt="rlaope" style="width: 80px; height: 80px; margin-bottom: 28px;">
+            <img src="../rlaopelogo.png" alt="rlaope">
             <h1>Hope Kim <span class="handle">@rlaope</span></h1>
             <p class="role">Software Engineer</p>
         </section>
 
         <section class="about">
-            <p>In 2014, a kid who dreamed of being a scientist in a white lab coat discovered computers.</p>
-            <p>I don't believe in limits that haven't been mathematically proven. The harder the problem, the more exciting.<br>I love breaking through missions that seem impossible and overwhelming.</p>
-            <p>At 17, I took on a government-funded project—unfamiliar domains,<br>tight deadlines and resource constraints, everyone thought it was impossible.<br><br>Under pressure, I dove deeper into system development, grew alongside my teammates,<br>secured $33K investment, and built a new project room at Software Meister High School.</p>
-            <p>Turning black-box unknowns into clear systems is fun.<br>Limits are just the next thing to break.</p>
+            <p>In 2014, a kid who dreamed of being a scientist in a white lab coat discovered computers.
+            I don't believe in limits that haven't been mathematically proven. The harder the problem, the more exciting.</p>
+            <p>At 17, I took on a government-funded project—unfamiliar domains, tight deadlines and resource constraints, everyone thought it was impossible.
+            Under pressure, I dove deeper into system development, grew alongside my teammates, secured $33K investment, and built a new project room at Software Meister High School.</p>
         </section>
 
         <section class="history">
             <h2>History</h2>
             <div class="item">
-                <span class="year">2014. Junior (real jr. age lol)</span>
-                <p>First software development in elementary school. Built 'FLY', an RPG game about a chicken seeking legendary wings to fly,<br>competing against other human adventurers who also want to fly.</p>
+                <span class="year">2014. Junior</span>
+                <p>First software development in elementary school. Built 'FLY', an RPG game.</p>
             </div>
             <div class="item">
-                <span class="year"><a href="https://www.hellogsm.kr/" target="_blank">Software Meister High School (CSE). 2022. ~ 2024.</a></span>
-                <p>Researched and validated server systems, JVM internals, and open-source systems.<br>(Still aspire to be a researcher in a white lab coat.)</p>
+                <span class="year"><a href="https://www.hellogsm.kr/">Software Meister High School (CSE). 2022 ~ 2024</a></span>
+                <p>Researched and validated server systems, JVM internals, and open-source systems.</p>
             </div>
             <div class="item">
-                <span class="year"><a href="https://ampersand-official.notion.site/Backend-Docs-9cdec47dd9db439eb76241bfbfae58f3?pvs=74" target="_blank">10+ Projects.</a></span>
-                <p>School OAuth system, nationwide dormitory management system, 10+ projects developed/operated, early-stage project development, hackathon AWS corporate award, SW-Wave booth operation.</p>
+                <span class="year"><a href="https://ampersand-official.notion.site/Backend-Docs-9cdec47dd9db439eb76241bfbfae58f3?pvs=74">10+ Projects.</a></span>
+                <p>School OAuth, nationwide dormitory management, hackathon AWS award, SW-Wave booth.</p>
             </div>
             <div class="item">
-                <span class="year"><a href="government.html">Government Project. 2023. 09 ~ 2024. 11</a></span>
-                <p>Built a vocational education platform for specialized high schools. Secured 45M KRW investment, funded a new project room at school.</p>
+                <span class="year"><a href="https://rlaope.github.io/government.html">Government Project. 2023. 09 ~ 2024. 11</a></span>
+                <p>Vocational education platform for specialized high schools. Secured 45M KRW investment.</p>
             </div>
             <div class="item">
-                <span class="year"><a href="honest.html">HonestAI. 2024. Dec ~ Now</a></span>
-                <p>Server Developer at a Vertical AI fintech company. Developed B2B savings bank BaaS model, jvm/k8s observability, tcp performance tuning, Netty system bottleneck analysis/improvement, and load testing with locust/k6.</p>
+                <span class="year"><a href="https://rlaope.github.io/honest.html">HonestAI. 2024. Dec ~ Now</a></span>
+                <p>Server Developer at Vertical AI fintech. B2B BaaS, JVM/K8s observability, TCP tuning, Netty optimization, load testing.</p>
             </div>
         </section>
 
@@ -109,80 +109,78 @@
             <h2>Open Source</h2>
             <div class="projects-grid">
                 <div class="project">
-                    <h3><a href="https://github.com/rlaope/Argus" target="_blank">Argus</a></h3>
-                    <p>JFR-streaming profiler for JVM 21+. Virtual Threads monitoring, lock-free ring buffer, WebSocket live dashboard.</p>
+                    <h3><a href="https://github.com/rlaope/Argus">Argus</a></h3>
+                    <p>JFR-streaming profiler for JVM 21+. Virtual Threads monitoring, lock-free ring buffer, WebSocket dashboard.</p>
                 </div>
                 <div class="project">
-                    <h3><a href="https://github.com/rlaope/kar98k" target="_blank">kar98k</a></h3>
-                    <p>Go-based 24/7 traffic simulator for chaos engineering. HTTP/1.1, HTTP/2, gRPC. Poisson spike patterns, TUI, P50/P95/P99 reports.</p>
+                    <h3><a href="https://github.com/rlaope/kar98k">kar98k</a></h3>
+                    <p>Go traffic simulator for chaos engineering. HTTP/1.1, HTTP/2, gRPC. Poisson spikes, TUI, P50/P95/P99.</p>
                 </div>
                 <div class="project">
-                    <h3><a href="https://github.com/rlaope/claude-code-savant" target="_blank">claude-code-savant</a></h3>
-                    <p>Claude Code plugin with 5 personas, 16 dev agents, 14 biz agents. Web chat UI, no API keys needed.</p>
+                    <h3><a href="https://github.com/rlaope/claude-code-savant">claude-code-savant</a></h3>
+                    <p>Claude Code plugin. 5 personas, 16 dev agents, 14 biz agents. Web chat UI.</p>
                 </div>
                 <div class="project">
-                    <h3><a href="https://github.com/rlaope/airML" target="_blank">airML</a></h3>
-                    <p>Lightweight ML runtime for ONNX without Python. ~50MB, 0.01-0.05s cold start. Apple Silicon native acceleration.</p>
+                    <h3><a href="https://github.com/rlaope/airML">airML</a></h3>
+                    <p>Lightweight ML runtime for ONNX. ~50MB, 0.01s cold start. Apple Silicon native.</p>
                 </div>
                 <div class="project">
-                    <h3><a href="https://github.com/rlaope/mascot" target="_blank">Mascot</a></h3>
-                    <p>IntelliJ IDEA plugin for customizable IDE mascot. Published on JetBrains Marketplace. Settings persist across restarts.</p>
+                    <h3><a href="https://github.com/rlaope/mascot">Mascot</a></h3>
+                    <p>IntelliJ IDEA mascot plugin. Published on JetBrains Marketplace.</p>
                 </div>
                 <div class="project">
-                    <h3><a href="https://github.com/rlaope/cache-labs" target="_blank">cache-labs</a></h3>
-                    <p>Cache system design study. Local + Redis dual-layer, consistency strategies, Circuit Breaker, high-traffic patterns.</p>
+                    <h3><a href="https://github.com/rlaope/cache-labs">cache-labs</a></h3>
+                    <p>Cache design study. Local + Redis dual-layer, Circuit Breaker, high-traffic.</p>
                 </div>
                 <div class="project">
-                    <h3><a href="https://github.com/enzin-arts/g1-log-capture" target="_blank">g1-log-capture</a></h3>
-                    <p>Rule-based G1GC log analyzer. STW pause detection, performance pattern flags, actionable tuning suggestions.</p>
+                    <h3><a href="https://github.com/enzin-arts/g1-log-capture">g1-log-capture</a></h3>
+                    <p>G1GC log analyzer. STW pause detection, tuning suggestions.</p>
                 </div>
                 <div class="project">
-                    <h3><a href="https://github.com/rlaope/tcp-css-loadtest" target="_blank">tcp-css-loadtest</a></h3>
-                    <p>TCP mock server for financial load testing. Nice protocol spec, EUC-KR encoding, 100 concurrent sessions.</p>
+                    <h3><a href="https://github.com/rlaope/tcp-css-loadtest">tcp-css-loadtest</a></h3>
+                    <p>TCP mock server for financial load testing. Nice protocol, EUC-KR.</p>
                 </div>
                 <div class="project">
-                    <h3><a href="https://github.com/art8engine/TatVTON" target="_blank">TatVTON</a></h3>
-                    <p>Diffusion-based tattoo fitting pipeline. SAM 2 + SDXL Inpainting + ControlNet + IP-Adapter. 12GB VRAM.</p>
+                    <h3><a href="https://github.com/art8engine/TatVTON">TatVTON</a></h3>
+                    <p>Diffusion tattoo fitting. SAM 2 + SDXL + ControlNet + IP-Adapter. 12GB VRAM.</p>
                 </div>
             </div>
         </section>
 
         <section>
             <h2>Presentation</h2>
-            <div class="item">
-                <span class="year">KotlinConf'24 Global. 2024. 06. 13</span>
-                <p>Presented at JetBrains KotlinConf Global in South Korea.<br>Topic: Project Valhalla, JVM Type System, and Value Class Benchmark.</p>
-            </div>
-            <div class="item">
-                <span class="year">IT Union Conference. 2025</span>
-                <p>Speaker at Meister Developer IT Union Conference. Topic: Carpe Diem - Software development skills and individuality, development principles, and developer growth.</p>
-            </div>
-            <div class="item">
-                <span class="year">GSM DevConf. 2023</span>
-                <p>Speaker at GSM(Software Young Meister) DevConf. Topic: Growth of Developer - Developer's growth curve, direction, and the mindset to pursue.</p>
+            <div class="pres-grid">
+                <div class="pres-item">
+                    <div class="pres-title">KotlinConf'24 Global. 2024</div>
+                    <p>JetBrains KotlinConf Global in South Korea. Project Valhalla, JVM Type System, Value Class Benchmark.</p>
+                </div>
+                <div class="pres-item">
+                    <div class="pres-title">IT Union Conference. 2025</div>
+                    <p>Meister Developer IT Union. Carpe Diem - Software development skills and individuality.</p>
+                </div>
+                <div class="pres-item">
+                    <div class="pres-title">GSM DevConf. 2023</div>
+                    <p>Growth of Developer - Developer's growth curve, direction, and the mindset to pursue.</p>
+                </div>
             </div>
         </section>
 
         <section>
             <h2>Interested</h2>
             <div class="tags">
-                <span>JVM</span>
-                <span>GC</span>
-                <span>SRE</span>
-                <span>AI (ML/DL)</span>
-                <span>Cloud</span>
-                <span>Network</span>
-                <span>OS</span>
-                <span>Art</span>
+                <span>JVM</span><span>GC</span><span>SRE</span><span>AI (ML/DL)</span>
+                <span>Cloud</span><span>Network</span><span>OS</span><span>Art</span>
                 <span>The act of satisfying someone through engineering</span>
             </div>
         </section>
 
-        <section class="contact">
+        <section>
             <h2>Contact</h2>
-            <p><a href="mailto:piyrw9754@gmail.com">piyrw9754@gmail.com</a></p>
-            <p><a href="https://github.com/rlaope">github.com/rlaope</a></p>
-            <p><a href="https://www.linkedin.com/in/esperer/">linkedin.com/in/esperer</a></p>
+            <div class="contact-row">
+                <p><a href="mailto:piyrw9754@gmail.com">piyrw9754@gmail.com</a></p>
+                <p><a href="https://github.com/rlaope">github.com/rlaope</a></p>
+                <p><a href="https://www.linkedin.com/in/esperer/">linkedin.com/in/esperer</a></p>
+            </div>
         </section>
     </main>
     <footer><p>Last updated 2026. 3. 11</p></footer>
