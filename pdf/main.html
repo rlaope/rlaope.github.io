@@ -40,12 +40,15 @@
         }
         .year a { color: #e8e8e8; text-decoration: none; border-bottom: 1px solid #444; padding-bottom: 2px; }
         .item p { color: #999; font-size: 14px; line-height: 1.9; }
-        .project {
-            margin-bottom: 24px; padding: 24px; border: 1px solid #222;
+        .projects-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
         }
-        .project h3 { font-size: 17px; margin-bottom: 14px; }
+        .project {
+            padding: 18px; border: 1px solid #222;
+        }
+        .project h3 { font-size: 15px; margin-bottom: 10px; }
         .project h3 a { color: var(--text); text-decoration: none; }
-        .project p { color: #888; font-size: 14px; line-height: 1.9; }
+        .project p { color: #888; font-size: 12px; line-height: 1.7; }
         .tags { display: flex; flex-wrap: wrap; gap: 10px; }
         .tags span {
             padding: 10px 16px; border: 1px solid #333;
@@ -66,6 +69,7 @@
 <body>
     <main>
         <section class="hero">
+            <img src="../rlaopelogo.png" alt="rlaope" style="width: 80px; height: 80px; margin-bottom: 28px;">
             <h1>Hope Kim <span class="handle">@rlaope</span></h1>
             <p class="role">Software Engineer</p>
         </section>
@@ -103,41 +107,39 @@
 
         <section class="projects">
             <h2>Open Source</h2>
-            <div class="project">
-                <h3><a href="https://github.com/rlaope/Argus" target="_blank">Argus</a></h3>
-                <p>A JFR-streaming profiler for JVM 21+ that monitors Virtual Threads (Project Loom) in real-time. Built with lock-free ring buffer architecture for low-overhead event collection. Features WebSocket-based live dashboard for thread lifecycle, GC events, memory allocation, and CPU profiling with automatic correlation analysis.</p>
-            </div>
-            <div class="project">
-                <h3><a href="https://github.com/rlaope/kar98k" target="_blank">kar98k</a></h3>
-                <p>A 24/7 high-intensity traffic simulator written in Go for chaos engineering. Supports HTTP/1.1, HTTP/2, and gRPC protocols with Poisson-distributed spike patterns and micro-fluctuations. Features interactive TUI for configuration, real-time monitoring dashboard, and detailed latency distribution reports (P50/P95/P99).</p>
-            </div>
-            <div class="project">
-                <h3><a href="https://github.com/rlaope/claude-code-savant" target="_blank">claude-code-savant</a></h3>
-                <p>A Claude Code plugin with 5 expert personas, 16 dev specialist agents, and 14 business domain agents that give AI responses unique character and domain expertise. Includes a web chat UI with local Claude Code integration — no API keys needed.</p>
-            </div>
-            <div class="project">
-                <h3><a href="https://github.com/rlaope/airML" target="_blank">airML</a></h3>
-                <p>A lightweight ML runtime that runs ONNX models without Python. Single ~50MB binary with 0.01-0.05s cold start (100x faster than Python). Native Apple Silicon acceleration via CoreML/Metal/Neural Engine. Supports image classification, text embeddings, and model benchmarking with zero dependencies.</p>
-            </div>
-            <div class="project">
-                <h3><a href="https://github.com/rlaope/mascot" target="_blank">Mascot</a></h3>
-                <p>A lightweight IntelliJ IDEA plugin that displays a customizable mascot in the IDE corner. Published on JetBrains Marketplace.</p>
-            </div>
-            <div class="project">
-                <h3><a href="https://github.com/rlaope/cache-labs" target="_blank">cache-labs</a></h3>
-                <p>A deep-dive study on cache system design with Local Cache + Redis dual-layer architecture. Covers cache consistency strategies, distributed cache design, Circuit Breaker for fault tolerance, monitoring/operations, and high-traffic cache system implementation.</p>
-            </div>
-            <div class="project">
-                <h3><a href="https://github.com/enzin-arts/g1-log-capture" target="_blank">g1-log-capture</a></h3>
-                <p>A rule-based G1GC log analyzer and tuning advisor. Detects STW pauses exceeding target MaxGCPauseMillis, flags performance-degrading patterns and produces actionable tuning suggestions with evidence.</p>
-            </div>
-            <div class="project">
-                <h3><a href="https://github.com/rlaope/tcp-css-loadtest" target="_blank">tcp-css-loadtest</a></h3>
-                <p>A TCP mock server for financial integration load testing. Implements Nice protocol specification with 10-byte length header and EUC-KR encoding.</p>
-            </div>
-            <div class="project">
-                <h3><a href="https://github.com/art8engine/TatVTON" target="_blank">TatVTON</a></h3>
-                <p>A diffusion-based tattoo fitting pipeline. 4-phase architecture: SAM 2 skin region segmentation, SDXL Inpainting + ControlNet, IP-Adapter for tattoo style transfer, and alpha-blended compositing. Sequential model load/unload strategy to fit within 12GB VRAM.</p>
+            <div class="projects-grid">
+                <div class="project">
+                    <h3><a href="https://github.com/rlaope/Argus" target="_blank">Argus</a></h3>
+                    <p>JFR-streaming profiler for JVM 21+. Virtual Threads monitoring, lock-free ring buffer, WebSocket live dashboard.</p>
+                </div>
+                <div class="project">
+                    <h3><a href="https://github.com/rlaope/kar98k" target="_blank">kar98k</a></h3>
+                    <p>Go-based 24/7 traffic simulator for chaos engineering. HTTP/1.1, HTTP/2, gRPC. Poisson spike patterns, TUI, P50/P95/P99 reports.</p>
+                </div>
+                <div class="project">
+                    <h3><a href="https://github.com/rlaope/claude-code-savant" target="_blank">claude-code-savant</a></h3>
+                    <p>Claude Code plugin with 5 personas, 16 dev agents, 14 biz agents. Web chat UI, no API keys needed.</p>
+                </div>
+                <div class="project">
+                    <h3><a href="https://github.com/rlaope/airML" target="_blank">airML</a></h3>
+                    <p>Lightweight ML runtime for ONNX without Python. ~50MB, 0.01-0.05s cold start. Apple Silicon native acceleration.</p>
+                </div>
+                <div class="project">
+                    <h3><a href="https://github.com/rlaope/cache-labs" target="_blank">cache-labs</a></h3>
+                    <p>Cache system design study. Local + Redis dual-layer, consistency strategies, Circuit Breaker, high-traffic patterns.</p>
+                </div>
+                <div class="project">
+                    <h3><a href="https://github.com/enzin-arts/g1-log-capture" target="_blank">g1-log-capture</a></h3>
+                    <p>Rule-based G1GC log analyzer. STW pause detection, performance pattern flags, actionable tuning suggestions.</p>
+                </div>
+                <div class="project">
+                    <h3><a href="https://github.com/rlaope/tcp-css-loadtest" target="_blank">tcp-css-loadtest</a></h3>
+                    <p>TCP mock server for financial load testing. Nice protocol spec, EUC-KR encoding, 100 concurrent sessions.</p>
+                </div>
+                <div class="project">
+                    <h3><a href="https://github.com/art8engine/TatVTON" target="_blank">TatVTON</a></h3>
+                    <p>Diffusion-based tattoo fitting pipeline. SAM 2 + SDXL Inpainting + ControlNet + IP-Adapter. 12GB VRAM.</p>
+                </div>
             </div>
         </section>
 
