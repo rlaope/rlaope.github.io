@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HonestAI - Hope Kim</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --bg: #000; --text: #e8e8e8; --text-dim: #666; --accent: #888; }
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg); color: var(--text);
+            line-height: 1.9; font-size: 15px;
+        }
+        main { max-width: 100%; padding: 40px 96px 80px; margin: 0; }
+        .title { font-size: 48px; font-weight: 700; color: var(--text); letter-spacing: -1px; margin-bottom: 16px; }
+        .subtitle { color: var(--text-dim); font-size: 14px; margin-bottom: 12px; }
+        .desc { color: #999; font-size: 15px; line-height: 1.9; }
+        .desc a { color: #bbb; text-decoration: none; }
+        section { margin-bottom: 60px; }
+        section h2 { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 28px; }
+        .resume-section {
+            margin-bottom: 48px; border-left: 3px solid #43a047;
+            background: #0a0a0a; border-radius: 0 6px 6px 0; padding: 24px;
+        }
+        .resume-section h3 {
+            font-size: 18px; font-weight: 700; color: var(--text);
+            letter-spacing: 1px; margin-bottom: 20px;
+        }
+        .resume-category {
+            font-size: 14px; font-weight: 700; color: #43a047;
+            text-transform: uppercase; letter-spacing: 2px;
+            margin-top: 24px; margin-bottom: 12px;
+        }
+        .resume-category:first-of-type { margin-top: 0; }
+        .resume-list {
+            color: #aaa; font-size: 14px; line-height: 2;
+            margin: 0 0 12px 20px;
+        }
+        .resume-list li { margin-bottom: 6px; }
+        .resume-list strong { color: var(--text); }
+        .article { margin-bottom: 80px; }
+        .article-title {
+            font-size: 24px; font-weight: 700; color: var(--text);
+            margin-bottom: 20px; line-height: 1.5;
+        }
+        .article-body { color: #bbb; font-size: 15px; line-height: 2; }
+        .article-subtitle {
+            font-size: 19px; font-weight: 700; color: var(--text);
+            margin-top: 48px; margin-bottom: 16px; padding-bottom: 8px;
+            border-bottom: 1px solid #222;
+        }
+        .article-list { color: #bbb; font-size: 15px; line-height: 2; margin: 12px 0 20px 24px; }
+        .article-list li { margin-bottom: 6px; }
+        .highlight-list {
+            list-style: none; margin-left: 0; padding: 16px 20px;
+            background: #0a0a0a; border: 1px solid #333; border-radius: 4px;
+        }
+        .highlight-list li::before { content: '+ '; color: #43a047; font-weight: 700; }
+        .summary-box {
+            margin: 0 0 40px; padding: 24px; background: #0a0a0a;
+            border: 1px solid #333; border-radius: 6px;
+        }
+        .summary-box h4 { font-size: 14px; color: var(--text); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
+        .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .summary-col h5 { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .summary-col ul { list-style: none; padding: 0; margin: 0; color: #bbb; font-size: 13px; line-height: 1.9; }
+        .summary-col.to-be ul li::before { content: '> '; color: #43a047; font-weight: 700; }
+        .summary-col.as-is ul li::before { content: '> '; color: #e53935; font-weight: 700; }
+        .article-table { width: 100%; border-collapse: collapse; font-size: 13px; color: #ccc; margin: 16px 0 24px; }
+        .article-table th { background: #111; padding: 10px 16px; text-align: left; border-bottom: 1px solid #333; color: var(--text); font-weight: 700; }
+        .article-table td { padding: 10px 16px; border-bottom: 1px solid #1a1a1a; }
+        .contact p { margin-bottom: 12px; font-size: 15px; }
+        .contact a { color: var(--text); text-decoration: none; }
+        footer { text-align: center; padding: 40px 32px; color: var(--text-dim); font-size: 12px; }
+        @media print {
+            body { background: #000; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .article, .resume-section { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section style="margin-bottom: 60px;">
+            <h1 class="title">HonestAI</h1>
+            <p class="subtitle">Software Engineer - develop product, server/infra engineering 2024. Dec ~ 2026. Mar</p>
+            <p class="desc">HonestAI에 근무하면서 마주했던 문제들과 고민, 해결방법 및 결과등을 상세하게 서술한 문서입니다.
+                <br>맡은 업무와 경험들은 아래 Resume에, 자세한 내용은 세 가지로 추려 서술했습니다.</p>
+        </section>
+
+        <div class="resume-section">
+            <h3>Resume</h3>
+            <h4 class="resume-category">Server</h4>
+            <ul class="resume-list">
+                <li>저축은행 온라인 연계투자 시스템 개발/운영 담당</li>
+                <li>저축은행 중앙회, NICE/KCB, 신한은행, 금융결제원, Toss, KakaoPay등 외부 API 시스템 연동</li>
+                <li>대출 시스템 트래픽 <strong>1,000건 → 50만건</strong> 성능 테스트 및 인프라 증설 지원, Netty 서버 병목 해결 (jstack, netty)</li>
+                <li>연계투자 연동 시스템 장애 알림 시스템 구축으로 <strong>장애 감지율 향상 (40% → 90%)</strong></li>
+                <li>연계투자 투자질의 → 확정 → 입금 → 집행 사이클 시스템 장애 대응 프로세스 구축 <strong>(Read-Time 15m → 30s)</strong></li>
+                <li>NICE 신용 평가 배치 조회 시스템 데이터 <strong>100MB → 1GB</strong> 확장에 따른 회선 대역폭 포화 대응 데이터 전송 트래픽 제어</li>
+                <li>전문 통신 서버 TCP 튜닝, 레이턴시 개선 (커넥션 재활용 socket pool, nagle 알고리즘 비활성화등 000ms단위 개선)</li>
+            </ul>
+
+            <h4 class="resume-category">Infra</h4>
+            <ul class="resume-list">
+                <li>JVM, K8s 시스템 Prometheus, Grafana, Micrometer 기반 Monitoring & Observability 구축</li>
+                <li>Loki, Grafana 대시보드 기반 로그 Observability 구축</li>
+                <li>Athena 로그 테이블 Partition Projection 기반 재설계로 최적화 쿼리 시간 개선 <strong>(로그 조회 4~5m → 1~4s 단축)</strong></li>
+                <li>레거시 시스템 JVM 기반 Observability 구축(jmx-prometheus) 및 튜닝 (jcmd, jstack, jmap etc..)</li>
+                <li>결산 배치 <strong>Full GC Hang</strong> 상황 감지 이후 메모리 조정 및 결산 배치 Hang 감지 알림(alert manager) 시스템 개발</li>
+                <li>플랫폼 서버 G1GC 전환 <strong>(P99 2~3s → 0.4s 단축)</strong> 및 OpenJDK 8 최적화 검증, 비교 성능 테스트, 모니터링</li>
+                <li>Gradle 프로젝트 빌드 병렬/캐시 및 데몬 힙사이즈 조정, CI flow 개선으로 <strong>빌드타임 개선 (20m → 1~3m)</strong></li>
+                <li>Micrometer 기반 Domain Error 집계 개발 장애 빈도, 우선순위 산출에 기여함 (알림 Slack API 토큰 절약에도 기여)</li>
+                <li>코어뱅킹 Task DB lock timewait, deadlock 모니터링 및 시스템 개선</li>
+            </ul>
+
+            <h4 class="resume-category">Finance</h4>
+            <ul class="resume-list">
+                <li>어니스트펀드 코어뱅킹 시스템 채권과 저축은행 중앙회 연계투자 채권 원장을 동기화하는 작업을 지원함</li>
+                <li>정규 상환일 상환 관련 테스크 운영 관리, 특수 실현 및 기한이익상실 관련 채권들에 관한 스케쥴 관리 작업을 지원</li>
+                <li>신용정보원, NICE/KCB, 금융결제원 채권 상태 동기화 및 동시대출 등록 시스템 관리 및 검증 시스템 관리</li>
+                <li>대출 신청부터 기표까지 프로세스 시스템 관리 및 <strong>신용평가모형(R-Clips) 결과값 기반 자동 대출 시스템 개발</strong></li>
+            </ul>
+        </div>
+
+        <section class="article">
+            <h2 class="article-title">1. 전문통신서버(CB사 신용평점 제공기관 NICE/KCB 연동 시스템) Proxy 성능 개선기</h2>
+            <div class="summary-box">
+                <h4>Summary</h4>
+                <div class="summary-grid">
+                    <div class="summary-col as-is">
+                        <h5>As-Is</h5>
+                        <ul>
+                            <li>Event Loop 스레드에서 blocking call (socketRead0) 직접 호출</li>
+                            <li>String += 연산으로 요청당 임시 객체 14,000개 생성</li>
+                            <li>Young GC 초당 5~10회, Full GC 15,364회 발생</li>
+                            <li>Old Generation 사용률 91~94% 포화</li>
+                            <li>Short-lived Connection으로 TIME_WAIT 소켓 누적</li>
+                        </ul>
+                    </div>
+                    <div class="summary-col to-be">
+                        <h5>To-Be</h5>
+                        <ul>
+                            <li>Blocking call을 전용 스레드풀로 오프로딩, channelRead() + ByteBuf 구조로 전환</li>
+                            <li>StringBuilder 전환으로 요청당 임시 객체 1개</li>
+                            <li>Young GC 빈도 58% 감소, Full GC 100% 제거</li>
+                            <li>GC 오버헤드 96% 감소, Old Gen 압박 대폭 해소</li>
+                            <li>Persistent Connection 전환으로 TIME_WAIT 제거</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <ul class="article-list highlight-list">
+                <li>Young GC 빈도 58% 감소</li>
+                <li>Young GC 시간 72% 감소</li>
+                <li>Full GC 100% 제거</li>
+                <li>GC 오버헤드 96% 감소</li>
+            </ul>
+        </section>
+
+        <section class="article">
+            <h2 class="article-title">2. JVM Observability & Full GC Hang - Task Server Improve</h2>
+            <div class="summary-box">
+                <h4>Summary</h4>
+                <div class="summary-grid">
+                    <div class="summary-col as-is">
+                        <h5>As-Is</h5>
+                        <ul>
+                            <li>JVM Level Observability 부재 (jstat 수동 모니터링만 가능)</li>
+                            <li>Full GC Hang 감지 시스템 없음 (주말 8시간 무응답)</li>
+                            <li>MaxRAMPercentage 83.3%로 과다 설정</li>
+                            <li>데이터 전체를 메모리에 올려 처리하는 배치 구조</li>
+                        </ul>
+                    </div>
+                    <div class="summary-col to-be">
+                        <h5>To-Be</h5>
+                        <ul>
+                            <li>JMX Prometheus Exporter로 JVM 메트릭 수집</li>
+                            <li>AlertManager 기반 Full GC Hang 실시간 감지 및 알림</li>
+                            <li>MaxRAMPercentage 60%로 조정, 메모리 8GB → 16GB 증설</li>
+                            <li>Chunk 기반 데이터 처리로 배치 코드 개선</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <ul class="article-list highlight-list">
+                <li>JMX Prometheus Exporter로 JVM Observability 개선</li>
+                <li>AlertManager로 Full GC Hang 감지</li>
+                <li>Full GC Hang 걸린 테스크 코드 개선 및 Heap 튜닝으로 OOME 방지</li>
+            </ul>
+        </section>
+
+        <section class="article">
+            <h2 class="article-title">3. 핀테크 엔지니어링, B2B BaaS 모델 Zero to Production</h2>
+            <div class="summary-box">
+                <h4>Summary</h4>
+                <div class="summary-grid">
+                    <div class="summary-col as-is">
+                        <h5>As-Is</h5>
+                        <ul>
+                            <li>연계투자 플랫폼 미존재 (신규 서비스)</li>
+                            <li>금융 도메인 지식 부재 상태에서의 개발 시작</li>
+                            <li>B2B 외부 기관 연동 경험 없음</li>
+                            <li>B2C 제휴 채널 트래픽 대응 체계 없음</li>
+                        </ul>
+                    </div>
+                    <div class="summary-col to-be">
+                        <h5>To-Be</h5>
+                        <ul>
+                            <li>연계투자 플랫폼 설계 → 개발 → 출시 → 운영까지 전 과정 수행</li>
+                            <li>대출/투자/상품/결제/송금/상환/채권/결산 도메인 전반 이해 및 코드 설계</li>
+                            <li>저축은행 중앙회, 은행, CB사 등 B2B 연계 시스템 구축</li>
+                            <li>Toss/KakaoPay/Finda/Banksalad 등 B2C 트래픽 대응 체계 구축</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <ul class="article-list highlight-list">
+                <li>대출/투자/결제/송금/상환/채권/결산 등 금융 도메인 전반 이해</li>
+                <li>연계투자 플랫폼 Zero to Production 전 과정 경험</li>
+                <li>외부 연계 시스템 모킹서버 구축으로 테스트 검증 환경 확보</li>
+                <li>비즈니스 임팩트 기반 코드 분석 및 타협 기준 수립</li>
+                <li>도메인 이해 + 커뮤니케이션이 좋은 설계의 전제조건이라는 깨달음</li>
+            </ul>
+        </section>
+
+        <section class="contact">
+            <h2>Contact</h2>
+            <p><a href="mailto:piyrw9754@gmail.com">piyrw9754@gmail.com</a></p>
+            <p><a href="https://github.com/rlaope">github.com/rlaope</a></p>
+            <p><a href="https://www.linkedin.com/in/esperer/">linkedin.com/in/esperer</a></p>
+        </section>
+    </main>
+    <footer><p>Last updated 2026. 3. 11</p></footer>
+</body>
+</html>
