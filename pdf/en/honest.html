@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HonestAI - Hope Kim</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --bg: #000; --text: #e8e8e8; --text-dim: #666; --accent: #888; }
+        @page { size: A4; margin: 0; }
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg); color: var(--text);
+            line-height: 1.4; font-size: 9px;
+            width: 210mm; margin: 0 auto;
+        }
+        main { padding: 20px 30px 16px; }
+        .web-banner { text-align: center; padding: 6px; }
+        .web-banner p { color: #555; font-size: 8px; }
+        .web-banner a { color: #43a047; text-decoration: none; border-bottom: 1px solid #43a047; padding-bottom: 1px; }
+        .title { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -1px; margin-bottom: 6px; }
+        .subtitle { color: var(--text-dim); font-size: 9px; margin-bottom: 6px; }
+        .desc { color: #999; font-size: 9px; line-height: 1.5; }
+        .desc a { color: #bbb; text-decoration: none; }
+        section { margin-bottom: 10px; }
+        section h2 { font-size: 8px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px; }
+        .resume-section {
+            margin-bottom: 12px; border-left: 3px solid #43a047;
+            background: #0a0a0a; border-radius: 0 6px 6px 0; padding: 12px 16px;
+        }
+        .resume-section h3 {
+            font-size: 12px; font-weight: 700; color: var(--text);
+            letter-spacing: 1px; margin-bottom: 8px;
+        }
+        .resume-category {
+            font-size: 9px; font-weight: 700; color: #43a047;
+            text-transform: uppercase; letter-spacing: 2px;
+            margin-top: 10px; margin-bottom: 6px;
+        }
+        .resume-category:first-of-type { margin-top: 0; }
+        .resume-list {
+            color: #aaa; font-size: 8.5px; line-height: 1.6;
+            margin: 0 0 4px 14px;
+        }
+        .resume-list li { margin-bottom: 2px; }
+        .resume-list strong { color: var(--text); }
+        .contact-row { display: flex; gap: 20px; }
+        .contact-row p { font-size: 9px; }
+        .contact-row a { color: var(--text); text-decoration: none; }
+        footer { text-align: center; padding: 8px; color: var(--text-dim); font-size: 8px; }
+        @media print {
+            body { background: #000; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .resume-section { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="web-banner">
+        <p>View on web for better experience → <a href="https://rlaope.github.io/honest.html">rlaope.github.io/honest.html</a></p>
+    </div>
+    <main>
+        <section style="margin-bottom: 12px;">
+            <img src="../../rlaopelogo.png" alt="rlaope" style="width: 32px; height: 32px; margin-bottom: 8px;">
+            <h1 class="title">HonestAI</h1>
+            <p class="subtitle">Software Engineer - develop product, server/infra engineering 2024. Dec ~ 2026. Mar</p>
+            <p class="desc">A detailed document describing the problems, considerations, solutions, and results encountered while working at HonestAI.
+                <br>Responsibilities and experiences are in the Resume below; detailed descriptions are narrowed down to three topics.</p>
+        </section>
+
+        <div class="resume-section">
+            <h3>Resume</h3>
+            <h4 class="resume-category">Server</h4>
+            <ul class="resume-list">
+                <li>Developed/operated savings bank online linked investment system</li>
+                <li>Integrated external APIs: Savings Bank Central, NICE/KCB, Shinhan Bank, KFTC, Toss, KakaoPay</li>
+                <li>Loan system traffic <strong>1,000 → 500K</strong> load testing & infra scaling, resolved Netty server bottleneck (jstack, netty)</li>
+                <li>Built linked investment fault alert system, <strong>fault detection rate improved (40% → 90%)</strong></li>
+                <li>Built fault response process for investment inquiry → confirmation → deposit → execution cycle <strong>(Read-Time 15m → 30s)</strong></li>
+                <li>NICE credit evaluation batch query data <strong>100MB → 1GB</strong> expansion: bandwidth saturation response & traffic control</li>
+                <li>TCP tuning on financial messaging server, latency improvement (connection reuse socket pool, Nagle algorithm disable, sub-ms level)</li>
+            </ul>
+
+            <h4 class="resume-category">Infra</h4>
+            <ul class="resume-list">
+                <li>Built JVM, K8s Monitoring & Observability with Prometheus, Grafana, Micrometer</li>
+                <li>Built log Observability with Loki, Grafana dashboards</li>
+                <li>Athena log table redesign with Partition Projection, <strong>query time improved (4~5m → 1~4s)</strong></li>
+                <li>Legacy JVM Observability setup (jmx-prometheus) & tuning (jcmd, jstack, jmap etc.)</li>
+                <li>Detected settlement batch <strong>Full GC Hang</strong>, memory adjustment & Hang detection alert (alert manager) system</li>
+                <li>Platform server G1GC migration <strong>(P99 2~3s → 0.4s)</strong> & OpenJDK 8 optimization verification, comparative benchmarks</li>
+                <li>Gradle build parallelism/cache & daemon heap tuning, CI flow improvement <strong>(build time 20m → 1~3m)</strong></li>
+                <li>Micrometer-based domain error aggregation for fault frequency & priority analysis (also saved Slack API tokens)</li>
+                <li>Core banking task DB lock timewait, deadlock monitoring & system improvement</li>
+            </ul>
+
+            <h4 class="resume-category">Finance</h4>
+            <ul class="resume-list">
+                <li>Supported syncing HonestFund core banking bond ledger with savings bank linked investment bond ledger</li>
+                <li>Managed regular repayment tasks, special realization & acceleration-related bond schedule operations</li>
+                <li>Managed credit bureau, NICE/KCB, KFTC bond status sync & concurrent loan registration system</li>
+                <li>Managed loan application-to-disbursement process & <strong>developed auto-loan system based on R-Clips credit scoring model</strong></li>
+            </ul>
+        </div>
+
+        <p class="desc" style="margin-top: 10px;">For detailed descriptions → <a href="https://rlaope.github.io/honest.html" style="color: #43a047; border-bottom: 1px solid #43a047; padding-bottom: 1px;">rlaope.github.io/honest.html</a></p>
+
+        <section style="margin-top: 16px;">
+            <h2>Contact</h2>
+            <div class="contact-row">
+                <p><a href="mailto:piyrw9754@gmail.com">piyrw9754@gmail.com</a></p>
+                <p><a href="https://github.com/rlaope">github.com/rlaope</a></p>
+                <p><a href="https://www.linkedin.com/in/esperer/">linkedin.com/in/esperer</a></p>
+            </div>
+        </section>
+    </main>
+    <footer><p>Last updated 2026. 3. 11</p></footer>
+</body>
+</html>
