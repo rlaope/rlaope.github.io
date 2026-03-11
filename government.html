@@ -99,6 +99,83 @@
             font-weight: 700;
         }
 
+        .article-image-block {
+            margin: 20px 0 24px;
+            padding: 16px;
+            background: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 6px;
+        }
+        .article-image-block img {
+            max-width: 600px;
+            width: 100%;
+            border-radius: 4px;
+            display: block;
+        }
+
+        /* Resume toggle */
+        .resume-toggle {
+            margin-bottom: 48px;
+            border-left: 3px solid #43a047;
+            background: #0a0a0a;
+            border-radius: 0 6px 6px 0;
+        }
+        .resume-toggle summary {
+            cursor: pointer;
+            padding: 16px 20px;
+            color: var(--text);
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            list-style: none;
+            user-select: none;
+            letter-spacing: 1px;
+        }
+        .resume-toggle summary::-webkit-details-marker {
+            display: none;
+        }
+        .resume-toggle summary::after {
+            content: ' \25B2';
+            font-size: 12px;
+            color: #43a047;
+            margin-left: 8px;
+        }
+        .resume-toggle:not([open]) summary::after {
+            content: ' \25BC';
+        }
+        .resume-toggle:not([open]) summary {
+            border-bottom: none;
+        }
+        .resume-toggle summary:hover {
+            color: #fff;
+        }
+        .resume-content {
+            padding: 8px 24px 24px;
+            border-top: 1px solid #222;
+        }
+        .resume-category {
+            font-size: 14px;
+            font-weight: 700;
+            color: #43a047;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 24px;
+            margin-bottom: 12px;
+        }
+        .resume-category:first-child {
+            margin-top: 16px;
+        }
+        .resume-toggle .article-list {
+            margin-left: 20px;
+        }
+        .resume-toggle .article-list li {
+            color: #aaa;
+            font-size: 14px;
+        }
+        .resume-toggle .article-list li strong {
+            color: var(--text);
+        }
+
         @media (max-width: 700px) {
             main {
                 padding: 30px 20px 60px;
@@ -122,49 +199,49 @@
         <section style="margin-bottom: 60px;">
             <h1 class="gov-title"><a href="https://github.com/School-of-Company" target="_blank">Government Project</a></h1>
             <p class="gov-subtitle">Backend Lead - 특성화고등학교 연계 직업교육 플랫폼 2023. 09 ~ 2024. 11</p>
-            <p class="gov-desc">정부 지원 사업으로 특성화고등학교 연계 직업교육 플랫폼을 외주 개발했습니다.
-                <br>4,500만원 투자를 유치해 소프트웨어 마이스터고등학교에 프로젝트실을 새로 건설했습니다.
-                <br>GitHub: <a href="https://github.com/School-of-Company" target="_blank">School-of-Company</a></p>
+            <p class="gov-desc">17살에 정부 지원 사업에 뛰어들었다. 고교 특성화고 학생 대상 직업교육 수강, 고교 학점 관리 플랫폼(<a href="https://github.com/School-of-Company" target="_blank">School-of-Company</a>)
+                <br>서버 개발/리드 담당 및 유관기관 관계자들과 협업 담당.
+                <br>맡은 업무와 경험들은 아래 Resume에 정리했습니다.</p>
         </section>
 
+        <details class="resume-toggle" open>
+            <summary>Resume</summary>
+            <div class="resume-content">
+                <h3 class="resume-category">Server</h3>
+                <ul class="article-list">
+                    <li>직업교육, 학점 관리 서버 시스템 개발/리드</li>
+                    <li>JPA Persistable, hashcode(), equals() override, <strong>N+1 관련 문제 최적화</strong> (create시 추가 쿼리 방지)</li>
+                    <li>제품 초기 시스템 설계부터 운영까지 서버 개발과 기술 선택의 합의점을 도출하는 작업을 리드</li>
+                    <li>Architecture Decision Record 등을 작성, 이해관계자들과 기술 결정의 합의 작업 진행</li>
+                    <li><strong>+80개 협업사, 16+명의 유관기관</strong> VoC를 반영해 주기적으로 새로운 기능 개발</li>
+                </ul>
+
+                <h3 class="resume-category">QA</h3>
+                <ul class="article-list">
+                    <li>가입부터 강의 수강, 학점 관리까지 전체 통합 프로세스 테스트를 진행</li>
+                    <li>QA 데이터 Set 타임 (빈도 1일 기준 15회, 1회당 약 5분) 자동화 → <strong>약 5초만에 시뮬레이팅 환경 개선</strong></li>
+                </ul>
+
+                <h3 class="resume-category">Infra & Productivity</h3>
+                <ul class="article-list">
+                    <li>코드리뷰 Pull Request Priority 부여, Discord Bot 기반 Reminder로 PR 방치 문제 해결</li>
+                    <li>서버 전체 인프라 설계, <strong>Terraform 인프라 리소스화</strong>, 배포/운영까지 담당 후 팀원에게 인수인계 진행</li>
+                </ul>
+            </div>
+        </details>
+
         <section class="article">
-            <h2 class="article-title">프로젝트 개요</h2>
-            <p class="article-body">
-                17살에 정부 지원 사업에 뛰어들었다. 고교 특성화고 학생 대상 직업교육 수강, 고교 학점 관리 플랫폼(<a href="https://github.com/School-of-Company" target="_blank" style="color: #bbb; text-decoration: underline;">School-of-Company</a>)
-                서버 개발/리드 담당. 및 유관기관 관계자들과 협업 담당.
-            </p>
-
-            <h3 class="article-subtitle">직업교육, 학점 관리 서버 시스템 개발/리드</h3>
-            <ul class="article-list">
-                <li>JPA Persistable, hashcode(), equals() override, N + 1 관련 문제 최적화 (create시 추가 쿼리 방지)</li>
-                <li>제품 초기 시스템 설계부터 운영까지 서버 개발과 기술 선택의 합의점을 도출하는 작업을 리드</li>
-                <li>Architecture Decision Record 등을 작성, 이해관계자들과 기술 결정의 합의 작업 진행</li>
-                <li>+80개 협업사, 16+명의 유관기관 VoC를 반영해 주기적으로 새로운 기능 개발</li>
-            </ul>
-
-            <h3 class="article-subtitle">QA 환경 개선</h3>
-            <ul class="article-list">
-                <li>가입부터 강의 수강, 학점 관리까지 전체 통합 프로세스 테스트를 진행</li>
-                <li>QA 데이터 Set 타임 (빈도 1일 기준 15회, 1회당 약 5분) 이상 자동화 → 약 5초만에 시뮬레이팅 환경 개선</li>
-            </ul>
-
-            <h3 class="article-subtitle">팀 생산성 및 인프라 관리</h3>
-            <ul class="article-list">
-                <li>코드리뷰 Pull Request Priority 부여, Discord Bot 기반 Reminder로 PR이 방치되는 문제를 해결</li>
-                <li>서버 전체 인프라 설계, Terraform 인프라 리소스화, 배포/운영까지를 담당 후 팀원에게 인수인계 작업 진행</li>
-            </ul>
-
-            <h3 class="article-subtitle">성과</h3>
+            <h3 class="article-subtitle" style="margin-top: 0;">성과</h3>
             <ul class="article-list highlight-list">
                 <li>정부 지원 사업 - 교육청 특성화 고등학교 학점 인증제도 플랫폼</li>
-                <li>성공적인 프로젝트 개발 이후 +4,500만원의 투자 유치를 달성</li>
+                <li>성공적인 프로젝트 개발 이후 <strong>+4,500만원의 투자 유치</strong>를 달성</li>
                 <li>소프트웨어 마이스터고등학교 프로젝트실 신규 건설</li>
-                <li>운영 이후 다음기수로 인수인계</li>
+                <li>운영 이후 다음 기수로 인수인계</li>
             </ul>
 
-            <h3 class="article-subtitle" data-en="School Company Room" data-kr="학교기업실">학교기업실</h3>
-            <div style="margin: 16px 0 24px; padding: 16px; background: #0a0a0a; border: 1px solid #222; border-radius: 6px;">
-                <img src="image/image_12.jpeg" alt="School Company Room" style="max-width: 600px; width: 100%; border-radius: 4px; display: block;">
+            <h3 class="article-subtitle">학교기업실</h3>
+            <div class="article-image-block">
+                <img src="image/image_12.jpeg" alt="School Company Room">
             </div>
         </section>
 

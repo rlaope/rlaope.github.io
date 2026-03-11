@@ -358,9 +358,14 @@
         .resume-toggle summary::-webkit-details-marker {
             display: none;
         }
-        .resume-toggle summary::before {
-            content: '// ';
+        .resume-toggle summary::after {
+            content: ' \25B2';
+            font-size: 12px;
             color: #43a047;
+            margin-left: 8px;
+        }
+        .resume-toggle:not([open]) summary::after {
+            content: ' \25BC';
         }
         .resume-toggle:not([open]) summary {
             border-bottom: none;
@@ -456,7 +461,7 @@
                     <li>Athena 로그 테이블 Partition Projection 기반 재설계로 최적화 쿼리 시간 개선 <strong>(로그 조회 4~5m → 1~4s 단축)</strong></li>
                     <li>레거시 시스템 JVM 기반 Observability 구축(jmx-prometheus) 및 튜닝 (jcmd, jstack, jmap etc..)</li>
                     <li>결산 배치 <strong>Full GC Hang</strong> 상황 감지 이후 메모리 조정 및 결산 배치 Hang 감지 알림(alert manager) 시스템 개발</li>
-                    <li>플랫폼 서버 G1GC 전환 <strong>(P99 2~3s → 0.4s 단축</strong> 및 OpenJDK 8 최적화 검증, 비교 성능 테스트, 모니터링)</li>
+                    <li>플랫폼 서버 G1GC 전환 <strong>(P99 2~3s → 0.4s 단축)</strong> 및 OpenJDK 8 최적화 검증, 비교 성능 테스트, 모니터링</li>
                     <li>Gradle 프로젝트 빌드 병렬/캐시 및 데몬 힙사이즈 조정, CI flow 개선으로 <strong>빌드타임 개선 (20m → 1~3m)</strong></li>
                     <li>Micrometer 기반 Domain Error 집계 개발 장애 빈도, 우선순위 산출에 기여함 (알림 Slack API 토큰 절약에도 기여)</li>
                     <li>코어뱅킹 Task DB lock timewait, deadlock 모니터링 및 시스템 개선</li>
