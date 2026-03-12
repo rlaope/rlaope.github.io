@@ -8,47 +8,58 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root { --bg: #000; --text: #e8e8e8; --dim: #666; --accent: #888; }
-        @page { size: A4; margin: 0; }
+        @page { size: 210mm 400mm; margin: 0; }
         body {
             font-family: 'JetBrains Mono', monospace;
             background: var(--bg); color: var(--text);
-            font-size: 10px; line-height: 1.55;
-            width: 210mm; min-height: 297mm; margin: 0 auto;
+            font-size: 11px; line-height: 1.65;
+            width: 210mm; min-height: 400mm; margin: 0 auto;
         }
-        main { padding: 28px 40px 20px; }
+        main { padding: 24px 50px 16px; }
+
         .web-banner { text-align: center; padding: 8px 0 0; }
         .web-banner p { color: #444; font-size: 9px; }
         .web-banner a { color: #43a047; text-decoration: none; }
-        .hero { text-align: center; margin-bottom: 18px; }
-        .hero img { width: 36px; height: 36px; margin-bottom: 8px; }
-        .hero h1 { font-size: 22px; font-weight: 700; }
-        .hero .handle { color: var(--dim); font-weight: 400; font-size: 13px; }
-        .hero .role { color: var(--accent); font-size: 11px; margin-top: 2px; }
-        .about { margin-bottom: 18px; }
-        .about p { color: #bbb; font-size: 10px; line-height: 1.65; margin-bottom: 4px; }
-        section { margin-bottom: 16px; }
+
+        .hero { text-align: center; margin-bottom: 20px; }
+        .hero img { width: 40px; height: 40px; margin-bottom: 10px; }
+        .hero h1 { font-size: 24px; font-weight: 700; }
+        .hero .handle { color: var(--dim); font-weight: 400; font-size: 14px; }
+        .hero .role { color: var(--accent); font-size: 12px; margin-top: 4px; }
+
+        .about { margin-bottom: 20px; }
+        .about p { color: #bbb; font-size: 11px; line-height: 1.8; margin-bottom: 10px; }
+
+        section { margin-bottom: 20px; }
         section h2 {
-            font-size: 9px; color: var(--dim); text-transform: uppercase;
-            letter-spacing: 2px; margin-bottom: 10px;
-            border-bottom: 1px solid #1a1a1a; padding-bottom: 5px;
+            font-size: 10px; color: var(--dim); text-transform: uppercase;
+            letter-spacing: 2px; margin-bottom: 16px;
+            border-bottom: 1px solid #1a1a1a; padding-bottom: 6px;
         }
-        .item { margin-bottom: 8px; }
-        .item .year { display: block; font-size: 11px; font-weight: 700; margin-bottom: 1px; }
+
+        .item { margin-bottom: 14px; }
+        .item .year { display: block; font-size: 12px; font-weight: 700; margin-bottom: 3px; }
         .item .year a { color: var(--text); text-decoration: none; border-bottom: 1px solid #333; }
-        .item p { color: #888; font-size: 9.5px; }
-        .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .project { padding: 10px 12px; border: 1px solid #1a1a1a; }
-        .project h3 { font-size: 10px; margin-bottom: 4px; }
+        .item p { color: #888; font-size: 10px; line-height: 1.65; }
+
+        .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .project { padding: 12px 14px; border: 1px solid #1a1a1a; }
+        .project h3 { font-size: 11px; margin-bottom: 6px; }
         .project h3 a { color: var(--text); text-decoration: none; }
-        .project p { color: #777; font-size: 8.5px; line-height: 1.45; }
-        .pres-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .pres-item .pres-title { font-size: 10px; font-weight: 700; margin-bottom: 3px; }
-        .pres-item p { color: #777; font-size: 8.5px; line-height: 1.45; }
-        .tags { display: flex; flex-wrap: wrap; gap: 5px; }
-        .tags span { padding: 3px 10px; border: 1px solid #282828; font-size: 9px; color: #999; }
-        .contact-row { display: flex; gap: 24px; }
-        .contact-row a { color: var(--text); text-decoration: none; font-size: 10px; }
-        footer { text-align: center; padding: 10px; color: var(--dim); font-size: 8px; }
+        .project p { color: #777; font-size: 9px; line-height: 1.6; }
+
+        .pres-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .pres-item .pres-title { font-size: 11px; font-weight: 700; margin-bottom: 5px; }
+        .pres-item p { color: #777; font-size: 9px; line-height: 1.6; }
+
+        .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .tags span { padding: 4px 12px; border: 1px solid #282828; font-size: 10px; color: #999; }
+
+        .contact-row { display: flex; gap: 28px; }
+        .contact-row a { color: var(--text); text-decoration: none; font-size: 11px; }
+
+        footer { text-align: center; padding: 14px; color: var(--dim); font-size: 9px; }
+
         @media print {
             body { background: #000; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .project { break-inside: avoid; }
@@ -69,6 +80,7 @@
         <section class="about">
             <p>2014년, 흰 가운을 입은 과학자를 꿈꾸던 아이가 컴퓨터를 발견했습니다. 수학적으로 증명되지 않은 한계는 믿지 않습니다. 문제가 어려울수록 더 흥미롭습니다.</p>
             <p>17살에 정부 지원 사업에 뛰어들었습니다 — 낯선 도메인, 빠듯한 일정과 자원 부족 속에서 모두가 불가능하다고 했습니다. 압박 속에서 시스템 개발에 더 깊이 파고들었고, 팀원들과 함께 성장하며 4,500만원 투자를 유치하고 소프트웨어 마이스터고에 프로젝트실을 신설했습니다.</p>
+            <p>현재 HonestAI에서 서버 엔지니어로 근무 중 — 저축은행 온라인 연계투자 시스템 개발/운영, 외부 금융 API 연동 (NICE/KCB, 신한은행, 금융결제원, Toss, KakaoPay), JVM/K8s 옵저버빌리티 인프라 구축, 금융 전문 통신 서버 TCP 튜닝, 1,000건에서 50만건까지 부하 테스트 스케일링.</p>
         </section>
 
         <section>
@@ -87,11 +99,11 @@
             </div>
             <div class="item">
                 <span class="year"><a href="https://rlaope.github.io/government.html">정부 지원 사업. 2023. 09 ~ 2024. 11</a></span>
-                <p>특성화고등학교 직업교육 플랫폼. 4,500만원 투자 유치.</p>
+                <p>특성화고등학교 직업교육 플랫폼. 80+ 협업사, 16+ 유관기관과 협력하여 서버 개발 리드. 4,500만원 투자 유치.</p>
             </div>
             <div class="item">
                 <span class="year"><a href="https://rlaope.github.io/honest.html">HonestAI. 2024. 12 ~ 현재</a></span>
-                <p>Vertical AI 핀테크 서버 개발자. B2B BaaS, JVM/K8s 옵저버빌리티, TCP 튜닝, Netty 최적화, 부하 테스트.</p>
+                <p>Vertical AI 핀테크 서버 개발자. B2B BaaS 연계투자 시스템, 장애 감지율 40%→90% 향상, G1GC 전환으로 P99 2~3s→0.4s 단축, 빌드타임 20m→1~3m 최적화.</p>
             </div>
         </section>
 
@@ -100,39 +112,39 @@
             <div class="projects-grid">
                 <div class="project">
                     <h3><a href="https://github.com/rlaope/Argus">Argus</a></h3>
-                    <p>JVM 21+ JFR-streaming 프로파일러. Virtual Threads 모니터링, lock-free 링 버퍼, WebSocket 대시보드.</p>
+                    <p>JVM 21+ JFR-streaming 프로파일러. Virtual Threads 모니터링, lock-free 링 버퍼, WebSocket 실시간 대시보드로 프로덕션 JVM 분석.</p>
                 </div>
                 <div class="project">
                     <h3><a href="https://github.com/rlaope/kar98k">kar98k</a></h3>
-                    <p>Go 트래픽 시뮬레이터. HTTP/1.1, HTTP/2, gRPC. Poisson 스파이크, TUI, P50/P95/P99.</p>
+                    <p>Go 카오스 엔지니어링 트래픽 시뮬레이터. HTTP/1.1, HTTP/2, gRPC 프로토콜 지원. Poisson 분포 스파이크, TUI 인터페이스, P50/P95/P99 레이턴시 추적.</p>
                 </div>
                 <div class="project">
                     <h3><a href="https://github.com/rlaope/claude-code-savant">claude-code-savant</a></h3>
-                    <p>Claude Code 플러그인. 5 페르소나, 16 개발 에이전트, 14 비즈 에이전트. 웹 채팅 UI.</p>
+                    <p>Claude Code 플러그인 시스템. 5 천재 페르소나 (Einstein, Shakespeare, Socrates, Steve Jobs), 16 개발 전문 에이전트, 14 비즈니스 에이전트. 웹 채팅 UI 포함.</p>
                 </div>
                 <div class="project">
                     <h3><a href="https://github.com/rlaope/airML">airML</a></h3>
-                    <p>ONNX 경량 ML 런타임. ~50MB, 0.01s 콜드 스타트. Apple Silicon 네이티브.</p>
+                    <p>ONNX 경량 ML 추론 런타임. ~50MB 바이너리, 0.01s 콜드 스타트. Apple Silicon 네이티브 최적화, Metal 가속 지원.</p>
                 </div>
                 <div class="project">
                     <h3><a href="https://github.com/rlaope/mascot">Mascot</a></h3>
-                    <p>IntelliJ IDEA 마스코트 플러그인. JetBrains Marketplace 출시.</p>
+                    <p>IntelliJ IDEA 마스코트 플러그인. JetBrains Marketplace 출시. IDE 워크스페이스에 커스텀 캐릭터 오버레이 표시.</p>
                 </div>
                 <div class="project">
                     <h3><a href="https://github.com/rlaope/cache-labs">cache-labs</a></h3>
-                    <p>캐시 설계 스터디. Local + Redis 이중 레이어, Circuit Breaker, 고트래픽.</p>
+                    <p>캐시 아키텍처 설계 스터디. Local + Redis 이중 레이어 캐싱, Circuit Breaker 패턴. 고트래픽 시나리오 벤치마크 및 장애 전환 테스트 포함.</p>
                 </div>
                 <div class="project">
                     <h3><a href="https://github.com/enzin-arts/g1-log-capture">g1-log-capture</a></h3>
-                    <p>G1GC 로그 분석기. STW pause 감지, 튜닝 제안.</p>
+                    <p>G1GC 로그 분석 도구. STW pause 이상 감지, GC 튜닝 제안, GC 동작 분석을 위한 비주얼 타임라인 출력.</p>
                 </div>
                 <div class="project">
                     <h3><a href="https://github.com/rlaope/tcp-css-loadtest">tcp-css-loadtest</a></h3>
-                    <p>금융 부하 테스트용 TCP 목 서버. Nice 전문, EUC-KR.</p>
+                    <p>금융 시스템 부하 테스트용 TCP 목 서버. Nice 전문 프로토콜 구현, 한국 금융 메시징용 EUC-KR 인코딩 지원.</p>
                 </div>
                 <div class="project">
                     <h3><a href="https://github.com/art8engine/TatVTON">TatVTON</a></h3>
-                    <p>디퓨전 타투 피팅. SAM 2 + SDXL + ControlNet + IP-Adapter. 12GB VRAM.</p>
+                    <p>디퓨전 기반 타투 가상 피팅 시스템. SAM 2 + SDXL + ControlNet + IP-Adapter 파이프라인. 12GB VRAM 소비자 GPU에서 실행 최적화.</p>
                 </div>
             </div>
         </section>
@@ -142,15 +154,15 @@
             <div class="pres-grid">
                 <div class="pres-item">
                     <div class="pres-title">KotlinConf'24 Global. 2024</div>
-                    <p>JetBrains KotlinConf Global 한국. Project Valhalla, JVM 타입 시스템, Value Class 벤치마크.</p>
+                    <p>JetBrains KotlinConf Global 한국. Project Valhalla, JVM 타입 시스템 진화, Value Class 성능 벤치마크 발표.</p>
                 </div>
                 <div class="pres-item">
                     <div class="pres-title">IT Union Conference. 2025</div>
-                    <p>소프트웨어 마이스터고등학교 연합 IT. Carpe Diem — 소프트웨어 개발 역량과 개성.</p>
+                    <p>소프트웨어 마이스터고등학교 연합 IT 컨퍼런스. Carpe Diem — 소프트웨어 개발 역량을 기르면서 개성을 지키는 것에 대하여.</p>
                 </div>
                 <div class="pres-item">
                     <div class="pres-title">GSM DevConf. 2023</div>
-                    <p>개발자의 성장 — 개발자의 성장 곡선, 방향, 추구해야 할 마인드셋.</p>
+                    <p>개발자의 성장 — 개발자의 성장 곡선 탐구, 방향 선택, 장기적 숙련을 추구하는 데 필요한 마인드셋.</p>
                 </div>
             </div>
         </section>

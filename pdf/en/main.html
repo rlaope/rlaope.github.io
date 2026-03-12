@@ -8,70 +8,57 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root { --bg: #000; --text: #e8e8e8; --dim: #666; --accent: #888; }
-        @page { size: A4; margin: 0; }
+        @page { size: 210mm 500mm; margin: 0; }
         body {
             font-family: 'JetBrains Mono', monospace;
             background: var(--bg); color: var(--text);
-            font-size: 10px; line-height: 1.55;
-            width: 210mm; min-height: 297mm; margin: 0 auto;
+            font-size: 11px; line-height: 1.65;
+            width: 210mm; min-height: 500mm; margin: 0 auto;
         }
-        main { padding: 28px 40px 20px; }
+        main { padding: 24px 50px 16px; }
 
-        /* banner */
         .web-banner { text-align: center; padding: 8px 0 0; }
         .web-banner p { color: #444; font-size: 9px; }
         .web-banner a { color: #43a047; text-decoration: none; }
 
-        /* hero */
-        .hero { text-align: center; margin-bottom: 18px; }
-        .hero img { width: 36px; height: 36px; margin-bottom: 8px; }
-        .hero h1 { font-size: 22px; font-weight: 700; }
-        .hero .handle { color: var(--dim); font-weight: 400; font-size: 13px; }
-        .hero .role { color: var(--accent); font-size: 11px; margin-top: 2px; }
+        .hero { text-align: center; margin-bottom: 20px; }
+        .hero img { width: 40px; height: 40px; margin-bottom: 10px; }
+        .hero h1 { font-size: 24px; font-weight: 700; }
+        .hero .handle { color: var(--dim); font-weight: 400; font-size: 14px; }
+        .hero .role { color: var(--accent); font-size: 12px; margin-top: 4px; }
 
-        /* about */
-        .about { margin-bottom: 18px; }
-        .about p { color: #bbb; font-size: 10px; line-height: 1.65; margin-bottom: 4px; }
+        .about { margin-bottom: 20px; }
+        .about p { color: #bbb; font-size: 11px; line-height: 1.8; margin-bottom: 10px; }
 
-        /* sections */
-        section { margin-bottom: 16px; }
+        section { margin-bottom: 20px; }
         section h2 {
-            font-size: 9px; color: var(--dim); text-transform: uppercase;
-            letter-spacing: 2px; margin-bottom: 10px;
-            border-bottom: 1px solid #1a1a1a; padding-bottom: 5px;
+            font-size: 10px; color: var(--dim); text-transform: uppercase;
+            letter-spacing: 2px; margin-bottom: 16px;
+            border-bottom: 1px solid #1a1a1a; padding-bottom: 6px;
         }
 
-        /* history */
-        .item { margin-bottom: 8px; }
-        .item .year {
-            display: block; font-size: 11px; font-weight: 700;
-            margin-bottom: 1px;
-        }
+        .item { margin-bottom: 14px; }
+        .item .year { display: block; font-size: 12px; font-weight: 700; margin-bottom: 3px; }
         .item .year a { color: var(--text); text-decoration: none; border-bottom: 1px solid #333; }
-        .item p { color: #888; font-size: 9.5px; }
+        .item p { color: #888; font-size: 10px; line-height: 1.65; }
 
-        /* projects 3-col */
-        .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .project { padding: 10px 12px; border: 1px solid #1a1a1a; }
-        .project h3 { font-size: 10px; margin-bottom: 4px; }
+        .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .project { padding: 12px 14px; border: 1px solid #1a1a1a; }
+        .project h3 { font-size: 11px; margin-bottom: 6px; }
         .project h3 a { color: var(--text); text-decoration: none; }
-        .project p { color: #777; font-size: 8.5px; line-height: 1.45; }
+        .project p { color: #777; font-size: 9px; line-height: 1.6; }
 
-        /* presentation 3-col */
-        .pres-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .pres-item .pres-title { font-size: 10px; font-weight: 700; margin-bottom: 3px; }
-        .pres-item p { color: #777; font-size: 8.5px; line-height: 1.45; }
+        .pres-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .pres-item .pres-title { font-size: 11px; font-weight: 700; margin-bottom: 5px; }
+        .pres-item p { color: #777; font-size: 9px; line-height: 1.6; }
 
-        /* tags */
-        .tags { display: flex; flex-wrap: wrap; gap: 5px; }
-        .tags span { padding: 3px 10px; border: 1px solid #282828; font-size: 9px; color: #999; }
+        .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .tags span { padding: 4px 12px; border: 1px solid #282828; font-size: 10px; color: #999; }
 
-        /* contact */
-        .contact-row { display: flex; gap: 24px; }
-        .contact-row a { color: var(--text); text-decoration: none; font-size: 10px; }
+        .contact-row { display: flex; gap: 28px; }
+        .contact-row a { color: var(--text); text-decoration: none; font-size: 11px; }
 
-        /* footer */
-        footer { text-align: center; padding: 10px; color: var(--dim); font-size: 8px; }
+        footer { text-align: center; padding: 14px; color: var(--dim); font-size: 9px; }
 
         @media print {
             body { background: #000; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -93,6 +80,7 @@
         <section class="about">
             <p>In 2014, a kid who dreamed of being a scientist in a white lab coat discovered computers. I don't believe in limits that haven't been mathematically proven. The harder the problem, the more exciting.</p>
             <p>At 17, I took on a government-funded project — unfamiliar domains, tight deadlines and resource constraints, everyone thought it was impossible. Under pressure, I dove deeper into system development, grew alongside my teammates, secured $33K investment, and built a new project room at Software Meister High School.</p>
+            <p>Currently at HonestAI as a server engineer — building savings bank online linked investment systems, integrating external financial APIs (NICE/KCB, Shinhan, KFTC, Toss, KakaoPay), JVM/K8s observability infrastructure, TCP tuning on financial messaging servers, and load testing scaling from 1K to 500K transactions.</p>
         </section>
 
         <section>
@@ -111,11 +99,11 @@
             </div>
             <div class="item">
                 <span class="year"><a href="https://rlaope.github.io/government.html">Government Project. 2023. 09 ~ 2024. 11</a></span>
-                <p>Vocational education platform for specialized high schools. Secured 45M KRW investment.</p>
+                <p>Vocational education platform for specialized high schools. Led server development with 80+ partner companies and 16+ affiliated agencies. Secured 45M KRW investment.</p>
             </div>
             <div class="item">
                 <span class="year"><a href="https://rlaope.github.io/honest.html">HonestAI. 2024. Dec ~ Now</a></span>
-                <p>Server Developer at Vertical AI fintech. B2B BaaS, JVM/K8s observability, TCP tuning, Netty optimization, load testing.</p>
+                <p>Server Developer at Vertical AI fintech. B2B BaaS linked investment system, fault detection rate improved 40% to 90%, G1GC migration reducing P99 from 2~3s to 0.4s, build time optimization from 20m to 1~3m.</p>
             </div>
         </section>
 
@@ -124,39 +112,39 @@
             <div class="projects-grid">
                 <div class="project">
                     <h3><a href="https://github.com/rlaope/Argus">Argus</a></h3>
-                    <p>JFR-streaming profiler for JVM 21+. Virtual Threads monitoring, lock-free ring buffer, WebSocket dashboard.</p>
+                    <p>JFR-streaming profiler for JVM 21+. Virtual Threads monitoring, lock-free ring buffer, WebSocket real-time dashboard for production JVM analysis.</p>
                 </div>
                 <div class="project">
                     <h3><a href="https://github.com/rlaope/kar98k">kar98k</a></h3>
-                    <p>Go traffic simulator for chaos engineering. HTTP/1.1, HTTP/2, gRPC. Poisson spikes, TUI, P50/P95/P99.</p>
+                    <p>Go traffic simulator for chaos engineering. Supports HTTP/1.1, HTTP/2, gRPC protocols. Poisson distribution spike generation, TUI interface with P50/P95/P99 latency tracking.</p>
                 </div>
                 <div class="project">
                     <h3><a href="https://github.com/rlaope/claude-code-savant">claude-code-savant</a></h3>
-                    <p>Claude Code plugin. 5 personas, 16 dev agents, 14 biz agents. Web chat UI.</p>
+                    <p>Claude Code plugin system with 5 genius personas (Einstein, Shakespeare, Socrates, Steve Jobs), 16 dev specialist agents, 14 business agents. Includes web chat UI.</p>
                 </div>
                 <div class="project">
                     <h3><a href="https://github.com/rlaope/airML">airML</a></h3>
-                    <p>Lightweight ML runtime for ONNX. ~50MB, 0.01s cold start. Apple Silicon native.</p>
+                    <p>Lightweight ML inference runtime for ONNX models. ~50MB binary size, 0.01s cold start latency. Apple Silicon native optimization with Metal acceleration.</p>
                 </div>
                 <div class="project">
                     <h3><a href="https://github.com/rlaope/mascot">Mascot</a></h3>
-                    <p>IntelliJ IDEA mascot plugin. Published on JetBrains Marketplace.</p>
+                    <p>IntelliJ IDEA mascot plugin published on JetBrains Marketplace. Adds customizable character overlays to the IDE workspace.</p>
                 </div>
                 <div class="project">
                     <h3><a href="https://github.com/rlaope/cache-labs">cache-labs</a></h3>
-                    <p>Cache design study. Local + Redis dual-layer, Circuit Breaker, high-traffic.</p>
+                    <p>Cache architecture design study. Local + Redis dual-layer caching with Circuit Breaker pattern. Includes high-traffic scenario benchmarks and failover tests.</p>
                 </div>
                 <div class="project">
                     <h3><a href="https://github.com/enzin-arts/g1-log-capture">g1-log-capture</a></h3>
-                    <p>G1GC log analyzer. STW pause detection, tuning suggestions.</p>
+                    <p>G1GC log analyzer tool. Detects STW pause anomalies, provides GC tuning suggestions, and generates visual timeline output for GC behavior analysis.</p>
                 </div>
                 <div class="project">
                     <h3><a href="https://github.com/rlaope/tcp-css-loadtest">tcp-css-loadtest</a></h3>
-                    <p>TCP mock server for financial load testing. Nice protocol, EUC-KR.</p>
+                    <p>TCP mock server for financial system load testing. Implements Nice protocol specification with EUC-KR encoding for Korean financial messaging.</p>
                 </div>
                 <div class="project">
                     <h3><a href="https://github.com/art8engine/TatVTON">TatVTON</a></h3>
-                    <p>Diffusion tattoo fitting. SAM 2 + SDXL + ControlNet + IP-Adapter. 12GB VRAM.</p>
+                    <p>Diffusion-based tattoo virtual try-on system. SAM 2 + SDXL + ControlNet + IP-Adapter pipeline. Optimized to run on consumer GPUs with 12GB VRAM.</p>
                 </div>
             </div>
         </section>
@@ -166,15 +154,15 @@
             <div class="pres-grid">
                 <div class="pres-item">
                     <div class="pres-title">KotlinConf'24 Global. 2024</div>
-                    <p>JetBrains KotlinConf Global in South Korea. Project Valhalla, JVM Type System, Value Class Benchmark.</p>
+                    <p>JetBrains KotlinConf Global in South Korea. Presented on Project Valhalla, JVM Type System evolution, and Value Class performance benchmarks.</p>
                 </div>
                 <div class="pres-item">
                     <div class="pres-title">IT Union Conference. 2025</div>
-                    <p>Software Meister High School IT Union. Carpe Diem - Software development skills and individuality.</p>
+                    <p>Software Meister High School IT Union conference. Carpe Diem — on cultivating software development skills while preserving individuality.</p>
                 </div>
                 <div class="pres-item">
                     <div class="pres-title">GSM DevConf. 2023</div>
-                    <p>Growth of Developer - Developer's growth curve, direction, and the mindset to pursue.</p>
+                    <p>Growth of Developer — exploring the developer's growth curve, choosing direction, and the mindset needed to pursue long-term mastery.</p>
                 </div>
             </div>
         </section>
