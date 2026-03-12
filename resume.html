@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume - Hope Kim</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: #1a1a1a;
+            background: #c8c8c8;
+            font-size: 9pt;
+            line-height: 1.6;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 20px auto;
+            background: #fff;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        .page-inner {
+            padding: 28mm 28mm 24mm 28mm;
+        }
+        @media print {
+            body { background: #fff; }
+            .page { margin: 0; box-shadow: none; page-break-after: always; }
+            .page:last-child { page-break-after: auto; }
+            .no-print { display: none !important; }
+        }
+        @page { size: A4; margin: 0; }
+
+        /* ===== HEADER ===== */
+        .header {
+            margin-bottom: 20px;
+        }
+        .header-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 28pt;
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: #111;
+            line-height: 1.1;
+        }
+        .header-name .kr {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 12pt;
+            font-weight: 400;
+            color: #888;
+            margin-left: 8px;
+            letter-spacing: 0;
+        }
+        .header-role {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9.5pt;
+            color: #555;
+            margin-top: 3px;
+            font-weight: 400;
+        }
+        .header-links {
+            display: flex;
+            gap: 14px;
+            margin-top: 10px;
+            font-size: 8pt;
+            flex-wrap: wrap;
+        }
+        .header-links a {
+            color: #555;
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            transition: color 0.2s;
+        }
+        .header-links a:hover { color: #111; }
+        .header-links .sep { color: #ccc; }
+        .header-divider {
+            margin-top: 14px;
+            border: none;
+            border-top: 2.5px solid #111;
+            width: 40px;
+        }
+
+        /* ===== ABOUT ===== */
+        .about {
+            margin-top: 16px;
+            font-size: 8.5pt;
+            color: #444;
+            line-height: 1.75;
+            max-width: 520px;
+        }
+
+        /* ===== SECTION ===== */
+        .section {
+            margin-top: 22px;
+        }
+        .section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8.5pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #111;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 12px;
+        }
+
+        /* ===== EXPERIENCE ===== */
+        .exp { margin-bottom: 18px; }
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2px;
+        }
+        .exp-company {
+            font-size: 11pt;
+            font-weight: 700;
+            color: #111;
+        }
+        .exp-period {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 7.5pt;
+            color: #999;
+        }
+        .exp-role {
+            font-size: 8.5pt;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .exp-tech {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 7pt;
+            color: #888;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        /* Category */
+        .cat {
+            margin-bottom: 10px;
+        }
+        .cat-label {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 7pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 1px 8px;
+            border-radius: 2px;
+            margin-bottom: 4px;
+        }
+        .cat-server .cat-label { background: #111; color: #fff; }
+        .cat-infra .cat-label { background: #e8e8e8; color: #333; }
+        .cat-finance .cat-label { background: #f5f0eb; color: #6b5a3e; }
+        .cat-dev .cat-label { background: #eef2f5; color: #3a5a7c; }
+
+        .exp-list {
+            margin-left: 14px;
+            margin-top: 3px;
+        }
+        .exp-list li {
+            font-size: 8.5pt;
+            color: #333;
+            line-height: 1.65;
+            margin-bottom: 2px;
+        }
+        .exp-list li strong { color: #111; font-weight: 600; }
+        .metric { font-family: 'JetBrains Mono', monospace; font-size: 8pt; font-weight: 500; }
+
+        /* ===== EDUCATION ===== */
+        .edu-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 3px;
+        }
+        .edu-name { font-weight: 600; font-size: 9pt; }
+        .edu-period {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 7.5pt;
+            color: #999;
+        }
+        .edu-desc { font-size: 8pt; color: #666; line-height: 1.6; margin-bottom: 8px; }
+
+        /* ===== PRESENTATION ===== */
+        .pres-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 5px;
+            align-items: baseline;
+        }
+        .pres-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 7.5pt;
+            font-weight: 500;
+            color: #888;
+            min-width: 130px;
+            flex-shrink: 0;
+        }
+        .pres-content { font-size: 8pt; color: #444; line-height: 1.55; }
+
+        /* ===== PROJECTS ===== */
+        .proj-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 20px;
+        }
+        .proj { margin-bottom: 4px; }
+        .proj-name {
+            font-size: 8.5pt;
+            font-weight: 600;
+        }
+        .proj-name a {
+            color: #111;
+            text-decoration: none;
+            border-bottom: 1px solid #ddd;
+        }
+        .proj-desc { font-size: 7.5pt; color: #777; line-height: 1.5; }
+
+        /* ===== BLOG ===== */
+        .blog-item {
+            margin-bottom: 5px;
+        }
+        .blog-title {
+            font-size: 8.5pt;
+            font-weight: 600;
+        }
+        .blog-title a { color: #111; text-decoration: none; border-bottom: 1px solid #ddd; }
+        .blog-desc { font-size: 7.5pt; color: #777; line-height: 1.5; }
+
+        /* ===== PERSONAL PROJECTS (Page 3) ===== */
+        .pp {
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .pp:last-child { border-bottom: none; }
+        .pp-header {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 3px;
+        }
+        .pp-name {
+            font-size: 10pt;
+            font-weight: 700;
+        }
+        .pp-name a {
+            color: #111;
+            text-decoration: none;
+            border-bottom: 1.5px solid #ddd;
+            transition: border-color 0.2s;
+        }
+        .pp-name a:hover { border-color: #111; }
+        .pp-tech {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 7pt;
+            color: #999;
+        }
+        .pp-desc {
+            font-size: 8.5pt;
+            color: #444;
+            line-height: 1.65;
+        }
+        .blog-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 6.5pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 1px 7px;
+            background: #111;
+            color: #fff;
+            border-radius: 2px;
+        }
+
+        /* ===== PRINT BUTTON ===== */
+        .print-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 10px 20px;
+            background: #111;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            cursor: pointer;
+            z-index: 100;
+            letter-spacing: 1px;
+        }
+        .print-btn:hover { background: #333; }
+    </style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">PDF ↓</button>
+
+<!-- ==================== PAGE 1 ==================== -->
+<div class="page">
+    <div class="page-inner">
+
+        <div class="header">
+            <div class="header-name">Hope Kim<span class="kr">김희망</span></div>
+            <p class="header-role">Software Engineer</p>
+            <div class="header-links">
+                <a href="mailto:piyrw9754@gmail.com">piyrw9754@gmail.com</a>
+                <span class="sep">·</span>
+                <a href="https://github.com/rlaope">github.com/rlaope</a>
+                <span class="sep">·</span>
+                <a href="https://www.linkedin.com/in/esperer/">linkedin.com/in/esperer</a>
+                <span class="sep">·</span>
+                <a href="https://rlaope.github.io">rlaope.github.io</a>
+                <span class="sep">·</span>
+                <a href="https://rlaope.github.io/honest.html">portfolio</a>
+            </div>
+            <hr class="header-divider">
+        </div>
+
+        <p class="about">
+            수학적으로 증명되지 않은 한계는 믿지 않습니다. 블랙박스 같은 미지의 영역을 명확한 시스템으로 만드는 일을 즐기며, 금융 도메인에서 서버/인프라 엔지니어링과 제품 개발을 경험했습니다. JVM 내부 구조, 네트워크 성능 튜닝, 시스템 관측성(Observability)에 깊은 관심을 갖고 있습니다.
+        </p>
+
+        <!-- EXPERIENCE -->
+        <div class="section">
+            <div class="section-title">Experience</div>
+
+            <div class="exp">
+                <div class="exp-header">
+                    <span class="exp-company">HonestAI (어니스트펀드)</span>
+                    <span class="exp-period">2024.12 — 2026.03</span>
+                </div>
+                <p class="exp-role">Software Engineer — Product, Server/Infra Engineering</p>
+                <p class="exp-tech">Java, Kotlin, Spring Boot, Netty, Kubernetes, Prometheus, Grafana, AlertManager, MySQL, Redis, RabbitMQ, AWS</p>
+
+                <!-- Server -->
+                <div class="cat cat-server">
+                    <span class="cat-label">Server</span>
+                    <ul class="exp-list">
+                        <li>저축은행 중앙회, NICE/KCB, 신한은행, 금융결제원, Toss, KakaoPay 등 <strong>외부 API 시스템 연동</strong></li>
+                        <li>대출 시스템 트래픽 <span class="metric">1,000건 → 50만건</span> 성능 테스트 및 인프라 증설 지원, Netty 서버 병목 해결 (jstack, netty)</li>
+                        <li>연계투자 장애 알림 시스템 구축으로 장애 감지율 <span class="metric">40% → 90%</span> 향상</li>
+                        <li>투자질의 → 확정 → 입금 → 집행 사이클 장애 대응 프로세스 구축 (Real-Time <span class="metric">15m → 30s</span>)</li>
+                        <li>NICE 신용 평가 배치 조회 데이터 <span class="metric">100MB → 1GB</span> 확장에 따른 회선 대역폭 포화 대응, 전송 트래픽 제어</li>
+                        <li>전문 통신 서버 TCP 튜닝 — 커넥션 재활용(socket pool), Nagle 비활성화, Circuit Breaker 도입 등 레이턴시 개선</li>
+                    </ul>
+                </div>
+
+                <!-- Infra -->
+                <div class="cat cat-infra">
+                    <span class="cat-label">Infra</span>
+                    <ul class="exp-list">
+                        <li>JVM, K8s 시스템 <strong>Prometheus, Grafana, Micrometer</strong> 기반 Monitoring & Observability 구축</li>
+                        <li>Athena 로그 테이블 Partition Projection 재설계로 쿼리 시간 <span class="metric">4~5m → 1~4s</span> 단축</li>
+                        <li>레거시 JVM Observability 구축(jmx-prometheus) 및 튜닝 (jcmd, jstack, jmap)</li>
+                        <li>결산 배치 Full GC Hang 감지 이후 메모리 조정 및 Hang 감지 알림(AlertManager) 시스템 개발</li>
+                        <li>플랫폼 서버 G1 GC 전환 — P99 <span class="metric">2~3s → 0.4s</span> 단축, OpenJDK 8 최적화 검증 및 비교 성능 테스트</li>
+                        <li>Gradle 빌드 병렬/캐시 + 데몬 힙 조정, CI flow 개선으로 빌드타임 <span class="metric">20m → 1~3m</span></li>
+                        <li>Micrometer 기반 Domain Error 집계 개발, 장애 빈도/우선순위 산출 기여</li>
+                    </ul>
+                </div>
+
+                <!-- Finance -->
+                <div class="cat cat-finance">
+                    <span class="cat-label">Finance</span>
+                    <ul class="exp-list">
+                        <li>코어뱅킹 시스템 채권과 저축은행 중앙회 연계투자 <strong>채권 원장 동기화</strong> 작업 수행</li>
+                        <li>정규 상환일 상환 테스크 운영, 특수 실현 및 기한이익상실 관련 채권 스케쥴 관리</li>
+                        <li>신용정보원, NICE/KCB, 금융결제원 채권 상태 동기화 및 동시대출 등록/검증 시스템 관리</li>
+                        <li>대출 신청 → 기표 프로세스 관리 및 신용평가모형(R-Clips) 기반 <strong>자동 대출 시스템</strong> 개발</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ==================== PAGE 2 ==================== -->
+<div class="page">
+    <div class="page-inner">
+
+        <!-- Government Project -->
+        <div class="section" style="margin-top: 0;">
+            <div class="section-title">Experience <span style="font-weight:400; letter-spacing:0; text-transform:none; color:#aaa; font-size:7.5pt;">continued</span></div>
+
+            <div class="exp">
+                <div class="exp-header">
+                    <span class="exp-company">Government Project (School of Company)</span>
+                    <span class="exp-period">2023.09 — 2024.11</span>
+                </div>
+                <p class="exp-role">Software Engineer / Tech Lead</p>
+                <p class="exp-tech">Kotlin, Spring Boot, Spring Batch, JPA, QueryDSL, AWS, Docker, Terraform, Github Actions</p>
+
+                <div class="cat cat-dev">
+                    <ul class="exp-list">
+                        <li>특성화고등학교 연계 직업교육 플랫폼 외주 개발, <strong>+4,500만원 투자 유치</strong>, 학교에 프로젝트실 신설</li>
+                        <li>+80개 이상 API 개발, 16+개 VoC 기반 기능 개발 및 QA 효율성 개선</li>
+                        <li>JPA Persistable, hashcode()/equals() override, N+1 해결 등 데이터 접근 계층 설계/최적화</li>
+                        <li>Architecture Decision Record 도입, 기술적 의사결정 기록 체계화</li>
+                        <li>Pull Request Priority 체계, Discord Bot 기반 Reminder로 PR 리뷰 사이클 개선</li>
+                        <li>Terraform 인프라 관리, 기존/신규 인프라 코드화</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- EDUCATION -->
+        <div class="section">
+            <div class="section-title">Education</div>
+            <div class="edu-row">
+                <span class="edu-name">광주소프트웨어마이스터고등학교</span>
+                <span class="edu-period">2022 — 2024</span>
+            </div>
+            <p class="edu-desc">Software Meister High School, CSE. 서버 시스템, JVM 내부 구조, 오픈소스 시스템 연구/검증. 교내 OAuth 시스템, 전국 단위 기숙사 관리 시스템 등 10개 이상 프로젝트 개발/운영.</p>
+        </div>
+
+        <!-- PRESENTATION -->
+        <div class="section">
+            <div class="section-title">Presentation</div>
+            <div class="pres-item">
+                <span class="pres-date">KotlinConf'24 Global</span>
+                <span class="pres-content">JetBrains KotlinConf Global in South Korea 발표. Project Valhalla, JVM Type System, Value Class Benchmark.</span>
+            </div>
+            <div class="pres-item">
+                <span class="pres-date">IT Union Conference '25</span>
+                <span class="pres-content">마이스터 개발자 연합 IT 컨퍼런스 스피커. Carpe Diem — 소프트웨어 개발 역량과 개성, 개발 원칙, 개발자 성장.</span>
+            </div>
+            <div class="pres-item">
+                <span class="pres-date">GSM DevConf '23</span>
+                <span class="pres-content">GSM 개발자 컨퍼런스 스피커. Growth of Developer — 개발자의 성장 곡선과 방향성, 추구해야할 마인드셋.</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ==================== PAGE 3 — Personal Projects ==================== -->
+<div class="page">
+    <div class="page-inner">
+
+        <div class="section" style="margin-top: 0;">
+            <div class="section-title">Personal Projects & Open Source</div>
+        </div>
+
+        <!-- estudy -->
+        <div class="pp">
+            <div class="pp-header">
+                <span class="pp-name"><a href="https://github.com/rlaope/estudy">estudy</a></span>
+                <span class="pp-tag blog-tag">Blog</span>
+            </div>
+            <p class="pp-desc">개인 기술 블로그 — Server System, Troubleshooting, Site Reliability Engineering, DevOps, Cloud Native, Distributed System, OpenSource, Redis, JVM, AI(ML/DL) 등 학습/연구 기록. 컨퍼런스 발표 자료 포함.</p>
+        </div>
+
+        <!-- Argus -->
+        <div class="pp">
+            <div class="pp-header">
+                <span class="pp-name"><a href="https://github.com/rlaope/Argus">Argus</a></span>
+                <span class="pp-tech">Java 21+, JFR, WebSocket</span>
+            </div>
+            <p class="pp-desc">JVM 21+ Virtual Threads(Project Loom) 실시간 모니터링 JFR-streaming 프로파일러. Lock-free ring buffer 아키텍처로 저오버헤드 이벤트 수집. WebSocket 기반 실시간 대시보드에서 pinned carrier thread, virtual thread 생성/소멸, park/unpark 이벤트를 시각화.</p>
+        </div>
+
+        <!-- kar98k -->
+        <div class="pp">
+            <div class="pp-header">
+                <span class="pp-name"><a href="https://github.com/rlaope/kar98k">kar98k</a></span>
+                <span class="pp-tech">Go</span>
+            </div>
+            <p class="pp-desc">24/7 고강도 트래픽 시뮬레이터(카오스 엔지니어링). HTTP/1.1, HTTP/2, gRPC 프로토콜 지원. Poisson 분포 기반 스파이크 패턴 시뮬레이션, P50/P95/P99 레이턴시 리포트 자동 생성. 프로덕션 환경의 비정상 트래픽 패턴을 재현하여 시스템 내구성 검증.</p>
+        </div>
+
+        <!-- airML -->
+        <div class="pp">
+            <div class="pp-header">
+                <span class="pp-name"><a href="https://github.com/rlaope/airML">airML</a></span>
+                <span class="pp-tech">C++, ONNX Runtime</span>
+            </div>
+            <p class="pp-desc">Python 없이 ONNX 모델을 실행하는 경량 ML 런타임. ~50MB 바이너리, 콜드 스타트 0.01-0.05s (Python 대비 100x 빠름). Apple Silicon 네이티브 가속 지원. 엣지/임베디드 환경에서 무거운 Python 런타임 의존 없이 ML 추론을 수행하기 위해 개발.</p>
+        </div>
+
+        <!-- g1-log-capture -->
+        <div class="pp">
+            <div class="pp-header">
+                <span class="pp-name"><a href="https://github.com/enzin-arts/g1-log-capture">g1-log-capture</a></span>
+                <span class="pp-tech">Java</span>
+            </div>
+            <p class="pp-desc">규칙 기반 G1GC 로그 분석기 및 튜닝 어드바이저. 목표 MaxGCPauseMillis를 초과하는 STW pause 감지, to-space exhausted, humongous allocation, concurrent mode failure 등 성능 저하 패턴 탐지. 근거와 함께 실행 가능한 튜닝 제안 제공.</p>
+        </div>
+
+        <!-- tcp-css-loadtest -->
+        <div class="pp">
+            <div class="pp-header">
+                <span class="pp-name"><a href="https://github.com/rlaope/tcp-css-loadtest">tcp-css-loadtest</a></span>
+                <span class="pp-tech">Java, Netty</span>
+            </div>
+            <p class="pp-desc">금융 연동 부하 테스트용 TCP 모킹 서버. NICE 전문 규격 구현 (10바이트 길이 헤더, EUC-KR 인코딩). 응답 크기 10-14KB, 랜덤 지연 0.5-2s, 최대 100개 동시 세션 설정 가능. 실제와 유사한 부하 시뮬레이션 지원.</p>
+        </div>
+
+        <!-- cache-labs -->
+        <div class="pp">
+            <div class="pp-header">
+                <span class="pp-name"><a href="https://github.com/rlaope/cache-labs">cache-labs</a></span>
+                <span class="pp-tech">Java, Redis</span>
+            </div>
+            <p class="pp-desc">Local Cache + Redis 이중 캐시 구조 설계 연구. 캐시 일관성 전략, 분산 환경 캐시 설계, Circuit Breaker를 활용한 장애 대응, 고트래픽 캐시 시스템 구현. hash slot 마이그레이션과 hit rate 유지를 위한 프로그레시브 워밍업 전략 포함.</p>
+        </div>
+
+        <!-- TatVTON -->
+        <div class="pp">
+            <div class="pp-header">
+                <span class="pp-name"><a href="https://github.com/art8engine/TatVTON">TatVTON</a></span>
+                <span class="pp-tech">Python, Diffusion, SAM 2</span>
+            </div>
+            <p class="pp-desc">디퓨전 기반 타투 피팅 파이프라인. SAM 2 피부 세그멘테이션 → SDXL Inpainting + ControlNet → IP-Adapter 스타일 트랜스퍼 → 알파 블렌딩 합성의 4단계 아키텍처. 순차적 모델 로드/언로드로 12GB VRAM 내 구동.</p>
+        </div>
+
+        <!-- Mascot -->
+        <div class="pp">
+            <div class="pp-header">
+                <span class="pp-name"><a href="https://github.com/rlaope/mascot">Mascot</a></span>
+                <span class="pp-tech">Kotlin, IntelliJ Plugin</span>
+            </div>
+            <p class="pp-desc">IntelliJ IDEA IDE 코너에 커스텀 마스코트를 표시하는 경량 플러그인. JetBrains Marketplace 배포. Settings UI에서 로컬 이미지를 마스코트로 설정 가능, IDE 재시작 후에도 설정 유지.</p>
+        </div>
+
+        <!-- claude-code-savant -->
+        <div class="pp">
+            <div class="pp-header">
+                <span class="pp-name"><a href="https://github.com/rlaope/claude-code-savant">claude-code-savant</a></span>
+                <span class="pp-tech">TypeScript, MCP</span>
+            </div>
+            <p class="pp-desc">5가지 AI 페르소나를 통한 전문 지원 Claude Code MCP 플러그인. Smart router가 질문 유형을 분석해 최적의 페르소나(Einstein, Shakespeare, Socrates, Steve Jobs, Router)를 자동 선택.</p>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
