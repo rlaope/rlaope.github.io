@@ -7,56 +7,48 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root { --bg: #000; --text: #e8e8e8; --text-dim: #666; --accent: #888; }
+        :root { --bg: #000; --text: #e8e8e8; --dim: #666; --accent: #888; }
         @page { size: A4; margin: 0; }
         body {
             font-family: 'JetBrains Mono', monospace;
             background: var(--bg); color: var(--text);
-            line-height: 1.4; font-size: 9px;
-            width: 210mm; margin: 0 auto;
+            font-size: 10px; line-height: 1.55;
+            width: 210mm; min-height: 297mm; margin: 0 auto;
         }
-        main { padding: 20px 30px 16px; }
-        .web-banner { text-align: center; padding: 6px; }
-        .web-banner p { color: #555; font-size: 8px; }
-        .web-banner a { color: #43a047; text-decoration: none; border-bottom: 1px solid #43a047; padding-bottom: 1px; }
-        .hero { margin-bottom: 14px; text-align: center; }
+        main { padding: 28px 40px 20px; }
+        .web-banner { text-align: center; padding: 8px 0 0; }
+        .web-banner p { color: #444; font-size: 9px; }
+        .web-banner a { color: #43a047; text-decoration: none; }
+        .hero { text-align: center; margin-bottom: 18px; }
         .hero img { width: 36px; height: 36px; margin-bottom: 8px; }
-        .hero h1 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
-        .handle { color: var(--text-dim); font-weight: 400; font-size: 12px; }
-        .role { color: var(--accent); font-size: 10px; }
-        section { margin-bottom: 12px; }
+        .hero h1 { font-size: 22px; font-weight: 700; }
+        .hero .handle { color: var(--dim); font-weight: 400; font-size: 13px; }
+        .hero .role { color: var(--accent); font-size: 11px; margin-top: 2px; }
+        .about { margin-bottom: 18px; }
+        .about p { color: #bbb; font-size: 10px; line-height: 1.65; margin-bottom: 4px; }
+        section { margin-bottom: 16px; }
         section h2 {
-            font-size: 8px; color: var(--text-dim);
-            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;
-            border-bottom: 1px solid #222; padding-bottom: 4px;
+            font-size: 9px; color: var(--dim); text-transform: uppercase;
+            letter-spacing: 2px; margin-bottom: 10px;
+            border-bottom: 1px solid #1a1a1a; padding-bottom: 5px;
         }
-        .about p { margin-bottom: 4px; color: #bbb; font-size: 9px; line-height: 1.5; }
-        .item { margin-bottom: 6px; }
-        .year {
-            display: block; color: #e8e8e8; font-size: 10px;
-            font-weight: 700; margin-bottom: 2px; letter-spacing: 0.5px;
-        }
-        .year a { color: #e8e8e8; text-decoration: none; border-bottom: 1px solid #444; padding-bottom: 1px; }
-        .item p { color: #999; font-size: 8px; line-height: 1.4; }
-        .projects-grid {
-            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;
-        }
-        .project { padding: 8px; border: 1px solid #222; }
-        .project h3 { font-size: 9px; margin-bottom: 3px; }
+        .item { margin-bottom: 8px; }
+        .item .year { display: block; font-size: 11px; font-weight: 700; margin-bottom: 1px; }
+        .item .year a { color: var(--text); text-decoration: none; border-bottom: 1px solid #333; }
+        .item p { color: #888; font-size: 9.5px; }
+        .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .project { padding: 10px 12px; border: 1px solid #1a1a1a; }
+        .project h3 { font-size: 10px; margin-bottom: 4px; }
         .project h3 a { color: var(--text); text-decoration: none; }
-        .project p { color: #888; font-size: 7.5px; line-height: 1.4; }
-        .tags { display: flex; flex-wrap: wrap; gap: 4px; }
-        .tags span {
-            padding: 2px 8px; border: 1px solid #333;
-            font-size: 8px; color: #aaa;
-        }
-        .contact-row { display: flex; gap: 20px; }
-        .contact-row p { font-size: 9px; }
-        .contact-row a { color: var(--text); text-decoration: none; }
-        .pres-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
-        .pres-item .pres-title { font-size: 10px; font-weight: 700; color: #e8e8e8; margin-bottom: 2px; }
-        .pres-item p { color: #999; font-size: 7.5px; line-height: 1.4; }
-        footer { text-align: center; padding: 8px; color: var(--text-dim); font-size: 8px; }
+        .project p { color: #777; font-size: 8.5px; line-height: 1.45; }
+        .pres-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .pres-item .pres-title { font-size: 10px; font-weight: 700; margin-bottom: 3px; }
+        .pres-item p { color: #777; font-size: 8.5px; line-height: 1.45; }
+        .tags { display: flex; flex-wrap: wrap; gap: 5px; }
+        .tags span { padding: 3px 10px; border: 1px solid #282828; font-size: 9px; color: #999; }
+        .contact-row { display: flex; gap: 24px; }
+        .contact-row a { color: var(--text); text-decoration: none; font-size: 10px; }
+        footer { text-align: center; padding: 10px; color: var(--dim); font-size: 8px; }
         @media print {
             body { background: #000; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .project { break-inside: avoid; }
@@ -75,13 +67,11 @@
         </section>
 
         <section class="about">
-            <p>2014년, 흰 가운을 입은 과학자를 꿈꾸던 아이가 컴퓨터를 발견했습니다.
-            수학적으로 증명되지 않은 한계는 믿지 않습니다. 문제가 어려울수록 더 흥미롭습니다.</p>
-            <p>17살에 정부 지원 사업에 뛰어들었습니다. 낯선 도메인, 빠듯한 일정과 자원 부족 속에서 모두가 불가능하다고 했습니다.
-            압박 속에서 시스템 개발에 더 깊이 파고들었고, 팀원들과 함께 성장하며 4,500만원 투자를 유치하고 소프트웨어 마이스터고에 프로젝트실을 신설했습니다.</p>
+            <p>2014년, 흰 가운을 입은 과학자를 꿈꾸던 아이가 컴퓨터를 발견했습니다. 수학적으로 증명되지 않은 한계는 믿지 않습니다. 문제가 어려울수록 더 흥미롭습니다.</p>
+            <p>17살에 정부 지원 사업에 뛰어들었습니다 — 낯선 도메인, 빠듯한 일정과 자원 부족 속에서 모두가 불가능하다고 했습니다. 압박 속에서 시스템 개발에 더 깊이 파고들었고, 팀원들과 함께 성장하며 4,500만원 투자를 유치하고 소프트웨어 마이스터고에 프로젝트실을 신설했습니다.</p>
         </section>
 
-        <section class="history">
+        <section>
             <h2>History</h2>
             <div class="item">
                 <span class="year">2014. 초등학생</span>
@@ -105,7 +95,7 @@
             </div>
         </section>
 
-        <section class="projects">
+        <section>
             <h2>Open Source</h2>
             <div class="projects-grid">
                 <div class="project">
@@ -156,11 +146,11 @@
                 </div>
                 <div class="pres-item">
                     <div class="pres-title">IT Union Conference. 2025</div>
-                    <p>마이스터 개발자 IT 연합. Carpe Diem - 소프트웨어 개발 역량과 개성.</p>
+                    <p>소프트웨어 마이스터고등학교 연합 IT. Carpe Diem — 소프트웨어 개발 역량과 개성.</p>
                 </div>
                 <div class="pres-item">
                     <div class="pres-title">GSM DevConf. 2023</div>
-                    <p>개발자의 성장 - 개발자의 성장 곡선, 방향, 추구해야 할 마인드셋.</p>
+                    <p>개발자의 성장 — 개발자의 성장 곡선, 방향, 추구해야 할 마인드셋.</p>
                 </div>
             </div>
         </section>
