@@ -560,6 +560,40 @@ section h2 {
     line-height: 1.9;
 }
 
+/* Contributions */
+.contributions .contrib-item {
+    margin-bottom: 16px;
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+.contributions .contrib-item:last-child {
+    margin-bottom: 0;
+}
+
+.contrib-repo {
+    color: var(--text);
+    font-weight: 700;
+}
+
+.contrib-desc {
+    color: #888;
+}
+
+.contrib-pr {
+    color: var(--text-dim);
+    text-decoration: none;
+    margin-left: 8px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 1px;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.contrib-pr:hover {
+    color: var(--text);
+    border-bottom-color: var(--text);
+}
+
 /* Contact */
 .contact p {
     margin-bottom: 12px;
