@@ -562,28 +562,30 @@ section h2 {
 
 /* Contributions */
 .contributions .contrib-item {
-    margin-bottom: 16px;
-    font-size: 14px;
-    line-height: 1.9;
+    margin-bottom: 24px;
 }
 
 .contributions .contrib-item:last-child {
     margin-bottom: 0;
 }
 
-.contrib-repo {
-    color: var(--text);
-    font-weight: 700;
+.contrib-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
 }
 
-.contrib-desc {
-    color: #888;
+.contrib-repo {
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 700;
 }
 
 .contrib-pr {
     color: var(--text-dim);
     text-decoration: none;
-    margin-left: 8px;
+    font-size: 13px;
     border-bottom: 1px solid #333;
     padding-bottom: 1px;
     transition: color 0.2s, border-color 0.2s;
@@ -592,6 +594,12 @@ section h2 {
 .contrib-pr:hover {
     color: var(--text);
     border-bottom-color: var(--text);
+}
+
+.contrib-desc {
+    color: #888;
+    font-size: 14px;
+    line-height: 1.7;
 }
 
 /* Contact */
