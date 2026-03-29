@@ -6,6 +6,9 @@ function loadCraftImages() {
     });
 }
 
+// Global typing state for language switching during animation
+let typingState = null;
+
 // Terminal-style typing effect with vim block cursor
 function initTypingEffect() {
     const main = document.querySelector('main');
@@ -50,6 +53,9 @@ function initTypingEffect() {
     let currentIndex = 0;
     const typeSpeed = 2; // ms per character batch - faster
     const elementDelay = 15; // delay between elements
+
+    // Expose typing state globally for language switching
+    typingState = { originalData, getCurrentIndex: () => currentIndex };
 
     function typeElement(data, callback) {
         const { el, html } = data;
@@ -102,6 +108,8 @@ function initTypingEffect() {
                 currentIndex++;
                 setTimeout(typeNext, elementDelay);
             });
+        } else {
+            typingState = null;
         }
     }
 
@@ -327,327 +335,19 @@ function initTerminalAnimation() {
     });
 }
 
-// Intro Animation - 3D Binary Cube
+// Skip intro and show main content directly
 (function() {
     const overlay = document.getElementById('intro-overlay');
     const main = document.querySelector('main');
 
-    // Check if intro was already seen - handle this first
-    if (sessionStorage.getItem('intro-seen')) {
-        if (overlay) overlay.classList.add('hidden');
-        if (main) {
-            main.classList.add('visible');
-            main.classList.add('typing-started');
-        }
-        initFloatingParticles();
-        loadCraftImages();
-        return; // Exit early, don't set up cube animation
+    if (overlay) overlay.classList.add('hidden');
+    if (main) {
+        main.classList.add('visible');
+        main.classList.add('typing-started');
     }
-
-    // Initialize terminal animation for intro
-    initTerminalAnimation();
-
-    // Mark that intro is playing - hide content until typing
-    if (main) main.classList.add('intro-playing');
-
-    const canvas = document.getElementById('cube-canvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-
-    let width, height;
-    let particles = [];
-    let animationId;
-    let isExploding = false;
-    let mouseX = 0, mouseY = 0;
-    let keyRotX = 0, keyRotY = 0; // Arrow key rotation
-
-    // Cube parameters - optimized
-    const cubeSize = 200;
-    const particleCount = 600;
-    let rotationX = 0, rotationY = 0, rotationZ = 0;
-
-    // Spotlight particles
-    let spotlightParticles = [];
-
-    function resize() {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-    }
-
-    function createSpotlightParticles() {
-        spotlightParticles = [];
-        const spotlightCount = 40;
-        const cubeBottomY = height / 2 + 120 + cubeSize / 2; // Below the cube
-
-        for (let i = 0; i < spotlightCount; i++) {
-            spotlightParticles.push({
-                x: width / 2 + (Math.random() - 0.5) * 60, // Start near center
-                y: cubeBottomY + Math.random() * 200,
-                char: Math.random() > 0.5 ? '1' : '0',
-                speed: 0.5 + Math.random() * 1.5,
-                spread: (Math.random() - 0.5) * 0.8,
-                alpha: 0.1 + Math.random() * 0.3,
-                baseY: cubeBottomY
-            });
-        }
-    }
-
-    function createParticles() {
-        particles = [];
-        const half = cubeSize / 2;
-
-        // Create particles on cube edges (makes it look more like a wireframe cube)
-        const edgeParticles = 400;
-        const edges = [
-            // Bottom face edges
-            { start: [-half, -half, -half], end: [half, -half, -half] },
-            { start: [-half, -half, -half], end: [-half, -half, half] },
-            { start: [half, -half, -half], end: [half, -half, half] },
-            { start: [-half, -half, half], end: [half, -half, half] },
-            // Top face edges
-            { start: [-half, half, -half], end: [half, half, -half] },
-            { start: [-half, half, -half], end: [-half, half, half] },
-            { start: [half, half, -half], end: [half, half, half] },
-            { start: [-half, half, half], end: [half, half, half] },
-            // Vertical edges
-            { start: [-half, -half, -half], end: [-half, half, -half] },
-            { start: [half, -half, -half], end: [half, half, -half] },
-            { start: [-half, -half, half], end: [-half, half, half] },
-            { start: [half, -half, half], end: [half, half, half] },
-        ];
-
-        // Add particles along edges
-        edges.forEach(edge => {
-            const count = Math.floor(edgeParticles / edges.length);
-            for (let i = 0; i < count; i++) {
-                const t = i / count;
-                const x = edge.start[0] + (edge.end[0] - edge.start[0]) * t;
-                const y = edge.start[1] + (edge.end[1] - edge.start[1]) * t;
-                const z = edge.start[2] + (edge.end[2] - edge.start[2]) * t;
-
-                particles.push({
-                    x, y, z,
-                    originalX: x, originalY: y, originalZ: z,
-                    char: Math.random() > 0.5 ? '1' : '0',
-                    vx: 0, vy: 0, vz: 0,
-                    alpha: 0.7 + Math.random() * 0.3
-                });
-            }
-        });
-
-        // Add particles on faces (less dense)
-        const faceParticles = particleCount - edgeParticles;
-        for (let i = 0; i < faceParticles; i++) {
-            const face = Math.floor(Math.random() * 6);
-            let x, y, z;
-
-            switch(face) {
-                case 0: x = half; y = (Math.random() - 0.5) * cubeSize; z = (Math.random() - 0.5) * cubeSize; break;
-                case 1: x = -half; y = (Math.random() - 0.5) * cubeSize; z = (Math.random() - 0.5) * cubeSize; break;
-                case 2: y = half; x = (Math.random() - 0.5) * cubeSize; z = (Math.random() - 0.5) * cubeSize; break;
-                case 3: y = -half; x = (Math.random() - 0.5) * cubeSize; z = (Math.random() - 0.5) * cubeSize; break;
-                case 4: z = half; x = (Math.random() - 0.5) * cubeSize; y = (Math.random() - 0.5) * cubeSize; break;
-                case 5: z = -half; x = (Math.random() - 0.5) * cubeSize; y = (Math.random() - 0.5) * cubeSize; break;
-            }
-
-            particles.push({
-                x, y, z,
-                originalX: x, originalY: y, originalZ: z,
-                char: Math.random() > 0.5 ? '1' : '0',
-                vx: 0, vy: 0, vz: 0,
-                alpha: 0.2 + Math.random() * 0.4
-            });
-        }
-    }
-
-    function rotatePoint(x, y, z) {
-        // Rotate around X
-        let y1 = y * Math.cos(rotationX) - z * Math.sin(rotationX);
-        let z1 = y * Math.sin(rotationX) + z * Math.cos(rotationX);
-
-        // Rotate around Y
-        let x2 = x * Math.cos(rotationY) + z1 * Math.sin(rotationY);
-        let z2 = -x * Math.sin(rotationY) + z1 * Math.cos(rotationY);
-
-        // Rotate around Z
-        let x3 = x2 * Math.cos(rotationZ) - y1 * Math.sin(rotationZ);
-        let y3 = x2 * Math.sin(rotationZ) + y1 * Math.cos(rotationZ);
-
-        return { x: x3, y: y3, z: z2 };
-    }
-
-    function project(x, y, z) {
-        const perspective = 600; // Increased for less distortion
-        const scale = perspective / (perspective + z);
-        return {
-            x: x * scale + width / 2,
-            y: y * scale + height / 2 + 120,
-            scale
-        };
-    }
-
-    function explode() {
-        isExploding = true;
-        particles.forEach(p => {
-            const angle = Math.atan2(p.y, p.x);
-            const angleZ = Math.atan2(p.z, Math.sqrt(p.x * p.x + p.y * p.y));
-            const speed = 10 + Math.random() * 20;
-            p.vx = Math.cos(angle) * Math.cos(angleZ) * speed;
-            p.vy = Math.sin(angle) * speed;
-            p.vz = Math.sin(angleZ) * speed;
-        });
-
-        setTimeout(() => {
-            overlay.classList.add('fade-out');
-            main.classList.add('visible');
-            initFloatingParticles();
-            loadCraftImages();
-            // Start typing effect after overlay fades
-            setTimeout(() => {
-                initTypingEffect();
-            }, 400);
-            setTimeout(() => {
-                overlay.classList.add('hidden');
-                cancelAnimationFrame(animationId);
-            }, 800);
-        }, 500);
-    }
-
-    function animate() {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
-        ctx.fillRect(0, 0, width, height);
-
-        if (!isExploding) {
-            // Interactive rotation based on mouse
-            const targetRotY = (mouseX - width / 2) * 0.0008;
-            const targetRotX = (mouseY - height / 2) * 0.0008;
-            rotationY += (targetRotY - rotationY * 0.1) * 0.05;
-            rotationX += (targetRotX - rotationX * 0.1) * 0.05;
-
-            // Add keyboard rotation
-            rotationX += keyRotX;
-            rotationY += keyRotY;
-
-            // Slow auto rotation
-            rotationZ += 0.002;
-            rotationY += 0.005;
-        }
-
-        ctx.font = '14px JetBrains Mono';
-        ctx.textAlign = 'center';
-
-        // Sort particles by z for depth
-        const sortedParticles = particles.map(p => {
-            if (isExploding) {
-                p.x += p.vx;
-                p.y += p.vy;
-                p.z += p.vz;
-                p.alpha *= 0.96;
-            }
-            const rotated = rotatePoint(p.x, p.y, p.z);
-            const projected = project(rotated.x, rotated.y, rotated.z);
-            return { ...p, projected, rotated };
-        }).sort((a, b) => a.rotated.z - b.rotated.z);
-
-        sortedParticles.forEach(p => {
-            // White color with depth-based brightness (front face brighter)
-            const brightness = Math.floor(200 - (p.rotated.z / cubeSize) * 80);
-            const color = Math.min(255, Math.max(100, brightness));
-            ctx.fillStyle = `rgba(${color}, ${color}, ${color}, ${p.alpha * p.projected.scale})`;
-            ctx.fillText(p.char, p.projected.x, p.projected.y);
-        });
-
-        // Draw spotlight particles below cube
-        if (!isExploding) {
-            ctx.font = '12px JetBrains Mono';
-            spotlightParticles.forEach(p => {
-                // Move down and spread out
-                p.y += p.speed;
-                p.x += p.spread;
-
-                // Calculate fade based on distance from cube
-                const distFromCube = p.y - p.baseY;
-                const maxDist = 250;
-                const fade = Math.max(0, 1 - distFromCube / maxDist);
-
-                // Reset when too far
-                if (distFromCube > maxDist || p.x < 0 || p.x > width) {
-                    p.y = p.baseY + Math.random() * 30;
-                    p.x = width / 2 + (Math.random() - 0.5) * 80;
-                    p.spread = (Math.random() - 0.5) * 1.2;
-                }
-
-                ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha * fade})`;
-                ctx.fillText(p.char, p.x, p.y);
-            });
-        }
-
-        animationId = requestAnimationFrame(animate);
-    }
-
-    // Set up intro animation (only runs if intro not seen yet)
-    resize();
-    createParticles();
-    createSpotlightParticles();
-    animate();
-
-    window.addEventListener('resize', () => {
-        resize();
-        createSpotlightParticles();
-    });
-    window.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-
-    overlay.addEventListener('click', () => {
-        if (!isExploding) {
-            sessionStorage.setItem('intro-seen', 'true');
-            explode();
-        }
-    });
-
-    // Arrow keys to rotate cube, Enter/Space to skip intro
-    window.addEventListener('keydown', (e) => {
-        if (isExploding) return;
-
-        switch(e.key) {
-            case 'ArrowUp':
-                keyRotX = -0.05;
-                e.preventDefault();
-                break;
-            case 'ArrowDown':
-                keyRotX = 0.05;
-                e.preventDefault();
-                break;
-            case 'ArrowLeft':
-                keyRotY = -0.05;
-                e.preventDefault();
-                break;
-            case 'ArrowRight':
-                keyRotY = 0.05;
-                e.preventDefault();
-                break;
-            case 'Enter':
-            case ' ':
-                // Only Enter or Space triggers explosion
-                if (!overlay.classList.contains('hidden')) {
-                    e.preventDefault();
-                    sessionStorage.setItem('intro-seen', 'true');
-                    explode();
-                }
-                break;
-        }
-    });
-
-    window.addEventListener('keyup', (e) => {
-        if (['ArrowUp', 'ArrowDown'].includes(e.key)) {
-            keyRotX = 0;
-        }
-        if (['ArrowLeft', 'ArrowRight'].includes(e.key)) {
-            keyRotY = 0;
-        }
-    });
+    initFloatingParticles();
+    loadCraftImages();
+    initTypingEffect();
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -667,6 +367,23 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('[data-en]').forEach(el => {
             el.innerHTML = el.getAttribute(`data-${lang}`);
         });
+
+        // Update pending typing elements if typing animation is in progress
+        if (typingState) {
+            const { originalData, getCurrentIndex } = typingState;
+            const idx = getCurrentIndex();
+            for (let i = idx; i < originalData.length; i++) {
+                const el = originalData[i].el;
+                const langAttr = el.getAttribute(`data-${lang}`);
+                if (langAttr) {
+                    originalData[i].html = langAttr;
+                }
+                // Keep innerHTML empty for not-yet-typed elements
+                if (i > idx) {
+                    el.innerHTML = '';
+                }
+            }
+        }
 
         // Update html lang attribute
         document.documentElement.lang = lang === 'kr' ? 'ko' : 'en';
