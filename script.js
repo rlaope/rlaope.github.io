@@ -54,48 +54,71 @@ function initTypingEffect() {
     const typeSpeed = 2; // ms per character batch - faster
     const elementDelay = 15; // delay between elements
 
+    let typingCancelled = false;
+
     // Expose typing state globally for language switching
-    typingState = { originalData, getCurrentIndex: () => currentIndex };
+    typingState = {
+        originalData,
+        getCurrentIndex: () => currentIndex,
+        cancelAndFinish(lang) {
+            typingCancelled = true;
+            // Remove cursor
+            if (cursor.parentNode) {
+                cursor.parentNode.removeChild(cursor);
+            }
+            // Show all remaining elements immediately in the correct language
+            for (let i = currentIndex; i < originalData.length; i++) {
+                const d = originalData[i];
+                const langAttr = d.el.getAttribute(`data-${lang}`);
+                d.el.innerHTML = langAttr || d.html;
+                d.el.style.minHeight = '';
+                const projectBox = d.el.closest('.project');
+                if (projectBox) {
+                    projectBox.classList.remove('typing-pending');
+                }
+            }
+            typingState = null;
+        }
+    };
 
     function typeElement(data, callback) {
-        const { el, html } = data;
-
         // Show project box when starting to type its content
-        const projectBox = el.closest('.project');
+        const projectBox = data.el.closest('.project');
         if (projectBox) {
             projectBox.classList.remove('typing-pending');
         }
 
-        // Get plain text
+        // Get plain text from current html (may be updated by language switch)
         const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = html;
+        tempDiv.innerHTML = data.html;
         const textContent = tempDiv.textContent || tempDiv.innerText;
 
         let charIndex = 0;
-        el.innerHTML = '';
-        el.appendChild(cursor);
+        data.el.innerHTML = '';
+        data.el.appendChild(cursor);
 
         function type() {
+            if (typingCancelled) return;
             if (charIndex < textContent.length) {
                 // Remove cursor, add chars, re-add cursor
-                if (cursor.parentNode === el) {
-                    el.removeChild(cursor);
+                if (cursor.parentNode === data.el) {
+                    data.el.removeChild(cursor);
                 }
 
                 // Add characters (fast - 4 at a time)
                 const charsToAdd = Math.min(8, textContent.length - charIndex);
-                el.insertAdjacentText('beforeend', textContent.substring(charIndex, charIndex + charsToAdd));
+                data.el.insertAdjacentText('beforeend', textContent.substring(charIndex, charIndex + charsToAdd));
                 charIndex += charsToAdd;
 
-                el.appendChild(cursor);
+                data.el.appendChild(cursor);
                 setTimeout(type, typeSpeed);
             } else {
                 // Done - restore original HTML and remove cursor
-                if (cursor.parentNode === el) {
-                    el.removeChild(cursor);
+                if (cursor.parentNode === data.el) {
+                    data.el.removeChild(cursor);
                 }
-                el.innerHTML = html;
-                el.style.minHeight = ''; // Remove min-height after done
+                data.el.innerHTML = data.html;
+                data.el.style.minHeight = ''; // Remove min-height after done
                 callback();
             }
         }
@@ -368,21 +391,9 @@ document.addEventListener('DOMContentLoaded', () => {
             el.innerHTML = el.getAttribute(`data-${lang}`);
         });
 
-        // Update pending typing elements if typing animation is in progress
+        // If typing animation is in progress, cancel it and show everything immediately
         if (typingState) {
-            const { originalData, getCurrentIndex } = typingState;
-            const idx = getCurrentIndex();
-            for (let i = idx; i < originalData.length; i++) {
-                const el = originalData[i].el;
-                const langAttr = el.getAttribute(`data-${lang}`);
-                if (langAttr) {
-                    originalData[i].html = langAttr;
-                }
-                // Keep innerHTML empty for not-yet-typed elements
-                if (i > idx) {
-                    el.innerHTML = '';
-                }
-            }
+            typingState.cancelAndFinish(lang);
         }
 
         // Update html lang attribute
