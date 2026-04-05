@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kar98k - Hope Kim</title>
+    <link rel="icon" type="image/png" href="rlaopelogo.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        main {
+            max-width: 860px;
+            padding: 40px 32px 80px;
+            margin: 0 auto;
+        }
+
+        .project-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+        .project-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .project-title a:hover {
+            color: var(--accent);
+        }
+
+        .project-subtitle {
+            color: var(--text-dim);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+        .project-desc {
+            color: #999;
+            font-size: 15px;
+            line-height: 1.9;
+            margin-bottom: 0;
+        }
+
+        .project-banner {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 8px;
+            border: 1px solid #222;
+            margin: 32px 0 48px;
+        }
+
+        .article {
+            margin-bottom: 80px;
+        }
+        .article-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .article-body {
+            color: #bbb;
+            font-size: 15px;
+            line-height: 2;
+        }
+        .article-subtitle {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--text);
+            margin-top: 48px;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #222;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 24px 0;
+        }
+        .feature-card {
+            padding: 20px;
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            border-radius: 6px;
+        }
+        .feature-card h4 {
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+        .feature-card p {
+            color: #888;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .preset-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            color: #ccc;
+            margin: 24px 0;
+        }
+        .preset-table th {
+            background: #111;
+            padding: 10px 16px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+            font-weight: 600;
+        }
+        .preset-table td {
+            padding: 10px 16px;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .arch-block {
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            border-radius: 6px;
+            padding: 24px;
+            margin: 24px 0;
+            font-size: 14px;
+            color: #aaa;
+            line-height: 2;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--text-dim);
+            font-size: 13px;
+            text-decoration: none;
+            margin-bottom: 40px;
+        }
+        .back-link:hover {
+            color: var(--text);
+        }
+
+        @media (max-width: 700px) {
+            main {
+                padding: 40px 20px 60px;
+            }
+            .project-title {
+                font-size: 32px;
+            }
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <a href="index.html" class="back-link">&larr; back</a>
+
+        <header style="margin-bottom: 24px;">
+            <h1 class="project-title"><a href="https://github.com/rlaope/kar98k" target="_blank">kar98k</a></h1>
+            <p class="project-subtitle">Go &middot; HTTP/1.1, HTTP/2, gRPC &middot; MIT License &middot; <a href="https://github.com/rlaope/kar98k" target="_blank" style="display:inline-flex;vertical-align:middle;margin-left:2px;"><svg width="16" height="16" viewBox="0 0 16 16" fill="#888" style="transition:fill 0.2s;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></p>
+            <p class="project-desc">
+                서버에 현실적인 트래픽을 쏴볼 수 있는 24/7 트래픽 시뮬레이션 및 성능 테스트 SDK입니다.
+                k6나 wrk처럼 일정한 부하를 넣는 게 아니라, 실제 서비스에서 발생하는 불규칙한 패턴을 수학적으로 재현합니다.
+            </p>
+            <p class="project-desc" style="margin-top: 16px;">
+                실제 트래픽은 선형으로 증가하지 않습니다. 갑자기 몰렸다 빠지고, 시간대마다 다르고, 항상 미세한 떨림이 있습니다.
+                kar98k는 Poisson 분포 스파이크, 시간대별 변동, 미세 노이즈를 조합해서 이런 현실적인 패턴을 재현합니다.
+            </p>
+            <p class="project-desc" style="margin-top: 16px;">
+                대규모 트래픽 환경을 직접 경험해보지 못한 개발자들에게도, 현실과 유사한 부하 환경에서 시스템을 다뤄보며 성장할 수 있는 기회를 제공하고 싶었습니다.
+            </p>
+        </header>
+
+        <div class="article">
+
+            <h3 class="article-subtitle">핵심 기능</h3>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>Poisson 스파이크</h4>
+                    <p>통계적으로 현실적인 트래픽 급증을 생성합니다. 스파이크 빈도, 강도, ramp-up/down 시간을 모두 설정할 수 있습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>시간대별 스케줄링</h4>
+                    <p>업무 시간에는 1.5배, 새벽에는 0.3배 같은 시간대별 가중치를 설정해서 하루 단위 트래픽 흐름을 재현합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>미세 변동 (Noise)</h4>
+                    <p>기준 TPS 주변으로 ±N% 노이즈를 주입합니다. 실제 트래픽처럼 항상 약간의 떨림이 있는 상태를 만듭니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>적응형 TPS 탐색</h4>
+                    <p>이진 탐색으로 서버가 버틸 수 있는 최대 TPS를 자동으로 찾아냅니다. P95 레이턴시와 에러율 기준으로 판단합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>인터랙티브 TUI</h4>
+                    <p>Bubbletea 기반 TUI에서 설정부터 실행까지 단계별로 진행할 수 있습니다. Headless 모드로 YAML 설정 파일 기반 실행도 됩니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Prometheus 메트릭</h4>
+                    <p>:9090/metrics 엔드포인트에서 요청 수, 레이턴시, 현재/목표 TPS, 스파이크 활성 여부를 실시간으로 수집합니다.</p>
+                </div>
+            </div>
+
+            <h3 class="article-subtitle">프리셋</h3>
+            <div class="article-body">
+                <p>빠르게 시작할 수 있는 3가지 프리셋이 준비되어 있습니다. <code>kar quickstart gentle &lt;url&gt;</code> 한 줄이면 바로 돌아갑니다.</p>
+            </div>
+
+            <table class="preset-table">
+                <thead>
+                    <tr>
+                        <th>프리셋</th>
+                        <th>스파이크 주기</th>
+                        <th>강도</th>
+                        <th>노이즈</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>gentle</td><td>~5분마다</td><td>1.5x</td><td>±5%</td></tr>
+                    <tr><td>moderate</td><td>~3분마다</td><td>2.0x</td><td>±10%</td></tr>
+                    <tr><td>aggressive</td><td>~2분마다</td><td>3.0x</td><td>±15%</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="article-subtitle">프로토콜 지원</h3>
+            <div class="article-body">
+                <p>
+                    HTTP/1.1, HTTP/2, gRPC 세 가지 ��로토콜을 지원합니다.
+                    REST API 서버든 gRPC 마이크로서비스든 동일한 방식으로 테스트할 수 있습니다.
+                </p>
+            </div>
+
+            <h3 class="article-subtitle">폴리글랏 스크립트 엔진</h3>
+            <div class="article-body">
+                <p>
+                    <code>kar script</code> 명령으로 코드 기반 부하 테스트를 작성할 수 있습니다.
+                    Starlark(.star), JavaScript(.js)를 내장 지원하고, JSON-line 프로토콜을 통해 Python, Ruby, Lua 등 어떤 언어로든 테스트 스크립트를 작성할 수 있습니다.
+                </p>
+                <p style="margin-top: 16px;">
+                    다른 성능 테스트 도구들과 다른 점은, kar98k의 chaos 패턴을 스크립트 안에서 일급 API로 사용할 수 있다는 것입니다.
+                    <code>chaos(preset = "aggressive")</code> 한 줄이면 Poisson 스파이크가 VU 스케줄에 자동 적용됩니다.
+                </p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>Starlark / JavaScript</h4>
+                    <p>내장 런타임으로 바로 실행. scenario(), http.get(), check(), sleep() 등 친숙한 API를 제공합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>External Process Protocol</h4>
+                    <p>Python, Ruby, Lua 등 외부 언어를 JSON-line 프로토콜로 연결. 어떤 언어든 성능 테스트 코드로 쓸 수 있습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>chaos() API</h4>
+                    <p>kar98k 고유의 카오스 패턴을 스크립트에서 직접 호출. 프리셋 또는 커스텀 spike_factor로 비정형 부하를 생성합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>VU 라이프사이클</h4>
+                    <p>setup/teardown, ramp stages, checks, thresholds를 지원. P95 레이턴시 임계값 기반 자동 판정까지 제공합니다.</p>
+                </div>
+            </div>
+
+            <h3 class="article-subtitle">아키텍처</h3>
+            <div class="arch-block">
+                Pulse-Controller (스케줄러)<br>
+                &nbsp;&nbsp;&rarr; Pattern-Engine (Poisson + Noise 알고리즘)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&rarr; Pulse-Worker (고루틴 풀) &rarr; Target (HTTP/gRPC)<br>
+                &nbsp;&nbsp;&rarr; Health-Checker (메트릭 수집)
+            </div>
+
+            <div class="article-body">
+                <p>
+                    스케줄러가 패턴 엔진에 현재 시점의 목표 TPS를 요청하면, 엔진이 Poisson 분포와 노이즈를 적용해서 실제 발사량을 계산합니다.
+                    워커 풀이 고루틴으로 요청을 병렬 발사하고, 헬스 체커가 메트릭을 실시간으로 수집합니다.
+                </p>
+            </div>
+
+            <h3 class="article-subtitle">실행 방법</h3>
+            <div class="article-body">
+                <p>
+                    Docker로 바로 실행하거나 (<code>ghcr.io/rlaope/kar98k:latest</code>), 바이너리를 직접 다운받아 쓸 수 있습니다.
+                    darwin-arm64, darwin-amd64, linux-amd64, linux-arm64 바이너리를 제공합니다.
+                    수동 스파이크 주입 (<code>kar spike --factor 5</code>), 일시정지/재개, 실시간 로그 테일링도 지원합니다.
+                </p>
+            </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px;">
+            <img src="https://raw.githubusercontent.com/rlaope/kar98k/master/assets/kar98start.png" alt="kar98k TUI" style="width:100%;border-radius:6px;border:1px solid #1a1a1a;">
+            <img src="https://raw.githubusercontent.com/rlaope/kar98k/master/assets/config1.png" alt="TUI config step 1" style="width:100%;border-radius:6px;border:1px solid #1a1a1a;">
+            <img src="https://raw.githubusercontent.com/rlaope/kar98k/master/assets/config2.png" alt="TUI config step 2" style="width:100%;border-radius:6px;border:1px solid #1a1a1a;">
+            <img src="https://raw.githubusercontent.com/rlaope/kar98k/master/assets/config3.png" alt="TUI config step 3" style="width:100%;border-radius:6px;border:1px solid #1a1a1a;">
+            <img src="https://raw.githubusercontent.com/rlaope/kar98k/master/assets/config4.png" alt="TUI config step 4" style="width:100%;border-radius:6px;border:1px solid #1a1a1a;">
+            <img src="https://raw.githubusercontent.com/rlaope/kar98k/master/assets/trigger.png" alt="Trigger mode" style="width:100%;border-radius:6px;border:1px solid #1a1a1a;">
+            <img src="image/kar98dashboard.png" alt="kar98k Prometheus Dashboard" style="width:100%;border-radius:6px;border:1px solid #1a1a1a;">
+        </div>
+
+        <div style="background:#0a0a0a;border:1px solid #1a1a1a;border-radius:6px;padding:20px 24px;margin-bottom:24px;overflow-x:auto;">
+            <pre style="margin:0;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.8;color:#aaa;"><span style="color:#555;">$</span> kar quickstart aggressive http://localhost:8080/api
+
+<span style="color:#e8e8e8;">kar98k</span> v0.4.0 — 24/7 chaos traffic simulator
+  Target:    http://localhost:8080/api
+  Preset:    aggressive (spike ~2min, 3.0x, ±15% noise)
+  Base TPS:  100
+
+<span style="color:#43a047;">▶</span> Running... TPS: <span style="color:#e8e8e8;">142</span> → <span style="color:#ef5350;">312</span> (spike!) → <span style="color:#e8e8e8;">98</span>
+  Sent: 24,891  Errors: 0  P95: 42ms  P99: 87ms
+
+<span style="color:#555;">$</span> kar discover http://localhost:8080/api --target-p95 100ms
+<span style="color:#888;">Searching max TPS... 500→750→625→680→660
+  Result: max sustainable TPS = 660 (P95: 94ms, error: 0%)</span></pre>
+        </div>
+
+        <div style="background:#0a0a0a;border:1px solid #1a1a1a;border-radius:6px;padding:20px 24px;margin-bottom:24px;overflow-x:auto;">
+            <p style="color:#666;font-size:11px;margin:0 0 12px;font-family:'JetBrains Mono',monospace;">test.star — Starlark script example</p>
+            <pre style="margin:0;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.8;color:#aaa;"><span style="color:#c792ea;">scenario</span>(
+    name = <span style="color:#c3e88d;">"checkout-flow"</span>,
+    pattern = <span style="color:#82aaff;">chaos</span>(preset = <span style="color:#c3e88d;">"aggressive"</span>, spike_factor = <span style="color:#f78c6c;">3.0</span>),
+    vus = <span style="color:#82aaff;">ramp</span>([<span style="color:#82aaff;">stage</span>(<span style="color:#c3e88d;">"30s"</span>, <span style="color:#f78c6c;">20</span>), <span style="color:#82aaff;">stage</span>(<span style="color:#c3e88d;">"1m"</span>, <span style="color:#f78c6c;">50</span>)]),
+    thresholds = {<span style="color:#c3e88d;">"http_req_duration{p95}"</span>: <span style="color:#c3e88d;">"&lt; 500ms"</span>},
+)
+
+<span style="color:#c792ea;">def</span> <span style="color:#82aaff;">default</span>(data):
+    resp = http.get(<span style="color:#c3e88d;">"http://localhost:8080/health"</span>)
+    check(resp, {<span style="color:#c3e88d;">"status 200"</span>: <span style="color:#c792ea;">lambda</span> r: r.status == <span style="color:#f78c6c;">200</span>})
+    sleep(think_time(<span style="color:#c3e88d;">"1s"</span>, <span style="color:#c3e88d;">"3s"</span>))</pre>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Hope Kim</p>
+    </footer>
+</body>
+</html>

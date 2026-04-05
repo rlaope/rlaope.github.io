@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bestwork-agent - Hope Kim</title>
+    <link rel="icon" type="image/png" href="rlaopelogo.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        main {
+            max-width: 860px;
+            padding: 40px 32px 80px;
+            margin: 0 auto;
+        }
+
+        .project-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+        .project-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .project-title a:hover {
+            color: var(--accent);
+        }
+
+        .project-subtitle {
+            color: var(--text-dim);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+        .project-desc {
+            color: #999;
+            font-size: 15px;
+            line-height: 1.9;
+            margin-bottom: 0;
+        }
+
+        .article {
+            margin-bottom: 80px;
+        }
+        .article-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .article-body {
+            color: #bbb;
+            font-size: 15px;
+            line-height: 2;
+        }
+        .article-subtitle {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--text);
+            margin-top: 48px;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #222;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 24px 0;
+        }
+        .feature-card {
+            padding: 20px;
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            border-radius: 6px;
+        }
+        .feature-card h4 {
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+        .feature-card p {
+            color: #888;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .mode-block {
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            border-radius: 6px;
+            padding: 24px;
+            margin: 16px 0;
+        }
+        .mode-block h4 {
+            font-size: 15px;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+        .mode-block .flow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 12px;
+        }
+        .mode-block p {
+            color: #888;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .role-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            color: #ccc;
+            margin: 24px 0;
+        }
+        .role-table th {
+            background: #111;
+            padding: 10px 16px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+            font-weight: 600;
+        }
+        .role-table td {
+            padding: 10px 16px;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 24px 0;
+        }
+        .team-card {
+            padding: 16px;
+            border: 1px solid #1a1a1a;
+            border-radius: 4px;
+        }
+        .team-card strong {
+            color: var(--text);
+            font-size: 13px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .team-card span {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--text-dim);
+            font-size: 13px;
+            text-decoration: none;
+            margin-bottom: 40px;
+        }
+        .back-link:hover {
+            color: var(--text);
+        }
+
+        @media (max-width: 700px) {
+            main {
+                padding: 40px 20px 60px;
+            }
+            .project-title {
+                font-size: 32px;
+            }
+            .feature-grid, .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <a href="index.html" class="back-link">&larr; back</a>
+
+        <header style="margin-bottom: 60px;">
+            <h1 class="project-title"><a href="https://github.com/rlaope/bestwork-agent" target="_blank">bestwork-agent</a></h1>
+            <p class="project-subtitle">Claude Code Plugin &middot; npm &middot; MIT License &middot; <a href="https://github.com/rlaope/bestwork-agent" target="_blank" style="display:inline-flex;vertical-align:middle;margin-left:2px;"><svg width="16" height="16" viewBox="0 0 16 16" fill="#888" style="transition:fill 0.2s;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></p>
+            <p class="project-desc">
+                실제 엔지니어링 조직처럼 팀을 구성해서 Claude Code를 운영하는 하네스입니다.
+                요청을 분석하고, 계층형 팀이 필요한지 스쿼드가 필요한지 판단한 뒤, 적합한 전문가들을 자동으로 배치합니다.
+            </p>
+            <p class="project-desc" style="margin-top: 16px;">
+                AI 에이전트 하나가 코드 작성, 리뷰, 테스트, 아키텍처를 전부 혼자 하면 환각을 잡기 어렵습니다.
+                실제 팀처럼 주니어가 구현하고, 시니어가 검토하고, 리드가 아키텍처를 잡는 구조를 그대로 적용했습니다.
+            </p>
+        </header>
+
+        <div class="article">
+
+            <h3 class="article-subtitle">두 가지 실행 모드</h3>
+
+            <div class="mode-block">
+                <h4>Hierarchy 모드 — 권한 기반 의사결정</h4>
+                <div class="flow">CTO &rarr; Tech Lead &rarr; Sr. Engineer &rarr; Jr. Engineer</div>
+                <p>
+                    주니어가 먼저 구현합니다. 선입견 없이 새로운 시각으로 접근할 수 있기 때문입니다.
+                    시니어가 코드를 다듬고, 리드가 아키텍처를 검토하고, C레벨이 최종 전략적 판단을 합니다.
+                    각 단계에서 문제가 있으면 아래 단계로 다시 내려보냅니다.
+                </p>
+            </div>
+
+            <div class="mode-block">
+                <h4>Squad 모드 — 수평적 협업</h4>
+                <div class="flow">Backend + Frontend + Product + QA (동등, 병렬)</div>
+                <p>
+                    단일 기능이나 버그 픽스처럼 빠르게 끝내야 할 작업에 적합합니다.
+                    한 명의 권한자가 아니라 합의 기반으로 결정하고, 모든 멤버가 동시에 작업합니다.
+                </p>
+            </div>
+
+            <h3 class="article-subtitle">자동 팀 편성</h3>
+            <div class="article-body">
+                <p>
+                    Gateway가 요청을 분석해서 어떤 모드와 팀이 적합한지 자동으로 판단합니다.
+                    실행 전에 편성 계획을 보여주고 확인을 받습니다.
+                </p>
+            </div>
+
+            <table class="role-table">
+                <thead>
+                    <tr>
+                        <th>시그널</th>
+                        <th>선택되는 모드</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>간단한 수정, 리네임, 포맷팅</td><td>Solo</td></tr>
+                    <tr><td>관련된 2개 하위 작업</td><td>Pair</td></tr>
+                    <tr><td>여러 하위 작업</td><td>Trio</td></tr>
+                    <tr><td>대규모, 여러 디렉토리, 아키텍처 변경</td><td>Hierarchy</td></tr>
+                    <tr><td>단일 기능, 버그 픽스</td><td>Squad</td></tr>
+                    <tr><td>보안 민감 파일</td><td>Security Team</td></tr>
+                    <tr><td>인프라 / CI·CD 파일</td><td>Infra Squad</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="article-subtitle">14개 역할, 4단계 레벨</h3>
+
+            <table class="role-table">
+                <thead>
+                    <tr>
+                        <th>레벨</th>
+                        <th>역할</th>
+                        <th>관점</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>C-Level</td><td>CTO, CPO, CISO</td><td>전략 — 아키텍처, 제품 방향, 보안 포스처</td></tr>
+                    <tr><td>Lead</td><td>Tech Lead, EM, QA Lead, Product Lead</td><td>전술 — 코드 품질, 딜리버리, 테스트 전략</td></tr>
+                    <tr><td>Senior</td><td>Backend, Frontend, Fullstack, Infra, Security</td><td>깊은 구현과 멘토링</td></tr>
+                    <tr><td>Junior</td><td>Engineer, QA</td><td>새로운 시각 — 가정에 질문, 엣지 케이스 발견</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="article-subtitle">8개 프리셋 팀</h3>
+
+            <div class="team-grid">
+                <div class="team-card">
+                    <strong>Full Team (Hierarchy)</strong>
+                    <span>CTO &rarr; Tech Lead &rarr; Sr. Fullstack &rarr; Jr. Engineer</span>
+                </div>
+                <div class="team-card">
+                    <strong>Backend Team (Hierarchy)</strong>
+                    <span>CTO &rarr; Tech Lead &rarr; Sr. Backend &rarr; Jr. Engineer</span>
+                </div>
+                <div class="team-card">
+                    <strong>Frontend Team (Hierarchy)</strong>
+                    <span>CPO &rarr; Product Lead &rarr; Sr. Frontend &rarr; Jr. Engineer</span>
+                </div>
+                <div class="team-card">
+                    <strong>Security Team (Hierarchy)</strong>
+                    <span>CISO &rarr; Tech Lead &rarr; Sr. Security &rarr; Jr. QA</span>
+                </div>
+                <div class="team-card">
+                    <strong>Feature Squad</strong>
+                    <span>Sr. Backend + Sr. Frontend + Product Lead + QA Lead</span>
+                </div>
+                <div class="team-card">
+                    <strong>Infra Squad</strong>
+                    <span>Sr. Infra + Sr. Security + Tech Lead</span>
+                </div>
+                <div class="team-card">
+                    <strong>Code Review Board</strong>
+                    <span>Tech Lead + Sr. Security + QA Lead (2/3 승인)</span>
+                </div>
+                <div class="team-card">
+                    <strong>Architecture Review</strong>
+                    <span>CTO + Tech Lead + EM (방향성만, 코드 없음)</span>
+                </div>
+            </div>
+
+            <h3 class="article-subtitle">49개 도메인 전문가</h3>
+            <div class="article-body">
+                <p>
+                    조직 구조 위에 49개의 도메인 전문가가 추가로 배치됩니다.
+                    기술 에이전트 25개 (백엔드, 프론트엔드, 인프라, 보안, ML, 모바일, 인증 등),
+                    PM 에이전트 10개 (프로덕트, API, 플랫폼, 컴플라이언스, DX 등),
+                    크리틱 에이전트 14개 (성능, 확장성, 환각 감지, 타입 안전성, 비용 등)로 구성되어 있습니다.
+                </p>
+                <p style="margin-top: 16px;">
+                    모든 에이전트의 프롬프트는 <code>prompts/</code> 디렉토리에 있어서 리빌드 없이 수정할 수 있습니다.
+                </p>
+            </div>
+
+            <h3 class="article-subtitle">환각 방지</h3>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>파일 그라운딩</h4>
+                    <p>읽지 않은 파일을 수정하려고 하면 경고합니다. 존재하지 않는 파일을 참조하는 환각을 잡습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>타입 체크</h4>
+                    <p>TypeScript 코드를 변경할 때마다 자동으로 타입 체크를 돌려서 깨진 코드를 즉시 감지합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>플랫폼 리뷰</h4>
+                    <p>OS나 런타임 불일치를 감지합니다. macOS 전용 코드를 Linux에서 돌리려는 실수를 막습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>스코프 락</h4>
+                    <p>지정된 경로 바깥의 파일 수정을 차단합니다. rm -rf, git push --force 같은 위험한 명령도 막습니다.</p>
+                </div>
+            </div>
+
+            <h3 class="article-subtitle">관측성</h3>
+            <div class="article-body">
+                <p>
+                    TUI 대시보드에서 세션 목록, 도구 사용 분석, 에이전트 트리, 주간 개요를 확인할 수 있습니다.
+                    365일 히트맵, 루프 감지, 단계별 리플레이, 프롬프트 효율 추세도 제공합니다.
+                    Discord와 Slack 웹훅으로 작업 완료 알림을 받을 수 있고,
+                    git diff, 플랫폼 리뷰, 세션 헬스를 포함한 요약이 색상 코드와 함께 전송됩니다.
+                </p>
+            </div>
+        </div>
+
+        <div style="background:#0a0a0a;border:1px solid #1a1a1a;border-radius:6px;padding:20px 24px;margin-bottom:24px;overflow-x:auto;">
+            <pre style="margin:0;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.8;color:#aaa;"><span style="color:#555;">$</span> claude "리팩터링해줘 — auth 모듈 전체"
+
+<span style="color:#e8e8e8;">[bestwork-agent]</span> Gateway 분석 중...
+  Scope: 대규모 (8 files, 3 directories)
+  Mode:  <span style="color:#82aaff;">Hierarchy</span> — Full Team
+
+  <span style="color:#43a047;">CTO</span>         → 아키텍처 방향 결정
+  <span style="color:#43a047;">Tech Lead</span>   → 코드 품질 / 리뷰 기준 설정
+  <span style="color:#43a047;">Sr. Backend</span> → 구현 및 리팩터링
+  <span style="color:#43a047;">Jr. Engineer</span>→ 엣지 케이스 검증
+
+  실행할까요? <span style="color:#e8e8e8;">[Y/n]</span> y
+
+<span style="color:#888;">Jr. Engineer → 구현 시작 (auth/session.ts, auth/middleware.ts)
+Sr. Backend  → 리뷰: 세션 만료 로직 수정 제안
+Tech Lead    → 승인: 인터페이스 분리 컨벤션 적용
+CTO          → 최종 승인: 보안 포스처 확인 완료</span>
+
+<span style="color:#43a047;">✓</span> 완료 — 4 files changed, 12 checks passed</pre>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Hope Kim</p>
+    </footer>
+</body>
+</html>

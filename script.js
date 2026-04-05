@@ -19,7 +19,7 @@ function initTypingEffect() {
     main.classList.add('typing-started');
 
     // Hide project boxes initially
-    document.querySelectorAll('.project').forEach(p => p.classList.add('typing-pending'));
+    document.querySelectorAll('.project, .side-item').forEach(p => p.classList.add('typing-pending'));
 
     // Collect all elements to type
     sections.forEach(section => {
@@ -72,7 +72,7 @@ function initTypingEffect() {
                 const langAttr = d.el.getAttribute(`data-${lang}`);
                 d.el.innerHTML = langAttr || d.html;
                 d.el.style.minHeight = '';
-                const projectBox = d.el.closest('.project');
+                const projectBox = d.el.closest('.project') || d.el.closest('.side-item');
                 if (projectBox) {
                     projectBox.classList.remove('typing-pending');
                 }
@@ -83,7 +83,7 @@ function initTypingEffect() {
 
     function typeElement(data, callback) {
         // Show project box when starting to type its content
-        const projectBox = data.el.closest('.project');
+        const projectBox = data.el.closest('.project') || data.el.closest('.side-item');
         if (projectBox) {
             projectBox.classList.remove('typing-pending');
         }

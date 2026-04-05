@@ -63,7 +63,7 @@
         <nav class="toc">
             <a href="#history">History</a>
             <span class="toc-dot">/</span>
-            <a href="#opensource">Open Source</a>
+            <a href="#opensource">Projects</a>
             <span class="toc-dot">/</span>
             <a href="#contributes">Contributes</a>
             <span class="toc-dot">/</span>
@@ -117,77 +117,38 @@
         </section>
 
         <section class="projects" id="opensource">
-            <h2>Open Source</h2>
+            <h2>Projects</h2>
 
             <div class="project">
-                <h3><a href="https://github.com/rlaope/Argus" target="_blank">Argus</a></h3>
-                <p data-en="Lightweight JVM diagnostic toolkit for Java 21+. Standalone CLI that diagnoses any running JVM without an agent — heap analysis, thread dumps, GC monitoring, native memory tracking, memory leak detection, and more. Also includes a real-time web dashboard powered by JFR streaming with flame graphs and Prometheus/OTLP metric export. Zero external dependencies, lock-free ring buffer architecture."
-                   data-kr="Java 21+ 경량 JVM 진단 툴킷. 에이전트 없이 실행 중인 아무 JVM을 바로 진단할 수 있는 독립 CLI — 힙 분석, 스레드 덤프, GC 모니터링, 네이티브 메모리 추적, 메모리 누수 탐지 등을 지원. JFR 스트리밍 기반 실시간 웹 대시보드와 Flame Graph, Prometheus/OTLP 메트릭 내보내기도 포함. 외부 라이브러리 없이 lock-free ring buffer 아키텍처로 구현.">
-                   Lightweight JVM diagnostic toolkit for Java 21+. Standalone CLI that diagnoses any running JVM without an agent — heap analysis, thread dumps, GC monitoring, native memory tracking, memory leak detection, and more. Also includes a real-time web dashboard powered by JFR streaming with flame graphs and Prometheus/OTLP metric export. Zero external dependencies, lock-free ring buffer architecture.
+                <h3><a href="argus.html">Argus</a></h3>
+                <div class="project-tags">
+                    <span>Java</span><span>CLI</span><span>Web Dashboard</span><span>JFR</span><span>async-profiler</span><span>Spring Boot</span>
+                </div>
+                <p data-en="Open-source JVM observability platform that unifies jcmd, JFR, and async-profiler. 33 CLI commands and a real-time web dashboard — both provide heap analysis, thread dumps, GC monitoring, flame graphs, and virtual thread tracking. Attaches to any running JVM (Java 11+) without an agent. Prometheus/OTLP export, Micrometer bridge, and Spring Boot starter included."
+                   data-kr="jcmd, JFR, async-profiler를 하나로 통합한 JVM 관측성 오픈소스. 33개 CLI 명령과 실시간 웹 대시보드 양쪽에서 힙 분석, 스레드 덤프, GC 모니터링, 플레임 그래프, 가상 스레드 추적을 동일하게 사용할 수 있습니다. 에이전트 없이 실행 중인 아무 JVM(Java 11+)에 바로 붙고, Prometheus/OTLP 내보내기, Micrometer 브릿지, Spring Boot 스타터도 제공합니다.">
+                   Open-source JVM observability platform that unifies jcmd, JFR, and async-profiler. 33 CLI commands and a real-time web dashboard — both provide heap analysis, thread dumps, GC monitoring, flame graphs, and virtual thread tracking. Attaches to any running JVM (Java 11+) without an agent. Prometheus/OTLP export, Micrometer bridge, and Spring Boot starter included.
                 </p>
             </div>
 
             <div class="project">
-                <h3><a href="https://github.com/rlaope/kar98k" target="_blank">kar98k</a></h3>
-                <p data-en="A 24/7 high-intensity traffic simulator written in Go for chaos engineering. Supports HTTP/1.1, HTTP/2, and gRPC protocols with Poisson-distributed spike patterns and micro-fluctuations. Features interactive TUI for configuration, real-time monitoring dashboard, and detailed latency distribution reports (P50/P95/P99)."
-                   data-kr="Go로 작성된 24/7 고강도 트래픽 시뮬레이터로 카오스 엔지니어링용. HTTP/1.1, HTTP/2, gRPC 프로토콜 지원하고 Poisson 분포 스파이크 패턴과 미세 변동 구현함. 인터랙티브 TUI 설정, 실시간 모니터링 대시보드, 상세 레이턴시 분포 리포트(P50/P95/P99) 제공함.">
-                   A 24/7 high-intensity traffic simulator written in Go for chaos engineering. Supports HTTP/1.1, HTTP/2, and gRPC protocols with Poisson-distributed spike patterns and micro-fluctuations. Features interactive TUI for configuration, real-time monitoring dashboard, and detailed latency distribution reports (P50/P95/P99).
+                <h3><a href="kar98k.html">kar98k</a></h3>
+                <div class="project-tags">
+                    <span>Go</span><span>HTTP/2</span><span>gRPC</span><span>TUI</span><span>Prometheus</span><span>Poisson</span>
+                </div>
+                <p data-en="Open-source 24/7 traffic simulation and performance testing SDK in Go. Generates realistic traffic with Poisson-distributed spikes, time-of-day scheduling, and micro-fluctuations instead of flat constant load. Supports HTTP/1.1, HTTP/2, gRPC with interactive TUI, adaptive TPS discovery, and Prometheus metrics."
+                   data-kr="Go 기반 24/7 트래픽 시뮬레이션 및 성능 테스트 SDK. 일정한 부하가 아니라 Poisson 분포 스파이크, 시간대별 스케줄링, 미세 변동을 조합해 실제 트래픽과 유사한 패턴을 만들어냅니다. HTTP/1.1, HTTP/2, gRPC를 지원하고 인터랙티브 TUI, 적응형 TPS 탐색, Prometheus 메트릭을 제공합니다.">
+                   Open-source 24/7 traffic simulation and performance testing SDK in Go. Generates realistic traffic with Poisson-distributed spikes, time-of-day scheduling, and micro-fluctuations instead of flat constant load. Supports HTTP/1.1, HTTP/2, gRPC with interactive TUI, adaptive TPS discovery, and Prometheus metrics.
                 </p>
             </div>
 
             <div class="project">
-                <h3><a href="https://github.com/rlaope/claude-code-savant" target="_blank">claude-code-savant</a></h3>
-                <p data-en="A Claude Code plugin with 5 expert personas, 16 dev specialist agents, and 14 business domain agents that give AI responses unique character and domain expertise. Includes a web chat UI with local Claude Code integration — no API keys needed."
-                   data-kr="5가지 전문 페르소나, 16개 개발 전문 에이전트, 14개 비즈니스 도메인 에이전트를 제공하는 Claude Code 플러그인. AI 응답에 고유한 캐릭터와 도메인 전문성을 부여함. 로컬 Claude Code 연동 웹 채팅 UI 포함 — API 키 불필요.">
-                   A Claude Code plugin with 5 expert personas, 16 dev specialist agents, and 14 business domain agents that give AI responses unique character and domain expertise. Includes a web chat UI with local Claude Code integration — no API keys needed.
-                </p>
-            </div>
-
-            <div class="project">
-                <h3><a href="https://github.com/rlaope/airML" target="_blank">airML</a></h3>
-                <p data-en="A lightweight ML runtime that runs ONNX models without Python. Single ~50MB binary with 0.01-0.05s cold start (100x faster than Python). Native Apple Silicon acceleration via CoreML/Metal/Neural Engine. Supports image classification, text embeddings, and model benchmarking with zero dependencies."
-                   data-kr="Python 없이 ONNX 모델을 실행하는 경량 ML 런타임. 단일 ~50MB 바이너리로 0.01-0.05초 콜드 스타트(Python 대비 100배 빠름). CoreML/Metal/Neural Engine을 통한 Apple Silicon 네이티브 가속 지원. 이미지 분류, 텍스트 임베딩, 모델 벤치마킹을 의존성 없이 지원함.">
-                   A lightweight ML runtime that runs ONNX models without Python. Single ~50MB binary with 0.01-0.05s cold start (100x faster than Python). Native Apple Silicon acceleration via CoreML/Metal/Neural Engine. Supports image classification, text embeddings, and model benchmarking with zero dependencies.
-                </p>
-            </div>
-
-            <div class="project">
-                <h3><a href="https://github.com/rlaope/mascot" target="_blank">Mascot</a></h3>
-                <p data-en="A lightweight IntelliJ IDEA plugin that displays a customizable mascot in the IDE corner. Published on JetBrains Marketplace. Users can set any local image as their mascot through the Settings UI without rebuilding the plugin. Settings persist across IDE restarts."
-                   data-kr="IntelliJ IDEA IDE 코너에 커스텀 마스코트를 표시하는 경량 플러그인. JetBrains Marketplace에 배포됨. 사용자가 플러그인 리빌드 없이 Settings UI에서 로컬 이미지를 마스코트로 설정 가능함. 설정은 IDE 재시작 후에도 유지됨.">
-                   A lightweight IntelliJ IDEA plugin that displays a customizable mascot in the IDE corner. Published on JetBrains Marketplace. Users can set any local image as their mascot through the Settings UI without rebuilding the plugin. Settings persist across IDE restarts.
-                </p>
-            </div>
-
-            <div class="project">
-                <h3><a href="https://github.com/rlaope/cache-labs" target="_blank">cache-labs</a></h3>
-                <p data-en="A deep-dive study on cache system design with Local Cache + Redis dual-layer architecture. Covers cache consistency strategies, distributed cache design, Circuit Breaker for fault tolerance, monitoring/operations, and high-traffic cache system implementation."
-                   data-kr="로컬 캐시 + Redis 이중 캐시 구조 설계를 다루는 캐시 시스템 설계 연구. 캐시 일관성 전략, 분산 환경 캐시 설계, 장애 대응을 위한 Circuit Breaker, 모니터링/운영, 고트래픽 캐시 시스템 구현 포함함.">
-                   A deep-dive study on cache system design with Local Cache + Redis dual-layer architecture. Covers cache consistency strategies, distributed cache design, Circuit Breaker for fault tolerance, monitoring/operations, and high-traffic cache system implementation.
-                </p>
-            </div>
-
-            <div class="project">
-                <h3><a href="https://github.com/enzin-arts/g1-log-capture" target="_blank">g1-log-capture</a></h3>
-                <p data-en="A rule-based G1GC log analyzer and tuning advisor. Detects STW pauses exceeding target MaxGCPauseMillis, flags performance-degrading patterns (to-space exhausted, humongous allocations, concurrent mode failure, long remark), and produces actionable tuning suggestions with evidence."
-                   data-kr="규칙 기반 G1GC 로그 분석기 및 튜닝 어드바이저. 목표 MaxGCPauseMillis를 초과하는 STW pause 감지, 성능 저하 패턴(to-space exhausted, humongous allocation, concurrent mode failure, long remark) 탐지, 근거와 함께 실행 가능한 튜닝 제안 제공함.">
-                   A rule-based G1GC log analyzer and tuning advisor. Detects STW pauses exceeding target MaxGCPauseMillis, flags performance-degrading patterns (to-space exhausted, humongous allocations, concurrent mode failure, long remark), and produces actionable tuning suggestions with evidence.
-                </p>
-            </div>
-
-            <div class="project">
-                <h3><a href="https://github.com/rlaope/tcp-css-loadtest" target="_blank">tcp-css-loadtest</a></h3>
-                <p data-en="A TCP mock server for financial integration load testing. Implements Nice protocol specification with 10-byte length header and EUC-KR encoding. Supports configurable response size (10-14KB), random delays (0.5-2s), and max 100 concurrent sessions for realistic load simulation."
-                   data-kr="금융 연동 부하 테스트용 TCP 모킹 서버. Nice 전문 규격 구현(10바이트 길이 헤더, EUC-KR 인코딩). 응답 크기(10-14KB), 랜덤 지연(0.5-2초), 최대 100개 동시 세션 설정 가능하여 실제와 유사한 부하 시뮬레이션 지원함.">
-                   A TCP mock server for financial integration load testing. Implements Nice protocol specification with 10-byte length header and EUC-KR encoding. Supports configurable response size (10-14KB), random delays (0.5-2s), and max 100 concurrent sessions for realistic load simulation.
-                </p>
-            </div>
-
-            <div class="project">
-                <h3><a href="https://github.com/art8engine/TatVTON" target="_blank">TatVTON</a></h3>
-                <p data-en="A diffusion-based tattoo fitting pipeline. 4-phase architecture: SAM 2 skin region segmentation with multi-mask confidence scoring, SDXL Inpainting + ControlNet for body-aware generation, IP-Adapter for tattoo style transfer, and alpha-blended compositing with mask dilation/feathering. Sequential model load/unload strategy to fit the full pipeline within 12GB VRAM."
-                   data-kr="디퓨전 기반 타투 피팅 파이프라인. 4단계 아키텍처: SAM 2 기반 피부 영역 세그멘테이션(multi-mask confidence scoring), SDXL Inpainting + ControlNet 기반 신체 인식 생성, IP-Adapter 기반 타투 스타일 트랜스퍼, mask dilation/feathering을 적용한 알파 블렌딩 합성. 12GB VRAM 내에서 전체 파이프라인을 구동하기 위한 순차적 모델 로드/언로드 전략 적용함.">
-                   A diffusion-based tattoo fitting pipeline. 4-phase architecture: SAM 2 skin region segmentation with multi-mask confidence scoring, SDXL Inpainting + ControlNet for body-aware generation, IP-Adapter for tattoo style transfer, and alpha-blended compositing with mask dilation/feathering. Sequential model load/unload strategy to fit the full pipeline within 12GB VRAM.
+                <h3><a href="bestwork-agent.html">bestwork-agent</a></h3>
+                <div class="project-tags">
+                    <span>Claude Code</span><span>npm</span><span>Multi-Agent</span><span>Orchestration</span><span>TUI</span>
+                </div>
+                <p data-en="A Claude Code harness that orchestrates multi-agent teams modeled after real engineering orgs. Auto-dispatches hierarchy (CTO → Lead → Senior → Junior) or squad (flat parallel) compositions based on task complexity. 14 specialist roles, 49 domain agents, anti-hallucination controls (file grounding, typecheck, scope lock), and session observability TUI with loop detection and productivity scoring."
+                   data-kr="실제 엔지니어링 조직을 모델링한 멀티 에이전트 팀 오케스트레이션 Claude Code 하네스. 태스크 복잡도에 따라 계층형(CTO → Lead → Senior → Junior) 또는 스쿼드(플랫 병렬) 구성을 자동 디스패치함. 14개 전문 역할, 49개 도메인 에이전트, 환각 방지 제어(파일 그라운딩, 타입체크, 스코프 락), 루프 탐지와 생산성 스코어링이 포함된 세션 관측 TUI 제공.">
+                   A Claude Code harness that orchestrates multi-agent teams modeled after real engineering orgs. Auto-dispatches hierarchy (CTO → Lead → Senior → Junior) or squad (flat parallel) compositions based on task complexity. 14 specialist roles, 49 domain agents, anti-hallucination controls (file grounding, typecheck, scope lock), and session observability TUI with loop detection and productivity scoring.
                 </p>
             </div>
         </section>
@@ -324,6 +285,68 @@
             <p><a href="mailto:piyrw9754@gmail.com">piyrw9754@gmail.com</a></p>
             <p><a href="https://github.com/rlaope" target="_blank">github.com/rlaope</a></p>
             <p><a href="https://www.linkedin.com/in/esperer/" target="_blank">linkedin.com/in/esperer</a></p>
+        </section>
+
+        <section class="side-projects" id="side-projects">
+            <h2>etc. Side Projects</h2>
+
+            <div class="side-grid">
+                <div class="side-item">
+                    <h3 data-en="claude-code-savant" data-kr="claude-code-savant">claude-code-savant</h3>
+                    <p data-en="Claude Code plugin with expert personas and 30+ specialist agents. Ships with a web chat UI."
+                       data-kr="전문 페르소나와 30개 이상의 에이전트를 탑재한 Claude Code 플러그인. 웹 채팅 UI도 함께 제공합니다.">
+                       Claude Code plugin with expert personas and 30+ specialist agents. Ships with a web chat UI.
+                    </p>
+                </div>
+
+                <div class="side-item">
+                    <h3 data-en="airML" data-kr="airML">airML</h3>
+                    <p data-en="Run ONNX models without Python. 50MB binary, sub-second cold start, Apple Silicon acceleration."
+                       data-kr="Python 없이 ONNX 모델을 돌리는 경량 런타임. 50MB 바이너리 하나로 Apple Silicon 가속까지 됩니다.">
+                       Run ONNX models without Python. 50MB binary, sub-second cold start, Apple Silicon acceleration.
+                    </p>
+                </div>
+
+                <div class="side-item">
+                    <h3 data-en="Mascot" data-kr="Mascot">Mascot</h3>
+                    <p data-en="IntelliJ plugin that puts a custom mascot in your IDE. Published on JetBrains Marketplace."
+                       data-kr="IntelliJ IDE 코너에 마스코트를 띄워주는 플러그인. JetBrains Marketplace에 올라가 있습니다.">
+                       IntelliJ plugin that puts a custom mascot in your IDE. Published on JetBrains Marketplace.
+                    </p>
+                </div>
+
+                <div class="side-item">
+                    <h3 data-en="cache-labs" data-kr="cache-labs">cache-labs</h3>
+                    <p data-en="Hands-on study on dual-layer caching with Local + Redis, fault tolerance, and consistency strategies."
+                       data-kr="로컬 캐시와 Redis를 조합한 이중 캐시 설계를 직접 구현해보며 정리한 스터디 프로젝트입니다.">
+                       Hands-on study on dual-layer caching with Local + Redis, fault tolerance, and consistency strategies.
+                    </p>
+                </div>
+
+                <div class="side-item">
+                    <h3 data-en="g1-log-capture" data-kr="g1-log-capture">g1-log-capture</h3>
+                    <p data-en="G1GC log analyzer that spots STW pauses and suggests tuning actions with evidence."
+                       data-kr="G1GC 로그를 분석해서 STW 문제를 찾아내고 근거와 함께 튜닝 방향을 제안해줍니다.">
+                       G1GC log analyzer that spots STW pauses and suggests tuning actions with evidence.
+                    </p>
+                </div>
+
+                <div class="side-item">
+                    <h3 data-en="tcp-css-loadtest" data-kr="tcp-css-loadtest">tcp-css-loadtest</h3>
+                    <p data-en="TCP mock server for financial integration testing. Speaks Nice protocol with EUC-KR encoding."
+                       data-kr="금융 연동 테스트용 TCP 모킹 서버. Nice 전문 규격과 EUC-KR 인코딩을 구현했습니다.">
+                       TCP mock server for financial integration testing. Speaks Nice protocol with EUC-KR encoding.
+                    </p>
+                </div>
+
+                <div class="side-item">
+                    <h3 data-en="TatVTON" data-kr="TatVTON">TatVTON</h3>
+                    <p data-en="Diffusion-based tattoo fitting pipeline using SAM 2 + SDXL Inpainting. Runs on 12GB VRAM."
+                       data-kr="SAM 2와 SDXL Inpainting을 활용한 디퓨전 기반 타투 피팅 파이프라인. 12GB VRAM에서 동작합니다.">
+                       Diffusion-based tattoo fitting pipeline using SAM 2 + SDXL Inpainting. Runs on 12GB VRAM.
+                    </p>
+                </div>
+            </div>
         </section>
     </main>
 

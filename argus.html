@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Argus - Hope Kim</title>
+    <link rel="icon" type="image/png" href="rlaopelogo.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        main {
+            max-width: 860px;
+            padding: 40px 32px 80px;
+            margin: 0 auto;
+        }
+
+        .project-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+        .project-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .project-title a:hover {
+            color: var(--accent);
+        }
+
+        .project-subtitle {
+            color: var(--text-dim);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+        .project-desc {
+            color: #999;
+            font-size: 15px;
+            line-height: 1.9;
+            margin-bottom: 0;
+        }
+
+        .article {
+            margin-bottom: 80px;
+        }
+        .article-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .article-body {
+            color: #bbb;
+            font-size: 15px;
+            line-height: 2;
+        }
+        .article-subtitle {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--text);
+            margin-top: 48px;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #222;
+        }
+        .article-list {
+            color: #bbb;
+            font-size: 15px;
+            line-height: 2;
+            margin: 12px 0 20px 24px;
+        }
+        .article-list li {
+            margin-bottom: 6px;
+        }
+        .highlight-list {
+            list-style: none;
+            margin-left: 0;
+            padding: 16px 20px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 4px;
+        }
+        .highlight-list li::before {
+            content: '+ ';
+            color: #43a047;
+            font-weight: 700;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 24px 0;
+        }
+        .feature-card {
+            padding: 20px;
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            border-radius: 6px;
+        }
+        .feature-card h4 {
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+        .feature-card p {
+            color: #888;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .compat-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            color: #ccc;
+            margin: 24px 0;
+        }
+        .compat-table th {
+            background: #111;
+            padding: 10px 16px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+            font-weight: 600;
+        }
+        .compat-table td {
+            padding: 10px 16px;
+            border-bottom: 1px solid #1a1a1a;
+        }
+        .compat-table .yes { color: #43a047; }
+        .compat-table .no { color: #555; }
+
+        .module-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 24px 0;
+        }
+        .module-item {
+            padding: 14px 16px;
+            border: 1px solid #1a1a1a;
+            border-radius: 4px;
+        }
+        .module-item strong {
+            color: var(--text);
+            font-size: 13px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .module-item span {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--text-dim);
+            font-size: 13px;
+            text-decoration: none;
+            margin-bottom: 40px;
+        }
+        .back-link:hover {
+            color: var(--text);
+        }
+
+        @media (max-width: 700px) {
+            main {
+                padding: 40px 20px 60px;
+            }
+            .project-title {
+                font-size: 32px;
+            }
+            .feature-grid, .module-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <a href="index.html" class="back-link">&larr; back</a>
+
+        <header style="margin-bottom: 60px;">
+            <h1 class="project-title"><a href="https://github.com/rlaope/Argus" target="_blank">Argus</a></h1>
+            <p class="project-subtitle">Java 11+ &middot; CLI + Web Dashboard &middot; MIT License &middot; <a href="https://github.com/rlaope/Argus" target="_blank" style="display:inline-flex;vertical-align:middle;margin-left:2px;"><svg width="16" height="16" viewBox="0 0 16 16" fill="#888" style="transition:fill 0.2s;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></p>
+            <p class="project-desc">
+                jcmd, JFR, async-profiler를 하나의 CLI와 웹 대시보드로 통합한 JVM 관측성 오픈소스입니다.
+                에이전트 없이 실행 중인 아무 JVM에 바로 붙어서 쓸 수 있고, Java 버전에 따라 자동으로 데이터 소스를 전환합니다.
+            </p>
+            <p class="project-desc" style="margin-top: 16px;">
+                JVM 모니터링 도구는 이미 많지만, 필요한 것들을 찾아서 조합하고 대시보드를 구성하고 어댑팅 로직까지 직접 짜는 건 꽤 번거로운 일입니다.
+                Argus는 이런 프로파일링 도구들을 하나로 오케스트레이션하면서, 자체적으로 가공한 지표와 독자적인 대시보드를 함께 제공합니다.
+            </p>
+        </header>
+
+        <div class="article">
+
+            <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:48px;">
+                <div>
+                    <p style="color:#666;font-size:11px;margin:0 0 8px;font-family:'JetBrains Mono',monospace;">Dashboard — Real-time JVM Monitoring</p>
+                    <video src="image/argusdashboardvideo.mov" autoplay loop muted playsinline style="width:100%;border-radius:6px;border:1px solid #1a1a1a;"></video>
+                </div>
+                <div>
+                    <p style="color:#666;font-size:11px;margin:0 0 8px;font-family:'JetBrains Mono',monospace;">CLI — 33 Diagnostic Commands</p>
+                    <video src="image/argusclivideo.mov" autoplay loop muted playsinline style="width:100%;border-radius:6px;border:1px solid #1a1a1a;"></video>
+                </div>
+            </div>
+
+            <h3 class="article-subtitle">CLI — 33개 진단 명령</h3>
+            <div class="article-body">
+                <p>
+                    에이전트 설치 없이, 재시작 없이, 실행 중인 JVM에 바로 붙어서 진단합니다.
+                    내부적으로 jcmd와 jstat을 호출하고, async-profiler를 연동해서 프로파일링까지 지원합니다.
+                </p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>메모리 분석</h4>
+                    <p>힙 히스토그램, 힙 덤프, 메타스페이스 분석, 네이티브 메모리 추적, 스냅샷 비교를 통한 메모리 누수 탐지</p>
+                </div>
+                <div class="feature-card">
+                    <h4>GC 모니터링</h4>
+                    <p>세대별 사용률을 시각적 바로 표시, YGC/FGC 카운트, 전체 GC 시간, GC 원인 분석</p>
+                </div>
+                <div class="feature-card">
+                    <h4>스레드 진단</h4>
+                    <p>스레드 덤프, 상태별 요약, 데드락 감��, 스레드 풀 분석, 파이널라이저 큐 확인</p>
+                </div>
+                <div class="feature-card">
+                    <h4>프로파일링</h4>
+                    <p>async-profiler 연동으로 CPU, 할당, 락, wall-clock 프로파일링. --flame 플래그 하나로 HTML 플레임 그래프 생성</p>
+                </div>
+                <div class="feature-card">
+                    <h4>JFR 제어</h4>
+                    <p>JFR 녹화 시작/중지/체크/덤프를 CLI에서 직접 제어. Java Flight Recorder 라이프사이클을 명령줄로 관리</p>
+                </div>
+                <div class="feature-card">
+                    <h4>런타임 제어</h4>
+                    <p>VM 플래그 조회 및 런타임 변경, JVM 로깅 설정, JMX 제어, 종합 진단 리포트 생성</p>
+                </div>
+            </div>
+
+            <div class="article-body">
+                <p>모든 명령에 <code>--lang=en|ko|ja|zh</code> 옵션이 있어서 4개 언어로 출력할 수 있고, <code>--format=json</code>으로 자동화 파이프라인에 연결할 수도 있습니다.</p>
+            </div>
+
+            <h3 class="article-subtitle">Web Dashboard — 실시간 모니터링</h3>
+            <div class="article-body">
+                <p>
+                    Java Agent를 붙이면 내장 Netty 서버가 올라가면서 웹 대시보드를 제공합니다.
+                    WebSocket 스트리밍으로 실시간 데이터가 들어오고, Chart.js와 d3-flamegraph로 시각화합니다.
+                </p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>플레임 그래프</h4>
+                    <p>연속 프로파일링 결과를 d3-flamegraph로 시각화. 줌, 호버, 내보내기 지원</p>
+                </div>
+                <div class="feature-card">
+                    <h4>가상 스레드 모니터링</h4>
+                    <p>Java 21+ 가상 스레드 라이프사이클 추적, 피닝 감지, 캐리어 스레드 분석</p>
+                </div>
+                <div class="feature-card">
+                    <h4>GC & 메모리</h4>
+                    <p>힙 사용량, GC pause 분석, 할당 속도 추적, 메타스페이스 모니터링</p>
+                </div>
+                <div class="feature-card">
+                    <h4>상관 분석</h4>
+                    <p>여러 메트릭 간 상관관계를 자동 분석하고 권장 사항을 제시</p>
+                </div>
+            </div>
+
+            <h3 class="article-subtitle">메트릭 내보내기 & 스프링 통합</h3>
+            <div class="article-body">
+                <p>
+                    Prometheus 스크래핑 엔드포인트와 OTLP 푸시 내보내기를 기본 제공합니다.
+                    CSV, JSON, JSONL 형식으로 데이터를 내보낼 수도 있습니다.
+                </p>
+                <p style="margin-top: 16px;">
+                    <strong>argus-micrometer</strong> 모듈은 약 25개의 JVM 메트릭을 Micrometer 레지스트리에 바인딩합니다.
+                    Prometheus, Datadog, InfluxDB 등 어떤 백엔드든 연결할 수 있습니다.
+                </p>
+                <p style="margin-top: 16px;">
+                    <strong>argus-spring-boot-starter</strong>는 Spring Boot 3.2+ 애플��케이션에 설정 없이 자동으로 통합됩니다.
+                    application.properties에 argus.* 프로퍼티만 추가하면 됩니다.
+                </p>
+            </div>
+
+            <h3 class="article-subtitle">아키텍처</h3>
+            <div class="module-list">
+                <div class="module-item">
+                    <strong>argus-core</strong>
+                    <span>설정, 이벤트 모델, 링 버퍼 (65,536)</span>
+                </div>
+                <div class="module-item">
+                    <strong>argus-agent</strong>
+                    <span>Java Agent, JFR 스트리밍 엔진</span>
+                </div>
+                <div class="module-item">
+                    <strong>argus-server</strong>
+                    <span>Netty HTTP/WS, 10개 분석기, Prometheus + OTLP</span>
+                </div>
+                <div class="module-item">
+                    <strong>argus-frontend</strong>
+                    <span>Chart.js + d3-flamegraph 대시보드</span>
+                </div>
+                <div class="module-item">
+                    <strong>argus-cli</strong>
+                    <span>33개 명령, 자동 소스 감지, 4개 언어</span>
+                </div>
+                <div class="module-item">
+                    <strong>argus-micrometer</strong>
+                    <span>Micrometer MeterBinder, ~25개 메트릭</span>
+                </div>
+                <div class="module-item">
+                    <strong>argus-spring-boot-starter</strong>
+                    <span>Spring Boot 3.2+ 자동 설정</span>
+                </div>
+            </div>
+
+            <h3 class="article-subtitle">Java 버전별 호환성</h3>
+            <div style="overflow-x: auto;">
+                <table class="compat-table">
+                    <thead>
+                        <tr>
+                            <th>기능</th>
+                            <th>Java 11+</th>
+                            <th>Java 17+</th>
+                            <th>Java 21+</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>CLI (33개 명령)</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+                        <tr><td>웹 대시보드</td><td class="no">-</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+                        <tr><td>GC / CPU / 힙 / 스레드</td><td>CLI only</td><td>MXBean</td><td class="yes">JFR</td></tr>
+                        <tr><td>락 경합 분석</td><td class="no">-</td><td class="no">-</td><td class="yes">JFR</td></tr>
+                        <tr><td>할당 추적</td><td class="no">-</td><td class="no">-</td><td class="yes">JFR</td></tr>
+                        <tr><td>가상 스레드 모니터링</td><td class="no">-</td><td class="no">-</td><td class="yes">JFR</td></tr>
+                        <tr><td>플레임 그래프</td><td class="no">-</td><td class="no">-</td><td class="yes">JFR</td></tr>
+                        <tr><td>Micrometer / Spring Boot</td><td class="no">-</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="article-body" style="margin-top: 32px;">
+                <p>
+                    Java 17~20에서는 MXBean 폴링을 사용하고, Java 21 이상에서는 JFR 스트리밍으로 자동 전환됩니다.
+                    대시보드 UI도 감지된 Java 버전에 따라 표시 항목을 자동으로 조정합니다.
+                </p>
+            </div>
+        </div>
+
+        <div style="background:#0a0a0a;border:1px solid #1a1a1a;border-radius:6px;padding:20px 24px;margin-bottom:24px;overflow-x:auto;">
+            <pre style="margin:0;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.8;color:#aaa;"><span style="color:#555;">$</span> argus report 12345
+
+<span style="color:#e8e8e8;">JVM Info</span>
+  PID: 12345 | Java 21.0.2 | OpenJDK 64-Bit Server VM
+  Uptime: 2h 34m | Args: -Xmx512m -XX:+UseG1GC
+
+<span style="color:#e8e8e8;">Heap Memory</span>
+  Used: 287MB / 512MB <span style="color:#43a047;">▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░</span> 56%
+
+<span style="color:#e8e8e8;">GC Utilization</span>
+  Eden  <span style="color:#43a047;">▓▓▓▓▓▓▓░░░</span> 72%   Old <span style="color:#43a047;">▓▓▓░░░░░░░</span> 31%
+  YGC: 847 (1.2s)  FGC: 0 (0s)
+
+<span style="color:#e8e8e8;">Thread Summary</span>
+  Total: 42 | RUNNABLE: 8 | WAITING: 28 | TIMED_WAITING: 6
+
+<span style="color:#555;">$</span> argus profile 12345 --type cpu --flame --duration 10
+<span style="color:#888;">Profiling for 10s... done. Flame graph saved → /tmp/argus-flame-12345.html</span></pre>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Hope Kim</p>
+    </footer>
+</body>
+</html>
