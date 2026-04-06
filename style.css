@@ -274,6 +274,17 @@ body {
     position: relative;
 }
 
+.about p a {
+    color: #999;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+}
+
+.about p a:hover {
+    color: #fff;
+}
+
 .about-nav {
     position: absolute;
     top: -75px;
