@@ -541,6 +541,13 @@ section h2 {
     border-radius: 8px;
     transition: border-color 0.25s, background 0.25s;
     position: relative;
+    cursor: pointer;
+}
+
+.project h3 a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
 }
 
 .project:hover {
