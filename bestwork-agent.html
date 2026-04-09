@@ -184,18 +184,53 @@
 
         <header style="margin-bottom: 60px;">
             <h1 class="project-title"><a href="https://github.com/rlaope/bestwork-agent" target="_blank">bestwork-agent</a></h1>
-            <p class="project-subtitle">Claude Code Plugin &middot; npm &middot; MIT License &middot; <a href="https://github.com/rlaope/bestwork-agent" target="_blank" style="display:inline-flex;vertical-align:middle;margin-left:2px;"><svg width="16" height="16" viewBox="0 0 16 16" fill="#888" style="transition:fill 0.2s;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></p>
+            <p class="project-subtitle">Claude Code Plugin &middot; npm &middot; Node &ge;20 &middot; MIT License &middot; <a href="https://github.com/rlaope/bestwork-agent" target="_blank" style="display:inline-flex;vertical-align:middle;margin-left:2px;"><svg width="16" height="16" viewBox="0 0 16 16" fill="#888" style="transition:fill 0.2s;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></p>
             <p class="project-desc">
-                실제 엔지니어링 조직처럼 팀을 구성해서 Claude Code를 운영하는 하네스입니다.
-                요청을 분석하고, 계층형 팀이 필요한지 스쿼드가 필요한지 판단한 뒤, 적합한 전문가들을 자동으로 배치합니다.
+                Claude Code를 위한 하네스 엔지니어링. 에이전트가 한 줄 치면, 하네스가 나머지를 전부 잡아냅니다.
             </p>
             <p class="project-desc" style="margin-top: 16px;">
-                AI 에이전트 하나가 코드 작성, 리뷰, 테스트, 아키텍처를 전부 혼자 하면 환각을 잡기 어렵습니다.
-                실제 팀처럼 주니어가 구현하고, 시니어가 검토하고, 리드가 아키텍처를 잡는 구조를 그대로 적용했습니다.
+                AI 코딩 에이전트는 환각을 만들고, 루프를 돌고, 요구사항을 빠뜨리고, 보안 결함을 포함한 코드를 만들어냅니다.
+                bestwork-agent는 실제 엔지니어링 팀이 사용하는 품질 게이트를 자동으로 적용합니다 — 워크플로우를 바꿀 필요 없이.
             </p>
         </header>
 
         <div class="article">
+
+            <h3 class="article-subtitle">7개 자동 품질 게이트</h3>
+            <div class="article-body">
+                <p>모든 게이트는 자동으로 실행됩니다. 프롬프트만 치면 됩니다.</p>
+            </div>
+
+            <table class="role-table">
+                <thead>
+                    <tr>
+                        <th>게이트</th>
+                        <th>타이밍</th>
+                        <th>잡아내는 것</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Grounding</td><td>PreToolUse (Edit/Write)</td><td>읽지 않은 파일 수정 시도</td></tr>
+                    <tr><td>Scope Lock</td><td>PreToolUse</td><td>잠긴 디렉토리 바깥 편집</td></tr>
+                    <tr><td>Strict Mode</td><td>PreToolUse</td><td>rm -rf, git push --force</td></tr>
+                    <tr><td>Type Check</td><td>PostToolUse (Edit/Write)</td><td>변경마다 TypeScript 에러</td></tr>
+                    <tr><td>Review</td><td>On demand / PostToolUse</td><td>가짜 import, 환각 메서드, 플랫폼 불일치, deprecated API</td></tr>
+                    <tr><td>Requirement Check</td><td>PostToolUse (Edit/Write)</td><td>clarify/validate 세션의 미충족 요구사항</td></tr>
+                    <tr><td>Validate</td><td>Before building</td><td>근거 기반 go/no-go — 이 기능을 만들 가치가 있는가?</td></tr>
+                </tbody>
+            </table>
+
+            <div style="background:#0a0a0a;border:1px solid #1a1a1a;border-radius:6px;padding:20px 24px;margin:24px 0;overflow-x:auto;">
+                <pre style="margin:0;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.8;color:#aaa;"><span style="color:#e8e8e8;">HARNESS EFFECTIVENESS BENCHMARK</span>
+
+  Scenarios:      13
+  Accuracy:       <span style="color:#43a047;">100.0%</span>
+
+  Harness ON:     <span style="color:#43a047;">100% (10/10)</span>  False pos: 0
+  Harness OFF:    <span style="color:#e57373;">0% (0/10)</span>
+
+  Categories:     hallucination 3/4 | platform 4/4 | deprecated 1/1 | security 1/1</pre>
+            </div>
 
             <h3 class="article-subtitle">두 가지 실행 모드</h3>
 
@@ -328,18 +363,38 @@
                     <p>OS나 런타임 불일치를 감지합니다. macOS 전용 코드를 Linux에서 돌리려는 실수를 막습니다.</p>
                 </div>
                 <div class="feature-card">
-                    <h4>스코프 락</h4>
+                    <h4>스코프 락 & 스트릭트 모드</h4>
                     <p>지정된 경로 바깥의 파일 수정을 차단합니다. rm -rf, git push --force 같은 위험한 명령도 막습니다.</p>
                 </div>
+                <div class="feature-card">
+                    <h4>요구사항 체크</h4>
+                    <p>clarify/validate 세션에서 수집한 요구사항이 구현에 반영되었는지 자동으로 검증합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>사전 검증 (Validate)</h4>
+                    <p>구현 전 근거 기반 go/no-go 판단. 만들 가치가 있는 기능인지 리서치하고 스트레스 테스트합니다.</p>
+                </div>
+            </div>
+
+            <h3 class="article-subtitle">22개 스킬</h3>
+            <div class="article-body">
+                <p>
+                    validate, clarify, review, trio, plan, delegate, deliver, waterfall, blitz, doctor,
+                    pipeline-run, superthinking, changelog, docs, health, install, meetings, onboard,
+                    sessions, status, update, agents — 슬래시 커맨드로 바로 실행됩니다.
+                </p>
             </div>
 
             <h3 class="article-subtitle">관측성</h3>
             <div class="article-body">
                 <p>
                     TUI 대시보드에서 세션 목록, 도구 사용 분석, 에이전트 트리, 주간 개요를 확인할 수 있습니다.
-                    365일 히트맵, 루프 감지, 단계별 리플레이, 프롬프트 효율 추세도 제공합니다.
+                    365일 활동 히트맵, 루프 감지, 단계별 리플레이, 프롬프트 효율 추세도 제공합니다.
                     Discord와 Slack 웹훅으로 작업 완료 알림을 받을 수 있고,
                     git diff, 플랫폼 리뷰, 세션 헬스를 포함한 요약이 색상 코드와 함께 전송됩니다.
+                </p>
+                <p style="margin-top: 16px;">
+                    팀 자동 최적화 기능으로 과거 세션 데이터를 학습해 에이전트 배분을 점점 더 효율적으로 조정합니다.
                 </p>
             </div>
         </div>
