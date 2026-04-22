@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art &amp; Engineering - Hope Kim</title>
+    <link rel="icon" type="image/png" href="rlaopelogo.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        main {
+            max-width: 100%;
+            padding: 40px 96px 80px;
+            margin: 0;
+        }
+
+        .honest-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+        .honest-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .honest-title a:hover {
+            color: var(--accent);
+        }
+
+        .honest-subtitle {
+            color: var(--text-dim);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+        .honest-desc {
+            color: #999;
+            font-size: 15px;
+            line-height: 1.9;
+            margin-bottom: 0;
+        }
+        .honest-desc a {
+            color: #bbb;
+            text-decoration: none;
+        }
+        .honest-desc a:hover {
+            color: var(--text);
+        }
+
+        .section-block {
+            margin-bottom: 64px;
+        }
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #43a047;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #222;
+        }
+
+        .lang-switch-inline {
+            display: inline-flex;
+            gap: 4px;
+            margin-bottom: 16px;
+        }
+        .lang-switch-inline button {
+            background: transparent;
+            border: 1px solid #333;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            padding: 4px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+            letter-spacing: 1px;
+        }
+        .lang-switch-inline button.active {
+            color: var(--text);
+            border-color: #43a047;
+        }
+        .lang-switch-inline button:hover {
+            color: var(--text);
+        }
+
+        .research-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .research-list li {
+            color: #bbb;
+            font-size: 15px;
+            line-height: 1.9;
+            padding: 16px 0;
+            border-bottom: 1px dashed #222;
+        }
+        .research-list li:last-child {
+            border-bottom: none;
+        }
+        .research-list li strong {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .product-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .product-list li {
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            background: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 6px;
+        }
+        .product-list li .product-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+        .product-list li .product-name a {
+            color: var(--text);
+            text-decoration: none;
+        }
+        .product-list li .product-name a:hover {
+            color: #43a047;
+        }
+        .product-list li .product-desc {
+            color: #bbb;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        .product-list li .product-tag {
+            display: inline-block;
+            margin-left: 8px;
+            font-size: 11px;
+            font-family: 'JetBrains Mono', monospace;
+            color: #888;
+            padding: 2px 6px;
+            border: 1px solid #333;
+            border-radius: 3px;
+            letter-spacing: 1px;
+            vertical-align: middle;
+        }
+
+        .external-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .external-list li {
+            color: #bbb;
+            font-size: 15px;
+            line-height: 1.9;
+            padding: 12px 0;
+            border-bottom: 1px dashed #222;
+        }
+        .external-list li:last-child {
+            border-bottom: none;
+        }
+        .external-list li a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 700;
+        }
+        .external-list li a:hover {
+            color: #43a047;
+        }
+
+        [data-lang-group] .lang-en,
+        [data-lang-group] .lang-kr {
+            display: none;
+        }
+        [data-lang-group="en"] .lang-en {
+            display: block;
+        }
+        [data-lang-group="kr"] .lang-kr {
+            display: block;
+        }
+
+        @media (max-width: 700px) {
+            main {
+                padding: 30px 20px 60px;
+            }
+            .honest-title {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="floating-particles"></canvas>
+    <main class="visible typing-started">
+        <nav style="padding: 24px 0;">
+            <a href="index.html" class="nav-link" style="font-size: 14px; color: var(--text-dim); text-decoration: none;">&larr; Back</a>
+        </nav>
+
+        <section style="margin-bottom: 60px;">
+            <h1 class="honest-title"><a href="https://github.com/art8engine" target="_blank">Art &amp; Engineering</a></h1>
+            <p class="honest-subtitle">AI Research, OpenSource Development, Solving Problems</p>
+            <p class="honest-desc">팀 아트엔진(Art &amp; Engineering)의 리서치, 제품, 외부 활동을 기록합니다.
+                <br>AI 기술과 예술을 엮어 새로운 접근성을 만드는 실험들을 진행합니다.</p>
+        </section>
+
+        <section class="section-block">
+            <h2 class="section-title">Research</h2>
+            <div data-lang-group="en" id="research-block">
+                <div class="lang-switch-inline">
+                    <button type="button" class="active" data-set-lang="en">EN</button>
+                    <button type="button" data-set-lang="kr">KR</button>
+                </div>
+                <ul class="research-list lang-en">
+                    <li><strong>Research on high-concurrency AI serving infrastructure</strong><br>Analyzed high-density model serving architectures and GPU acceleration techniques utilizing ONNX/TensorRT optimization, Triton Inference Server, and vLLM.</li>
+                    <li><strong>Study on LLM Gateway and multi-tenant environments</strong><br>Designed integrated routing for SaaS and self-hosted models, and analyzed resource isolation and cost control strategies through token bucket algorithms and observability logging.</li>
+                    <li><strong>Structuring state machine-based agent pipelines</strong><br>Devised serving architectures to persist execution states and conversation contexts of autonomous agents in stateless backend environments using LangGraph and Redis checkpointing.</li>
+                    <li><strong>Evaluation of modular RAG integration and quantitative quality assessment</strong><br>Conceptualized platform-level RAG components and researched evaluation pipelines using RAGAS (LLM-as-a-Judge) to quantify hallucination risks and retrieval precision.</li>
+                </ul>
+                <ul class="research-list lang-kr">
+                    <li><strong>대용량 트래픽 대응 AI 서빙 인프라 리서치</strong><br>모델 경량화(ONNX/TensorRT)와 Triton Inference Server, vLLM 기반의 고밀도 모델 서빙 아키텍처 및 GPU 가속 기술 검토.</li>
+                    <li><strong>LLM 게이트웨이 및 멀티 테넌트 환경 연구</strong><br>SaaS 및 자체 호스팅 모델의 통합 라우팅을 설계하고, 토큰 버킷 알고리즘 및 관측성(Observability) 로깅을 통한 부서별 자원 격리 및 비용 통제 방안 분석.</li>
+                    <li><strong>상태 머신 기반 Agent 파이프라인 구조화</strong><br>LangGraph와 Redis 체크포인팅을 활용하여 무상태(Stateless) 백엔드 환경에서 자율형 에이전트의 실행 상태와 대화 문맥을 영속화하는 서빙 아키텍처 도출.</li>
+                    <li><strong>모듈형 RAG 통합 및 정량적 품질 평가 방안 검토</strong><br>재사용 가능한 RAG 컴포넌트 플랫폼화를 구상하고, RAGAS(LLM-as-a-Judge)를 도입하여 시스템의 환각(Faithfulness) 여부 및 검색 정밀도를 수치화하는 평가 파이프라인 연구.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section-block">
+            <h2 class="section-title">Products</h2>
+            <ul class="product-list">
+                <li>
+                    <div class="product-name"><a href="https://github.com/art8engine/grimoire" target="_blank">grimoire &nearr;</a></div>
+                    <div class="product-desc">A simple write-novel app.</div>
+                </li>
+                <li>
+                    <div class="product-name"><a href="https://github.com/art8engine/TatVTON" target="_blank">TatVTON &nearr;</a></div>
+                    <div class="product-desc">A 3D-aware, diffusion-based virtual try-on library for photorealistic tattoo synthesis.</div>
+                </li>
+                <li>
+                    <div class="product-name"><a href="https://github.com/rlaope/bestwork-agent" target="_blank">bestwork-agent &nearr;</a></div>
+                    <div class="product-desc">The agent skills — works like the best organization squad or corporation.</div>
+                </li>
+                <li>
+                    <div class="product-name">OpenModel<span class="product-tag">WIP</span></div>
+                    <div class="product-desc">예술의 접근성을 공학적 사고로 낮추는 프로덕트 (개발중).</div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="section-block">
+            <h2 class="section-title">External</h2>
+            <ul class="external-list">
+                <li><a href="https://www.instagram.com/open.model.ai/" target="_blank">OpenModel &nearr;</a> &mdash; Design, AI Product, Art &amp; Engineering Product SNS.</li>
+            </ul>
+        </section>
+
+        <section class="contact">
+            <h2>Contact</h2>
+            <p><a href="mailto:piyrw9754@gmail.com">piyrw9754@gmail.com</a></p>
+            <p><a href="https://github.com/art8engine" target="_blank">github.com/art8engine</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Last updated 2026. 4. 22</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('[data-lang-group]').forEach(group => {
+            const buttons = group.querySelectorAll('[data-set-lang]');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const lang = btn.getAttribute('data-set-lang');
+                    group.setAttribute('data-lang-group', lang);
+                    buttons.forEach(b => b.classList.toggle('active', b === btn));
+                });
+            });
+        });
+    </script>
+
+    <script>
+        // Floating particles
+        let floatingParticles = [];
+        let floatingCanvas, floatingCtx;
+        let particlesEnabled = true;
+
+        function initFloatingParticles() {
+            floatingCanvas = document.getElementById('floating-particles');
+            if (!floatingCanvas) return;
+            floatingCtx = floatingCanvas.getContext('2d');
+
+            const mainWidth = 720;
+            const padding = 32;
+
+            function resize() {
+                floatingCanvas.width = window.innerWidth;
+                floatingCanvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            function getRandomSideX() {
+                const centerStart = (window.innerWidth - mainWidth) / 2 - padding;
+                const centerEnd = (window.innerWidth + mainWidth) / 2 + padding;
+
+                if (Math.random() > 0.5) {
+                    return Math.random() * Math.max(0, centerStart);
+                } else {
+                    return centerEnd + Math.random() * Math.max(0, window.innerWidth - centerEnd);
+                }
+            }
+
+            for (let i = 0; i < 40; i++) {
+                floatingParticles.push({
+                    x: getRandomSideX(),
+                    y: Math.random() * window.innerHeight,
+                    char: Math.random() > 0.5 ? '1' : '0',
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    alpha: 0.15 + Math.random() * 0.25
+                });
+            }
+
+            function animateFloating() {
+                floatingCtx.clearRect(0, 0, floatingCanvas.width, floatingCanvas.height);
+
+                if (!particlesEnabled) {
+                    requestAnimationFrame(animateFloating);
+                    return;
+                }
+
+                floatingCtx.font = '14px JetBrains Mono';
+                floatingCtx.textAlign = 'center';
+
+                const centerStart = (floatingCanvas.width - mainWidth) / 2 - padding;
+                const centerEnd = (floatingCanvas.width + mainWidth) / 2 + padding;
+
+                floatingParticles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.y < 0) p.y = floatingCanvas.height;
+                    if (p.y > floatingCanvas.height) p.y = 0;
+
+                    if (p.x < centerStart) {
+                        if (p.x < 0) p.x = centerStart - 10;
+                    } else if (p.x > centerEnd) {
+                        if (p.x > floatingCanvas.width) p.x = centerEnd + 10;
+                    } else {
+                        if (p.x < floatingCanvas.width / 2) {
+                            p.x = centerStart - 10;
+                        } else {
+                            p.x = centerEnd + 10;
+                        }
+                    }
+
+                    floatingCtx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+                    floatingCtx.fillText(p.char, p.x, p.y);
+                });
+
+                requestAnimationFrame(animateFloating);
+            }
+            animateFloating();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedPref = localStorage.getItem('particles-enabled');
+            if (savedPref !== null) {
+                particlesEnabled = savedPref === 'true';
+            }
+            initFloatingParticles();
+        });
+    </script>
+</body>
+</html>
