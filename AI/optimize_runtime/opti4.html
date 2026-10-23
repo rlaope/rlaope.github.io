@@ -1,0 +1,172 @@
+<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Implementing a High-Performance Asynchronous API Layer Communicating with a Core Inference Engine · rlaope</title><meta name=description content="Implementing a High-Performance Asynchronous API Layer Communicating with a Core Inference Engine — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="Implementing a High-Performance Asynchronous API Layer Communicating with a Core Inference Engine"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/AI/optimize_runtime/opti4.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/AI/optimize_runtime/opti4.html><link rel=stylesheet href=/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/index.html><img class=brand-logo src=/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><a href=https://rlaope.github.io/ko/AI/optimize_runtime/opti4.html hreflang=ko title="한국어로 보기">한국어</a><span class=sep>/</span><span class=on aria-current=true>English</span></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/graph.html title="Knowledge graph" aria-label="Knowledge graph"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub repository"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=en><header class=article-header><nav class=crumbs aria-label=Path><a href=/index.html>rlaope</a><span class=sep>/</span><a href=/AI/index.html>AI</a></nav><h1 class=article-title>Implementing a High-Performance Asynchronous API Layer Communicating with a Core Inference Engine</h1><p class=meta><span>993 단어</span><span class=sep>·</span><span>5 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/AI/optimize_runtime/opti4.md rel=noopener>원문(.md)</a></p></header><div class=prose><p>Developing deep learning models is convenient with Python, but what happens if an API server written in Python directly handles heavy image tensor operations?</p><p>Due to Python's inherent limitations, even with asynchronous processing, the entire server can experience hiccups.</p><p>Therefore, it's common practice to separate the API server that receives user requests from the engine that performs mathematical computations, and connect them via the fastest possible communication network.</p><p>To implement this structure, let's design an MSA that combines FastAPI, gRPC, and a C++-based inference engine.</p><br><h2 id=problem-definition>Problem Definition <a class=anchor href=#problem-definition aria-label="이 절로 링크">#</a></h2><p>When operating an AI service with a traditional single Python server (Flask + PyTorch), there are two critical bottlenecks.</p><ul><li><strong>Python GIL (Global Interpreter Lock) Limitations</strong>: Python can execute only one thread of Python bytecode at a time. If heavy model inference starts running within Python's memory space, even light API requests from other users cannot be processed, leading to blocking.</li><li><strong>REST/JSON Serialization Overhead</strong>: When exchanging images or large embedding vectors (e.g., 1024-dimensional float arrays) via REST API by converting them to JSON text, the data size can balloon several times over, wasting significant CPU resources and time parsing the text.</li></ul><h3 id=solution-approach>Solution Approach <a class=anchor href=#solution-approach aria-label="이 절로 링크">#</a></h3><ul><li><strong>Decoupling</strong>: The API gateway role is handled by Python FastAPI, which specializes in asynchronous I/O processing. The actual heavy GPU tensor operations are offloaded to a dedicated container running a C++-written Triton Inference Server.</li><li><strong>gRPC, Protobuf</strong>: Communication between FastAPI and the C++ engine uses gRPC instead of heavy JSON REST APIs. This serializes data into a compressed binary format rather than text, dramatically reducing network transfer size and maximizing parsing speed.</li></ul><br><h2 id=detailed-operation-principles-and-structure>Detailed Operation Principles and Structure <a class=anchor href=#detailed-operation-principles-and-structure aria-label="이 절로 링크">#</a></h2><p>We structured the flow where FastAPI receives HTTP JSON requests from clients, converts them into binary Protobuf data, and communicates with the C++ inference engine via gRPC.</p><pre tabindex=0><code class=language-mermaid data-lang=mermaid>graph TD
+    subgraph &#34;Client Layer&#34;
+        Client[Web/Mobile Client]
+    end
+
+    subgraph &#34;API Gateway Layer (Python)&#34;
+        FastAPI[FastAPI Server\nAsync Event Loop]
+        gRPCStub[gRPC Async Stub\nProtobuf Serialization]
+    end
+
+    subgraph &#34;Inference Core Layer (C++)&#34;
+        gRPCServer[gRPC Server\nProtobuf Deserialization]
+        CPPEngine[C++ Inference Engine\ne.g. Triton, ONNXRuntime]
+        GPU[NVIDIA GPU]
+    end
+
+    Client -- &#34;HTTP/REST (JSON)&#34; --&gt; FastAPI
+    FastAPI --&gt;|Asynchronous Call| gRPCStub
+    gRPCStub -- &#34;HTTP/2 (Binary Protobuf)&#34; --&gt; gRPCServer
+    gRPCServer --&gt;|Zero-copy Processing| CPPEngine
+    CPPEngine --&gt; GPU
+</code></pre><h3 id=example>Example <a class=anchor href=#example aria-label="이 절로 링크">#</a></h3><p>Let's look at the interface design that defines the communication protocol. This file is compiled to generate both Python client code and C++ server code simultaneously.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-proto data-lang=proto><span class=line><span class=cl><span class=k>syntax</span> <span class=o>=</span> <span class=s>&#34;proto3&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>package</span> <span class=nn>inference</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Service definition for inference
+</span></span></span><span class=line><span class=cl><span class=kd>service</span> <span class=n>InferenceService</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=c1>// RPC method that returns results when a client sends a request
+</span></span></span><span class=line><span class=cl>  <span class=kd>rpc</span> <span class=n>ModelInfer</span> <span class=p>(</span><span class=n>InferRequest</span><span class=p>)</span> <span class=k>returns</span> <span class=p>(</span><span class=n>InferResponse</span><span class=p>)</span> <span class=p>{}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Request data structure (receives multi-dimensional tensor data as a binary array)
+</span></span></span><span class=line><span class=cl><span class=kd>message</span> <span class=nc>InferRequest</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kt>string</span> <span class=n>model_name</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=kd>message</span> <span class=nc>Tensor</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>string</span> <span class=n>name</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>repeated</span> <span class=kt>int64</span> <span class=n>shape</span> <span class=o>=</span> <span class=mi>2</span><span class=p>;</span> <span class=c1>// e.g.: [1, 3, 224, 224]
+</span></span></span><span class=line><span class=cl>    <span class=kt>bytes</span> <span class=n>tensor_content</span> <span class=o>=</span> <span class=mi>3</span><span class=p>;</span> <span class=c1>// Actual image/vector data sent as Raw Binary
+</span></span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=k>repeated</span> <span class=n>Tensor</span> <span class=n>inputs</span> <span class=o>=</span> <span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Response data structure
+</span></span></span><span class=line><span class=cl><span class=kd>message</span> <span class=nc>InferResponse</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kt>string</span> <span class=n>model_name</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=kd>message</span> <span class=nc>Tensor</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>string</span> <span class=n>name</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>repeated</span> <span class=kt>int64</span> <span class=n>shape</span> <span class=o>=</span> <span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>bytes</span> <span class=n>tensor_content</span> <span class=o>=</span> <span class=mi>3</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=k>repeated</span> <span class=n>Tensor</span> <span class=n>outputs</span> <span class=o>=</span> <span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>Let's also look at the logic for sending non-blocking inference requests to the C++ server using grpc.aio within a FastAPI application.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-py data-lang=py><span class=line><span class=cl><span class=kn>import</span> <span class=nn>grpc</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>fastapi</span> <span class=kn>import</span> <span class=n>FastAPI</span><span class=p>,</span> <span class=n>UploadFile</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>numpy</span> <span class=k>as</span> <span class=nn>np</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Python module automatically generated by the proto compiler (based on the above code)</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>inference_pb2</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>inference_pb2_grpc</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>app</span> <span class=o>=</span> <span class=n>FastAPI</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Target C++ inference engine address</span>
+</span></span><span class=line><span class=cl><span class=n>TRITON_GRPC_URL</span> <span class=o>=</span> <span class=s2>&#34;triton-server:8001&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@app.post</span><span class=p>(</span><span class=s2>&#34;/predict&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>async</span> <span class=k>def</span> <span class=nf>predict_image</span><span class=p>(</span><span class=n>file</span><span class=p>:</span> <span class=n>UploadFile</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 1. Convert image bytes received from client to Numpy array (preprocessing)</span>
+</span></span><span class=line><span class=cl>    <span class=n>image_bytes</span> <span class=o>=</span> <span class=k>await</span> <span class=n>file</span><span class=o>.</span><span class=n>read</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=c1># (Dummy conversion for example - in reality, use cv2.imdecode, etc.)</span>
+</span></span><span class=line><span class=cl>    <span class=n>input_array</span> <span class=o>=</span> <span class=n>np</span><span class=o>.</span><span class=n>zeros</span><span class=p>((</span><span class=mi>1</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span> <span class=mi>224</span><span class=p>,</span> <span class=mi>224</span><span class=p>),</span> <span class=n>dtype</span><span class=o>=</span><span class=n>np</span><span class=o>.</span><span class=n>float32</span><span class=p>)</span> 
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># 2. Serialize Numpy array to Protobuf binary format (memory dump)</span>
+</span></span><span class=line><span class=cl>    <span class=n>raw_binary_data</span> <span class=o>=</span> <span class=n>input_array</span><span class=o>.</span><span class=n>tobytes</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># 3. Assemble gRPC request object</span>
+</span></span><span class=line><span class=cl>    <span class=n>request</span> <span class=o>=</span> <span class=n>inference_pb2</span><span class=o>.</span><span class=n>InferRequest</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=n>model_name</span><span class=o>=</span><span class=s2>&#34;resnet50_cpp&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=n>inputs</span><span class=o>=</span><span class=p>[</span>
+</span></span><span class=line><span class=cl>            <span class=n>inference_pb2</span><span class=o>.</span><span class=n>InferRequest</span><span class=o>.</span><span class=n>Tensor</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>                <span class=n>name</span><span class=o>=</span><span class=s2>&#34;input_tensor&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                <span class=n>shape</span><span class=o>=</span><span class=p>[</span><span class=mi>1</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span> <span class=mi>224</span><span class=p>,</span> <span class=mi>224</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>                <span class=n>tensor_content</span><span class=o>=</span><span class=n>raw_binary_data</span>
+</span></span><span class=line><span class=cl>            <span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># 4. Create asynchronous gRPC channel and send request (during this time, FastAPI thread handles other user requests)</span>
+</span></span><span class=line><span class=cl>    <span class=k>async</span> <span class=k>with</span> <span class=n>grpc</span><span class=o>.</span><span class=n>aio</span><span class=o>.</span><span class=n>insecure_channel</span><span class=p>(</span><span class=n>TRITON_GRPC_URL</span><span class=p>)</span> <span class=k>as</span> <span class=n>channel</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>stub</span> <span class=o>=</span> <span class=n>inference_pb2_grpc</span><span class=o>.</span><span class=n>InferenceServiceStub</span><span class=p>(</span><span class=n>channel</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=c1># Request computation from C++ server</span>
+</span></span><span class=line><span class=cl>        <span class=n>response</span> <span class=o>=</span> <span class=k>await</span> <span class=n>stub</span><span class=o>.</span><span class=n>ModelInfer</span><span class=p>(</span><span class=n>request</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># 5. Deserialize the received binary data back into a Numpy array</span>
+</span></span><span class=line><span class=cl>    <span class=n>output_array</span> <span class=o>=</span> <span class=n>np</span><span class=o>.</span><span class=n>frombuffer</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=n>response</span><span class=o>.</span><span class=n>outputs</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span><span class=o>.</span><span class=n>tensor_content</span><span class=p>,</span> <span class=n>dtype</span><span class=o>=</span><span class=n>np</span><span class=o>.</span><span class=n>float32</span>
+</span></span><span class=line><span class=cl>    <span class=p>)</span><span class=o>.</span><span class=n>reshape</span><span class=p>(</span><span class=n>response</span><span class=o>.</span><span class=n>outputs</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span><span class=o>.</span><span class=n>shape</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>{</span><span class=s2>&#34;predictions&#34;</span><span class=p>:</span> <span class=n>output_array</span><span class=o>.</span><span class=n>tolist</span><span class=p>()}</span>
+</span></span></code></pre></div><p>The biggest problem with the code above is that <strong>a new gRPC connection is established and torn down with every API request.</strong></p><p>This causes significant latency, and it's better to implement connection pooling, timeouts, and error handling.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-py data-lang=py><span class=line><span class=cl><span class=kn>import</span> <span class=nn>grpc</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>fastapi</span> <span class=kn>import</span> <span class=n>FastAPI</span><span class=p>,</span> <span class=n>HTTPException</span><span class=p>,</span> <span class=n>status</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>contextlib</span> <span class=kn>import</span> <span class=n>asynccontextmanager</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>inference_pb2</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>inference_pb2_grpc</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>logging</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>logger</span> <span class=o>=</span> <span class=n>logging</span><span class=o>.</span><span class=n>getLogger</span><span class=p>(</span><span class=vm>__name__</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Global gRPC channel and stub (singleton)</span>
+</span></span><span class=line><span class=cl><span class=n>grpc_channel</span><span class=p>:</span> <span class=n>grpc</span><span class=o>.</span><span class=n>aio</span><span class=o>.</span><span class=n>Channel</span> <span class=o>=</span> <span class=kc>None</span>
+</span></span><span class=line><span class=cl><span class=n>grpc_stub</span><span class=p>:</span> <span class=n>inference_pb2_grpc</span><span class=o>.</span><span class=n>InferenceServiceStub</span> <span class=o>=</span> <span class=kc>None</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># --- 1. Reusing gRPC Channel with Lifespan (Connection Pooling Role) ---</span>
+</span></span><span class=line><span class=cl><span class=nd>@asynccontextmanager</span>
+</span></span><span class=line><span class=cl><span class=k>async</span> <span class=k>def</span> <span class=nf>lifespan</span><span class=p>(</span><span class=n>app</span><span class=p>:</span> <span class=n>FastAPI</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>global</span> <span class=n>grpc_channel</span><span class=p>,</span> <span class=n>grpc_stub</span>
+</span></span><span class=line><span class=cl>    <span class=n>logger</span><span class=o>.</span><span class=n>info</span><span class=p>(</span><span class=s2>&#34;Initializing gRPC connection with C++ inference server...&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># Create and maintain the channel only once when the application starts (utilizing HTTP/2 multiplexing)</span>
+</span></span><span class=line><span class=cl>    <span class=c1># Remove maximum message send/receive size limit (e.g., 1GB) via options</span>
+</span></span><span class=line><span class=cl>    <span class=n>MAX_MSG_LENGTH</span> <span class=o>=</span> <span class=mi>1024</span> <span class=o>*</span> <span class=mi>1024</span> <span class=o>*</span> <span class=mi>1024</span> 
+</span></span><span class=line><span class=cl>    <span class=n>grpc_channel</span> <span class=o>=</span> <span class=n>grpc</span><span class=o>.</span><span class=n>aio</span><span class=o>.</span><span class=n>insecure_channel</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;triton-server:8001&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=n>options</span><span class=o>=</span><span class=p>[</span>
+</span></span><span class=line><span class=cl>            <span class=p>(</span><span class=s1>&#39;grpc.max_send_message_length&#39;</span><span class=p>,</span> <span class=n>MAX_MSG_LENGTH</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>            <span class=p>(</span><span class=s1>&#39;grpc.max_receive_message_length&#39;</span><span class=p>,</span> <span class=n>MAX_MSG_LENGTH</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>            <span class=p>(</span><span class=s1>&#39;grpc.keepalive_time_ms&#39;</span><span class=p>,</span> <span class=mi>10000</span><span class=p>),</span> <span class=c1># Prevent connection loss with KeepAlive pings</span>
+</span></span><span class=line><span class=cl>        <span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>grpc_stub</span> <span class=o>=</span> <span class=n>inference_pb2_grpc</span><span class=o>.</span><span class=n>InferenceServiceStub</span><span class=p>(</span><span class=n>grpc_channel</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>yield</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=n>logger</span><span class=o>.</span><span class=n>info</span><span class=p>(</span><span class=s2>&#34;Safely closing gRPC channel...&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>await</span> <span class=n>grpc_channel</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>app</span> <span class=o>=</span> <span class=n>FastAPI</span><span class=p>(</span><span class=n>lifespan</span><span class=o>=</span><span class=n>lifespan</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># --- 2. Robust Endpoint with Exception Handling and Timeout ---</span>
+</span></span><span class=line><span class=cl><span class=nd>@app.post</span><span class=p>(</span><span class=s2>&#34;/predict/v2&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>async</span> <span class=k>def</span> <span class=nf>predict_robust</span><span class=p>(</span><span class=n>request_data</span><span class=p>:</span> <span class=nb>dict</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=c1># ... (Data preparation logic omitted) ...</span>
+</span></span><span class=line><span class=cl>    <span class=n>request</span> <span class=o>=</span> <span class=n>inference_pb2</span><span class=o>.</span><span class=n>InferRequest</span><span class=p>(</span><span class=n>model_name</span><span class=o>=</span><span class=s2>&#34;resnet50_cpp&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=c1># [Key Quality 1] Timeout setting: Prevents FastAPI server from waiting indefinitely if the C++ engine crashes</span>
+</span></span><span class=line><span class=cl>        <span class=n>response</span> <span class=o>=</span> <span class=k>await</span> <span class=n>grpc_stub</span><span class=o>.</span><span class=n>ModelInfer</span><span class=p>(</span><span class=n>request</span><span class=p>,</span> <span class=n>timeout</span><span class=o>=</span><span class=mf>3.0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=p>{</span><span class=s2>&#34;status&#34;</span><span class=p>:</span> <span class=s2>&#34;success&#34;</span><span class=p>,</span> <span class=s2>&#34;data&#34;</span><span class=p>:</span> <span class=s2>&#34;...&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>    <span class=k>except</span> <span class=n>grpc</span><span class=o>.</span><span class=n>aio</span><span class=o>.</span><span class=n>AioRpcError</span> <span class=k>as</span> <span class=n>rpc_error</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=c1># [Key Quality 2] Appropriately convert gRPC status codes to HTTP status codes and deliver to the client</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>rpc_error</span><span class=o>.</span><span class=n>code</span><span class=p>()</span> <span class=o>==</span> <span class=n>grpc</span><span class=o>.</span><span class=n>StatusCode</span><span class=o>.</span><span class=n>DEADLINE_EXCEEDED</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>logger</span><span class=o>.</span><span class=n>error</span><span class=p>(</span><span class=s2>&#34;Inference engine response timed out (Timeout)&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>raise</span> <span class=n>HTTPException</span><span class=p>(</span><span class=n>status_code</span><span class=o>=</span><span class=n>status</span><span class=o>.</span><span class=n>HTTP_504_GATEWAY_TIMEOUT</span><span class=p>,</span> <span class=n>detail</span><span class=o>=</span><span class=s2>&#34;Inference server timeout&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=k>elif</span> <span class=n>rpc_error</span><span class=o>.</span><span class=n>code</span><span class=p>()</span> <span class=o>==</span> <span class=n>grpc</span><span class=o>.</span><span class=n>StatusCode</span><span class=o>.</span><span class=n>UNAVAILABLE</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>logger</span><span class=o>.</span><span class=n>error</span><span class=p>(</span><span class=s2>&#34;Inference engine server is down.&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>raise</span> <span class=n>HTTPException</span><span class=p>(</span><span class=n>status_code</span><span class=o>=</span><span class=n>status</span><span class=o>.</span><span class=n>HTTP_503_SERVICE_UNAVAILABLE</span><span class=p>,</span> <span class=n>detail</span><span class=o>=</span><span class=s2>&#34;Inference server offline&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            
+</span></span><span class=line><span class=cl>        <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>logger</span><span class=o>.</span><span class=n>error</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;Unknown gRPC error: </span><span class=si>{</span><span class=n>rpc_error</span><span class=o>.</span><span class=n>details</span><span class=p>()</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>raise</span> <span class=n>HTTPException</span><span class=p>(</span><span class=n>status_code</span><span class=o>=</span><span class=n>status</span><span class=o>.</span><span class=n>HTTP_500_INTERNAL_SERVER_ERROR</span><span class=p>,</span> <span class=n>detail</span><span class=o>=</span><span class=s2>&#34;Internal inference error&#34;</span><span class=p>)</span>
+</span></span></code></pre></div></div><footer class=article-footer><span><code>AI/optimize_runtime/opti4.md</code></span></footer><nav class=pager aria-label="Previous/next note"><a class=prev href=/AI/optimize_runtime/opti3.html rel=prev><span class=dir>← Previous</span>vLLM Engine Memory Optimization Based on PagedAttention</a>
+<a class=next href=/AI/optimize_runtime/opti5.html rel=next><span class=dir>Next →</span>Continuous Batching Algorithm</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>

@@ -1,0 +1,126 @@
+<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>SocketAddress Class & NetworkInterface Class · rlaope</title><meta name=description content="SocketAddress Class & NetworkInterface Class — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="SocketAddress Class & NetworkInterface Class"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/Back-End/JAVA/javanet.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/Back-End/JAVA/javanet.html><link rel=stylesheet href=/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/index.html><img class=brand-logo src=/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><a href=https://rlaope.github.io/ko/Back-End/JAVA/javanet.html hreflang=ko title="한국어로 보기">한국어</a><span class=sep>/</span><span class=on aria-current=true>English</span></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/graph.html title="Knowledge graph" aria-label="Knowledge graph"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub repository"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=en><header class=article-header><nav class=crumbs aria-label=Path><a href=/index.html>rlaope</a><span class=sep>/</span><a href=/Back-End/index.html>Back-End</a></nav><h1 class=article-title>SocketAddress Class & NetworkInterface Class</h1><p class=meta><span>561 단어</span><span class=sep>·</span><span>3 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/Back-End/JAVA/javanet.md rel=noopener>원문(.md)</a></p></header><div class=prose><h3 id=socketaddress-class--networkinterface-class-1>SocketAddress Class & NetworkInterface Class <a class=anchor href=#socketaddress-class--networkinterface-class-1 aria-label="이 절로 링크">#</a></h3><p>The SocketAddress class is an abstract class that manages IP addresses and port numbers used by sockets.</p><ul><li>Since the SocketAddress class is an abstract class, you cannot directly create an object from it. Instead, you typically create an instance of the SocketAddress class using its subclass, InetSocketAddress, as shown below:</li></ul><p>SocketAddress socketAddress = ew InetSocketAddress(host,port);</p><h3 id=socketaddress-class-features>SocketAddress Class Features <a class=anchor href=#socketaddress-class-features aria-label="이 절로 링크">#</a></h3><ul><li>Once an instance of the SocketAddress class is created, it cannot be changed.</li><li>If only a port number is provided, such as with <code>InetSocketAddress(int port)</code>, the host's IP address becomes an arbitrary IP address. When packets are transmitted, the kernel automatically assigns the default device address.</li><li>If an exception occurs when attempting to connect to an external host using a created SocketAddress object, the Android system marks that object as 'unresolved' and prevents its reuse.</li></ul><h3 id=networkinterface-class-features>NetworkInterface Class Features <a class=anchor href=#networkinterface-class-features aria-label="이 절로 링크">#</a></h3><p>Information about network devices can be obtained.</p><ul><li>Obtain a list of all network devices existing within the system.</li><li>Find a specific network device.</li><li>Obtain an InetAddress object from the IP address configured within the network device.</li><li>Obtain a list of InterfaceAddress objects from the IP addresses configured within the network device.</li></ul><br><h3 id=example-of-calling-device-information-using-the-networkinterface-class>Example of calling device information using the NetworkInterface class <a class=anchor href=#example-of-calling-device-information-using-the-networkinterface-class aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=nn>java.net.InterfaceAddress</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=nn>java.net.NetworkInterface</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=nn>java.net.SocketException</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=nn>java.util.Enumeration</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=nn>java.util.Iterator</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=nn>java.util.List</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>public</span><span class=w> </span><span class=kd>class</span> <span class=nc>NetworkParameter</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=kd>static</span><span class=w> </span><span class=kt>void</span><span class=w> </span><span class=nf>main</span><span class=p>(</span><span class=n>String</span><span class=w> </span><span class=n>args</span><span class=o>[]</span><span class=p>)</span><span class=w> </span><span class=kd>throws</span><span class=w> </span><span class=n>Exception</span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>Enumeration</span><span class=o>&lt;</span><span class=n>NetworkInterface</span><span class=o>&gt;</span><span class=w> </span><span class=n>en</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>NetworkInterface</span><span class=p>.</span><span class=na>getNetworkInterfaces</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>while</span><span class=p>(</span><span class=n>en</span><span class=p>.</span><span class=na>hasMoreElements</span><span class=p>()){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>NetworkInterface</span><span class=w> </span><span class=n>ni</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>en</span><span class=p>.</span><span class=na>nextElement</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>printParameter</span><span class=p>(</span><span class=n>ni</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=kd>static</span><span class=w> </span><span class=kt>void</span><span class=w> </span><span class=nf>printParameter</span><span class=p>(</span><span class=n>NetworkInterface</span><span class=w> </span><span class=n>ni</span><span class=p>)</span><span class=w> </span><span class=kd>throws</span><span class=w> </span><span class=n>SocketException</span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=s>&#34;Name = &#34;</span><span class=w> </span><span class=o>+</span><span class=n>ni</span><span class=p>.</span><span class=na>getName</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=s>&#34;Display Name = &#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>ni</span><span class=p>.</span><span class=na>getDisplayName</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=s>&#34;Is up = &#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>ni</span><span class=p>.</span><span class=na>isUp</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=s>&#34;Support multicast =&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>ni</span><span class=p>.</span><span class=na>supportsMulticast</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=s>&#34;Is loopback&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>ni</span><span class=p>.</span><span class=na>isLoopback</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=s>&#34;Is virtual = &#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>ni</span><span class=p>.</span><span class=na>isVirtual</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=s>&#34;is point to point = &#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>ni</span><span class=p>.</span><span class=na>isPointToPoint</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=s>&#34;Hardware address = &#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>ni</span><span class=p>.</span><span class=na>getHardwareAddress</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=s>&#34;MTU&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>ni</span><span class=p>.</span><span class=na>getMTU</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=s>&#34;\nList of Interface Address:&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>List</span><span class=o>&lt;</span><span class=n>InterfaceAddress</span><span class=o>&gt;</span><span class=w> </span><span class=n>list</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>ni</span><span class=p>.</span><span class=na>getInterfaceAddresses</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>Iterator</span><span class=o>&lt;</span><span class=n>InterfaceAddress</span><span class=o>&gt;</span><span class=w> </span><span class=n>it</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>list</span><span class=p>.</span><span class=na>iterator</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>while</span><span class=p>(</span><span class=n>it</span><span class=p>.</span><span class=na>hasNext</span><span class=p>()){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>InterfaceAddress</span><span class=w> </span><span class=n>ia</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>it</span><span class=p>.</span><span class=na>next</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=s>&#34;Address = &#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>ia</span><span class=p>.</span><span class=na>getAddress</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=s>&#34;Broadcast = &#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>ia</span><span class=p>.</span><span class=na>getBroadcast</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=s>&#34;Network prefix length = &#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>ia</span><span class=p>.</span><span class=na>getNetworkPrefixLength</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=s>&#34;&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></div><pre tabindex=0><code>Name = utun0
+
+        Display Name = utun0
+        Is up = true
+        Support multicast =true
+        Is loopbackfalse
+        Is virtual = false
+        is point to point = true
+        Hardware address = null
+        MTU2000
+
+        List of Interface Address:
+        Address = /fe80:0:0:0:2bd7:7f96:b318:7dd1%utun0
+        Broadcast = null
+        Network prefix length = 64
+
+        Name = awdl0
+        Display Name = awdl0
+        Is up = true
+        Support multicast =true
+        Is loopbackfalse
+        Is virtual = false
+        is point to point = false
+        Hardware address = [B@64616ca2
+        MTU1484
+
+        List of Interface Address:
+        Address = /fe80:0:0:0:5495:d7ff:fe6f:7913%awdl0
+        Broadcast = null
+        Network prefix length = 64
+
+        Name = en1
+        Display Name = en1
+        Is up = true
+        Support multicast =true
+        Is loopbackfalse
+        Is virtual = false
+        is point to point = false
+        Hardware address = [B@13fee20c
+        MTU1500
+
+        List of Interface Address:
+        Address = /fe80:0:0:0:1026:3310:cf18:a758%en1
+        Broadcast = null
+        Network prefix length = 64
+
+        Address = /192.168.0.117
+        Broadcast = /192.168.0.255
+        Network prefix length = 24
+
+        Name = lo0
+        Display Name = lo0
+        Is up = true
+        Support multicast =true
+        Is loopbacktrue
+        Is virtual = false
+        is point to point = false
+        Hardware address = null
+        MTU16384
+
+        List of Interface Address:
+        Address = /fe80:0:0:0:0:0:0:1%lo0
+        Broadcast = null
+        Network prefix length = 64
+
+        Address = /0:0:0:0:0:0:0:1%lo0
+        Broadcast = null
+        Network prefix length = 128
+
+        Address = /127.0.0.1
+        Broadcast = null
+        Network prefix length = 8
+
+
+        Process finished with exit code 0
+</code></pre></div><footer class=article-footer><span><code>Back-End/JAVA/javanet.md</code></span></footer><nav class=pager aria-label="Previous/next note"><a class=prev href=/Back-End/JAVA/JAVA.html rel=prev><span class=dir>← Previous</span>Java</a>
+<a class=next href=/Back-End/JAVA/jdkproxy_cglib.html rel=next><span class=dir>Next →</span>JDK Proxy, CGLib Proxy</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>

@@ -1,0 +1,987 @@
+<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>SGLang Serving Casebook · rlaope</title><meta name=description content="SGLang Serving Casebook — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="SGLang Serving Casebook"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/MLOps/sglang.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/MLOps/sglang.html><link rel=stylesheet href=/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="><link rel=stylesheet href=/css/katex.min.9bc92b04fd3f42d746c460f43f0cae2c62b4b4149444e76d802f2f22305e8488.css integrity="sha256-m8krBP0/QtdGxGD0PwyuLGK0tBSUROdtgC8vIjBehIg="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/index.html><img class=brand-logo src=/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><a href=https://rlaope.github.io/ko/MLOps/sglang.html hreflang=ko title="한국어로 보기">한국어</a><span class=sep>/</span><span class=on aria-current=true>English</span></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/graph.html title="Knowledge graph" aria-label="Knowledge graph"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub repository"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=en><header class=article-header><nav class=crumbs aria-label=Path><a href=/index.html>rlaope</a><span class=sep>/</span><a href=/MLOps/index.html>MLOps</a></nav><h1 class=article-title>SGLang Serving Casebook</h1><p class=meta><span>12,801 단어</span><span class=sep>·</span><span>26 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/MLOps/sglang.md rel=noopener>원문(.md)</a></p></header><div class=prose><blockquote><p>Reference Version: SGLang 0.5.13 / August 2026
+The benchmark figures and logs in these notes are simulated values and may differ from actual measurements.
+They are derived by reverse-calculating the scaling factors and hardware specifications from public benchmarks and are not absolute values. <strong>Use them only to understand the changes, directions, and magnitudes of tuning before and after.</strong></p></blockquote><h3 id=cases-covered>Cases Covered <a class=anchor href=#cases-covered aria-label="이 절로 링크">#</a></h3><ol><li><strong>In-house Coding Assistant</strong>, 8xH200, TTFT p95 constraint, key techniques: chunked prefill, speculative decoding, replica splitting</li><li><strong>Document QA / RAG</strong>, 4xH200, prefix reuse constraint, key techniques: cache-aware routing, HiCache</li><li><strong>Nightly Batch Document Processing</strong>, 2xH100, throughput-dominated constraint, model downsizing, batch maximization</li><li><strong>Structured Output API</strong>, 2xH100, schema compliance rate-dominated constraint, XGrammer, jump-forward</li><li><strong>Large-scale MoE Serving</strong>, 16 Node x H200, cost-dominated constraint, EP, DP Attention, PD Disaggregation</li></ol><p>Each case proceeds in the same order.</p><pre tabindex=0><code>Requirements and SLO → Traffic Profile Measurement → Model Selection → Capacity Calculation
+    → Initial Startup → Benchmark → Diagnosis → Tuning Round Iteration → Final Configuration
+</code></pre><h2 id=common-tools>Common Tools <a class=anchor href=#common-tools aria-label="이 절로 링크">#</a></h2><h3 id=workload-profile---metrics-to-secure-before-tuning>Workload Profile - Metrics to Secure Before Tuning <a class=anchor href=#workload-profile---metrics-to-secure-before-tuning aria-label="이 절로 링크">#</a></h3><ul><li><strong>Input Length Distribution (Median, p95):</strong> Determines prefill burden and chunk size.</li><li><strong>Output Length Distribution:</strong> Determines decode burden and KV cache residency time.</li><li><strong>Prefix Sharing Rate:</strong> Determines the magnitude of RadixAttention's benefit.</li><li><strong>Peak Concurrency:</strong> Determines speculative decoding's profitability and batch parameters.</li></ul><p>If production logs are available, you can extract them with the following script:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-py data-lang=py><span class=line><span class=cl><span class=ch>#!/usr/bin/env python3</span>
+</span></span><span class=line><span class=cl><span class=s2>&#34;&#34;&#34;profile_workload.py — Extract workload profile from logs&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>json</span><span class=o>,</span> <span class=nn>statistics</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>transformers</span> <span class=kn>import</span> <span class=n>AutoTokenizer</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>profile</span><span class=p>(</span><span class=n>log_path</span><span class=p>,</span> <span class=n>model_path</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>tok</span> <span class=o>=</span> <span class=n>AutoTokenizer</span><span class=o>.</span><span class=n>from_pretrained</span><span class=p>(</span><span class=n>model_path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>ins</span><span class=p>,</span> <span class=n>outs</span><span class=p>,</span> <span class=n>seqs</span> <span class=o>=</span> <span class=p>[],</span> <span class=p>[],</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>with</span> <span class=nb>open</span><span class=p>(</span><span class=n>log_path</span><span class=p>)</span> <span class=k>as</span> <span class=n>f</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=n>line</span> <span class=ow>in</span> <span class=n>f</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>r</span> <span class=o>=</span> <span class=n>json</span><span class=o>.</span><span class=n>loads</span><span class=p>(</span><span class=n>line</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>t_in</span> <span class=o>=</span> <span class=n>tok</span><span class=o>.</span><span class=n>encode</span><span class=p>(</span><span class=n>r</span><span class=p>[</span><span class=s2>&#34;prompt&#34;</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>            <span class=n>ins</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>t_in</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>            <span class=n>outs</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>tok</span><span class=o>.</span><span class=n>encode</span><span class=p>(</span><span class=n>r</span><span class=p>[</span><span class=s2>&#34;completion&#34;</span><span class=p>])))</span>
+</span></span><span class=line><span class=cl>            <span class=n>seqs</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>t_in</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># Prefix sharing rate: sum of common prefix lengths of adjacent pairs after sorting / total tokens</span>
+</span></span><span class=line><span class=cl>    <span class=n>seqs</span><span class=o>.</span><span class=n>sort</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>shared</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>a</span><span class=p>,</span> <span class=n>b</span> <span class=ow>in</span> <span class=nb>zip</span><span class=p>(</span><span class=n>seqs</span><span class=p>,</span> <span class=n>seqs</span><span class=p>[</span><span class=mi>1</span><span class=p>:]):</span>
+</span></span><span class=line><span class=cl>        <span class=n>c</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=n>x</span><span class=p>,</span> <span class=n>y</span> <span class=ow>in</span> <span class=nb>zip</span><span class=p>(</span><span class=n>a</span><span class=p>,</span> <span class=n>b</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=n>x</span> <span class=o>!=</span> <span class=n>y</span><span class=p>:</span> <span class=k>break</span>
+</span></span><span class=line><span class=cl>            <span class=n>c</span> <span class=o>+=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>        <span class=n>shared</span> <span class=o>+=</span> <span class=n>c</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;입력 중앙값&#34;</span><span class=p>:</span> <span class=n>statistics</span><span class=o>.</span><span class=n>median</span><span class=p>(</span><span class=n>ins</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;입력 p95&#34;</span><span class=p>:</span>    <span class=nb>sorted</span><span class=p>(</span><span class=n>ins</span><span class=p>)[</span><span class=nb>int</span><span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>ins</span><span class=p>)</span> <span class=o>*</span> <span class=mf>0.95</span><span class=p>)],</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;출력 중앙값&#34;</span><span class=p>:</span> <span class=n>statistics</span><span class=o>.</span><span class=n>median</span><span class=p>(</span><span class=n>outs</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;출력 p95&#34;</span><span class=p>:</span>    <span class=nb>sorted</span><span class=p>(</span><span class=n>outs</span><span class=p>)[</span><span class=nb>int</span><span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>outs</span><span class=p>)</span> <span class=o>*</span> <span class=mf>0.95</span><span class=p>)],</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;접두사 공유율&#34;</span><span class=p>:</span> <span class=nb>round</span><span class=p>(</span><span class=n>shared</span> <span class=o>/</span> <span class=nb>sum</span><span class=p>(</span><span class=n>ins</span><span class=p>),</span> <span class=mi>3</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&#34;__main__&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=kn>import</span> <span class=nn>sys</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>k</span><span class=p>,</span> <span class=n>v</span> <span class=ow>in</span> <span class=n>profile</span><span class=p>(</span><span class=n>sys</span><span class=o>.</span><span class=n>argv</span><span class=p>[</span><span class=mi>1</span><span class=p>],</span> <span class=n>sys</span><span class=o>.</span><span class=n>argv</span><span class=p>[</span><span class=mi>2</span><span class=p>])</span><span class=o>.</span><span class=n>items</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=n>k</span><span class=si>:</span><span class=s2>12s</span><span class=si>}</span><span class=s2>: </span><span class=si>{</span><span class=n>v</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span></code></pre></div><p>Prefix Sharing Rate Criteria</p><pre tabindex=0><code>0 ~ 0.20   RadixAttention offers almost no benefit. No comparative advantage over vLLM.
+0.20 ~ 0.60  Worth benchmarking both.
+0.60 이상    SGLang has a clear advantage. Expect 75-95% cache hit rate.
+</code></pre><h3 id=benchmark-execution>Benchmark Execution <a class=anchor href=#benchmark-execution aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Online benchmark simulating actual traffic distribution</span>
+</span></span><span class=line><span class=cl>python -m sglang.bench_serving <span class=se>\
+</span></span></span><span class=line><span class=cl>  --backend sglang <span class=se>\
+</span></span></span><span class=line><span class=cl>  --host 127.0.0.1 --port <span class=m>30000</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --dataset-name <span class=nv>$random</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --random-input-len <span class=m>2048</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --random-output-len <span class=m>512</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --random-range-ratio 0.5 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --num-prompts <span class=m>500</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --max-concurrency <span class=m>25</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --warmup-requests <span class=m>30</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --output-file result.jsonl
+</span></span></code></pre></div><ul><li><code>--max-concurrency</code>: Sets the upper limit for concurrent requests to match the peak, preventing latency metrics from becoming meaningless due to infinite concurrency.</li><li><code>--random-range-ratio</code>: Randomizes lengths with a uniform distribution, resolving the discrepancy between fixed-length measurements and reality.</li><li><code>--warmup-requests</code>: Excludes CUDA graph capture or JIT compilation from the initial requests to prevent skewing the average and introducing outliers.</li><li><code>--dataset-name sharegpt</code>: Uses actual conversation distribution; otherwise, prefix sharing characteristics are not reflected.</li></ul><p>To measure cold start performance, launch with <code>--disable-radix-cache</code> or clear the cache before each run.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>curl -X POST http://127.0.0.1:30000/flush_cache
+</span></span></code></pre></div><h4 id=output>Output <a class=anchor href=#output aria-label="이 절로 링크">#</a></h4><pre tabindex=0><code>============ Serving Benchmark Result ============
+Backend:                                 sglang
+Traffic request rate:                    inf
+Max request concurrency:                 25
+Successful requests:                     500
+Benchmark duration (s):                  128.43
+Total input tokens:                      1048576
+Total generated tokens:                  262144
+Request throughput (req/s):              3.89
+Input token throughput (tok/s):          8164.21
+Output token throughput (tok/s):         2041.05
+Total token throughput (tok/s):          10205.26
+Concurrency:                             24.81
+----------------End-to-End Latency----------------
+Mean E2E Latency (ms):                   6382.14
+Median E2E Latency (ms):                 5904.33
+---------------Time to First Token----------------
+Mean TTFT (ms):                          842.17
+Median TTFT (ms):                        612.44
+P99 TTFT (ms):                           4380.92
+---------------Inter-Token Latency----------------
+Mean ITL (ms):                           31.24
+Median ITL (ms):                         28.41
+P95 ITL (ms):                            72.18
+P99 ITL (ms):                            148.63
+Max ITL (ms):                            982.51
+==================================================
+</code></pre><p>Establishing a reading order can speed up diagnosis.</p><pre tabindex=0><code>1. Concurrency vs Max request concurrency (actual concurrent requests being processed vs. allowed maximum)
+  -&gt; If Concurrency is higher than Max request concurrency, it means the server cannot handle all requests (queue or memory issue).
+  -&gt; If Concurrency is low compared to max, it means system resources are ample and load is light.
+
+2. Median TTFT vs p99 TTFT
+  -&gt; If the ratio is 3x or more, suspect blocking by long prompts or chunked prefill.
+
+3. Median ITL vs P99 ITL / Max ITL
+  -&gt; If Max ITL is several hundred ms, the scheduler is stalled at a specific step; preemption or prefill insertion is the cause.
+
+4. Output token throughput
+  -&gt; Cost metric, baseline for comparison between tuning rounds.
+</code></pre><h3 id=server-metrics>Server Metrics <a class=anchor href=#server-metrics aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Prometheus endpoint (--enable-metrics required)</span>
+</span></span><span class=line><span class=cl>curl -s http://127.0.0.1:30000/metrics <span class=p>|</span> grep -E <span class=se>\
+</span></span></span><span class=line><span class=cl>  <span class=s1>&#39;sglang_(num_running_reqs|num_queue_reqs|token_usage|cache_hit_rate|gen_throughput)&#39;</span>
+</span></span></code></pre></div><pre tabindex=0><code class=language-conf data-lang=conf>sglang_num_running_reqs{model=&#34;...&#34;} 24.0
+sglang_num_queue_reqs{model=&#34;...&#34;} 0.0
+sglang_token_usage{model=&#34;...&#34;} 0.61
+sglang_cache_hit_rate{model=&#34;...&#34;} 0.34
+sglang_gen_throughput{model=&#34;...&#34;} 2041.05
+</code></pre><ul><li><code>num_queue_reqs</code> being close to 0 is normal; if it deviates, it means requests are queuing up, indicating insufficient capacity or a scheduling limit.</li><li><code>token_usage</code> normal range is 0.5~0.85; approaching 1.0 signifies KV cache saturation -> preemption.</li><li><code>cache_hit_rate</code>: Normal range depends on the workload; if it's low compared to the sharing rate, it indicates a prompt design issue (poor caching, variable values at the beginning).</li></ul><p>If <code>token_usage</code> is close to 1.0 and <code>num_queue_reqs</code> is also high, KV cache shortage is the bottleneck. If GPU utilization is low but the queue is long, it's a scheduling issue. Distinguishing these two is the starting point for diagnosis.</p><h3 id=tuning-order>Tuning Order <a class=anchor href=#tuning-order aria-label="이 절로 링크">#</a></h3><p>Let's follow the order of effect size.</p><pre tabindex=0><code>1. Model Selection          Minimum model suitable for task difficulty          Up to several times
+2. Parallelization Batch    TP size and replica count splitting                 2-3x
+3. Chunked Prefill          Stabilizes p99 TTFT                                 Latency stabilization
+4. Cache Strategy           RadixAttention, routing, HiCache                    Depends on sharing rate
+5. Quantization             FP8 weights + FP8 KV                                1.3-1.5x
+6. Batch Parameters         Select point on SLO curve                           10-30%
+7. Speculative Decoding     Only for low concurrency                            1.5-2x
+8. PD Disaggregation / Large-scale EP  Only for tens of GPUs or more            Up to 5x
+</code></pre><br><h2 id=in-house-coding-assistant>In-house Coding Assistant <a class=anchor href=#in-house-coding-assistant aria-label="이 절로 링크">#</a></h2><h3 id=requirements>Requirements <a class=anchor href=#requirements aria-label="이 절로 링크">#</a></h3><ul><li><strong>Users:</strong> 200 engineers</li><li><strong>Peak Concurrent Requests:</strong> 25</li><li><strong>Interface:</strong> IDE Plugin, Streaming</li><li><strong>Hardware:</strong> 8xH200 SXM (141GB, 4.8TB/s) single node</li><li><strong>SLO:</strong> <strong>TTFT p95 1,000ms</strong>, <strong>ITL Median &lt; 50ms</strong></li></ul><h3 id=profiling>Profiling <a class=anchor href=#profiling aria-label="이 절로 링크">#</a></h3><p>Current <code>profile_workload.py</code> execution results:</p><pre tabindex=0><code>입력 중앙값  : 2100
+입력 p95     : 28000
+출력 중앙값  : 400
+출력 p95     : 1800
+접두사 공유율 : 0.35
+</code></pre><p>Input p95 is 13 times the median, indicating a bottleneck. This is due to the user pattern of pasting entire files. Without chunked prefill, short requests get stuck behind long ones.</p><p>A sharing rate of 0.35 is borderline. The system prompt and internal coding conventions (3,000 tokens) are fully shared, while the rest vary. Introducing agent-based tool calls would increase this value, justifying the choice of SGLang.</p><h3 id=model-selection>Model Selection <a class=anchor href=#model-selection aria-label="이 절로 링크">#</a></h3><p>Let's compare the candidate set.</p><p><strong>Candidate 1. Qwen3.6-27B, dense, FP8 weights 27GB, coding performance SWE-bench Verified 77.2, batch 1 decode fast:</strong></p><p><strong>Candidate 2. Qwen3.6-35B-A3B: MoE (active 3B), FP8 weights 35GB, lower coding performance than 27B. Batch 1 decode very fast:</strong></p><p><strong>Candidate 3. GLM-4.5-Ari, MoE 106B/12B, FP8 weights 106GB, higher coding performance than 27B, batch 1 decode moderate:</strong></p><h4 id=qwen36-27b-selected>Qwen3.6-27B Selected <a class=anchor href=#qwen36-27b-selected aria-label="이 절로 링크">#</a></h4><p>Concurrency 25 is much smaller than the H200 threshold batch size (206). This is a memory-bound region, so performance is determined by the <strong>number of weight bytes to read</strong>.</p><p>The active parameter advantage of MoE appears with large batches, but here the batch is small, so the advantage is minor. Instead, it incurs the burden of loading all total parameters into memory.</p><p>GLM-4-5-Air has higher coding performance, but even with FP8, it's 106GB, reducing KV cache headroom. Its slower decode makes it difficult to meet the ITL SLO compared to 27B.</p><h3 id=capacity-calculation>Capacity Calculation <a class=anchor href=#capacity-calculation aria-label="이 절로 링크">#</a></h3><p>Calculate KV cache for Qwen3.6-27B attention configuration (48 layers, 8 KV heads, 128 head dimensions).</p><pre tabindex=0><code>KV per token (BF16) = 2 × 48 × 8 × 128 × 2 bytes = 196,608 bytes ≈ 192 KB
+KV per token (FP8)  = 96 KB
+
+Average context 3,000 tokens × 25 concurrent requests
+  BF16: 3,000 × 192 KB × 25 ≈ 14.4 GB
+  FP8 :                       ≈  7.2 GB
+
+p95 scenario (28,000 tokens × 25 requests)
+  BF16: 28,000 × 192 KB × 25 ≈ 134 GB
+  FP8 :                       ≈  67 GB
+</code></pre><p>With 8xH200 = 1,128GB, subtracting 27GB for weights leaves ample headroom, so memory is not a constraint.</p><p>The constraint in this case is latency, not capacity, so tuning should focus on latency.</p><h3 id=round-0---initial-startup>Round 0 - Initial Startup <a class=anchor href=#round-0---initial-startup aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>python -m sgalng.launch_server <span class=se>\
+</span></span></span><span class=line><span class=cl>    --model-path Qwen/Qwen3.6-27B <span class=se>\
+</span></span></span><span class=line><span class=cl>    --tp-size <span class=m>8</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>    --host 0.0.0.0 --port <span class=m>30000</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>    --enable-metrics
+</span></span></code></pre></div><pre tabindex=0><code>python -m sglang.bench_serving --backend sglang --port 30000 \
+  --dataset-name random --random-input-len 2100 --random-output-len 400 \
+  --random-range-ratio 0.1 --num-prompts 500 --max-concurrency 25 \
+  --warmup-requests 30
+</code></pre><pre tabindex=0><code>============ Serving Benchmark Result ============
+Max request concurrency:                 25
+Successful requests:                     500
+Benchmark duration (s):                  128.43
+Request throughput (req/s):              3.89
+Output token throughput (tok/s):         1554.21
+Total token throughput (tok/s):          9721.44
+Concurrency:                             24.81
+---------------Time to First Token----------------
+Mean TTFT (ms):                          842.17
+Median TTFT (ms):                        612.44
+P99 TTFT (ms):                           4380.92
+---------------Inter-Token Latency----------------
+Mean ITL (ms):                           31.24
+Median ITL (ms):                         28.41
+P99 ITL (ms):                            148.63
+Max ITL (ms):                            982.51
+==================================================
+</code></pre><ul><li><strong>TTFT p95:</strong> Estimated around 3,200ms (p99 is 4381), which is outrageously above the &lt; 1000ms target. ❌</li><li><strong>ITL Median:</strong> 28.41ms, which is below 50ms, so it passes. ✅</li></ul><p>P99 TTFT is 7 times the median, and Max ITL is 982ms, indicating that a request being decoded was stalled for nearly 1 second at one step. The cause is a long prompt prefill occupying the entire batch.</p><h3 id=round-1---chunked-prefill>Round 1 - Chunked Prefill <a class=anchor href=#round-1---chunked-prefill aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-diff data-lang=diff><span class=line><span class=cl>python -m sglang.launch_server \
+</span></span><span class=line><span class=cl>    --model-path Qwen/Qwen3.6-27B \
+</span></span><span class=line><span class=cl>    --tp-size 8 \
+</span></span><span class=line><span class=cl><span class=gi>+   --chunked-prefill-size 4096 \ # added
+</span></span></span><span class=line><span class=cl>    --host 0.0.0.0 --port 30000 \
+</span></span><span class=line><span class=cl>    --enable-metrics
+</span></span></code></pre></div><pre tabindex=0><code>Output token throughput (tok/s):         1498.63     (-3.6%)
+---------------Time to First Token----------------
+Median TTFT (ms):                        648.11      (+5.8%)
+P99 TTFT (ms):                           1621.05     (-63.0%)
+---------------Inter-Token Latency----------------
+Median ITL (ms):                         27.92
+P99 ITL (ms):                            61.44       (-58.7%)
+Max ITL (ms):                            118.27      (-88.0%)
+</code></pre><p>Interpreting the changes, TTFT dropped from 4,381ms to 1,621ms, and Max ITL went from 982ms to 118ms.</p><p>The 28,000-token prefill was split into seven 4,096-token chunks and inserted between decode batches, eliminating the period where one request monopolized the GPU.</p><p>In exchange, throughput dropped by 3.6%, and median TTFT slightly increased. This is because splitting the prefill results in smaller matrix operations for each chunk, slightly reducing GPU efficiency.</p><p><strong>This is a trade-off that reduced tail latency by 63% at the cost of 3.6% throughput.</strong> For this case, where latency is the SLO, it's a favorable decision.</p><p><strong>+Also tried reducing chunk size to 2,048.</strong></p><pre tabindex=0><code>--chunked-prefill-size 2048
+P99 TTFT (ms):                           1584.22     (-2.3% vs 4096)
+Output token throughput (tok/s):         1402.11     (-6.4% vs 4096)
+</code></pre><p>Tail improvement is only about 2%, but throughput suffers 6%. Diminishing returns begin at 4096, so let's stop here.</p><h3 id=round-2---fp8-quantization>Round 2 - FP8 Quantization <a class=anchor href=#round-2---fp8-quantization aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-diff data-lang=diff><span class=line><span class=cl>python -m sglang.launch_server \
+</span></span><span class=line><span class=cl>    --model-path Qwen/Qwen3.6-27B \
+</span></span><span class=line><span class=cl>    --tp-size 8 \
+</span></span><span class=line><span class=cl>    --chunked-prefill-size 4096 \
+</span></span><span class=line><span class=cl><span class=gi>+   --quantization fp8 \
+</span></span></span><span class=line><span class=cl><span class=gi>+   --kv-cache-dtype fp8_e5m2 \
+</span></span></span><span class=line><span class=cl><span class=gi>+   --mem-fraction-static 0.90 \
+</span></span></span><span class=line><span class=cl>    --host 0.0.0.0 --port 30000 \
+</span></span><span class=line><span class=cl>    --enable-metrics
+</span></span></code></pre></div><pre tabindex=0><code>Output token throughput (tok/s):         1971.44     (+31.5%)
+---------------Time to First Token----------------
+Median TTFT (ms):                        482.30      (-25.6%)
+P99 TTFT (ms):                           1184.67     (-27.0%)
+---------------Inter-Token Latency----------------
+Median ITL (ms):                         21.08       (-24.5%)
+P99 ITL (ms):                            48.92
+</code></pre><p>All metrics improved simultaneously. This is because this region is memory-bound.</p><p>Weights decreased from 54GB (BF16) to 27GB (FP8), halving the bytes read at each decode step, and decode time was almost halved accordingly.</p><p><strong>Quality verification must be done concurrently.</strong> Quantization loss might not be visible in general conversations but can appear in code.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Compare with BF16 using 50 internal code cases</span>
+</span></span><span class=line><span class=cl>python eval_codegen.py --baseline http://bf16-server:30000 <span class=se>\
+</span></span></span><span class=line><span class=cl>                       --candidate http://fp8-server:30000 <span class=se>\
+</span></span></span><span class=line><span class=cl>                       --cases internal_50.jsonl --blind
+</span></span></code></pre></div><pre tabindex=0><code>Blind evaluation of 50 cases
+  BF16 superior  : 6 cases
+  FP8 superior   : 5 cases
+  Equivalent     : 39 cases
+  Compile failed : BF16 1 case / FP8 1 case
+→ No significant difference. FP8 adopted.
+</code></pre><h3 id=round-3---speculative-decoding>Round 3 - Speculative Decoding <a class=anchor href=#round-3---speculative-decoding aria-label="이 절로 링크">#</a></h3><p>Concurrency 25 is well below the threshold batch size of 206, meaning there are still computational resources available.</p><p>Speculative decoding utilizes this spare capacity.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-diff data-lang=diff><span class=line><span class=cl><span class=gi>+   --speculative-algorithm EAGLE3 \
+</span></span></span><span class=line><span class=cl><span class=gi>+   --speculative-draft-model-path Qwen/Qwen3.6-27B-eagle3 \
+</span></span></span><span class=line><span class=cl><span class=gi>+   --speculative-num-steps 5 \
+</span></span></span><span class=line><span class=cl><span class=gi>+   --speculative-eagle-topk 8 \
+</span></span></span><span class=line><span class=cl><span class=gi>+   --speculative-num-draft-tokens 6 \
+</span></span></span></code></pre></div><pre tabindex=0><code>Output token throughput (tok/s):         3284.90     (+66.6%)
+---------------Time to First Token----------------
+Median TTFT (ms):                        511.44      (+6.0%)
+P99 TTFT (ms):                           1247.02     (+5.3%)
+---------------Inter-Token Latency----------------
+Median ITL (ms):                         12.63       (-40.1%)
+P99 ITL (ms):                            34.18
+</code></pre><p>Let's check the acceptance rate in the server logs.</p><pre tabindex=0><code>[2026-08-07 14:22:11] Speculative decoding stats:
+  accept_length_mean: 3.82 / 6
+  accept_rate: 0.637
+  draft_overhead_ratio: 0.118
+</code></pre><p>Interpreting the changes, generating one token now involves reading weights equivalent to validating 6 tokens.</p><p>An average of 3.82 out of 6 proposed by the draft are accepted, making the effective tokens per step 3.8 times higher. Even after subtracting the 11.8% cost of running the draft model, ITL dropped by 40%.</p><p>TTFT increased by 5-6%. This is because the draft model also performs prefill.</p><p>This is acceptable as it's within the SLO margin.</p><p><strong>Let's measure the break-even point by increasing concurrency.</strong></p><pre tabindex=0><code>Concurrency   Speculative OFF (tok/s)   Speculative ON (tok/s)   Ratio
+  8          712               1584          2.22×
+ 25         1971               3285          1.67×
+ 64         3844               4912          1.28×
+128         5901               5734          0.97×   ← Reversal
+</code></pre><p>From concurrency 128 onwards, speculative decoding becomes detrimental.</p><p>This is because as it approaches compute-bound, running the draft model takes away resources from honest computation.</p><p>This means that if peak concurrency increases, this setting needs to be re-evaluated and should be an operational metric to monitor.</p><h3 id=round-4---tp8-single-instance-vs-tp2-x-4-replicas>Round 4 - TP8 Single Instance vs TP2 x 4 Replicas <a class=anchor href=#round-4---tp8-single-instance-vs-tp2-x-4-replicas aria-label="이 절로 링크">#</a></h3><p>Up to this point, 8 GPUs were grouped into a single instance. This configuration benefits individual latency by distributing the computation of a single request across 8 GPUs, but all-reduce communication occurs at each layer, and GPUs are idle when batches are small.</p><p>Let's split the 8 GPUs into four TP2 instances and group them with a router for comparison.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 4 workers (GPU 0-1, 2-3, 4-5, 6-7)</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> i in <span class=m>0</span> <span class=m>1</span> <span class=m>2</span> 3<span class=p>;</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>  <span class=nv>CUDA_VISIBLE_DEVICES</span><span class=o>=</span><span class=k>$((</span>i*2<span class=k>))</span>,<span class=k>$((</span>i*2+1<span class=k>))</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  python -m sglang.launch_server <span class=se>\
+</span></span></span><span class=line><span class=cl>    --model-path Qwen/Qwen3.6-27B <span class=se>\
+</span></span></span><span class=line><span class=cl>    --tp-size <span class=m>2</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>    --chunked-prefill-size <span class=m>4096</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>    --quantization fp8 --kv-cache-dtype fp8_e5m2 <span class=se>\
+</span></span></span><span class=line><span class=cl>    --mem-fraction-static 0.90 <span class=se>\
+</span></span></span><span class=line><span class=cl>    --speculative-algorithm EAGLE3 <span class=se>\
+</span></span></span><span class=line><span class=cl>    --speculative-draft-model-path Qwen/Qwen3.6-27B-eagle3 <span class=se>\
+</span></span></span><span class=line><span class=cl>    --speculative-num-steps <span class=m>5</span> --speculative-eagle-topk <span class=m>8</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>    --port <span class=k>$((</span><span class=m>30001</span><span class=o>+</span>i<span class=k>))</span> --enable-metrics <span class=p>&amp;</span>
+</span></span><span class=line><span class=cl><span class=k>done</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Cache-aware router</span>
+</span></span><span class=line><span class=cl>python -m sglang_router.launch_router <span class=se>\
+</span></span></span><span class=line><span class=cl>  --worker-urls http://127.0.0.1:30001 http://127.0.0.1:30002 <span class=se>\
+</span></span></span><span class=line><span class=cl>                http://127.0.0.1:30003 http://127.0.0.1:30004 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --policy cache_aware <span class=se>\
+</span></span></span><span class=line><span class=cl>  --host 0.0.0.0 --port <span class=m>30000</span>
+</span></span></code></pre></div><pre tabindex=0><code>                        TP8 × 1      TP2 × 4      Change
+Output tok/s              3284.90      4418.72      +34.5%
+Median TTFT (ms)           511.44       362.18      -29.2%
+P99 TTFT (ms)             1247.02       938.55      -24.7%
+Median ITL (ms)             12.63        17.94      +42.0%
+P99 ITL (ms)                34.18        45.60      +33.4%
+cache_hit_rate               0.34         0.31       -0.03
+</code></pre><h4 id=interpreting-changes>Interpreting Changes <a class=anchor href=#interpreting-changes aria-label="이 절로 링크">#</a></h4><p>Throughput and TTFT improved, while ITL worsened. The reasons for these diverging trends are different.</p><ul><li><strong>Throughput Increase:</strong> TP8 communicates across 8 GPUs per layer, while TP2 only communicates across 2, reducing communication overhead. Additionally, 4 instances independently fill their batches, increasing GPU utilization.</li><li><strong>TTFT Decrease:</strong> With 4 instances, the queue is split into 4. While one instance processes a long prefill, other requests can go to different instances.</li><li><strong>ITL Increase:</strong> The number of GPUs dedicated to a single request decreased from 8 to 2, meaning computation for generating individual tokens is less distributed, slowing down individual token generation.</li><li><strong>Slight Decrease in Cache Hit Rate:</strong> The cache is split across 4 instances. Although the <code>cache_aware</code> policy sends requests with the same prefix to the same worker, it doesn't fully compensate.</li></ul><p>The median ITL of 17.94ms is well within the SLO of 50ms, so the TP2 x 4 configuration is adopted.</p><p>If the ITL SLO were tighter, like 15ms, the opposite conclusion would have been necessary.</p><h3 id=final-configuration-and-cumulative-effects>Final Configuration and Cumulative Effects <a class=anchor href=#final-configuration-and-cumulative-effects aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>Round            Output tok/s   Median TTFT   P99 TTFT   Median ITL
+0 Baseline                 1554          612        4381        28.4
+1 Chunked Prefill           1499          648        1621        27.9
+2 FP8                      1971          482        1185        21.1
+3 Speculative Decoding          3285          511        1247        12.6
+4 TP2 × 4 + Router      4419          362         939        17.9
+
+Cumulative                  2.84×        -41%        -79%        -37%
+</code></pre><p>SLO Assessment</p><ul><li>TTFT p99 939ms (p95 approx. 780ms) &lt; 1000ms ✅</li><li>ITL median 17ms &lt; 50ms ✅</li></ul><h3 id=summary>Summary <a class=anchor href=#summary aria-label="이 절로 링크">#</a></h3><p>Chunked prefill should always be enabled if there's a latency SLO. It trades 3-4% throughput for over 60% tail latency reduction.</p><p><strong>Larger TP size is not always better.</strong> TP reduces individual request latency (due to more memory space) but increases communication costs and reduces opportunities for parallel batching. If there's ample ITL SLO, reducing TP and increasing replicas is advantageous for both throughput and TTFT.</p><p>This trade-off varies by case, so it must be verified with actual measurements.</p><p>Speculative decoding's effectiveness reverses depending on concurrency. The break-even point should be measured in advance, and an operational rule should be established to automatically disable it if traffic exceeds that point.</p><br><h2 id=document-qa--rag-service>Document QA / RAG Service <a class=anchor href=#document-qa--rag-service aria-label="이 절로 링크">#</a></h2><div class=table-wrap><table><thead><tr><th>Item</th><th>Value</th></tr></thead><tbody><tr><td>Service</td><td>Contract and regulation document Q&amp;A</td></tr><tr><td>Number of Documents</td><td>1,000 types (80% of traffic concentrated on 50 popular types)</td></tr><tr><td>Document Length</td><td>Average 20,000 tokens</td></tr><tr><td>Request Rate</td><td>Average 8 req/s, Peak 22 req/s</td></tr><tr><td>Hardware</td><td>4×H100 SXM (80GB, 3.35TB/s)</td></tr><tr><td>SLO</td><td>TTFT p95 &lt; 1,500ms</td></tr></tbody></table></div><h3 id=traffic-profile>Traffic Profile <a class=anchor href=#traffic-profile aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>입력 중앙값: 20530
+입력 p95: 24800
+출력 중앙값: 300
+출력 p95: 620
+접두사 공유율: 0.81
+</code></pre><p>This case's characteristics are the opposite of the previous one.</p><p>The input-output ratio is 68:1, with prefill being overwhelmingly long and decode short.</p><p>Speculative decoding is a technique that accelerates the decode phase, so its benefit here is minimal.</p><p>Optimization resources should be concentrated on prefill.</p><p><strong>A sharing rate of 0.81 is in the range where SGLang provides maximum benefit.</strong> This means that for questions about the same document, 20,500 out of 20,500 tokens overlap, and only the 30-token question differs.</p><pre tabindex=0><code>Request A: [System 500][Contract 20,000][Question1 30]
+Request B: [System 500][Contract 20,000][Question2 30]
+                    └─ 20,500 shared ─┘  └ 30 only different
+</code></pre><div class=table-wrap><table><thead><tr><th>Model</th><th style=text-align:right>FP8 Weights</th><th style=text-align:right>Native Context</th><th>Long Document Understanding</th></tr></thead><tbody><tr><td>Qwen3.6-27B</td><td style=text-align:right>27 GB</td><td style=text-align:right>262K</td><td>Excellent</td></tr><tr><td>Qwen3.6-9B</td><td style=text-align:right>9 GB</td><td style=text-align:right>262K</td><td>Average</td></tr><tr><td>GLM-5.2</td><td style=text-align:right>372 GB</td><td style=text-align:right>1M</td><td>Best</td></tr></tbody></table></div><p><strong>Qwen3.6-27B</strong> is selected.</p><p>GLM5.2 has the best long-document performance, but even with FP8, it's 372GB, so it won't fit into 4xH100 (320GB). The 9B model's accuracy in finding specific clauses within a 20,000-token document noticeably dropped.</p><h3 id=capacity-calculation-1>Capacity Calculation <a class=anchor href=#capacity-calculation-1 aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>Qwen3.6-27B FP8, KV per Token = 96KB
+
+4xH100 = 320GB
+Weights: 27GB
+Activations, buffer headroom 35GB
+KV Cache Available 258GB
+
+Number of cacheable documents = 258GB / (20,000 x 96KB)
+                    = 258 GB ÷ 1.92 GB
+                    ≈ 134 types
+</code></pre><p>Only 134 out of 1000 document types can reside on the GPU.</p><p>While the 50 popular types account for 80% of traffic, theoretically allowing most to be cached, the continuous influx of the remaining 950 types causes evictions. This becomes the central tuning problem for this case.</p><h3 id=single-instance-baseline---round-0>Single Instance Baseline - Round 0 <a class=anchor href=#single-instance-baseline---round-0 aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>python -m sglang.launch_server <span class=se>\
+</span></span></span><span class=line><span class=cl>  --model-path Qwen/Qwen3.6-27B <span class=se>\
+</span></span></span><span class=line><span class=cl>  --tp-size <span class=m>4</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --quantization fp8 --kv-cache-dtype fp8_e5m2 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --chunked-prefill-size <span class=m>8192</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --mem-fraction-static 0.88 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --host 0.0.0.0 --port <span class=m>30000</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --enable-metrics --enable-cache-report
+</span></span></code></pre></div><p><code>--enable-cache-report</code> includes the number of cache-hit tokens in the response. This is an essential flag for this case.</p><p>Benchmark simulating actual document distribution:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-py data-lang=py><span class=line><span class=cl><span class=ch>#!/usr/bin/env python3</span>
+</span></span><span class=line><span class=cl><span class=s2>&#34;&#34;&#34;gen_rag_trace.py — Generate trace reflecting document reuse distribution&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>json</span><span class=o>,</span> <span class=nn>random</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>SYSTEM</span> <span class=o>=</span> <span class=s2>&#34;당신은 계약서 분석 어시스턴트입니다. &#34;</span> <span class=o>*</span> <span class=mi>40</span>          <span class=c1># Approx 500 tokens</span>
+</span></span><span class=line><span class=cl><span class=n>DOCS</span> <span class=o>=</span> <span class=p>{</span><span class=n>i</span><span class=p>:</span> <span class=sa>f</span><span class=s2>&#34;[문서</span><span class=si>{</span><span class=n>i</span><span class=si>}</span><span class=s2>] &#34;</span> <span class=o>+</span> <span class=s2>&#34;계약 조항 본문 &#34;</span> <span class=o>*</span> <span class=mi>3300</span> <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>1000</span><span class=p>)}</span>
+</span></span><span class=line><span class=cl><span class=n>QUESTIONS</span> <span class=o>=</span> <span class=p>[</span><span class=s2>&#34;해지 조항의 통지 기간은?&#34;</span><span class=p>,</span> <span class=s2>&#34;위약금 산정 기준은?&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>             <span class=s2>&#34;관할 법원은 어디인가?&#34;</span><span class=p>,</span> <span class=s2>&#34;자동 갱신 조건은?&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>pick_doc</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 80% for 50 popular types, 20% for the remaining 950 types</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>random</span><span class=o>.</span><span class=n>randint</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>49</span><span class=p>)</span> <span class=k>if</span> <span class=n>random</span><span class=o>.</span><span class=n>random</span><span class=p>()</span> <span class=o>&lt;</span> <span class=mf>0.8</span> <span class=k>else</span> <span class=n>random</span><span class=o>.</span><span class=n>randint</span><span class=p>(</span><span class=mi>50</span><span class=p>,</span> <span class=mi>999</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>with</span> <span class=nb>open</span><span class=p>(</span><span class=s2>&#34;rag_trace.jsonl&#34;</span><span class=p>,</span> <span class=s2>&#34;w&#34;</span><span class=p>)</span> <span class=k>as</span> <span class=n>f</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>_</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>2000</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>d</span> <span class=o>=</span> <span class=n>pick_doc</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=n>f</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>json</span><span class=o>.</span><span class=n>dumps</span><span class=p>({</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;prompt&#34;</span><span class=p>:</span> <span class=n>SYSTEM</span> <span class=o>+</span> <span class=n>DOCS</span><span class=p>[</span><span class=n>d</span><span class=p>]</span> <span class=o>+</span> <span class=n>random</span><span class=o>.</span><span class=n>choice</span><span class=p>(</span><span class=n>QUESTIONS</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;output_len&#34;</span><span class=p>:</span> <span class=n>random</span><span class=o>.</span><span class=n>randint</span><span class=p>(</span><span class=mi>200</span><span class=p>,</span> <span class=mi>600</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;doc_id&#34;</span><span class=p>:</span> <span class=n>d</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=p>})</span> <span class=o>+</span> <span class=s2>&#34;</span><span class=se>\n</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span></code></pre></div><pre tabindex=0><code>============ Serving Benchmark Result ============
+Max request concurrency:                 22
+Successful requests:                     2000
+Benchmark duration (s):                  412.66
+Request throughput (req/s):              4.85
+Input token throughput (tok/s):          99512.30
+Output token throughput (tok/s):         1455.11
+Concurrency:                             21.74
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1962.44
+Median TTFT (ms):                        1843.07
+P99 TTFT (ms):                           3721.85
+---------------Inter-Token Latency----------------
+Median ITL (ms):                         14.22
+==================================================
+</code></pre><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>curl -s http://127.0.0.1:30000/metrics <span class=p>|</span> grep cache_hit_rate
+</span></span><span class=line><span class=cl><span class=c1># sglang_cache_hit_rate{model=&#34;Qwen/Qwen3.6-27B&#34;} 0.62</span>
+</span></span></code></pre></div><p>The request rate of 4.85 req/s falls short of the peak 22 req/s, and the median TTFT of 1,843ms exceeds the SLO of 1,500ms.</p><p>The cache hit rate of 0.62 is below the sharing rate of 0.81, with the 0.19 difference being lost to evictions.</p><p>With a capacity of 134 types, 1,000 types are constantly entering and leaving, causing even popular documents to be evicted.</p><h3 id=round-1-replica-splitting-and-cache-aware-routing>Round 1: Replica Splitting and Cache-Aware Routing <a class=anchor href=#round-1-replica-splitting-and-cache-aware-routing aria-label="이 절로 링크">#</a></h3><p>Split one TP4 into two TP2s and place a router in front. Compare two routing policies.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=k>for</span> i in <span class=m>0</span> 1<span class=p>;</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>  <span class=nv>CUDA_VISIBLE_DEVICES</span><span class=o>=</span><span class=k>$((</span>i*2<span class=k>))</span>,<span class=k>$((</span>i*2+1<span class=k>))</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  python -m sglang.launch_server <span class=se>\
+</span></span></span><span class=line><span class=cl>    --model-path Qwen/Qwen3.6-27B --tp-size <span class=m>2</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>    --quantization fp8 --kv-cache-dtype fp8_e5m2 <span class=se>\
+</span></span></span><span class=line><span class=cl>    --chunked-prefill-size <span class=m>8192</span> --mem-fraction-static 0.88 <span class=se>\
+</span></span></span><span class=line><span class=cl>    --port <span class=k>$((</span><span class=m>30001</span><span class=o>+</span>i<span class=k>))</span> --enable-metrics --enable-cache-report <span class=p>&amp;</span>
+</span></span><span class=line><span class=cl><span class=k>done</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Comparison A: Round Robin</span>
+</span></span><span class=line><span class=cl>python -m sglang_router.launch_router <span class=se>\
+</span></span></span><span class=line><span class=cl>  --worker-urls http://127.0.0.1:30001 http://127.0.0.1:30002 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --policy round_robin --port <span class=m>30000</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Comparison B: Cache-Aware</span>
+</span></span><span class=line><span class=cl>python -m sglang_router.launch_router <span class=se>\
+</span></span></span><span class=line><span class=cl>  --worker-urls http://127.0.0.1:30001 http://127.0.0.1:30002 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --policy cache_aware --port <span class=m>30000</span>
+</span></span></code></pre></div><pre tabindex=0><code>                        TP4×1     RR TP2×2   cache_aware TP2×2
+cache_hit_rate           0.62       0.44          0.79
+Median TTFT (ms)      1843.07    2510.33        892.41
+P99 TTFT (ms)         3721.85    4980.12       1684.30
+Output tok/s          1455.11    1288.40       2740.66
+req/s                    4.85       4.29          9.14
+</code></pre><p>With round-robin, performance worsened. Questions about the same document were scattered across two workers, causing both to prefill the same document, effectively halving the cache capacity. The drop in hit rate from 0.62 to 0.44 illustrates this loss.</p><p><code>cache_aware</code> routing sends requests with the same prefix hash to the same worker.</p><p>Since each worker handles a subset of documents, they only need to manage 500 types each. Cache contention is halved, and the hit rate increased to 0.79.</p><p><strong>With the same hardware, a single routing policy can make a 2.8x difference in TTFT.</strong> For workloads with high prefix sharing, round-robin is a configuration that nullifies the cache.</p><h3 id=round-2---prompt-redesign>Round 2 - Prompt Redesign <a class=anchor href=#round-2---prompt-redesign aria-label="이 절로 링크">#</a></h3><p>Let's assume a review of the system prompt revealed a variable value at the beginning.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Problematic form</span>
+</span></span><span class=line><span class=cl><span class=n>SYSTEM</span> <span class=o>=</span> <span class=sa>f</span><span class=s2>&#34;&#34;&#34;현재 시각: </span><span class=si>{</span><span class=n>datetime</span><span class=o>.</span><span class=n>now</span><span class=p>()</span><span class=si>}</span><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>요청 ID: </span><span class=si>{</span><span class=n>request_id</span><span class=si>}</span><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>사용자: </span><span class=si>{</span><span class=n>user_name</span><span class=si>}</span><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>당신은 계약서 분석 어시스턴트입니다. ...&#34;&#34;&#34;</span>
+</span></span></code></pre></div><p>The <code>현재시각</code> (current time) changes with each request, causing the prefix to differ from the first token. This makes the subsequent 20,500 tokens uncacheable even if they are identical.</p><p>Move the variable values to the end.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-py data-lang=py><span class=line><span class=cl><span class=c1># Modified form</span>
+</span></span><span class=line><span class=cl><span class=n>SYSTEM</span> <span class=o>=</span> <span class=s2>&#34;&#34;&#34;당신은 계약서 분석 어시스턴트입니다. ...
+</span></span></span><span class=line><span class=cl><span class=s2>(고정 지침 전체)&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>PROMPT</span> <span class=o>=</span> <span class=n>SYSTEM</span> <span class=o>+</span> <span class=n>DOCUMENT</span> <span class=o>+</span> <span class=sa>f</span><span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>---
+</span></span></span><span class=line><span class=cl><span class=s2>현재 시각: </span><span class=si>{</span><span class=n>datetime</span><span class=o>.</span><span class=n>now</span><span class=p>()</span><span class=si>}</span><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>요청 ID: </span><span class=si>{</span><span class=n>request_id</span><span class=si>}</span><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>질문: </span><span class=si>{</span><span class=n>question</span><span class=si>}</span><span class=s2>&#34;&#34;&#34;</span>
+</span></span></code></pre></div><pre tabindex=0><code>Round 1    Round 2      Change
+cache_hit_rate          0.79       0.94       +0.15
+Median TTFT (ms)      892.41     412.88      -53.7%
+P99 TTFT (ms)        1684.30     961.22      -42.9%
+Output tok/s         2740.66    3612.19      +31.8%
+req/s                   9.14      12.04       +31.7%
+</code></pre><p>Moving three lines of code halved the TTFT, with no change in hardware settings.</p><p>If we look at the number of tokens that need to be prefetched:</p><pre tabindex=0><code>Before modification: Prefill all 20,530 tokens for each request (cache invalidated)
+After modification: Prefill only 30-50 tokens on cache hit
+
+20,530 -&gt; 40
+</code></pre><p>Prefix caching only works for exact prefix matches.</p><p>If there are variable values in the prompt template, everything after them is invalidated. Therefore, the prompt structure must be reviewed before serving optimization.</p><h3 id=round-3---expanding-capacity-with-hicache>Round 3 - Expanding Capacity with HiCache <a class=anchor href=#round-3---expanding-capacity-with-hicache aria-label="이 절로 링크">#</a></h3><p>The remaining 0.06 of the 0.94 hit rate is due to unpopular 950 documents, limited by the GPU's capacity for 134 types. This calls for extending to CPU memory with hierarchical caching.</p><h3 id=what-hierarchical-cache-does>What Hierarchical Cache Does <a class=anchor href=#what-hierarchical-cache-does aria-label="이 절로 링크">#</a></h3><p>RadixAttention keeps KV cache only in GPU memory.</p><p>When capacity is full, older entries are evicted using LRU. If an evicted document is requested again, 20,000 tokens are prefetched from scratch.</p><p>Hierarchical Cache (HiCache) instead <strong>moves them to a lower tier.</strong></p><pre tabindex=0><code>Capacity        Bandwidth        Role in this case
+┌──────────────┐
+│  GPU HBM     │      258 GB      3,350 GB/s    134 popular documents reside
+├──────────────┤
+│  CPU DRAM    │      516 GB         64 GB/s    Stores evicted documents
+├──────────────┤
+│  NVMe / Remote│      Several TB      7 GB/s    Long-term storage (optional)
+└──────────────┘
+        ↑ Larger and slower as you go down
+</code></pre><p>KV evicted from the GPU is moved to CPU memory. If that document is requested again, it's restored by <strong>transfer instead of re-computation.</strong> Therefore, if transfer time is slower than re-computation time, it should not be used.</p><blockquote><p>It's faster to keep 134 frequently used books on your desk (GPU) and put the rest in a drawer under your feet or on a distant bookshelf than to go back to the library (re-computation) to borrow them again. However, taking them out of the drawer is not free.</p></blockquote><p>The names also differ depending on the transfer direction:</p><pre tabindex=0><code>Eviction: GPU &gt;&gt; CPU is called offloading and is performed in the background.
+Hit: CPU &gt;&gt; GPU is called prefetching and is performed just before prefill.
+</code></pre><p>Since fetching directly impacts latency, it's crucial to start it before the scheduler processes the request.</p><p><code>hicache-storage-prefetch-policy</code> controls this behavior.</p><p><strong>Policies</strong></p><ul><li><code>best_effort</code>: If transfer is slow, it doesn't wait and recomputes that portion. Suitable when latency SLOs are strict.</li><li><code>wait_complete</code>: Waits until transfer is complete. Suitable when recomputation is very expensive.</li><li><code>timeout</code>: Waits only for a certain period, then gives up. Suitable for a compromise.</li></ul><p><strong>Before adoption, a break-even analysis is necessary.</strong></p><pre tabindex=0><code>KV cache for one document = 20,000 × 96 KB = 1.92 GB
+
+Recomputation cost (prefill)
+  20,000 tokens × 2 × 27e9 FLOP = 1.08e15 FLOP
+  H100 FP8 1,979 TFLOPS × 4 GPUs × 60% effective = 4,750 TFLOPS
+  → 1.08e15 / 4.75e15 ≈ 227 ms
+
+Transfer cost (CPU DRAM → GPU)
+  1.92 GB ÷ 64 GB/s (PCIe 5.0) ≈ 30 ms
+
+30 ms &lt; 227 ms  →  Offloading is 7.6 times more advantageous
+</code></pre><p>If this ratio is less than 1, HiCache is detrimental.</p><p>For workloads with long outputs and short inputs, the opposite result may occur, so always calculate with your own numbers.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-diff data-lang=diff><span class=line><span class=cl>python -m sglang.launch_server \
+</span></span><span class=line><span class=cl>    --model-path Qwen/Qwen3.6-27B --tp-size 2 \
+</span></span><span class=line><span class=cl>    --quantization fp8 --kv-cache-dtype fp8_e5m2 \
+</span></span><span class=line><span class=cl><span class=gi>+   --page-size 64 \
+</span></span></span><span class=line><span class=cl><span class=gi>+   --enable-hierarchical-cache \
+</span></span></span><span class=line><span class=cl><span class=gi>+   --hicache-ratio 2 \
+</span></span></span><span class=line><span class=cl><span class=gi>+   --hicache-write-policy write_through \
+</span></span></span><span class=line><span class=cl><span class=gi>+   --hicache-io-backend kernel \
+</span></span></span><span class=line><span class=cl>    --chunked-prefill-size 8192 --mem-fraction-static 0.88 \
+</span></span><span class=line><span class=cl>    --port 30001 --enable-metrics --enable-cache-report
+</span></span></code></pre></div><p>Meaning of each flag:</p><ul><li><code>--enable-hierarchical-cache</code>: Enables hierarchical cache. If not enabled, other hicache flags are ignored.</li><li><code>--page-size 64</code>: Sets the unit size for KV cache pages in tokens. One page = 64 tokens.</li><li><code>--hicache-ratio 2</code>: Determines the size of the CPU-side KV pool. Using 2 times the GPU pool means a total of 3 times the capacity (GPU + 2x CPU).</li><li><code>--hicache-write-policy write_through</code>: Determines when to copy to CPU. <code>write_through</code> copies immediately upon writing to GPU, used when hit rate is prioritized.</li><li><code>--hicache-io-backend kernel</code>: Determines the path for GPU &lt;-> CPU transfer. <code>kernel</code> uses the kernel path, while <code>direct</code> is advantageous for large transfers.</li></ul><p>In this case, <code>kernel</code> is used because the transfer targets are scattered.</p><p>Evicted pages from the Radix tree are not physically contiguous. A 20,000-token document is split into 313 pages.</p><p>For such scattered transfers, bundling them via the kernel is advantageous.</p><p><code>direct</code> would be considered when the chunks being moved are large and contiguous, for example, if page size was increased to 128 or more, or if prefetching was done at the document level, organizing transfers into a few large blocks.</p><blockquote><p>The actual difference between the two methods depends on PCIe generation, page size, and number of concurrent transfers. It's safer to start with the default <code>kernel</code> and only try <code>direct</code> if transfer is identified as a bottleneck. If there's no difference after switching, it means transfer wasn't the bottleneck.</p></blockquote><p><code>--page-size</code> determines how many tokens are managed per KV cache page. The default value of 1 means one token is one page, and hierarchical cache does not operate in this state.</p><p>This is because transferring token by token between GPU and CPU incurs overhead larger than the actual data for each request.</p><p>64 is used as a compromise between transfer efficiency and cache waste.</p><p>Cache waste occurs because prefix sharing is only recognized at the page level.</p><p>If even one token within a page differs, the entire page must be recomputed.</p><pre tabindex=0><code>Page size 64, prefixes of two requests are identical up to 20,010 tokens, then diverge.
+
+Pages:  [0~63][64~127] ... [19,904~19,967][19,968~20,031][20,032~ ...
+                                    ↑ Identical up to here      ↑ Diverges here
+                                      = Reusable ✅              = Recompute ❌
+
+Within the last page 19,968~20,031:
+  Up to token 20,010 is the same   ← 43 tokens could have been reused
+  From token 20,011 onwards differs ← This invalidates the entire page
+
+→ 43 tokens that could have been reused are wasted. This is boundary waste.
+</code></pre><p>The amount of waste is <strong>(maximum page size - 1) tokens</strong>. For a page size of 64, it's a maximum of 63 tokens, varying from 0 to 63 depending on where the prefix diverges within the page.</p><pre tabindex=0><code>Larger page size
+  Larger data per transfer, better PCIe efficiency   ← Benefit
+  Higher upper bound for boundary waste              ← Detriment
+
+For a 20,000-token document, page size 64:
+  Transfer unit = 64 × 96 KB = 6.1 MB   → PCIe round-trip overhead is amortized
+  Boundary waste = max 63 tokens            → 0.3% compared to 20,000
+</code></pre><p>This workload involves long documents (20,000 tokens), so the fractional loss is negligible. Conversely, for services with prompts of only a few hundred tokens, 64 would incur significant waste, so 16 or 32 should be considered.</p><p><code>--hicache-ratio 2</code> results in the following capacity:</p><pre tabindex=0><code>GPU KV Pool    258 GB  →  134 documents     (Base for ratio. Always 1x)
+Host Pool      516 GB  →  268 documents     (258 × ratio 2)
+                        ────────────
+Total Cacheable          402 documents          → 3 times when using GPU only (1 + 2)
+
+40% of 1,000 documents reside in cache. 50 popular documents always remain on GPU.
+</code></pre><p>The host pool does not replace the GPU pool but is layered on top, so the total capacity is always (1 + ratio) times. A ratio of 4 would mean 5 times.</p><p><code>--hicache-size 200</code> can also be used to specify an absolute size in GB.</p><p>If specified, it overrides the ratio, and the host pool occupies that much CPU memory, so first check system RAM availability.</p><p>To allocate 516GB, there must be more physical memory than that.</p><pre tabindex=0><code>Round 2    Round 3      Change
+cache_hit_rate          0.94       0.97       +0.03
+Median TTFT (ms)      412.88     356.20      -13.7%
+P99 TTFT (ms)         961.22     594.71      -38.1%
+Output tok/s         3612.19    3844.02       +6.4%
+req/s                  12.04      12.81       +6.4%
+</code></pre><p>Median improvement is 13.7%, not large, but P99 improved by 38%.</p><p>Popular documents already in cache (dominating the median) remain unchanged. The <strong>restoration of unpopular documents (requests causing tail latency) to CPU memory</strong> shortened the tail.</p><p>Compared <code>write_through</code> and <code>write_back</code>.</p><pre tabindex=0><code>write_through   write_back
+cache_hit_rate            0.97         0.93
+Median TTFT (ms)        356.20       341.55
+Output tok/s           3844.02      3901.30
+</code></pre><p><code>write_back</code> delays host writes, reducing GPU overhead, but there might be unwritten blocks at eviction time, leading to a lower hit rate. <strong>For workloads where hit rate is dominant, <code>write_through</code> is appropriate.</strong></p><h3 id=final-configuration-and-cumulative-effects-1>Final Configuration and Cumulative Effects <a class=anchor href=#final-configuration-and-cumulative-effects-1 aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>Round                      hit_rate   Median TTFT   P99 TTFT   req/s
+0 TP4 Single                    0.62        1843        3722      4.85
+1 TP2×2 + cache_aware         0.79         892        1684      9.14
+2 Prompt Redesign               0.94         413         961     12.04
+3 HiCache                     0.97         356         595     12.81
+
+Cumulative                        +0.35        -81%        -84%     2.64×
+</code></pre><p>Peak 22 req/s is not met by 12.81 req/s, so either adding another node or pre-warming popular documents is needed.</p><p>Pre-warming involves prefilling and caching the 50 popular documents at service startup.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Pre-warm popular documents</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> doc in <span class=k>$(</span>head -50 popular_docs.txt<span class=k>)</span><span class=p>;</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>  curl -s http://127.0.0.1:30000/generate <span class=se>\
+</span></span></span><span class=line><span class=cl>    -d <span class=s2>&#34;{\&#34;text\&#34;: \&#34;</span><span class=k>$(</span>cat docs/<span class=nv>$doc</span>.txt<span class=k>)</span><span class=s2>\&#34;, \&#34;sampling_params\&#34;: {\&#34;max_new_tokens\&#34;: 1}}&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>    &gt; /dev/null
+</span></span><span class=line><span class=cl><span class=k>done</span>
+</span></span></code></pre></div><h3 id=lessons-learned>Lessons Learned <a class=anchor href=#lessons-learned aria-label="이 절로 링크">#</a></h3><ol><li><strong>Routing policy becomes part of the caching strategy.</strong> For workloads with high prefix sharing, round-robin invalidates the cache. Before increasing workers, check routing.</li><li><strong>Prompt structure can have a greater effect than infrastructure settings.</strong> Simply moving variable values from the front to the back halved TTFT. If serving and application teams are separate, this issue might go unnoticed.</li><li><strong>HiCache improves tail latency more than median latency:</strong> Requests already cached don't change, but requests that would have missed are restored from CPU memory, making it especially valuable for services with p99 SLOs.</li><li><strong>Before adopting hierarchical caching, a break-even analysis is necessary:</strong> If the computation speed to transfer ratio is not greater than 1, it's a net loss. Of course, cases with insufficient computational resources might be different.</li></ol><br><h2 id=nightly-batch-document-processing>Nightly Batch Document Processing <a class=anchor href=#nightly-batch-document-processing aria-label="이 절로 링크">#</a></h2><div class=table-wrap><table><thead><tr><th>Item</th><th>Value</th></tr></thead><tbody><tr><td>Task</td><td>Classify and summarize 2.4 million customer inquiries</td></tr><tr><td>Input</td><td>Average 1,200 tokens</td></tr><tr><td>Output</td><td>Average 150 tokens (JSON label + 3-sentence summary)</td></tr><tr><td>Deadline</td><td>Complete within 12 hours overnight</td></tr><tr><td>Hardware</td><td>2×H100 SXM</td></tr><tr><td>SLO</td><td><strong>None.</strong> Individual latency irrelevant, only total completion time.</td></tr></tbody></table></div><p>The absence of a latency SLO differentiates this case from others.</p><p>The optimizations done in Case 1 are entirely unnecessary and even counterproductive here.</p><h3 id=required-throughput-calculation>Required Throughput Calculation <a class=anchor href=#required-throughput-calculation aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>Total Input = 2,400,000 x 1,200 = 2.88e9 tokens
+Total Output = 2,400,000 x 150 = 3.60e8 tokens
+
+12 hours = 43,200 seconds
+Required Output Throughput =  3.60e8 / 43,200 ≈ 8,333 tok/s
+Required Input Throughput = 2.88e9 / 43,200 ≈ 66,667 tok/s
+</code></pre><h3 id=round-0---assuming-case-1s-settings-are-adopted>Round 0 - Assuming Case 1's Settings are Adopted <a class=anchor href=#round-0---assuming-case-1s-settings-are-adopted aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>python -m sglang.launch_server <span class=se>\
+</span></span></span><span class=line><span class=cl>  --model-path Qwen/Qwen3.6-27B --tp-size <span class=m>2</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --quantization fp8 --kv-cache-dtype fp8_e5m2 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --chunked-prefill-size <span class=m>4096</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --speculative-algorithm EAGLE3 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --speculative-draft-model-path Qwen/Qwen3.6-27B-eagle3 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --speculative-num-steps <span class=m>5</span> --speculative-eagle-topk <span class=m>8</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --mem-fraction-static 0.90 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --port <span class=m>30000</span> --enable-metrics
+</span></span></code></pre></div><pre tabindex=0><code>Max request concurrency:                 256
+Output token throughput (tok/s):         2148.33
+Input token throughput (tok/s):          17186.64
+Concurrency:                            248.91
+Median ITL (ms):                         112.40
+</code></pre><pre tabindex=0><code>Required output throughput 8,333 tok/s vs 2,148 tok/s
+→ Estimated completion time = 3.60e8 / 2148 / 3600 ≈ 46.5 hours
+</code></pre><p>The deadline is 12 hours, but it's estimated to take 46.5 hours, nearly four times longer.</p><p>This is natural. The optimization itself was done with a different objective.</p><h3 id=round-1---model-downsizing>Round 1 - Model Downsizing <a class=anchor href=#round-1---model-downsizing aria-label="이 절로 링크">#</a></h3><p>Throughput in batch jobs is strongly inversely proportional to model size.</p><p>Finding the minimum model suitable for the task difficulty is paramount.</p><p>Let's start with quality verification. Blindly evaluate candidates using 500 human-labeled validation sets.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>python eval_classification.py <span class=se>\
+</span></span></span><span class=line><span class=cl>  --models Qwen3.6-27B Qwen3.6-9B Qwen3.6-4B Qwen3.6-2B <span class=se>\
+</span></span></span><span class=line><span class=cl>  --testset labeled_500.jsonl <span class=se>\
+</span></span></span><span class=line><span class=cl>  --metrics accuracy,rouge-l
+</span></span></code></pre></div><pre tabindex=0><code>Model              Classification Accuracy   Summary ROUGE-L   FP8 Weights
+Qwen3.6-27B         0.941         0.412         27 GB
+Qwen3.6-9B          0.933         0.398          9 GB
+Qwen3.6-4B          0.897         0.361          4 GB
+Qwen3.6-2B          0.812         0.294          2 GB
+</code></pre><p>Assume that the 9B model's accuracy drop of 0.8%p and ROUGE-L drop of 0.014 compared to 27B are within the acceptable error margin for this task (which they likely are, being small).</p><blockquote><p>ROUGE-L is an evaluation score that measures how similar an AI-generated summary or translation is to a human-generated reference. Unlike other methods that only look at consecutive words, it finds the <strong>Longest Common Subsequence (LCS)</strong> in sentences to determine the degree of structural similarity.</p></blockquote><p>The 4B model is excluded because its accuracy drops by 4.4%p, which would increase subsequent manual review costs.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>python -m sglang.launch_server <span class=se>\
+</span></span></span><span class=line><span class=cl>  --model-path Qwen/Qwen3.6-9B --tp-size <span class=m>2</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --quantization fp8 --kv-cache-dtype fp8_e5m2 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --chunked-prefill-size <span class=m>4096</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --speculative-algorithm EAGLE3 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --speculative-draft-model-path Qwen/Qwen3.6-9B-eagle3 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --speculative-num-steps <span class=m>5</span> --speculative-eagle-topk <span class=m>8</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --mem-fraction-static 0.90 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --port <span class=m>30000</span> --enable-metrics
+</span></span></code></pre></div><pre tabindex=0><code>                       27B        9B        Change
+Output tok/s         2148.33   5912.77     +175%
+Input tok/s         17186.64  47302.16     +175%
+Median ITL (ms)      112.40     41.83      -62.8%
+Estimated Completion (hours)        46.5      16.9      -63.7%
+</code></pre><p>By simply changing the model without altering settings, efficiency increased by <strong>2.75 times</strong>.</p><p>It still exceeds the 12-hour deadline at 16.9 hours, but the gap has significantly narrowed.</p><h3 id=round-2---removing-speculative-decoding>Round 2 - Removing Speculative Decoding <a class=anchor href=#round-2---removing-speculative-decoding aria-label="이 절로 링크">#</a></h3><p>A concurrency of 256 is close to the H100 threshold batch size of 295.</p><p>According to calculations in the GPU hardware notes, there's almost no computational resource headroom in this range, and running the draft model can take away resources from computation.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-diff data-lang=diff><span class=line><span class=cl><span class=gd>- --speculative-algorithm EAGLE3 \
+</span></span></span><span class=line><span class=cl><span class=gd>- --speculative-draft-model-path Qwen/Qwen3.6-9B-eagle3 \
+</span></span></span><span class=line><span class=cl><span class=gd>- --speculative-num-steps 5 --speculative-eagle-topk 8 \
+</span></span></span></code></pre></div><pre tabindex=0><code>                    Speculative ON    Speculative OFF     Change
+Output tok/s        5912.77    7104.20     +20.2%
+Median ITL (ms)       41.83      35.98     -14.0%
+Estimated Completion (hours)        16.9       14.1     -16.6%
+</code></pre><p>The reason is clear from the server logs' acceptance rate:</p><pre tabindex=0><code>[Speculative ON, Concurrency 256]
+  accept_length_mean: 2.14 / 6
+  accept_rate: 0.357
+  draft_overhead_ratio: 0.284
+</code></pre><p>The acceptance rate, which was 0.637 in Case 1, is 0.357 in this case, and draft overhead increased from 11.8% to 28.4%.</p><p>Proposing 6 tokens and only accepting 2.14 while spending 28% of the cost means it's better to turn it off.</p><p>The technique that yielded a 66% gain in Case 1 results in a 20% loss here. This is a prime example of how the sign of the same technique's effect can reverse depending on the workload.</p><p>In this case, optimization for input rather than output is needed, so work for decode optimization is unnecessary, and speculative decoding is removed.</p><blockquote><p>Speculative decoding is a technique that speeds up generation by having a lightweight draft model quickly predict multiple tokens, which are then validated all at once by a heavier target model. Removing the draft model means the target model and GPU scheduler can focus solely on their inherent large-scale computations without the draft model's prefill task. This frees up all GPU memory (SRAM/HBM) and tensor cores previously occupied by the draft model, allowing the target model to process long prompts more efficiently.</p></blockquote><h3 id=round-3---maximizing-batch-parameters>Round 3 - Maximizing Batch Parameters <a class=anchor href=#round-3---maximizing-batch-parameters aria-label="이 절로 링크">#</a></h3><p>Since there is no latency SLO, maximize the batch size.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-diff data-lang=diff><span class=line><span class=cl>  python -m sglang.launch_server \
+</span></span><span class=line><span class=cl>    --model-path Qwen/Qwen3.6-9B --tp-size 2 \
+</span></span><span class=line><span class=cl>    --quantization fp8 --kv-cache-dtype fp8_e5m2 \
+</span></span><span class=line><span class=cl><span class=gd>-   --chunked-prefill-size 4096 \
+</span></span></span><span class=line><span class=cl><span class=gi>+   --chunked-prefill-size 32768 \
+</span></span></span><span class=line><span class=cl><span class=gi>+   --max-running-requests 512 \
+</span></span></span><span class=line><span class=cl><span class=gi>+   --max-prefill-tokens 65536 \
+</span></span></span><span class=line><span class=cl><span class=gd>-   --mem-fraction-static 0.90 \
+</span></span></span><span class=line><span class=cl><span class=gi>+   --mem-fraction-static 0.94 \
+</span></span></span><span class=line><span class=cl><span class=gi>+   --schedule-conservativeness 0.3 \
+</span></span></span><span class=line><span class=cl>    --port 30000 --enable-metrics
+</span></span></code></pre></div><ul><li><code>--chunked-prefill-size 32768</code>: Latency is irrelevant, so there's no reason to split. Larger matrices are beneficial for GPU efficiency.</li><li><code>--max-running-requests 512</code>: Expand the upper limit for concurrent sequences.</li><li><code>--max-prefill-tokens 65536</code>: Expand prefill tokens to accommodate a larger batch.</li><li><code>--mem-fraction-static 0.94</code>: Expand KV pool. Safe to reduce headroom for a dedicated instance.</li><li><code>--schedule-conservativeness 0.3</code>: Make the scheduler more aggressive. Fill batches at the risk of preemption.</li></ul><pre tabindex=0><code>                  Round 2    Round 3     Change
+Output tok/s       7104.20    9438.51    +32.9%
+Input tok/s       56833.60   75508.08    +32.9%
+Median ITL (ms)      35.98      68.22    +89.6%
+Concurrency         248.91     487.33
+Estimated Completion (hours)       14.1       10.6    -24.8%
+token_usage           0.71       0.93
+</code></pre><p><strong>ITL worsened by 90%, but this is not an issue in this case, as there is no latency SLO.</strong></p><p><code>token_usage</code> 0.93 means the KV cache is almost saturated. If we increase <code>mem-fraction-static</code> further to 0.96:</p><pre tabindex=0><code>--mem-fraction-static 0.96
+[2026-08-07 03:14:52] Warning: cache pool exhausted, preempting 14 requests
+[2026-08-07 03:16:08] Warning: cache pool exhausted, preempting 22 requests
+Output tok/s: 8712.44     (-7.7%)
+</code></pre><p>Preemption occurs, actually slowing it down. Preempted requests are recomputed from scratch, wasting work. 0.94 is the upper limit for this configuration.</p><h3 id=round-4---adjusting-client-side-parallelism>Round 4 - Adjusting Client-side Parallelism <a class=anchor href=#round-4---adjusting-client-side-parallelism aria-label="이 절로 링크">#</a></h3><p>Sometimes the server is ready, but the client cannot push enough requests.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-py data-lang=py><span class=line><span class=cl><span class=ch>#!/usr/bin/env python3</span>
+</span></span><span class=line><span class=cl><span class=s2>&#34;&#34;&#34;batch_runner.py — Batch job injector&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>asyncio</span><span class=o>,</span> <span class=nn>aiohttp</span><span class=o>,</span> <span class=nn>json</span><span class=o>,</span> <span class=nn>time</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>CONCURRENCY</span> <span class=o>=</span> <span class=mi>512</span>          <span class=c1># Matches server&#39;s max-running-requests</span>
+</span></span><span class=line><span class=cl><span class=n>ENDPOINT</span> <span class=o>=</span> <span class=s2>&#34;http://127.0.0.1:30000/generate&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>async</span> <span class=k>def</span> <span class=nf>worker</span><span class=p>(</span><span class=n>session</span><span class=p>,</span> <span class=n>sem</span><span class=p>,</span> <span class=n>item</span><span class=p>,</span> <span class=n>results</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>async</span> <span class=k>with</span> <span class=n>sem</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>payload</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;text&#34;</span><span class=p>:</span> <span class=n>item</span><span class=p>[</span><span class=s2>&#34;prompt&#34;</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;sampling_params&#34;</span><span class=p>:</span> <span class=p>{</span><span class=s2>&#34;max_new_tokens&#34;</span><span class=p>:</span> <span class=mi>200</span><span class=p>,</span> <span class=s2>&#34;temperature&#34;</span><span class=p>:</span> <span class=mf>0.0</span><span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=k>async</span> <span class=k>with</span> <span class=n>session</span><span class=o>.</span><span class=n>post</span><span class=p>(</span><span class=n>ENDPOINT</span><span class=p>,</span> <span class=n>json</span><span class=o>=</span><span class=n>payload</span><span class=p>)</span> <span class=k>as</span> <span class=n>r</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>results</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=k>await</span> <span class=n>r</span><span class=o>.</span><span class=n>json</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>async</span> <span class=k>def</span> <span class=nf>main</span><span class=p>(</span><span class=n>path</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>items</span> <span class=o>=</span> <span class=p>[</span><span class=n>json</span><span class=o>.</span><span class=n>loads</span><span class=p>(</span><span class=n>l</span><span class=p>)</span> <span class=k>for</span> <span class=n>l</span> <span class=ow>in</span> <span class=nb>open</span><span class=p>(</span><span class=n>path</span><span class=p>)]</span>
+</span></span><span class=line><span class=cl>    <span class=n>sem</span> <span class=o>=</span> <span class=n>asyncio</span><span class=o>.</span><span class=n>Semaphore</span><span class=p>(</span><span class=n>CONCURRENCY</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>results</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl>    <span class=n>t0</span> <span class=o>=</span> <span class=n>time</span><span class=o>.</span><span class=n>time</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>conn</span> <span class=o>=</span> <span class=n>aiohttp</span><span class=o>.</span><span class=n>TCPConnector</span><span class=p>(</span><span class=n>limit</span><span class=o>=</span><span class=n>CONCURRENCY</span> <span class=o>+</span> <span class=mi>64</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>async</span> <span class=k>with</span> <span class=n>aiohttp</span><span class=o>.</span><span class=n>ClientSession</span><span class=p>(</span><span class=n>connector</span><span class=o>=</span><span class=n>conn</span><span class=p>)</span> <span class=k>as</span> <span class=n>s</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>await</span> <span class=n>asyncio</span><span class=o>.</span><span class=n>gather</span><span class=p>(</span><span class=o>*</span><span class=p>[</span><span class=n>worker</span><span class=p>(</span><span class=n>s</span><span class=p>,</span> <span class=n>sem</span><span class=p>,</span> <span class=n>i</span><span class=p>,</span> <span class=n>results</span><span class=p>)</span> <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>items</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>    <span class=n>dt</span> <span class=o>=</span> <span class=n>time</span><span class=o>.</span><span class=n>time</span><span class=p>()</span> <span class=o>-</span> <span class=n>t0</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=nb>len</span><span class=p>(</span><span class=n>results</span><span class=p>)</span><span class=si>}</span><span class=s2>건 / </span><span class=si>{</span><span class=n>dt</span><span class=si>:</span><span class=s2>.1f</span><span class=si>}</span><span class=s2>초 / </span><span class=si>{</span><span class=nb>len</span><span class=p>(</span><span class=n>results</span><span class=p>)</span><span class=o>/</span><span class=n>dt</span><span class=si>:</span><span class=s2>.1f</span><span class=si>}</span><span class=s2> req/s&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>asyncio</span><span class=o>.</span><span class=n>run</span><span class=p>(</span><span class=n>main</span><span class=p>(</span><span class=s2>&#34;batch_input.jsonl&#34;</span><span class=p>))</span>
+</span></span></code></pre></div><pre tabindex=0><code>Client Concurrency    Server Concurrency   Output tok/s
+      128                 127.4            5920.11
+      256                 254.8            7802.33
+      512                 487.3            9438.51
+     1024                 496.1            9401.77   ← Saturation
+</code></pre><p>Client concurrency around 512 is best; beyond that is the saturation point. Further increases only lengthen the queue without increasing throughput. It's important to match the server's <code>--max-running-requests</code> with client concurrency.</p><h3 id=final-configuration-and-cumulative-effects-2>Final Configuration and Cumulative Effects <a class=anchor href=#final-configuration-and-cumulative-effects-2 aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>Round                    Output tok/s   Estimated Completion (h)   Median ITL
+0 27B + Case 1 Settings          2148          46.5         112.4
+1 Replaced with 9B                   5913          16.9          41.8
+2 Removed Speculative Decoding            7104          14.1          36.0
+3 Maximized Batch Parameters          9439          10.6          68.2
+4 Client Concurrency Alignment        9439          10.6          68.2
+
+Cumulative                        4.39×         -77%
+</code></pre><p>Compared to the 12-hour deadline, 10.6 hours leaves 1.4 hours of buffer.</p><h3 id=lessons-learned-1>Lessons Learned <a class=anchor href=#lessons-learned-1 aria-label="이 절로 링크">#</a></h3><ol><li><strong>Model selection yields greater gains than the sum of all configuration tuning.</strong> Switching from 27B to 9B alone provided a 2.75x benefit. All three subsequent tuning rounds combined only yielded 1.6x. Before tuning, verify with a validation set if the chosen model size is truly necessary for the task.</li><li><strong>Downsizing without quality verification is risky:</strong> A 0.8%p accuracy drop might be acceptable, but a larger drop like 4.4%p could lead to increased manual review costs. <strong>Acceptable error should be judged not only by accuracy metrics but also by the trade-off between increased subsequent costs and reduced GPU costs.</strong></li><li>Speculative decoding, which provided a +66% efficiency in Case 1, resulted in -20% here, and chunked prefill size increased eightfold from 4,096 to 32,768. The difference was the presence or absence of a latency SLO. This is why settings from other projects should not be adopted blindly.</li><li>In this case, simply maximizing memory usage was not always beneficial. Setting <code>mem-fraction-static</code> to 0.96 caused preemption, reducing throughput by 7.7%. Preempted requests are recomputed, wasting work. Monitor <code>preempting</code> warnings and <code>token_usage</code> above 0.95.</li></ol><br><h2 id=structured-output-api>Structured Output API <a class=anchor href=#structured-output-api aria-label="이 절로 링크">#</a></h2><div class=table-wrap><table><thead><tr><th>Item</th><th>Value</th></tr></thead><tbody><tr><td>Service</td><td>Tool call backend for customer CRM agents</td></tr><tr><td>Request Rate</td><td>Average 25 req/s, Peak 40 req/s</td></tr><tr><td>Input</td><td>1,800 tokens (Tool definition 1,200 + Conversation 600)</td></tr><tr><td>Output</td><td>120 tokens (JSON function call)</td></tr><tr><td>Hardware</td><td>2×H100 SXM</td></tr><tr><td>SLO</td><td>TTFT p95 &lt; 800ms, <strong>JSON parsing failure rate 0%</strong></td></tr></tbody></table></div><p>The JSON parsing failure rate SLO is a distinguishing feature of this case.</p><p>If an agent's task involves, say, 20 chained tool calls, and each step can independently fail:</p><pre tabindex=0><code>If step-by-step success rate is p, overall success rate for 20 steps = p²⁰
+
+p = 0.999  →  0.999²⁰ = 0.980   →  98.0%
+p = 0.99   →  0.99²⁰  = 0.818   →  81.8%
+</code></pre><p>Even a 1% failure rate at one step means that if 20 steps are chained, the entire task will fail one out of five times.</p><p>The same multiplication does not apply to latency. If TTFT increases from 800ms to 900ms, the user just waits a little longer. But a parsing failure renders all subsequent steps meaningless. Therefore, <strong>failure rate is a constraint that takes precedence over latency.</strong></p><h3 id=model-selection-1>Model Selection <a class=anchor href=#model-selection-1 aria-label="이 절로 링크">#</a></h3><div class=table-wrap><table><thead><tr><th>Model</th><th style=text-align:right>FP8 Weights</th><th style=text-align:right>Tool Call Accuracy</th><th>Batch 40 Throughput</th></tr></thead><tbody><tr><td>Qwen3.6-27B</td><td style=text-align:right>27 GB</td><td style=text-align:right>0.947</td><td>Low</td></tr><tr><td>Qwen3.6-9B</td><td style=text-align:right>9 GB</td><td style=text-align:right>0.921</td><td>Medium</td></tr><tr><td>Qwen3.6-35B-A3B</td><td style=text-align:right>35 GB</td><td style=text-align:right>0.938</td><td><strong>High</strong></td></tr></tbody></table></div><p><strong>Qwen3.6-35B-A3B</strong> is selected.</p><p>The output is short (120 tokens), and the request rate is high, maintaining concurrency around 40.</p><p>The active parameter of MoE (3B) means only 3GB (FP8) of weights are read per decode, making it faster than dense 9B.</p><p>Although 35GB total weights must be loaded into memory, there's ample headroom on 2xH100 = 160GB.</p><p>This is the opposite conclusion from Case 1, where dense was chosen. <strong>MoE is advantageous when output is short and concurrency is high, while dense is advantageous when output is long and concurrency is low.</strong></p><h3 id=round-0---json-request-via-prompt-only>Round 0 - JSON Request via Prompt Only <a class=anchor href=#round-0---json-request-via-prompt-only aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>python -m sglang.launch_server <span class=se>\
+</span></span></span><span class=line><span class=cl>  --model-path Qwen/Qwen3.6-35B-A3B --tp-size <span class=m>2</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --quantization fp8 --kv-cache-dtype fp8_e5m2 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --chunked-prefill-size <span class=m>8192</span> --mem-fraction-static 0.90 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --port <span class=m>30000</span> --enable-metrics
+</span></span></code></pre></div><p>Requests instruct the format via the prompt.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;text&#34;</span><span class=p>:</span> <span class=s2>&#34;...tool list...\n\nRespond strictly in the following JSON format:\n{\&#34;tool\&#34;: \&#34;...\&#34;, \&#34;args\&#34;: {...}}\n\nUser: Show me Kim Cheol-su&#39;s last 3 orders&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;sampling_params&#34;</span><span class=p>:</span> <span class=p>{</span><span class=nt>&#34;max_new_tokens&#34;</span><span class=p>:</span> <span class=mi>200</span><span class=p>,</span> <span class=nt>&#34;temperature&#34;</span><span class=p>:</span> <span class=mf>0.0</span><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><pre tabindex=0><code>Max request concurrency:                 40
+Successful requests:                     5000
+Median TTFT (ms):                        412.33
+P99 TTFT (ms):                           788.21
+Output token throughput (tok/s):         4128.60
+req/s                                    34.41
+</code></pre><p>Parsing results are aggregated separately.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-py data-lang=py><span class=line><span class=cl><span class=ch>#!/usr/bin/env python3</span>
+</span></span><span class=line><span class=cl><span class=s2>&#34;&#34;&#34;check_schema.py — Aggregate schema compliance rate of output&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>json</span><span class=o>,</span> <span class=nn>jsonschema</span><span class=o>,</span> <span class=nn>collections</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>SCHEMA</span> <span class=o>=</span> <span class=n>json</span><span class=o>.</span><span class=n>load</span><span class=p>(</span><span class=nb>open</span><span class=p>(</span><span class=s2>&#34;tool_call.schema.json&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>audit</span><span class=p>(</span><span class=n>path</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>stats</span> <span class=o>=</span> <span class=n>collections</span><span class=o>.</span><span class=n>Counter</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>line</span> <span class=ow>in</span> <span class=nb>open</span><span class=p>(</span><span class=n>path</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>out</span> <span class=o>=</span> <span class=n>json</span><span class=o>.</span><span class=n>loads</span><span class=p>(</span><span class=n>line</span><span class=p>)[</span><span class=s2>&#34;generated_text&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>obj</span> <span class=o>=</span> <span class=n>json</span><span class=o>.</span><span class=n>loads</span><span class=p>(</span><span class=n>out</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>except</span> <span class=n>json</span><span class=o>.</span><span class=n>JSONDecodeError</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>stats</span><span class=p>[</span><span class=s2>&#34;JSON parsing failed&#34;</span><span class=p>]</span> <span class=o>+=</span> <span class=mi>1</span><span class=p>;</span> <span class=k>continue</span>
+</span></span><span class=line><span class=cl>        <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>jsonschema</span><span class=o>.</span><span class=n>validate</span><span class=p>(</span><span class=n>obj</span><span class=p>,</span> <span class=n>SCHEMA</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>stats</span><span class=p>[</span><span class=s2>&#34;Normal&#34;</span><span class=p>]</span> <span class=o>+=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>        <span class=k>except</span> <span class=n>jsonschema</span><span class=o>.</span><span class=n>ValidationError</span> <span class=k>as</span> <span class=n>e</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>stats</span><span class=p>[</span><span class=sa>f</span><span class=s2>&#34;Schema violation: </span><span class=si>{</span><span class=n>e</span><span class=o>.</span><span class=n>validator</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>]</span> <span class=o>+=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>stats</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>k</span><span class=p>,</span> <span class=n>v</span> <span class=ow>in</span> <span class=n>audit</span><span class=p>(</span><span class=s2>&#34;outputs.jsonl&#34;</span><span class=p>)</span><span class=o>.</span><span class=n>most_common</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=n>k</span><span class=si>:</span><span class=s2>28s</span><span class=si>}</span><span class=s2> </span><span class=si>{</span><span class=n>v</span><span class=si>:</span><span class=s2>5d</span><span class=si>}</span><span class=s2>  (</span><span class=si>{</span><span class=n>v</span><span class=o>/</span><span class=mi>50</span><span class=si>:</span><span class=s2>.2f</span><span class=si>}</span><span class=s2>%)&#34;</span><span class=p>)</span>
+</span></span></code></pre></div><pre tabindex=0><code>Normal                          4813  (96.26%)
+JSON parsing failed               87  ( 1.74%)
+Schema violation: enum            61  ( 1.22%)
+Schema violation: required        28  ( 0.56%)
+Schema violation: type            11  ( 0.22%)
+</code></pre><p>The failure rate is 3.74%. While TTFT meets the SLO, the failure rate SLO is significantly exceeded.</p><p>As seen earlier, even a 1% failure rate can drop agent task success to 82%. The current figure could drop to 46.7%, meaning <strong>more than half would fail midway.</strong></p><p>Examining failure cases reveals different types.</p><pre tabindex=0><code>[JSON parsing failed example]
+&#34;Of course! I will look it up as follows.\n{\&#34;tool\&#34;: \&#34;get_orders\&#34;...}&#34;
+  → Prepends an explanatory sentence
+
+&#34;{\&#34;tool\&#34;: \&#34;get_orders\&#34;, \&#34;args\&#34;: {\&#34;customer\&#34;: \&#34;김철수\&#34;, \&#34;limit\&#34;: 3}&#34;
+  → Missing closing curly brace
+
+[enum violation example]
+{&#34;tool&#34;: &#34;get_customer_orders&#34;, ...}
+  → Invents a tool name not in the tool list
+</code></pre><p>These are probabilistic failures that remain no matter how much the prompt is refined.</p><h3 id=round-1---grammar-constrained-decoding>Round 1 - Grammar-Constrained Decoding <a class=anchor href=#round-1---grammar-constrained-decoding aria-label="이 절로 링크">#</a></h3><h4 id=what-constrained-decoding-does>What Constrained Decoding Does <a class=anchor href=#what-constrained-decoding-does aria-label="이 절로 링크">#</a></h4><p>Asking for JSON via a prompt is probabilistic. While the model is likely to pick <code>{</code> as the next token, <code>물</code> (water) is not 0, and 187 out of 5,000 times, that might be chosen.</p><p>Constrained decoding, instead of asking, selectively and physically blocks certain tokens.</p><pre tabindex=0><code>Generated so far: {&#34;tool&#34;: &#34;get_
+Next tokens allowed by grammar: orders  profile   ← Only those in enum
+                             ↓
+Model&#39;s original probability distribution        [orders 0.6][profile 0.3][customer 0.08][물 0.02]
+After masking                    [orders 0.67][profile 0.33][  0  ][  0  ]
+                                                        ↑ Made -inf, so cannot be sampled
+</code></pre><p>It prevents the model from inventing non-existent tool names by setting their probabilities to 0.</p><h4 id=xgrammer>XGrammer <a class=anchor href=#xgrammer aria-label="이 절로 링크">#</a></h4><p>This engine performs masking at each token. It's the default grammar backend for SGLang, and can be changed to <code>llguidance</code> or <code>outlines</code> using <code>--grammar-backend</code>.</p><p>The problem is that checking all 150,000 vocabulary items at each token becomes a bottleneck itself. XGrammer avoids this by dividing tokens into two categories:</p><pre tabindex=0><code>Context-independent tokens   Validity is determined regardless of current parsing state.
+                             Example: ordinary characters within a string are always allowed,
+                             regardless of nesting depth. → Pre-calculated.
+
+Context-dependent tokens   Validity requires checking the parsing stack.
+                           Example: `}` is valid only if an object is open.
+                           → Checked at runtime, but performed concurrently with GPU computation.
+</code></pre><p>Most of the vocabulary is context-independent. Only a few dozen tokens (<code>{ } [ ] , : "</code>) form the structure, while the rest are content. Therefore, only a minority require real-time judgment. Even these are processed in parallel by the CPU while the GPU computes the next token.</p><p>Let's enable the XGrammer backend and pass the JSON schema with each request.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-diff data-lang=diff><span class=line><span class=cl>  python -m sglang.launch_server \
+</span></span><span class=line><span class=cl>    --model-path Qwen/Qwen3.6-35B-A3B --tp-size 2 \
+</span></span><span class=line><span class=cl>    --quantization fp8 --kv-cache-dtype fp8_e5m2 \
+</span></span><span class=line><span class=cl><span class=gi>+   --grammar-backend xgrammar \
+</span></span></span><span class=line><span class=cl>    --chunked-prefill-size 8192 --mem-fraction-static 0.90 \
+</span></span><span class=line><span class=cl>    --port 30000 --enable-metrics
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;text&#34;</span><span class=p>:</span> <span class=s2>&#34;...&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;sampling_params&#34;</span><span class=p>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;max_new_tokens&#34;</span><span class=p>:</span> <span class=mi>200</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;temperature&#34;</span><span class=p>:</span> <span class=mf>0.0</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;json_schema&#34;</span><span class=p>:</span> <span class=s2>&#34;{\&#34;type\&#34;:\&#34;object\&#34;,\&#34;properties\&#34;:{\&#34;tool\&#34;:{\&#34;type\&#34;:\&#34;string\&#34;,\&#34;enum\&#34;:[\&#34;get_orders\&#34;,\&#34;get_profile\&#34;,\&#34;create_ticket\&#34;,\&#34;search_kb\&#34;]},\&#34;args\&#34;:{\&#34;type\&#34;:\&#34;object\&#34;}},\&#34;required\&#34;:[\&#34;tool\&#34;,\&#34;args\&#34;]}&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><pre tabindex=0><code>Normal                          5000 (100.00%)
+JSON parsing failed                0
+Schema violation                   0
+</code></pre><pre tabindex=0><code>                  Round 0    Round 1     Change
+Failure Rate              3.74%      0.00%     Resolved
+Median TTFT (ms)   412.33     468.90    +13.7%
+P99 TTFT (ms)      788.21    1342.55    +70.3%
+Output tok/s      4128.60    4402.18     +6.6%`
+</code></pre><p>The failure rate became 0 percent.</p><p>Because it sets the probability of grammatically impossible tokens to 0, probabilistic failures are fundamentally eliminated.</p><p>The disappearance of <code>enum</code> violations is particularly important, as it's now impossible to invent non-existent tool names.</p><h4 id=jump-forward-decoding>Jump-Forward Decoding <a class=anchor href=#jump-forward-decoding aria-label="이 절로 링크">#</a></h4><p>The output token throughput increased by 6.6%.</p><p>This is an additional optimization by SGLang. While constrained decoding <strong>prevents incorrect answers</strong>, jump-forward skips predetermined answers.</p><pre tabindex=0><code>When generating {&#34;tool&#34;: &#34;
+
+Normal constrained decoding
+  {  →  &#34;  →  tool  →  &#34;  →  :  →  (space)  →  &#34;     7 model calls
+  ↑ Even if only one token is valid at each position, the model is queried every time.
+
+Jump-forward
+  Emits {&#34;tool&#34;: &#34; all at once                        0 model calls
+  ↑ Grammar already knows the answer, so it just writes it.
+</code></pre><p>Calling the model when the next token's entropy is 0 is wasteful.</p><p>Therefore, <strong>outputs with a high structural component can actually be faster when constrained.</strong></p><h3 id=results>Results <a class=anchor href=#results aria-label="이 절로 링크">#</a></h3><ul><li><strong>Failure rate resolved</strong>: By setting the probability of grammatically impossible tokens to 0, probabilistic failures are fundamentally blocked. This eliminated <code>enum</code> violations, which were the most common in Round 0, meaning the model no longer invents non-existent tool names.</li><li><strong>Throughput increased by 6.6%</strong>: Due to the jump-forward decoding effect, tool call JSONs have nearly half their tokens as structural tokens, reducing model calls proportionally.</li><li><strong>P99 TTFT worsened by 70.3%</strong>: For grammar compilation cost, when a new schema arrives, XGrammer creates a parsing automaton and precomputes context-independent masks. The first request for that schema bears the entire cost. Subsequent requests use the cache.</li></ul><p>The median increased by only 13.7%, while P99 increased by 70.3%. This indicates that most requests hit the cache, and the few that incurred compilation costs drove up P99.</p><p>Looking at the server logs:</p><pre tabindex=0><code>[2026-08-07 09:12:04] Grammar cache miss, compiling schema (hash=a3f21b8c) ... 384ms
+[2026-08-07 09:12:07] Grammar cache miss, compiling schema (hash=7d90e412) ... 411ms
+[2026-08-07 09:12:11] Grammar cache hit (hash=a3f21b8c)
+</code></pre><h3 id=round-2---grammar-cache-warming>Round 2 - Grammar Cache Warming <a class=anchor href=#round-2---grammar-cache-warming aria-label="이 절로 링크">#</a></h3><p>The schemas for this service are determined by tool combinations and are finite.</p><p>Since 17 types of schemas appeared in actual traffic, let's pre-compile all of them at service startup to fill the compilation cache.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=cp>#!/usr/bin/env bash
+</span></span></span><span class=line><span class=cl><span class=c1># warm_grammar.sh — Grammar cache pre-compilation</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> schema in schemas/*.json<span class=p>;</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>  curl -s http://127.0.0.1:30000/generate <span class=se>\
+</span></span></span><span class=line><span class=cl>    -H <span class=s2>&#34;Content-Type: application/json&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>    -d <span class=s2>&#34;</span><span class=k>$(</span>jq -n --arg s <span class=s2>&#34;</span><span class=k>$(</span>cat <span class=nv>$schema</span><span class=k>)</span><span class=s2>&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>         <span class=s1>&#39;{text: &#34;warmup&#34;, sampling_params: {max_new_tokens: 1, json_schema: $s}}&#39;</span><span class=k>)</span><span class=s2>&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>    &gt; /dev/null
+</span></span><span class=line><span class=cl>  <span class=nb>echo</span> <span class=s2>&#34;Compilation complete: </span><span class=nv>$schema</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>done</span>
+</span></span></code></pre></div><pre tabindex=0><code>                  Round 1    Round 2     Change
+Median TTFT (ms)   468.90     421.07    -10.2%
+P99 TTFT (ms)     1342.55     612.33    -54.4%
+Output tok/s      4402.18    4488.90     +2.0%
+Failure Rate               0.00%      0.00%
+</code></pre><p>P99 dropped by more than half. The compilation cost didn't disappear; it was <strong>shifted to service startup</strong>, so user requests no longer bear that cost.</p><p>There are cases where schemas are dynamically generated and cannot be pre-compiled. If users can register custom tools, the number of schema types is infinite. In such cases, the characteristics of each backend must be checked.</p><pre tabindex=0><code>Backend          Dynamic Schema    Compilation Time (Complex Schema)    Overhead per Token
+xgrammar          Supported          40~400 ms                &lt; 40 µs
+llguidance        Supported          Almost none                 ~50 µs
+outlines          Limited        40 s ~ 10 min              1 lookup
+</code></pre><p><code>outlines</code> fully precomputes the FSM, so for static schemas, its per-token cost is the lowest. However, for complex schemas, compilation can take several minutes, and it cannot handle recursive structures.</p><p><strong>If dynamic schemas are present</strong>, <code>xgrammer</code> or <code>llguidance</code> are the choices, and must be verified with actual schemas.</p><h3 id=round-3---placing-tool-definitions-as-prefixes>Round 3 - Placing Tool Definitions as Prefixes <a class=anchor href=#round-3---placing-tool-definitions-as-prefixes aria-label="이 절로 링크">#</a></h3><p>Out of 1,800 input tokens, 1,200 tokens are tool definitions, and they are identical across all requests. However, the cache hit rate was low.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>curl -s http://127.0.0.1:30000/metrics <span class=p>|</span> grep cache_hit_rate
+</span></span><span class=line><span class=cl><span class=c1># sglang_cache_hit_rate{model=&#34;Qwen/Qwen3.6-35B-A3B&#34;} 0.18</span>
+</span></span></code></pre></div><p>Checking the prompt composition, the conversation history was placed before the tool definitions.</p><pre tabindex=0><code>Before modification: [Conversation History 600][Tool Definition 1,200][User Question]
+                └ Varies each time ┘ → Invalidates cache for subsequent 1,200 tokens
+
+After modification: [Tool Definition 1,200][Conversation History 600][User Question]
+         └ Always identical ┘ → 1,200 tokens cache hit
+</code></pre><pre tabindex=0><code>                  Round 2    Round 3     Change
+cache_hit_rate       0.18       0.67      +0.49
+Median TTFT (ms)   421.07     198.44    -52.9%
+P99 TTFT (ms)      612.33     341.20    -44.3%
+Output tok/s      4488.90    5920.33    +31.9%
+req/s               37.41      49.34    +31.9%
+</code></pre><p>This is a familiar pattern. The principle of placing fixed parts at the beginning and variable parts at the end applies to all workloads.</p><h3 id=final-configuration>Final Configuration <a class=anchor href=#final-configuration aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>python -m sglang.launch_server <span class=se>\
+</span></span></span><span class=line><span class=cl>  --model-path Qwen/Qwen3.6-35B-A3B <span class=se>\
+</span></span></span><span class=line><span class=cl>  --tp-size <span class=m>2</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --quantization fp8 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --kv-cache-dtype fp8_e5m2 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --grammar-backend xgrammar <span class=se>\
+</span></span></span><span class=line><span class=cl>  --chunked-prefill-size <span class=m>8192</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --mem-fraction-static 0.90 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --max-running-requests <span class=m>64</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --host 0.0.0.0 --port <span class=m>30000</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --enable-metrics --enable-cache-report
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># After startup</span>
+</span></span><span class=line><span class=cl>./warm_grammar.sh
+</span></span></code></pre></div><pre tabindex=0><code>Round                    Failure Rate   Median TTFT   P99 TTFT   req/s
+0 Prompt Instruction Only           3.74%       412         788     34.41
+1 XGrammar                0.00%       469        1343     36.68
+2 Grammar Cache Warming            0.00%       421         612     37.41
+3 Tool Definition Forward          0.00%       198         341     49.34
+
+Cumulative                      Resolved       -52%        -57%     1.43×
+</code></pre><p>The peak was 40 req/s, but it can now handle 49.34 req/s, satisfying all SLOs.</p><h3 id=results-summary>Results Summary <a class=anchor href=#results-summary aria-label="이 절로 링크">#</a></h3><p><strong>Constrained decoding fundamentally eliminates probabilistic failures.</strong> Prompt instructions, no matter how refined, always leave a few percent chance of failure, which is critical in cumulative structures like agents.</p><p><strong>Structured output can actually increase throughput.</strong> Jump-forward decoding emits determined tokens without model calls, so JSON output with a high structural component is faster than unconstrained generation. If constraints are only seen as a cost, this benefit can be missed.</p><p><strong>Grammar compilation costs can be shifted.</strong> If the number of schema types is finite, warming can remove the cost from user requests. If infinite, the backend must be chosen carefully.</p><p><strong>The advantage of MoE vs. dense depends on the workload.</strong> In Case 1 (400-token output, 25 concurrency), dense was advantageous. Here (120-token output, 40 concurrency), MoE was advantageous. The criteria are how close the batch is to the threshold batch size and the output length.</p><br><h2 id=large-scale-moe-serving>Large-scale MoE Serving <a class=anchor href=#large-scale-moe-serving aria-label="이 절로 링크">#</a></h2><div class=table-wrap><table><thead><tr><th>Item</th><th>Value</th></tr></thead><tbody><tr><td>Service</td><td>Public API. Mixed general conversation and coding</td></tr><tr><td>Request Rate</td><td>Average 80 req/s, Peak 140 req/s</td></tr><tr><td>Input</td><td>Average 3,000 tokens</td></tr><tr><td>Output</td><td>Average 800 tokens</td></tr><tr><td>Hardware</td><td>16 nodes × 8×H200 = 128 GPUs, NVLink + InfiniBand NDR</td></tr><tr><td>SLO</td><td>TTFT p95 &lt; 3,000ms, ITL Median &lt; 60ms</td></tr><tr><td>Top Priority Metric</td><td><strong>Cost per 1 million output tokens</strong></td></tr></tbody></table></div><h3 id=model-selection-2>Model Selection <a class=anchor href=#model-selection-2 aria-label="이 절로 링크">#</a></h3><div class=table-wrap><table><thead><tr><th>Model</th><th>Total/Active</th><th style=text-align:right>FP8 Weights</th><th>Coding</th><th>Features</th></tr></thead><tbody><tr><td>DeepSeek-V4-Flash</td><td>284B / 13B</td><td style=text-align:right>284 GB</td><td>Strong</td><td>MLA + Sparse Attention</td></tr><tr><td>GLM-5.2</td><td>744B / 40B</td><td style=text-align:right>744 GB</td><td>Best</td><td>MLA + DSA + IndexShare</td></tr><tr><td>Qwen3.5-397B-A17B</td><td>397B / 17B</td><td style=text-align:right>397 GB</td><td>Strong</td><td>Hybrid Linear Attention</td></tr></tbody></table></div><p>While the choice depends, I will select <strong>DeepSeek-V4-Flash</strong>.</p><p>Its active parameters (13B) are the smallest among the candidates. The weights read per decode are 13GB (FP8), about one-third of GLM-5.2's 40GB. MLA's compression benefit for KV cache also helps with concurrent requests.</p><p>GLM-5.2 has higher coding performance, but its active 40B parameters would make the cost per token about 3 times higher. While a coding-specific service might lead to a different conclusion, for mixed traffic including general conversation, DeepSeek has a greater cost advantage.</p><h3 id=required-throughput-and-target-cost>Required Throughput and Target Cost <a class=anchor href=#required-throughput-and-target-cost aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>Peak 140 req/s
+  Input Throughput = 140 × 3,000 =  420,000 tok/s
+  Output Throughput = 140 ×   800 =  112,000 tok/s
+
+Target Cost
+  H200 node approx. $32/hour (based on 8 GPUs, assuming cloud on-demand)
+  16 nodes = $512/hour
+  At peak sustained output 112,000 tok/s × 3,600 = 4.03e8 tok/hour
+  → $512 / 403 (million tokens) ≈ $1.27 / 1M output tokens
+</code></pre><p>The goal is to reduce tuning to this value.</p><h3 id=round-0---tp8-x-16-replicas>Round 0 - TP8 x 16 Replicas <a class=anchor href=#round-0---tp8-x-16-replicas aria-label="이 절로 링크">#</a></h3><p>Let's start with the simplest configuration: launch independent instances on each node and group them with a router.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># On each node</span>
+</span></span><span class=line><span class=cl>python -m sglang.launch_server <span class=se>\
+</span></span></span><span class=line><span class=cl>  --model-path deepseek-ai/DeepSeek-V4-Flash <span class=se>\
+</span></span></span><span class=line><span class=cl>  --tp-size <span class=m>8</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --quantization fp8 --kv-cache-dtype fp8_e5m2 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --chunked-prefill-size <span class=m>8192</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --mem-fraction-static 0.88 <span class=se>\ </span>
+</span></span><span class=line><span class=cl>  --host 0.0.0.0 --port <span class=m>30000</span> --enable-metrics
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Router</span>
+</span></span><span class=line><span class=cl>python -m sglang_router.launch_router <span class=se>\
+</span></span></span><span class=line><span class=cl>  --worker-urls http://node<span class=o>{</span>01..16<span class=o>}</span>:30000 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --policy cache_aware --host 0.0.0.0 --port <span class=m>8000</span>
+</span></span></code></pre></div><pre tabindex=0><code>============ Serving Benchmark Result ============
+Max request concurrency:                 1400
+Successful requests:                     20000
+Request throughput (req/s):              71.28
+Input token throughput (tok/s):          213840.00
+Output token throughput (tok/s):         57024.00
+Concurrency:                            1288.44
+---------------Time to First Token----------------
+Median TTFT (ms):                        4218.90
+P99 TTFT (ms):                          11840.22
+---------------Inter-Token Latency----------------
+Median ITL (ms):                          88.41
+P99 ITL (ms):                            212.66
+==================================================
+</code></pre><pre tabindex=0><code>Cost = $512 / (57,024 × 3600 / 1e6) ≈ $2.49 / 1M output tokens
+</code></pre><p>Compared to the peak of 140 req/s, 71.28 req/s is half, which is insufficient. Both TTFT and ITL exceed their SLOs.</p><p>Looking at the metrics for a single node:</p><pre tabindex=0><code>sglang_num_running_reqs  80.5
+sglang_num_queue_reqs    7.4
+sglang_token_usage       0.79
+</code></pre><p><code>token_usage</code> of 0.79 means there's headroom in the KV cache, but the queue is building up.</p><p>The bottleneck is <strong>computation and communication</strong>, not memory. When a 284B MoE is split with TP8, expert weights are fragmented across 8 GPUs. Regardless of which expert is selected, all 8 GPUs must participate in communication.</p><h3 id=round-1---expert-parallelism-and-dp-attention>Round 1 - Expert Parallelism and DP Attention <a class=anchor href=#round-1---expert-parallelism-and-dp-attention aria-label="이 절로 링크">#</a></h3><p>For MoE, assigning experts entirely to GPUs is better for communication.</p><p>For attention, data is parallelized to leverage MLA's compression benefits.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Group 4 nodes into one instance (32 GPUs), total 4 instances</span>
+</span></span><span class=line><span class=cl>python -m sglang.launch_server <span class=se>\
+</span></span></span><span class=line><span class=cl>  --model-path deepseek-ai/DeepSeek-V4-Flash <span class=se>\
+</span></span></span><span class=line><span class=cl>  --tp-size <span class=m>32</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --dist-init-addr node01:5000 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --nnodes <span class=m>4</span> --node-rank <span class=nv>$NODE_RANK</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --enable-ep-moe <span class=se>\
+</span></span></span><span class=line><span class=cl>  --ep-size <span class=m>32</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --enable-dp-attention --dp-size <span class=m>8</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --quantization fp8 --kv-cache-dtype fp8_e5m2 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --chunked-prefill-size <span class=m>8192</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --mem-fraction-static 0.88 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --host 0.0.0.0 --port <span class=m>30000</span> --enable-metrics
+</span></span></code></pre></div><pre tabindex=0><code>First, determine how to split 128 GPUs.
+
+Total        16 nodes × 8 GPUs = 128 GPUs        (5.1 hardware)
+Instance     4 nodes × 8 GPUs =  32 GPUs        (Unit serving one model)
+Number of Instances  128 ÷ 32      =   4
+</code></pre><p>4 nodes are grouped because the model weights are 284GB with FP8. One H200 has 141GB, so at least 3 GPUs are needed for weights, leaving almost no KV cache headroom. To distribute 256 experts, enough GPUs are needed. 32 GPUs allow for an even distribution of 8 experts per GPU.</p><p>Why not group larger? If instances are larger, the all-to-all communication scope widens, and more InfiniBand traffic occurs between nodes. With 32 GPUs across 4 nodes, a significant portion of communication is handled by NVLink within the nodes.</p><ul><li><code>--nnodes 4</code>: Specifies how many nodes are grouped into one instance. 4 nodes = 32 GPUs serving a single model.</li><li><code>--node-rank $NODE_RANK</code>: Specifies the rank of this node among them (0, 1, 2, 3).</li><li><code>--dist-init-addr node01:5000</code>: Rendezvous point for nodes to find each other. Node 0 acts as the rendezvous point.</li><li><code>--tp-size 32</code>: The size of the entire parallel world, referring to all 32 GPUs. The two arguments below divide this.</li><li><code>--enable-ep-moe</code>: Processes MoE layers with expert parallelism. If not enabled, a single weight matrix is fragmented into 32 pieces across 32 GPUs, so all 32 GPUs are involved in computation regardless of which expert is chosen. If enabled, experts are kept whole on one GPU, so only the GPU holding that expert works.</li><li><code>--ep-size 32</code>: How many branches to assign experts to. 32 GPUs divide 256 experts, handling 8 each (256 / 32).</li><li><code>--enable-dp-attention</code>: Processes only attention layers with data parallelism. Prevents replication of MLA-compressed KV.</li><li><code>--dp-size</code>: How many branches to divide experts into. 8 groups each handle a different set of requests, with 4 GPUs per group (32 / 8).</li></ul><p>The structure where <code>--tp-size</code> is 32, and EP and DP are contained within it, can be confusing at first. It means that the 32 GPUs are used differently depending on the layer type.</p><pre tabindex=0><code>Attention Layer (DP=8)
+  GPU 0~3   : Fully processes attention for request group A (holds its own KV)
+  GPU 4~7   : Request group B
+  ...        Each group is independent. No communication between groups.
+
+MoE Layer (EP=32)
+  GPU 0     : Handles experts 0~7
+  GPU 1     : Handles experts 8~15
+  ...
+  GPU 31    : Handles experts 248~255
+             Sends tokens to the responsible GPU (all-to-all) and receives results back.
+</code></pre><ul><li><strong>Why separate attention:</strong> DeepSeek models store KV cache compressed with MLA. If attention is split with TP, each GPU redundantly stores compressed KV, negating the memory savings from compression. With DP, each GPU only needs to hold the KV for the requests it handles.</li><li><strong>How communication changes with EP for MoE:</strong> TP approach had high overhead due to all-to-all communication across all 32 GPUs at each layer, as expert fragments were scattered. A token uses only 8 experts, but all 32 GPUs participate. EP only performs all-to-all to send tokens to the responsible GPU and receive them back. The communication involves tokens, not weights, and the scope of participation is narrower.</li></ul><pre tabindex=0><code>                     Round 0    Round 1     Change
+req/s                  71.28     118.44     +66.2%
+Output tok/s          57024      94752      +66.2%
+Median TTFT (ms)      4218.90    2814.33    -33.3%
+P99 TTFT (ms)        11840.22    6120.88    -48.3%
+Median ITL (ms)         88.41      61.20    -30.8%
+Cost ($/1M Output)         2.49       1.50     -39.8%
+</code></pre><h4 id=throughput-increased-by-662>Throughput increased by 66.2% <a class=anchor href=#throughput-increased-by-662 aria-label="이 절로 링크">#</a></h4><p>With expert parallelism, GPUs now handle only 8 experts each, reducing weight memory per GPU. This increased available KV cache space, leading to more concurrent requests. Communication also shifted from full all-reduce at each layer to all-to-all for sending tokens to selected experts, reducing total communication.</p><h4 id=latency-ttft-improved-by-333-itl-by-308>Latency TTFT improved by 33.3%, ITL by 30.8% <a class=anchor href=#latency-ttft-improved-by-333-itl-by-308 aria-label="이 절로 링크">#</a></h4><p>Thanks to DP attention, KV replication was eliminated, increasing the number of requests a GPU can process and reducing queue wait times, thus improving TTFT. ITL improvement is a direct result of reduced total communication.</p><h4 id=remaining-problem---expert-load-imbalance>Remaining Problem - Expert Load Imbalance <a class=anchor href=#remaining-problem---expert-load-imbalance aria-label="이 절로 링크">#</a></h4><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>curl -s http://node01:30000/metrics <span class=p>|</span> grep expert_load <span class=p>|</span> sort -t<span class=o>=</span> -k2 -rn <span class=p>|</span> head -5
+</span></span></code></pre></div><pre tabindex=0><code>sglang_expert_load{expert=&#34;47&#34;}  0.0281
+sglang_expert_load{expert=&#34;192&#34;} 0.0264
+sglang_expert_load{expert=&#34;8&#34;}   0.0247
+...
+sglang_expert_load{expert=&#34;231&#34;} 0.0009
+</code></pre><p>If balanced, each of the 256 experts should have a load of 0.00039. The maximum is 0.0281, indicating a 7x imbalance. The GPU handling the popular expert is the bottleneck.</p><p>Simply put, too many requests are directed to certain experts, burdening the GPU holding those expert weights.</p><h3 id=round-2---expert-load-balancing>Round 2 - Expert Load Balancing <a class=anchor href=#round-2---expert-load-balancing aria-label="이 절로 링크">#</a></h3><h4 id=eplb>EPLB <a class=anchor href=#eplb aria-label="이 절로 링크">#</a></h4><p>EPLB stands for Expert Parallelism Load Balancer, a mechanism that recalculates how experts are assigned to GPUs.</p><p>In Round 1, experts were simply assigned sequentially.</p><pre tabindex=0><code>GPU 0 : Experts 0~7      GPU 1 : Experts 8~15      ...      GPU 31 : Experts 248~255
+</code></pre><p>This assumes all experts are chosen with similar frequency, which was not the case. Expert 47 was chosen 7.2 times more often than average. GPU 5, handling expert 47, was constantly busy, while GPU 28, handling expert 231, was idle.</p><p><strong>Since the MoE layer cannot proceed to the next layer until all GPUs are finished, the slowest GPU determines the overall speed.</strong></p><p>EPLB observes actual routing statistics and determines two things:</p><pre tabindex=0><code>1. Replicate popular experts.
+   Place expert 47 on both GPU 5 and GPU 19.
+   → Tokens destined for expert 47 are split between two GPUs.
+
+2. Recalculate assignments.
+   Rearrange experts to prevent popular experts from being clustered on the same GPU.
+</code></pre><p>Thus, over time, EPLB recalculates and modifies the expert assignment configuration for routing. Initially, it starts with a fixed configuration and gradually changes.</p><blockquote><p>Imagine bank tellers assigned numbers sequentially. It turns out 7 times more customers come for service #3 than other services. Teller #3 has a long line, while others are idle. EPLB would then increase the number of windows for service #3 to two and reallocate other popular services to prevent them from clustering.</p></blockquote><p>Enable EPLB to replicate popular experts across multiple GPUs.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-diff data-lang=diff><span class=line><span class=cl>    --enable-ep-moe \
+</span></span><span class=line><span class=cl>    --ep-size 32 \
+</span></span><span class=line><span class=cl><span class=gi>+   --enable-eplb \
+</span></span></span><span class=line><span class=cl><span class=gi>+   --eplb-algorithm deepseek \
+</span></span></span><span class=line><span class=cl><span class=gi>+   --eplb-rebalance-num-iterations 500 \
+</span></span></span><span class=line><span class=cl><span class=gi>+   --ep-num-redundant-experts 32 \
+</span></span></span></code></pre></div><ul><li><code>--enable-eplb</code>: Enables the load balancer. If disabled, it reverts to a fixed assignment like Round 1.</li><li><code>--eplb-algorithm deepseek</code>: The algorithm for recalculating assignments, based on DeepSeek's published method. It prioritizes intra-node communication by considering hierarchical structure.</li><li><code>--eplb-rebalance-num-iterations 500</code>: How often to recalculate assignments. For 500, it collects routing statistics for 500 steps before making a decision. Too short, and statistics fluctuate; too long, and it's slow to adapt to traffic changes.</li><li><code>--ep-num-redundant-expert 32</code>: The number of replicas to create. Adding 32 means the expert slots increase from 256 to 288, and 32 popular experts will exist in two locations.</li></ul><pre tabindex=0><code>                     Round 1    Round 2     Change
+req/s                 118.44     139.86     +18.1%
+Output tok/s           94752     111888     +18.1%
+Median TTFT (ms)      2814.33    2402.11    -14.6%
+Median ITL (ms)         61.20      52.44    -14.3%
+Cost ($/1M Output)         1.50       1.27     -15.3%
+</code></pre><pre tabindex=0><code>Expert Load Imbalance (Max/Avg)
+  Round 1: 7.2x
+  Round 2: 1.9x
+</code></pre><p>Adding 32 redundant experts increased weight memory by 12.5% (32 / 256), but resolving load imbalance boosted throughput by 18%.</p><p>Peak 140 req/s was almost reached at 139.86 req/s.</p><h3 id=round-3---pd-disaggregation>Round 3 - PD Disaggregation <a class=anchor href=#round-3---pd-disaggregation aria-label="이 절로 링크">#</a></h3><p>Prefill and decode have opposite optimal settings. Prefill is compute-bound, so smaller TP with multiple instances is advantageous. Decode is memory-bound, so larger EP and larger batches are advantageous. Combining them into one instance means compromising both.</p><p>Estimate prefill and decode load based on the input/output ratio of 3,000:800, then allocate nodes.</p><pre tabindex=0><code>Prefill Load = 420,000 tok/s (peak)
+Decode Load = 112,000 tok/s (peak)
+
+Prefill is compute-heavy per token, decode is memory-access-heavy per token.
+Initial allocation based on measurements: 5 nodes for prefill / 11 nodes for decode
+</code></pre><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Prefill nodes (5 nodes, each TP8)</span>
+</span></span><span class=line><span class=cl>python -m sglang.launch_server <span class=se>\
+</span></span></span><span class=line><span class=cl>  --model-path deepseek-ai/DeepSeek-V4-Flash <span class=se>\
+</span></span></span><span class=line><span class=cl>  --tp-size <span class=m>8</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --disaggregation-mode prefill <span class=se>\
+</span></span></span><span class=line><span class=cl>  --disaggregation-transfer-backend mooncake <span class=se>\
+</span></span></span><span class=line><span class=cl>  --disaggregation-bootstrap-port <span class=m>8998</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --disaggregation-ib-device mlx5_0 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --quantization fp8 --kv-cache-dtype fp8_e5m2 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --chunked-prefill-size <span class=m>16384</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --mem-fraction-static 0.85 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --host 0.0.0.0 --port <span class=m>30000</span> --enable-metrics
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Decode nodes (11 nodes as a single EP domain, 88 GPUs)</span>
+</span></span><span class=line><span class=cl>python -m sglang.launch_server <span class=se>\
+</span></span></span><span class=line><span class=cl>  --model-path deepseek-ai/DeepSeek-V4-Flash <span class=se>\
+</span></span></span><span class=line><span class=cl>  --tp-size <span class=m>88</span> --nnodes <span class=m>11</span> --node-rank <span class=nv>$NODE_RANK</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --dist-init-addr node06:5000 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --disaggregation-mode decode <span class=se>\
+</span></span></span><span class=line><span class=cl>  --disaggregation-transfer-backend mooncake <span class=se>\
+</span></span></span><span class=line><span class=cl>  --enable-ep-moe --ep-size <span class=m>88</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --enable-dp-attention --dp-size <span class=m>22</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --enable-eplb --eplb-algorithm deepseek <span class=se>\
+</span></span></span><span class=line><span class=cl>  --ep-num-redundant-experts <span class=m>88</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --quantization fp8 --kv-cache-dtype fp8_e5m2 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --max-running-requests <span class=m>2048</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --mem-fraction-static 0.90 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --host 0.0.0.0 --port <span class=m>30000</span> --enable-metrics
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Router</span>
+</span></span><span class=line><span class=cl>python -m sglang_router.launch_router <span class=se>\
+</span></span></span><span class=line><span class=cl>  --pd-disaggregation <span class=se>\
+</span></span></span><span class=line><span class=cl>  --prefill http://node01:30000 <span class=m>8998</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --prefill http://node02:30000 <span class=m>8998</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --prefill http://node03:30000 <span class=m>8998</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --prefill http://node04:30000 <span class=m>8998</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --prefill http://node05:30000 <span class=m>8998</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --decode http://node06:30000 <span class=se>\
+</span></span></span><span class=line><span class=cl>  --prefill-policy cache_aware <span class=se>\
+</span></span></span><span class=line><span class=cl>  --decode-policy power_of_two <span class=se>\
+</span></span></span><span class=line><span class=cl>  --host 0.0.0.0 --port <span class=m>8000</span>
+</span></span></code></pre></div><h4 id=pd-disaggregation-specific-arguments>PD Disaggregation Specific Arguments <a class=anchor href=#pd-disaggregation-specific-arguments aria-label="이 절로 링크">#</a></h4><p>These are common to both node types.</p><ul><li><code>--disaggregation-mode prefill / decode</code>: Declares the role of this instance. Prefill nodes create and pass KV cache, then finish. Decode nodes receive KV and only generate.</li><li><code>--disaggregation-transfer-backend mooncake</code>: Specifies the KV transfer mechanism between nodes. Mooncake Transfer Engine uses RDMA to directly transfer between GPU memories, bypassing the CPU. There's also <code>nixl</code>.</li><li><code>--disaggregation-bootstrap-port 8998</code>: The port where decode nodes connect to prefill nodes. Specified only on the prefill side and included in the router settings like <code>--prefill http:/node01:30000 8998</code> after the serving port.</li><li><code>--disaggregation-ib-device mlx5_0</code>: Specifies which InfiniBand device to use for transfer. Use the name found with <code>ibv_devinfo</code>. If not specified, it falls back to Ethernet, becoming a transfer bottleneck.</li></ul><h4 id=prefill-node>Prefill Node <a class=anchor href=#prefill-node aria-label="이 절로 링크">#</a></h4><ul><li><code>--tp-size 8</code>: Each node is an independent instance. Prefill involves thousands of tokens, already saturating the GPU, so widening parallelism offers no gain and only increases communication costs. Instead, 5 nodes handle different requests to increase throughput.</li><li><code>--chunked-prefill-size 16384</code>: Increased from 8192 in Round 2. This node does not decode, so there's no concern about long prefill blocking other token generation. Larger chunks improve matrix operation efficiency.</li><li><code>--mem-fraction-static 0.85</code>: Set lower than decode nodes. KV on prefill nodes is created and passed, so it doesn't need to be stored long. Instead, activations during prefill can be large, so headroom is reserved.</li><li><strong>No EP DP arguments:</strong> Prefill has small batches, so the benefits of large-scale EP are not realized, and it only increases all-to-all communication costs, so it's not included.</li></ul><h4 id=decode-node>Decode Node <a class=anchor href=#decode-node aria-label="이 절로 링크">#</a></h4><ul><li><code>--tp-size 88 --nnodes 11</code>: Groups 11 nodes into one. Decode is memory-bound, so batch size must be maximized. To maximize batch size, more KV cache space is needed. Grouping more nodes reduces weight burden per GPU, increasing space for KV.</li><li><code>--ep-size 88</code>: Divides 256 experts among 88 GPUs. This means about 3 experts per GPU, further reducing weight burden compared to Round 2 (8 experts).</li><li><code>--dp-size 22</code>: 88 / 22, 4 GPUs per group, same ratio as Round 2.</li><li><code>--ep-num-redundant-experts 88</code>: Increased replicas to match EP size. The impact of imbalance grows with rank count.</li><li><code>--max-running-requests 2048</code>: Upper limit for concurrent sequences. Since it's decode-only, there's no contention with prefill, so it's set high.</li><li><code>--mem-fraction-static 0.90</code>: Maximizes KV cache. The performance of this node directly relates to the number of requests it can hold.</li></ul><p>The key is assigning different routing policies to prefill and decode. Prefill benefits from prefix reuse, so <code>cache_aware</code> is used. Decode prioritizes load balancing over caching, so <code>power_of_two</code> is used.</p><p><code>--prefill-policy</code> and <code>--decode-policy</code> are rules for deciding which node to send a request to. Four options are available:</p><ul><li><code>round_robin</code>: Assigns nodes in a round-robin fashion.</li><li><code>random</code>: Selects one randomly.</li><li><code>cache_aware</code>: Hashes the request prefix and always sends the same prefix to the same node.</li><li><code>power_of_two</code>: Picks two random nodes and selects the less busy one.</li></ul><p>If only <code>--policy A</code> is used, the same value applies to both prefill and decode. If separated, they can be set differently.</p><p><strong>Prefill</strong> uses <code>cache_aware</code> because prefill nodes create KV. If the same prefix's KV is already created, it can be reused. Hashing prefixes and sending them to the same node increases the probability of a cache hit. If scattered by round-robin, the same system prompt would be redundantly created on 5 nodes, effectively reducing cache capacity to one-fifth.</p><p><strong>Decode</strong> uses <code>power_of_two</code> because decode nodes don't create KV but receive it from prefill. Whether prefixes are the same or different, there's no cache to reuse, making <code>cache_aware</code> meaningless. Instead, which node is less busy is important. While checking the load of all 11 nodes every time would burden the router, comparing just two random nodes provides sufficient balance.</p><blockquote><p>Why is checking just two enough? If you pick one randomly, you might unluckily hit a busy node. Picking two and choosing the less busy one reduces that probability quadratically. Increasing to three or four nodes yields rapidly diminishing returns.</p></blockquote><h4 id=comparison-of-two-group-settings>Comparison of Two Group Settings <a class=anchor href=#comparison-of-two-group-settings aria-label="이 절로 링크">#</a></h4><p>The same model, but with diametrically opposite settings.</p><pre tabindex=0><code>                      Prefill              Decode
+Bottleneck                  Compute                Memory Bandwidth
+TP Size               8 (per node)        88 (entire group)
+EP                    Not Used           88 ranks
+Chunk Size             16,384 (large)        N/A
+mem-fraction          0.85                0.90
+Optimization Goal           TTFT                Throughput
+</code></pre><pre tabindex=0><code>                     Round 2    Round 3     Change
+req/s                 139.86     198.20     +41.7%
+Output tok/s          111888     158560     +41.7%
+Median TTFT (ms)      2402.11    1884.66    -21.5%
+P99 TTFT (ms)         5218.40    3402.18    -34.8%
+Median ITL (ms)         52.44      44.90    -14.4%
+Cost ($/1M Output)         1.27       0.90     -29.1%
+</code></pre><h3 id=round-4---node-allocation-readjustment>Round 4 - Node Allocation Readjustment <a class=anchor href=#round-4---node-allocation-readjustment aria-label="이 절로 링크">#</a></h3><p>Check the utilization of prefill and decode nodes separately.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Prefill node</span>
+</span></span><span class=line><span class=cl>curl -s http://node01:30000/metrics <span class=p>|</span> grep -E <span class=s1>&#39;num_queue_reqs|token_usage&#39;</span>
+</span></span><span class=line><span class=cl><span class=c1># sglang_num_queue_reqs 18.2      ← Queue is building up</span>
+</span></span><span class=line><span class=cl><span class=c1># sglang_token_usage 0.42</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Decode node</span>
+</span></span><span class=line><span class=cl>curl -s http://node06:30000/metrics <span class=p>|</span> grep -E <span class=s1>&#39;num_queue_reqs|token_usage&#39;</span>
+</span></span><span class=line><span class=cl><span class=c1># sglang_num_queue_reqs 0.4</span>
+</span></span><span class=line><span class=cl><span class=c1># sglang_token_usage 0.61         ← Has headroom</span>
+</span></span></code></pre></div><p>The queue is building up on the prefill side, while the decode side is idle. Shift allocation towards prefill.</p><pre tabindex=0><code>Allocation              req/s    Median TTFT   Median ITL   Cost($/1M)
+Prefill 5 / Decode 11   198.20      1884         44.9        0.90
+Prefill 6 / Decode 10   214.44      1502         48.2        0.83
+Prefill 7 / Decode 9    218.90      1344         56.1        0.81
+Prefill 8 / Decode 8    206.12      1288         71.4        0.86   ← ITL SLO Exceeded
+</code></pre><p>Prefill 7, Decode 9 is optimal. 8/8 actually reduces throughput, and median ITL of 71.4ms exceeds the SLO of 60ms.</p><p>This table shows the core advantage of PD disaggregation: the balance between TTFT and ITL can be adjusted with a single node allocation ratio. In a unified configuration, this adjustment knob is absent.</p><h3 id=final-configuration-and-cumulative-effects-3>Final Configuration and Cumulative Effects <a class=anchor href=#final-configuration-and-cumulative-effects-3 aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>Round                        req/s   Median TTFT   Median ITL   Cost($/1M)
+0 TP8 × 16 Replicas               71.28       4219         88.4        2.49
+1 EP + DP Attention             118.44       2814         61.2        1.50
+2 EPLB Load Balancing             139.86       2402         52.4        1.27
+3 PD Disaggregation (5/11)             198.20       1884         44.9        0.90
+4 Allocation Readjustment (7/9)           218.90       1344         56.1        0.81
+
+Cumulative                        3.07×        -68%        -37%       -67%
+</code></pre><p>SLO Results</p><ol><li>TTFT p95 &lt; 3,000ms was achieved at approximately 2,410ms.</li><li>ITL median &lt; 60ms was also achieved at 56.1ms.</li><li>req/s, which was 140, was comfortably achieved at 218.9 req/s based on peak.</li><li>Cost also decreased by 67% from <span class=math-inline><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2.49</mn><mi>t</mi><mi>o</mi></mrow><annotation encoding="application/x-tex">2.49 to </annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=katex-base><span class=katex-strut style=height:.6444em></span><span class=mord>2.49</span><span class="mord mathnormal">t</span><span class="mord mathnormal">o</span></span></span></span></span>0.81, with the hardware remaining at 128 GPUs.</li></ol><h3 id=lessons-learned-2>Lessons Learned <a class=anchor href=#lessons-learned-2 aria-label="이 절로 링크">#</a></h3><ol><li><strong>Parallelization strategy dominates cost in large MoE models</strong>: The difference between a TP-only configuration and an EP + PD disaggregation configuration on the same hardware is 3x.</li><li><strong>Expert load imbalance must be measured</strong>: Ignoring a 7x imbalance means the GPU handling the popular expert determines the overall speed. <code>expert_load</code> metric should be a constant monitoring item.</li><li><strong>The true value of PD disaggregation is the adjustment knob.</strong> While throughput improvement is significant, the ability to adjust the balance between TTFT and ITL post-deployment by changing node allocation ratios is more useful in operations. If traffic patterns change, only the ratio needs adjustment.</li><li><strong>PD disaggregation is conditional on scale.</strong> This case involved 128 GPUs, InfiniBand NDR, and Mooncake transfer layer. If a configuration like 8 GPUs were used, both pools would be inefficient, making it slower.</li></ol><br><h2 id=five-cases-comparison>Five Cases Comparison <a class=anchor href=#five-cases-comparison aria-label="이 절로 링크">#</a></h2><h3 id=the-same-techniques-are-used-but-optimization-points-can-improve-or-worsen-depending-on-the-characteristics>The same techniques are used, but optimization points can improve or worsen depending on the characteristics. <a class=anchor href=#the-same-techniques-are-used-but-optimization-points-can-improve-or-worsen-depending-on-the-characteristics aria-label="이 절로 링크">#</a></h3><div class=table-wrap><table><thead><tr><th>Technique</th><th>Case 1 (Coding)</th><th>Case 2 (RAG)</th><th>Case 3 (Batch)</th><th>Case 4 (Structured)</th><th>Case 5 (Large-scale)</th></tr></thead><tbody><tr><td>Speculative Decoding</td><td><strong>+66%</strong></td><td>Minimal benefit</td><td><strong>-20%</strong></td><td>Not applied</td><td>Not applied</td></tr><tr><td>Chunked Prefill Size</td><td>4,096</td><td>8,192</td><td><strong>32,768</strong></td><td>8,192</td><td>16,384</td></tr><tr><td>Model Type</td><td><strong>dense 27B</strong></td><td>dense 27B</td><td>dense 9B</td><td><strong>MoE 35B-A3B</strong></td><td>MoE 284B-A13B</td></tr><tr><td>TP Size</td><td>2 (4 replicas)</td><td>2 (2 replicas)</td><td>2</td><td>2</td><td>8 / 88</td></tr><tr><td><code>mem-fraction-static</code></td><td>0.90</td><td>0.88</td><td><strong>0.94</strong></td><td>0.90</td><td>0.85 / 0.90</td></tr><tr><td>HiCache</td><td>Unnecessary</td><td><strong>Essential</strong></td><td>Unnecessary</td><td>Unnecessary</td><td>Under review</td></tr><tr><td>PD Disaggregation</td><td>Detrimental</td><td>Detrimental</td><td>Detrimental</td><td>Detrimental</td><td><strong>+42%</strong></td></tr></tbody></table></div><p>Optimization differs for each workload's input/output cost, concurrency, sharing rate, scale, etc.</p><pre tabindex=0><code>Input/Output Ratio
+  Input ≫ Output (Case 2: 68:1)
+    → Focus on prefill optimization. Cache/routing dominates.
+    → Minimal benefit from speculative decoding.
+  Input ≈ Output (Case 1: 5:1)
+    → Balanced. Chunked prefill to prevent interference.
+  Output dominant
+    → Decode optimization. Quantization/speculative decoding.
+
+Concurrency vs. Threshold Batch Size
+  Concurrency ≪ Threshold Batch (Case 1: 25 vs 206)
+    → Memory-bound. Computational resources available.
+    → Speculative decoding effective, dense advantageous.
+  Concurrency ≈ Threshold Batch (Case 3: 256 vs 295)
+    → Transition zone. Speculative decoding detrimental.
+    → MoE advantageous, batch maximization.
+
+Prefix Sharing Rate
+  &lt; 0.2  → No RadixAttention benefit.
+  &gt; 0.6  → Routing policy dominates performance. Prompt structure review essential.
+
+GPU Scale
+  &lt; 16   → Single node tuning. PD disaggregation detrimental.
+  &gt; 64   → EP + PD disaggregation review zone.
+</code></pre><h3 id=metric-change-patterns>Metric Change Patterns <a class=anchor href=#metric-change-patterns aria-label="이 절로 링크">#</a></h3><div class=table-wrap><table><thead><tr><th>Observed Change</th><th>Meaning</th><th>Next Action</th></tr></thead><tbody><tr><td>Throughput ↑, Latency ↑</td><td>Effect of increasing batch size</td><td>Maintain if SLO has headroom</td></tr><tr><td>Throughput ↑, Latency ↓</td><td>Bottleneck itself removed</td><td>Correct direction. Push further.</td></tr><tr><td>Throughput ↓, Tail Latency ↓↓</td><td>Trade-off between stability and efficiency</td><td>Maintain if latency SLO exists</td></tr><tr><td>Median unchanged, P99 only ↓</td><td>Only tail requests improved</td><td>Typical pattern for HiCache/warming</td></tr><tr><td>Throughput ↓, Latency ↑</td><td>Wrong direction</td><td>Rollback immediately</td></tr><tr><td>Nothing changed</td><td>Bottleneck is elsewhere</td><td>Re-examine bottleneck with metrics</td></tr></tbody></table></div><h3 id=summary-of-final-settings-by-case>Summary of Final Settings by Case <a class=anchor href=#summary-of-final-settings-by-case aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Case 1 — In-house Coding Assistant (4 workers)</span>
+</span></span><span class=line><span class=cl>--model-path Qwen/Qwen3.6-27B --tp-size <span class=m>2</span>
+</span></span><span class=line><span class=cl>--quantization fp8 --kv-cache-dtype fp8_e5m2
+</span></span><span class=line><span class=cl>--chunked-prefill-size <span class=m>4096</span> --mem-fraction-static 0.90
+</span></span><span class=line><span class=cl>--speculative-algorithm EAGLE3 --speculative-num-steps <span class=m>5</span> --speculative-eagle-topk <span class=m>8</span>
+</span></span><span class=line><span class=cl><span class=c1># Router: --policy cache_aware</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Case 2 — Document QA / RAG (2 workers)</span>
+</span></span><span class=line><span class=cl>--model-path Qwen/Qwen3.6-27B --tp-size <span class=m>2</span>
+</span></span><span class=line><span class=cl>--quantization fp8 --kv-cache-dtype fp8_e5m2
+</span></span><span class=line><span class=cl>--chunked-prefill-size <span class=m>8192</span> --mem-fraction-static 0.88
+</span></span><span class=line><span class=cl>--page-size <span class=m>64</span> --enable-hierarchical-cache --hicache-ratio <span class=m>2</span>
+</span></span><span class=line><span class=cl>--hicache-write-policy write_through --hicache-io-backend kernel
+</span></span><span class=line><span class=cl>--enable-cache-report
+</span></span><span class=line><span class=cl><span class=c1># Router: --policy cache_aware</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Case 3 — Nightly Batch</span>
+</span></span><span class=line><span class=cl>--model-path Qwen/Qwen3.6-9B --tp-size <span class=m>2</span>
+</span></span><span class=line><span class=cl>--quantization fp8 --kv-cache-dtype fp8_e5m2
+</span></span><span class=line><span class=cl>--chunked-prefill-size <span class=m>32768</span> --mem-fraction-static 0.94
+</span></span><span class=line><span class=cl>--max-running-requests <span class=m>512</span> --max-prefill-tokens <span class=m>65536</span>
+</span></span><span class=line><span class=cl>--schedule-conservativeness 0.3
+</span></span><span class=line><span class=cl><span class=c1># Speculative decoding not used</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Case 4 — Structured Output API</span>
+</span></span><span class=line><span class=cl>--model-path Qwen/Qwen3.6-35B-A3B --tp-size <span class=m>2</span>
+</span></span><span class=line><span class=cl>--quantization fp8 --kv-cache-dtype fp8_e5m2
+</span></span><span class=line><span class=cl>--grammar-backend xgrammar
+</span></span><span class=line><span class=cl>--chunked-prefill-size <span class=m>8192</span> --mem-fraction-static 0.90
+</span></span><span class=line><span class=cl>--max-running-requests <span class=m>64</span> --enable-cache-report
+</span></span><span class=line><span class=cl><span class=c1># Grammar cache warming essential after startup</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Case 5 — Large-scale MoE (7 prefill nodes / 9 decode nodes)</span>
+</span></span><span class=line><span class=cl><span class=c1># Prefill</span>
+</span></span><span class=line><span class=cl>--tp-size <span class=m>8</span> --disaggregation-mode prefill
+</span></span><span class=line><span class=cl>--disaggregation-transfer-backend mooncake --disaggregation-ib-device mlx5_0
+</span></span><span class=line><span class=cl>--chunked-prefill-size <span class=m>16384</span> --mem-fraction-static 0.85
+</span></span><span class=line><span class=cl><span class=c1># Decode</span>
+</span></span><span class=line><span class=cl>--tp-size <span class=m>72</span> --nnodes <span class=m>9</span> --disaggregation-mode decode
+</span></span><span class=line><span class=cl>--enable-ep-moe --ep-size <span class=m>72</span> --enable-dp-attention --dp-size <span class=m>18</span>
+</span></span><span class=line><span class=cl>--enable-eplb --eplb-algorithm deepseek --ep-num-redundant-experts <span class=m>72</span>
+</span></span><span class=line><span class=cl>--max-running-requests <span class=m>2048</span> --mem-fraction-static 0.90
+</span></span><span class=line><span class=cl><span class=c1># Router: --pd-disaggregation --prefill-policy cache_aware --decode-policy power_of_two</span>
+</span></span></code></pre></div></div><footer class=article-footer><span><code>MLOps/sglang.md</code></span></footer><nav class=pager aria-label="Previous/next note"><a class=prev href=/MLOps/serving.html rel=prev><span class=dir>← Previous</span>Serving Playbook by Model Architecture</a>
+<a class=next href=/MLOps/zeroopt.html rel=next><span class=dir>Next →</span>ZeRO Optimizer (DeepSpeed, FSDP)</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>

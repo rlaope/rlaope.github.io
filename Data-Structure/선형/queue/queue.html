@@ -1,0 +1,126 @@
+<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Queue · rlaope</title><meta name=description content="Queue — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="Queue"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/Data-Structure/%EC%84%A0%ED%98%95/queue/queue.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/Data-Structure/%EC%84%A0%ED%98%95/queue/queue.html><link rel=stylesheet href=/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/index.html><img class=brand-logo src=/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><a href=https://rlaope.github.io/ko/Data-Structure/%ec%84%a0%ed%98%95/queue/queue.html hreflang=ko title="한국어로 보기">한국어</a><span class=sep>/</span><span class=on aria-current=true>English</span></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/graph.html title="Knowledge graph" aria-label="Knowledge graph"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub repository"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=en><header class=article-header><nav class=crumbs aria-label=Path><a href=/index.html>rlaope</a><span class=sep>/</span><a href=/Data-Structure/index.html>Data-Structure</a></nav><h1 class=article-title>Queue</h1><p class=meta><span>598 단어</span><span class=sep>·</span><span>2 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/Data-Structure/%ec%84%a0%ed%98%95/queue/queue.md rel=noopener>원문(.md)</a></p></header><div class=prose><p>Unlike a stack, a queue has a First-In, First-Out (FIFO) structure. A stack is like a closed box where the first item in is the last item out, but a queue is a structure where the first item in is the first item out. A good example is the numbering system at a bank. If you visit a bank and are waiting, and someone who arrived after you is served first, you'd feel upset, right? To prevent such situations, banks distribute numbered tickets. This is to ensure that customers who arrived earlier receive service before those who arrived later. This bank numbering system is a queue.</p><h3 id=ex>ex <a class=anchor href=#ex aria-label="이 절로 링크">#</a></h3><p>Let's reconsider the bank's numbering system. Suppose I drew ticket number 619. Currently, service has been provided up to number 618. How should the numbering system internally remember the next number to be served? And when the latest customer draws a ticket, what number should they be given? How should it remember? The ticket machine is also a program implemented with programming. Should it check from number 1 to see if each customer has been served, and then determine the next number to call? This would be too inefficient. Simply put, if you only remember the first and last positions for service, it's easily solved.</p><blockquote><p>These positions are called front and rear in a queue.</p></blockquote><figure><img src=./image/queue.png alt loading=lazy decoding=async></figure><p>Looking at the image above, there are terms like Deletion and Insertion. However, many people use the terms Dequeue and Enqueue instead of these. Enqueue is the same as Insertion in the image above. It's like giving a ticket to the latest customer. Then Dequeue is removing the served ticket from the waiting list. Only then can we know the next number to call.</p><p>To summarize,</p><ol><li>Enqueue: Adds an element to the very end of the queue, like issuing a ticket to the latest customer.</li><li>Dequeue: Deletes the element at the very front of the queue, like removing the ticket of a customer who has been served at the counter from the waiting list.</li><li>Peek: Reads the data located at the front, like checking who the next customer to be served is.</li><li>front: The position (index) at the very front of the queue, the number of the next customer to be served.</li><li>rear: The position (index) at the very end of the queue, the number of the last customer who arrived.</li></ol><h3 id=implementation>Implementation <a class=anchor href=#implementation aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kd>public</span><span class=w> </span><span class=kd>class</span> <span class=nc>ArrQueue</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>private</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=n>front</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>private</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=n>rear</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>private</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=n>size</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>private</span><span class=w> </span><span class=n>Object</span><span class=o>[]</span><span class=w> </span><span class=n>arrQueue</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>public</span><span class=w> </span><span class=nf>ArrQueue</span><span class=p>(</span><span class=kt>int</span><span class=w> </span><span class=n>size</span><span class=p>){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>this</span><span class=p>.</span><span class=na>front</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>0</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>this</span><span class=p>.</span><span class=na>rear</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=o>-</span><span class=n>1</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>this</span><span class=p>.</span><span class=na>size</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>size</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>this</span><span class=p>.</span><span class=na>arrQueue</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>Object</span><span class=o>[</span><span class=k>this</span><span class=p>.</span><span class=na>size</span><span class=o>]</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c1>//Queue 배열이 꽉 차있는지 확인</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>public</span><span class=w> </span><span class=kt>boolean</span><span class=w> </span><span class=nf>isFull</span><span class=p>(){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=p>(</span><span class=n>rear</span><span class=w> </span><span class=o>&gt;=</span><span class=w> </span><span class=n>size</span><span class=o>-</span><span class=n>1</span><span class=p>)</span><span class=w> </span><span class=k>return</span><span class=w> </span><span class=kc>true</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>else</span><span class=w> </span><span class=k>return</span><span class=w> </span><span class=kc>false</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c1>//Queue 배열이 비어있는지 확인</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>public</span><span class=w> </span><span class=kt>boolean</span><span class=w> </span><span class=nf>isEmpty</span><span class=p>(){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=p>(</span><span class=n>rear</span><span class=w> </span><span class=o>&lt;</span><span class=w> </span><span class=n>front</span><span class=p>)</span><span class=w> </span><span class=k>return</span><span class=w> </span><span class=kc>true</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>else</span><span class=w> </span><span class=k>return</span><span class=w> </span><span class=kc>false</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c1>//원하는 데이터를 추가하는 메쏘드</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>public</span><span class=w> </span><span class=kt>void</span><span class=w> </span><span class=nf>enQueue</span><span class=p>(</span><span class=n>Object</span><span class=w> </span><span class=n>item</span><span class=p>){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=p>(</span><span class=n>isFull</span><span class=p>())</span><span class=w> </span><span class=k>throw</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>ArrayIndexOutOfBoundsException</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>this</span><span class=p>.</span><span class=na>rear</span><span class=o>++</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>arrQueue</span><span class=o>[</span><span class=n>rear</span><span class=o>]</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>item</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c1>//front에 위치한 데이터가 무엇인지 확인하는 메쏘드</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>public</span><span class=w> </span><span class=n>Object</span><span class=w> </span><span class=nf>peek</span><span class=p>(){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=n>arrQueue</span><span class=o>[</span><span class=n>front</span><span class=o>]</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c1>//Queue의 front에 위치한 데이터 삭제</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>public</span><span class=w> </span><span class=n>Object</span><span class=w> </span><span class=nf>deQueue</span><span class=p>(){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=p>(</span><span class=n>isEmpty</span><span class=p>())</span><span class=w> </span><span class=k>throw</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>ArrayIndexOutOfBoundsException</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>Object</span><span class=w> </span><span class=n>backUpItem</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>peek</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>this</span><span class=p>.</span><span class=na>front</span><span class=o>++</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=n>backUpItem</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>public</span><span class=w> </span><span class=kd>class</span> <span class=nc>main</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>public</span><span class=w> </span><span class=kd>static</span><span class=w> </span><span class=kt>void</span><span class=w> </span><span class=nf>main</span><span class=p>(</span><span class=n>String</span><span class=o>[]</span><span class=w> </span><span class=n>args</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>ArrQueue</span><span class=w> </span><span class=n>arrQueue</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>ArrQueue</span><span class=p>(</span><span class=n>4</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>arrQueue</span><span class=p>.</span><span class=na>enQueue</span><span class=p>(</span><span class=s>&#34;Hello&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>arrQueue</span><span class=p>.</span><span class=na>enQueue</span><span class=p>(</span><span class=n>5</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>arrQueue</span><span class=p>.</span><span class=na>enQueue</span><span class=p>(</span><span class=s>&#34;queue&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>while</span><span class=p>(</span><span class=o>!</span><span class=n>arrQueue</span><span class=p>.</span><span class=na>isEmpty</span><span class=p>()){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=n>arrQueue</span><span class=p>.</span><span class=na>deQueue</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></div></div><footer class=article-footer><span><code>Data-Structure/선형/queue/queue.md</code></span></footer><nav class=pager aria-label="Previous/next note"><a class=prev href=/Data-Structure/%EC%84%A0%ED%98%95/linkedlist/linkedlist.html rel=prev><span class=dir>← Previous</span>Linked List</a>
+<a class=next href=/Data-Structure/%EC%84%A0%ED%98%95/stack/stack.html rel=next><span class=dir>Next →</span>Stack</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>

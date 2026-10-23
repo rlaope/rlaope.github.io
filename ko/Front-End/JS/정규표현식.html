@@ -1,0 +1,144 @@
+<!doctype html><html lang=ko dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>정규표현식 · rlaope</title><meta name=description content="정규표현식 — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/ko/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/ko/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/ko/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="정규표현식"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/ko/Front-End/JS/%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/ko/Front-End/JS/%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D.html><link rel=stylesheet href=/ko/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/ko/index.html><img class=brand-logo src=/ko/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><span class=on aria-current=true>한국어</span><span class=sep>/</span><a href=https://rlaope.github.io/Front-End/JS/%ec%a0%95%ea%b7%9c%ed%91%9c%ed%98%84%ec%8b%9d.html hreflang=en title="View in English">English</a></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/ko/graph.html title="지식 그래프" aria-label="지식 그래프"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub 저장소"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=ko><header class=article-header><nav class=crumbs aria-label=경로><a href=/ko/index.html>rlaope</a><span class=sep>/</span><a href=/ko/Front-End/index.html>Front-End</a></nav><h1 class=article-title>정규표현식</h1><p class=meta><span>1,169 단어</span><span class=sep>·</span><span>3 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/Front-End/JS/%ec%a0%95%ea%b7%9c%ed%91%9c%ed%98%84%ec%8b%9d.md rel=noopener>원문(.md)</a></p></header><div class=prose><h2 id=정규표현식-이란->정규표현식 이란 ? <a class=anchor href=#%ec%a0%95%ea%b7%9c%ed%91%9c%ed%98%84%ec%8b%9d-%ec%9d%b4%eb%9e%80- aria-label="이 절로 링크">#</a></h2><ul><li>문자열을 검색하고 대체하는 데 사용 가능한 일종의 형식 언어(패턴)입니다.</li><li>간단한 문자 검색부터 이메일 , 패스워드검사 등의 복잡한 문자 일치 기능 등을 정규식 패턴으로 빠르게 수행할 수 있습니다.</li></ul><h3 id=정규표현식의-역할>정규표현식의 역할 <a class=anchor href=#%ec%a0%95%ea%b7%9c%ed%91%9c%ed%98%84%ec%8b%9d%ec%9d%98-%ec%97%ad%ed%95%a0 aria-label="이 절로 링크">#</a></h3><ol><li>문자 검색</li><li>문자 대체</li><li>문자 추출</li></ol><h3 id=테스트-사이트>테스트 사이트 <a class=anchor href=#%ed%85%8c%ec%8a%a4%ed%8a%b8-%ec%82%ac%ec%9d%b4%ed%8a%b8 aria-label="이 절로 링크">#</a></h3><p><a href=https://regexr.com/ rel=noopener>https://regexr.com/</a></p><br><h2 id=js-정규식-생성>js 정규식 생성 <a class=anchor href=#js-%ec%a0%95%ea%b7%9c%ec%8b%9d-%ec%83%9d%ec%84%b1 aria-label="이 절로 링크">#</a></h2><hr><h3 id=생성자-함수-방식>생성자 함수 방식 <a class=anchor href=#%ec%83%9d%ec%84%b1%ec%9e%90-%ed%95%a8%ec%88%98-%eb%b0%a9%ec%8b%9d aria-label="이 절로 링크">#</a></h3><p><code>RegExp</code> 생성자 함수를 호출하여 사용할 수 있습니다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kr>const</span> <span class=nx>regexp1</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>RegExp</span><span class=p>(</span><span class=s2>&#34;abc&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=c1>// new RegExp(표현식)
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>regexp2</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>RegExp</span><span class=p>(</span><span class=s2>&#34;^abc&#34;</span><span class=p>,</span><span class=s2>&#34;gi&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=c1>// new RegExp(표현식 , 플래그)
+</span></span></span></code></pre></div><h3 id=리터럴-방식>리터럴 방식 <a class=anchor href=#%eb%a6%ac%ed%84%b0%eb%9f%b4-%eb%b0%a9%ec%8b%9d aria-label="이 절로 링크">#</a></h3><p>정규표현식은 <code>/</code>로 감싸진 패턴을 리터럴로 사용합니다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kr>const</span> <span class=nx>regexp1</span> <span class=o>=</span> <span class=sr>/^abc/</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=c1>// /표현식/
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>regexp2</span> <span class=o>=</span> <span class=sr>/^abc/gi</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=c1>// /표현식/플래그
+</span></span></span></code></pre></div><p><code>gi</code> : 대소문자 구분 안함</p><br><h2 id=정규표현식-메소드>정규표현식 메소드 <a class=anchor href=#%ec%a0%95%ea%b7%9c%ed%91%9c%ed%98%84%ec%8b%9d-%eb%a9%94%ec%86%8c%eb%93%9c aria-label="이 절로 링크">#</a></h2><div class=table-wrap><table><thead><tr><th>메소드</th><th>문법</th><th>설명</th></tr></thead><tbody><tr><td>test</td><td><code>정규식.test(문자열)</code></td><td>일치 여부(Boolean)</td></tr><tr><td>match</td><td><code>문자열.match(정규식)</code></td><td>일치하는 문자의 배열 반환</td></tr><tr><td>replace</td><td><code>문자열.replace(정규식, 대체문자)</code></td><td>일치하는 문자를 대체</td></tr></tbody></table></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kd>let</span> <span class=nx>str</span> <span class=o>=</span> <span class=sb>`
+</span></span></span><span class=line><span class=cl><span class=sb>010-1234-5678
+</span></span></span><span class=line><span class=cl><span class=sb>s22043@gsm.hs.kr
+</span></span></span><span class=line><span class=cl><span class=sb>The quick brown fox jumps over the lazy dog.
+</span></span></span><span class=line><span class=cl><span class=sb>abbcccdddd
+</span></span></span><span class=line><span class=cl><span class=sb>`</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>regexp</span> <span class=o>=</span> <span class=sr>/fox/gi</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>regexp</span><span class=p>.</span><span class=nx>test</span><span class=p>(</span><span class=nx>str</span><span class=p>))</span> <span class=c1>// true
+</span></span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>str</span><span class=p>.</span><span class=nx>replace</span><span class=p>(</span><span class=nx>regexp</span><span class=p>,</span><span class=s1>&#39;AAA&#39;</span><span class=p>))</span> <span class=c1>// fox &gt;&gt; AAA
+</span></span></span></code></pre></div><br><h2 id=플래그옵션>플래그(옵션) <a class=anchor href=#%ed%94%8c%eb%9e%98%ea%b7%b8%ec%98%b5%ec%85%98 aria-label="이 절로 링크">#</a></h2><div class=table-wrap><table><thead><tr><th>플래그</th><th>설명</th></tr></thead><tbody><tr><td>g</td><td>모든 문자 일치</td></tr><tr><td>i</td><td>영어 대소문자를 구분 않고 일치</td></tr><tr><td>m</td><td>여러 줄 일치</td></tr></tbody></table></div><p>g , gi</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kd>let</span> <span class=nx>str</span> <span class=o>=</span> <span class=sb>`
+</span></span></span><span class=line><span class=cl><span class=sb>010-1234-5678
+</span></span></span><span class=line><span class=cl><span class=sb>s22043@gsm.hs.kr
+</span></span></span><span class=line><span class=cl><span class=sb>The quick brown fox jumps over the lazy dog.
+</span></span></span><span class=line><span class=cl><span class=sb>abbcccdddd
+</span></span></span><span class=line><span class=cl><span class=sb>the apple
+</span></span></span><span class=line><span class=cl><span class=sb>`</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>regexp</span> <span class=o>=</span> <span class=sr>/the/</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=nx>regexp</span><span class=p>))</span> <span class=c1>// 소문자 the가 있는 단어 하나만 일치시킴
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>regexp2</span> <span class=o>=</span><span class=sr>/the/g</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=nx>regexp</span><span class=p>))</span> <span class=c1>// 소문자 the 전부 출력
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>regexp3</span> <span class=o>=</span> <span class=sr>/the/gi</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=nx>regexp</span><span class=p>))</span> <span class=c1>// 대문자 The까지 전부 출력
+</span></span></span></code></pre></div><p>m</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kd>let</span> <span class=nx>str</span> <span class=o>=</span> <span class=sb>`
+</span></span></span><span class=line><span class=cl><span class=sb>010-1234-5678
+</span></span></span><span class=line><span class=cl><span class=sb>s22043@gsm.hs.kr
+</span></span></span><span class=line><span class=cl><span class=sb>The quick brown fox jumps over the lazy dog.
+</span></span></span><span class=line><span class=cl><span class=sb>abbcccdddd
+</span></span></span><span class=line><span class=cl><span class=sb>the apple
+</span></span></span><span class=line><span class=cl><span class=sb>`</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/\.$/gim</span><span class=p>))</span> <span class=c1>// [&#34;.&#34;]
+</span></span></span></code></pre></div><blockquote><p><code>$</code> 정규표현식에 일치하는 문자 첫번째 문장만 반환하도록 함.</p></blockquote><blockquote><p><code>\</code> (이스케이프 문자) 란 백슬래시 기호를 통해 본래의 기능에서 벗어나 상태가 바뀌는 문자를 말한다.</p></blockquote><br><h2 id=패턴표현>패턴(표현) <a class=anchor href=#%ed%8c%a8%ed%84%b4%ed%91%9c%ed%98%84 aria-label="이 절로 링크">#</a></h2><div class=table-wrap><table><thead><tr><th>패턴</th><th>설명</th></tr></thead><tbody><tr><td>^ab</td><td>줄 <code>시작</code>에 있는 ab와 일치</td></tr><tr><td>ab$</td><td>줄 <code>끝</code>에 있는 ab와 일치</td></tr><tr><td>.</td><td>임의의 한 문자와 일치</td></tr><tr><td>a|b</td><td>a 또는 b와 일치</td></tr><tr><td>ab?</td><td>b가 없거나 b와 일치</td></tr><tr><td>{3}</td><td>3개 연속 일치</td></tr><tr><td>{3 ,}</td><td>3개 이상 연속 일치</td></tr><tr><td>{3 , 5}</td><td>3개 이상 5개 이하(3~5개) 연속 일치</td></tr></tbody></table></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kd>let</span> <span class=nx>str</span> <span class=o>=</span> <span class=sb>`
+</span></span></span><span class=line><span class=cl><span class=sb>010-1234-5678
+</span></span></span><span class=line><span class=cl><span class=sb>s22043@gsm.hs.kr
+</span></span></span><span class=line><span class=cl><span class=sb>The quick brown fox jumps over the lazy dog.
+</span></span></span><span class=line><span class=cl><span class=sb>abbcccdddd
+</span></span></span><span class=line><span class=cl><span class=sb>the apple
+</span></span></span><span class=line><span class=cl><span class=sb>d
+</span></span></span><span class=line><span class=cl><span class=sb>https://local.1234
+</span></span></span><span class=line><span class=cl><span class=sb>http://local.12345`</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/d$/g</span><span class=p>)</span>  
+</span></span><span class=line><span class=cl><span class=p>)</span> <span class=c1>// [&#34;d&#34;] 
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/d$/gm</span><span class=p>)</span>  
+</span></span><span class=line><span class=cl><span class=p>)</span> <span class=c1>// [&#34;d&#34;] [&#34;d&#34;] 
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/^t/gim</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>)</span> <span class=c1>// [&#34;t&#34;] , [&#34;T&#34;]
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/./g</span><span class=p>)</span> <span class=c1>// 모든 글자 배열이 나옴.
+</span></span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/.a..e/g</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>)</span> <span class=c1>// [&#34;apple&#34;]
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/fox|dog/g</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>)</span> <span class=c1>//[&#34;fox&#34;] , [&#34;dog&#34;] if g가 없으면 fox만 출력
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/https?/g</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>)</span> <span class=c1>// [&#34;https&#34;] ,[&#34;http&#34;]
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/d{2}/g</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>)</span> <span class=c1>// dd dd &lt;&lt; 배열임
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/\b\w{2,3}\b/g</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=c1>// 영어 숫자 구분없이 2개이상 3개 이하로 이루어진 단어들만 출력
+</span></span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span></code></pre></div><div class=table-wrap><table><thead><tr><th>패턴</th><th>설명</th></tr></thead><tbody><tr><td>[abc]</td><td>a 또는 b 또는 c</td></tr><tr><td>[a-z]</td><td>a부터 z 사이의 문자 구간에 일치 (영어 소문자)</td></tr><tr><td>[A-Z]</td><td>A부터 Z 사이의 문자 구간에 일치 (영어 대문자)</td></tr><tr><td>[0-9]</td><td>0부터 9 사이의 문자 구간에 일치(숫자)</td></tr><tr><td>[가-힣]</td><td>가부터 힣 사이의 문자 구간에 일치(한글)</td></tr><tr><td>\w</td><td>63개 문자(Word, 대소영문52개 + 숫자 10개 + _)에 일치</td></tr><tr><td>\b</td><td>63개 문자에 일치하지 않는 문자 경계(Boundary)</td></tr><tr><td>\d</td><td>숫자(Digit)에 일치</td></tr><tr><td>\s</td><td>공백에 일치</td></tr><tr><td>(?=)</td><td>앞쪽 일치</td></tr><tr><td>(?&lt;=)</td><td>뒤쪽 일치</td></tr></tbody></table></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kd>let</span> <span class=nx>str</span> <span class=o>=</span> <span class=sb>`
+</span></span></span><span class=line><span class=cl><span class=sb>010-1234-5678
+</span></span></span><span class=line><span class=cl><span class=sb>s22043@gsm.hs.kr
+</span></span></span><span class=line><span class=cl><span class=sb>The quick brown fox jumps over the lazy dog.
+</span></span></span><span class=line><span class=cl><span class=sb>abbcccdddd
+</span></span></span><span class=line><span class=cl><span class=sb>the apple
+</span></span></span><span class=line><span class=cl><span class=sb>d
+</span></span></span><span class=line><span class=cl><span class=sb>https://local.1234
+</span></span></span><span class=line><span class=cl><span class=sb>http://local.12345`</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>h</span> <span class=o>=</span> <span class=sb>` the hello  world    ! `</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/[fox]/g</span><span class=p>)</span> <span class=c1>// f랑 o 모두 찾아짐
+</span></span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/[0-9]{1,}/g</span><span class=p>)</span> <span class=c1>//1개 이상의 0 ~ 9 모두 찾아짐
+</span></span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/\w/g</span><span class=p>)</span> <span class=c1>// 영어 다 나옴
+</span></span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/\bf\w{1,}/g</span><span class=p>)</span> <span class=c1>// f ~ 63개 문자가 아닌 경계에서 끊는다. [&#34;fox&#34;]
+</span></span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>h</span><span class=p>.</span><span class=nx>replace</span><span class=p>(</span><span class=sr>/\s/g</span><span class=p>,</span><span class=s1>&#39;&#39;</span><span class=p>)</span> <span class=c1>// 공백문자 삭제로 응용 가능
+</span></span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span></code></pre></div><p>앞쪽일치 , 뒷쪽 일치</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kd>let</span> <span class=nx>str</span> <span class=o>=</span> <span class=sb>`
+</span></span></span><span class=line><span class=cl><span class=sb>010-1234-5678
+</span></span></span><span class=line><span class=cl><span class=sb>s22043@gsm.hs.kr
+</span></span></span><span class=line><span class=cl><span class=sb>The quick brown fox jumps over the lazy dog.
+</span></span></span><span class=line><span class=cl><span class=sb>abbcccdddd
+</span></span></span><span class=line><span class=cl><span class=sb>the apple
+</span></span></span><span class=line><span class=cl><span class=sb>d
+</span></span></span><span class=line><span class=cl><span class=sb>https://local.1234
+</span></span></span><span class=line><span class=cl><span class=sb>http://local.12345`</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/.{1,}(?=@)/g</span><span class=p>)</span> <span class=c1>// 1개이상 @ 앞에 있는 배열 [&#34;s22043&#34;]
+</span></span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/(?&lt;=@).{1,}/g</span><span class=p>)</span> <span class=c1>// [&#34;gmail.com&#34;]
+</span></span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span></code></pre></div></div><footer class=article-footer><span><code>Front-End/JS/정규표현식.md</code></span></footer><nav class=pager aria-label="이전/다음 노트"><a class=prev href=/ko/Front-End/JS/typeString.html rel=prev><span class=dir>← 이전</span>문자.문자열</a>
+<a class=next href=/ko/Front-End/React/classcompo.html rel=next><span class=dir>다음 →</span>클래스형 컴포넌트</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>

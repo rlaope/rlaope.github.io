@@ -1,0 +1,124 @@
+<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>vLLM Engine Memory Optimization Based on PagedAttention · rlaope</title><meta name=description content="vLLM Engine Memory Optimization Based on PagedAttention — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="vLLM Engine Memory Optimization Based on PagedAttention"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/AI/optimize_runtime/opti3.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/AI/optimize_runtime/opti3.html><link rel=stylesheet href=/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/index.html><img class=brand-logo src=/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><a href=https://rlaope.github.io/ko/AI/optimize_runtime/opti3.html hreflang=ko title="한국어로 보기">한국어</a><span class=sep>/</span><span class=on aria-current=true>English</span></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/graph.html title="Knowledge graph" aria-label="Knowledge graph"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub repository"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=en><header class=article-header><nav class=crumbs aria-label=Path><a href=/index.html>rlaope</a><span class=sep>/</span><a href=/AI/index.html>AI</a></nav><h1 class=article-title>vLLM Engine Memory Optimization Based on PagedAttention</h1><p class=meta><span>1,722 단어</span><span class=sep>·</span><span>4 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/AI/optimize_runtime/opti3.md rel=noopener>원문(.md)</a></p></header><div class=prose><p>Let's start with a question: To predict the next word, an LLM must remember all previously generated words in its computational state, the KV Cache. But when a user asks a question, can the LLM know in advance how many characters its final answer will be? If not, how much GPU VRAM should the server allocate to store this uncertain length of data?</p><p>The innovative architecture that solves this memory allocation dilemma by adopting the operating system's virtual memory paging technique is vLLM's <strong>PagedAttention</strong>.</p><ul><li><strong>KV Cache</strong> is a Key-Value Cache technique where, when an LLM generates text, it caches the attention vector values (key and value) of previously computed tokens in VRAM to avoid recalculating them every time. It is the primary culprit consuming the most VRAM during LLM serving.</li><li><strong>PagedAttention</strong> splits the KV Cache in VRAM into fixed-size blocks (e.g., 16 tokens), similar to how an operating system manages physical memory by dividing it into pages of a certain size. This eliminates the need for contiguous memory space, dramatically reducing memory fragmentation.</li><li><strong>gpu_memory_utilization</strong>: This parameter determines the proportion (e.g., 0.9) of the total GPU VRAM that vLLM will pre-occupy as a KV Cache pool when the server starts.</li><li><strong>max_num_batched_tokens</strong>: This parameter limits the maximum number of tokens (combining both prompt and generated tokens) that can be processed simultaneously in a single GPU operation (forward pass).</li></ul><br><h2 id=problem-definition>Problem Definition <a class=anchor href=#problem-definition aria-label="이 절로 링크">#</a></h2><p>Existing LLM serving engines (like Hugging Face) suffered from internal fragmentation because they didn't know the response length. They would unconditionally pre-allocate a contiguous block of VRAM equal to the maximum token length allowed by the model.</p><p>For example, if a short, single-sentence response of 10 tokens was actually generated, but a vast space of 2048 tokens was reserved and tied up in VRAM, it couldn't accept requests from other users. This led to a critical bottleneck where the GPU's compute cores were idle, but VRAM was full (OOM), preventing even 10 concurrent users.</p><h3 id=solution-approach>Solution Approach <a class=anchor href=#solution-approach aria-label="이 절로 링크">#</a></h3><ul><li><strong>Pre-allocation of Block Pool</strong>: When the process starts, the <code>gpu_memory_utilization</code> setting is used to pre-occupy most of the VRAM remaining after model weights are loaded, as a massive KV cache pool made of blocks. This is analogous to how an operating system manages memory with a paging table at boot time. (Here, the pool allocation and the mapping of KV cache per response are different.)</li><li><strong>Dynamic Block Mapping and Throughput Control</strong>: As responses are generated, physical blocks are dynamically mapped only as needed. Simultaneously, <code>max_num_batched_tokens</code> is adjusted appropriately to control traffic, preventing the KV Cache pool from being instantly depleted or exceeding GPU computation limits due to too many tokens in a single computation cycle.</li></ul><br><h2 id=detailed-operating-principle-and-structure>Detailed Operating Principle and Structure <a class=anchor href=#detailed-operating-principle-and-structure aria-label="이 절로 링크">#</a></h2><p>This is the PagedAttention structure where logical token sequences are mapped to fragmented physical VRAM blocks, similar to an operating system's page table.</p><pre tabindex=0><code class=language-mermaid data-lang=mermaid>graph TD
+    subgraph &#34;Logical View (사용자 요청 세션)&#34;
+        Seq[Token 1 ~ Token 16]
+    end
+    
+    subgraph &#34;vLLM Block Table (OS의 Page Table 역할)&#34;
+        Map[논리적 블록 0 -&gt; 물리적 블록 7\n논리적 블록 1 -&gt; 물리적 블록 2]
+    end
+    
+    subgraph &#34;Physical VRAM (KV Cache Pool - gpu_memory_utilization으로 크기 결정)&#34;
+        B1[Block 1: Empty]
+        B2[Block 2: Token 9~16]
+        B3[Block 3: Empty]
+        B7[Block 7: Token 1~8]
+    end
+    
+    Seq --&gt; Map
+    Map --&gt; B7 &amp; B2
+</code></pre><p>To give the most intuitive example of how these two parameters are applied:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-py data-lang=py><span class=line><span class=cl><span class=kn>from</span> <span class=nn>vllm</span> <span class=kn>import</span> <span class=n>LLM</span><span class=p>,</span> <span class=n>SamplingParams</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 1. Initialize PagedAttention engine and control parameters</span>
+</span></span><span class=line><span class=cl><span class=n>llm</span> <span class=o>=</span> <span class=n>LLM</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=n>model</span><span class=o>=</span><span class=s2>&#34;meta-llama/Llama-3-8B&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=c1># [Key Parameter 1] gpu_memory_utilization</span>
+</span></span><span class=line><span class=cl>    <span class=c1># Limits vLLM to use only 80% of total VRAM.</span>
+</span></span><span class=line><span class=cl>    <span class=c1># (Leaving the remaining 20% for other processes or the OS)</span>
+</span></span><span class=line><span class=cl>    <span class=n>gpu_memory_utilization</span><span class=o>=</span><span class=mf>0.80</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># [Key Parameter 2] max_num_batched_tokens</span>
+</span></span><span class=line><span class=cl>    <span class=c1># Maximum number of tokens to process in a single GPU tick.</span>
+</span></span><span class=line><span class=cl>    <span class=c1># Too large can cause computational OOM, too small reduces throughput.</span>
+</span></span><span class=line><span class=cl>    <span class=n>max_num_batched_tokens</span><span class=o>=</span><span class=mi>4096</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># [Optional] KV Cache block size (default 16).</span>
+</span></span><span class=line><span class=cl>    <span class=c1># Similar to deciding whether OS Page Size is 4KB or 8KB.</span>
+</span></span><span class=line><span class=cl>    <span class=n>block_size</span><span class=o>=</span><span class=mi>16</span> 
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 2. Set sampling parameters and run inference</span>
+</span></span><span class=line><span class=cl><span class=n>prompts</span> <span class=o>=</span> <span class=p>[</span><span class=s2>&#34;리눅스 커널의 mmap() 동작 원리를 설명해줘.&#34;</span><span class=p>,</span> <span class=s2>&#34;JVM의 G1GC에 대해 알려줘.&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=n>sampling_params</span> <span class=o>=</span> <span class=n>SamplingParams</span><span class=p>(</span><span class=n>temperature</span><span class=o>=</span><span class=mf>0.7</span><span class=p>,</span> <span class=n>max_tokens</span><span class=o>=</span><span class=mi>200</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Internally, PagedAttention processes 2 prompts concurrently without memory waste</span>
+</span></span><span class=line><span class=cl><span class=n>outputs</span> <span class=o>=</span> <span class=n>llm</span><span class=o>.</span><span class=n>generate</span><span class=p>(</span><span class=n>prompts</span><span class=p>,</span> <span class=n>sampling_params</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>output</span> <span class=ow>in</span> <span class=n>outputs</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;Prompt: </span><span class=si>{</span><span class=n>output</span><span class=o>.</span><span class=n>prompt</span><span class=si>!r}</span><span class=s2>, Generated: </span><span class=si>{</span><span class=n>output</span><span class=o>.</span><span class=n>outputs</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span><span class=o>.</span><span class=n>text</span><span class=si>!r}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span></code></pre></div><p>This is how it works. For asynchronous vLLM engine operation in a FastAPI serving environment, you can configure <code>AsyncLLMEngine</code> with optimized parameters to handle random incoming traffic in a real production environment.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-py data-lang=py><span class=line><span class=cl><span class=kn>from</span> <span class=nn>fastapi</span> <span class=kn>import</span> <span class=n>FastAPI</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>vllm.engine.arg_utils</span> <span class=kn>import</span> <span class=n>AsyncEngineArgs</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>vllm.engine.async_llm_engine</span> <span class=kn>import</span> <span class=n>AsyncLLMEngine</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>vllm.sampling_params</span> <span class=kn>import</span> <span class=n>SamplingParams</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>uuid</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>app</span> <span class=o>=</span> <span class=n>FastAPI</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 1. Setup production-grade asynchronous engine parameters</span>
+</span></span><span class=line><span class=cl><span class=c1># Inject values tuned for the VRAM specifications of the deployment machine (e.g., A100 80GB)</span>
+</span></span><span class=line><span class=cl><span class=n>engine_args</span> <span class=o>=</span> <span class=n>AsyncEngineArgs</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=n>model</span><span class=o>=</span><span class=s2>&#34;meta-llama/Llama-3-8B&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=c1># For production-only GPUs, maximize to 0.90 ~ 0.95 to secure the KV Cache pool to its extreme.</span>
+</span></span><span class=line><span class=cl>    <span class=n>gpu_memory_utilization</span><span class=o>=</span><span class=mf>0.90</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># If GPU core performance is high, increase this value to parallelize more tokens at once (increase Throughput).</span>
+</span></span><span class=line><span class=cl>    <span class=n>max_num_batched_tokens</span><span class=o>=</span><span class=mi>8192</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># If using Tensor Parallelism (when combining multiple GPUs)</span>
+</span></span><span class=line><span class=cl>    <span class=n>tensor_parallel_size</span><span class=o>=</span><span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 2. Build the engine (When the server starts, 90% of VRAM is pre-allocated for KV Cache)</span>
+</span></span><span class=line><span class=cl><span class=n>engine</span> <span class=o>=</span> <span class=n>AsyncLLMEngine</span><span class=o>.</span><span class=n>from_engine_args</span><span class=p>(</span><span class=n>engine_args</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 3. Implement asynchronous endpoint</span>
+</span></span><span class=line><span class=cl><span class=nd>@app.post</span><span class=p>(</span><span class=s2>&#34;/generate&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>async</span> <span class=k>def</span> <span class=nf>generate_endpoint</span><span class=p>(</span><span class=n>prompt</span><span class=p>:</span> <span class=nb>str</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>request_id</span> <span class=o>=</span> <span class=nb>str</span><span class=p>(</span><span class=n>uuid</span><span class=o>.</span><span class=n>uuid4</span><span class=p>())</span> <span class=c1># Unique ID per request</span>
+</span></span><span class=line><span class=cl>    <span class=n>sampling_params</span> <span class=o>=</span> <span class=n>SamplingParams</span><span class=p>(</span><span class=n>temperature</span><span class=o>=</span><span class=mf>0.1</span><span class=p>,</span> <span class=n>max_tokens</span><span class=o>=</span><span class=mi>512</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># The vLLM engine internally queues requests and returns asynchronous streams</span>
+</span></span><span class=line><span class=cl>    <span class=c1># by allocating blocks via PagedAttention.</span>
+</span></span><span class=line><span class=cl>    <span class=n>results_generator</span> <span class=o>=</span> <span class=n>engine</span><span class=o>.</span><span class=n>generate</span><span class=p>(</span><span class=n>prompt</span><span class=p>,</span> <span class=n>sampling_params</span><span class=p>,</span> <span class=n>request_id</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=n>final_output</span> <span class=o>=</span> <span class=kc>None</span>
+</span></span><span class=line><span class=cl>    <span class=k>async</span> <span class=k>for</span> <span class=n>request_output</span> <span class=ow>in</span> <span class=n>results_generator</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=c1># Streaming processing (simplified here to return only the final result)</span>
+</span></span><span class=line><span class=cl>        <span class=n>final_output</span> <span class=o>=</span> <span class=n>request_output</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>{</span><span class=s2>&#34;text&#34;</span><span class=p>:</span> <span class=n>final_output</span><span class=o>.</span><span class=n>outputs</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span><span class=o>.</span><span class=n>text</span><span class=p>}</span>
+</span></span></code></pre></div><p>At this point, one might wonder: isn't allocating memory with <code>gpu_memory_utilization</code> the same as the existing method of allocating 2096 tokens? Is the storage location different?</p><p>It's similar to the memory allocation page mechanism, but to get straight to the point, while physically occupying VRAM space when the server starts is the same, the fundamental difference lies in <strong>how individual user requests are distributed within that pre-secured memory space.</strong></p><p>The core is solving internal fragmentation.</p><ol><li>In the traditional method, because the server doesn't know how many characters the LLM will ultimately generate, it unconditionally allocates a contiguous block of VRAM equal to the model's maximum value for each request. This is done on a per-request basis.</li><li>In the vLLM method, using PagedAttention, the <code>gpu_memory_utilization</code> setting pre-allocates 90% of the server's total VRAM by cutting it into tens of thousands of very small blocks (e.g., 16 tokens each) to create a massive shared pool. When a request comes in, it's not given a brute-force allocation; instead, the memory occupancy per request is lower, and the possibility of OOM is also reduced. This allows for efficient use.</li></ol><p>The trade-off is sacrificing early allocation of a large space for the benefit of efficient processing.</p><p>Assuming 100GB of VRAM, let's look at the internal memory loading state of the two methods:</p><pre tabindex=0><code class=language-mermaid data-lang=mermaid>graph TD
+    subgraph &#34;기존 방식 (Traditional Contiguous Allocation)&#34;
+        direction LR
+        Req1[&#34;요청 1 (사용중: 10, 낭비: 2038)&#34;]:::wasted
+        Req2[&#34;요청 2 (사용중: 100, 낭비: 1948)&#34;]:::wasted
+        Req3[&#34;요청 3 (사용중: 50, 낭비: 1998)&#34;]:::wasted
+        Full[&#34;VRAM 가득 참! 더 이상 요청 못 받음&#34;]:::error
+    end
+
+    subgraph &#34;vLLM PagedAttention (Block Pool Allocation)&#34;
+        direction LR
+        B1[&#34;블록 (요청1)&#34;]:::used
+        B2[&#34;블록 (요청2)&#34;]:::used
+        B3[&#34;블록 (요청2)&#34;]:::used
+        B4[&#34;블록 (요청3)&#34;]:::used
+        Free1[&#34;빈 블록 (새 요청 대기)&#34;]:::free
+        Free2[&#34;빈 블록 (새 요청 대기)&#34;]:::free
+        Free3[&#34;빈 블록 (새 요청 대기)&#34;]:::free
+        Free4[&#34;수많은 새 요청 동시 수용 가능!&#34;]:::success
+    end
+
+    classDef wasted fill:#ffcccc,stroke:#ff0000,color:#000
+    classDef error fill:#ff0000,stroke:#fff,color:#fff
+    classDef used fill:#cce5ff,stroke:#0066cc,color:#000
+    classDef free fill:#e6ffe6,stroke:#00cc00,color:#000
+    classDef success fill:#00cc00,stroke:#fff,color:#fff
+</code></pre><p>In summary, while the physical phenomenon of occupying 90% of GPU memory at server startup is the same,</p><p>the problem of that massive space being sparsely occupied and wasted by only 10-20 requests in the traditional method has been solved.</p><p>By splitting that space into small blocks and filling them tightly without gaps, <strong>hundreds of requests can be processed concurrently in parallel.</strong> Even if the amount of memory consumed is the same, the processing throughput is tens of times higher.</p></div><footer class=article-footer><span><code>AI/optimize_runtime/opti3.md</code></span></footer><nav class=pager aria-label="Previous/next note"><a class=prev href=/AI/optimize_runtime/opti2.html rel=prev><span class=dir>← Previous</span>Tuning Triton Inference Server config.pbtxt</a>
+<a class=next href=/AI/optimize_runtime/opti4.html rel=next><span class=dir>Next →</span>Implementing a High-Performance Asynchronous API Layer Communicating with a Core Inference Engine</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>

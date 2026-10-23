@@ -1,0 +1,31 @@
+{
+  "nodes": 928,
+  "edges": 3788,
+  "related_edges": 2670,
+  "related_top_k": 8,
+  "related_min_score": 0.04,
+  "sections": [
+    {"name":"AI","count":89},
+    {"name":"Algorithm","count":7},
+    {"name":"Back-End","count":351},
+    {"name":"Data-Structure","count":15},
+    {"name":"DataBase","count":75},
+    {"name":"Design-Pattern","count":22},
+    {"name":"DevOps","count":116},
+    {"name":"Essentials","count":8},
+    {"name":"Front-End","count":36},
+    {"name":"JVM","count":9},
+    {"name":"Linux","count":11},
+    {"name":"MLOps","count":22},
+    {"name":"MSA","count":14},
+    {"name":"Math","count":7},
+    {"name":"Network","count":27},
+    {"name":"Operating-System","count":26},
+    {"name":"SRE","count":51},
+    {"name":"정보처리","count":22}
+  ],
+  "built_at": "2026-10-23T10:37:17Z",
+  "root_sha256": "6954ae3a7281311567775abccae176132440205fa35a0fc53578c54c87393228",
+  "layout": "spiral",
+  "seed": 20260917
+}

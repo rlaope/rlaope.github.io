@@ -1,0 +1,135 @@
+<!doctype html><html lang=ko dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>모듈형 RAG 파이프라인 및 통합 인터페이스 설계 · rlaope</title><meta name=description content="모듈형 RAG 파이프라인 및 통합 인터페이스 설계 — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/ko/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/ko/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/ko/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="모듈형 RAG 파이프라인 및 통합 인터페이스 설계"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/ko/AI/llmagent/rag_pipeline.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/ko/AI/llmagent/rag_pipeline.html><link rel=stylesheet href=/ko/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/ko/index.html><img class=brand-logo src=/ko/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><span class=on aria-current=true>한국어</span><span class=sep>/</span><a href=https://rlaope.github.io/AI/llmagent/rag_pipeline.html hreflang=en title="View in English">English</a></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/ko/graph.html title="지식 그래프" aria-label="지식 그래프"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub 저장소"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=ko><header class=article-header><nav class=crumbs aria-label=경로><a href=/ko/index.html>rlaope</a><span class=sep>/</span><a href=/ko/AI/index.html>AI</a></nav><h1 class=article-title>모듈형 RAG 파이프라인 및 통합 인터페이스 설계</h1><p class=meta><span>2,219 단어</span><span class=sep>·</span><span>5 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/AI/llmagent/rag_pipeline.md rel=noopener>원문(.md)</a></p></header><div class=prose><p>전사적으로 여러 제품팀 (A는 사내위키, B팀은 CS 고객이력, C팀은 상품 리뷰)에서 각자의 도메인 데이터로 RAG 시스템을 구축하려고 한다.</p><p>만약 각 팀이 직접 파이썬 랭체인을 설치하고, 벡터 데이터베이스 인스턴스를 따로 띄우며, 임베딩 파이프라인을 바닥부터 직접 개발해야 한다면 어떻게 될까?</p><p>전사적인 인프라 자원 낭비는 물론, 유지보수 불가 및 RAG 품질의 하향 평준화가 일어날 것이다.</p><p>이를 방지하고 사내 어느팀이든 레고 블록 조립하듯 즉각적으로 RAG를 도입할 수 있게 하려면 어떻게 플랫폼을 설계해야할까?</p><p><strong>위 문제를 해결하기 위해 도입하는 아키텍처가 모듈형 RAG 파이프라인 Modular RAG Pipeine 이다.</strong></p><p>데이터 수집, 임베딩, 벡터 검색, 프롬프트 조합, LLM 생성이라는 복잡한 파이프라인 플랫폼 팀이 중앙에서 표준화된 모듈로 분리하여 개발하고, 타 팀에서는 단순화된 통합 API 형태로 제공하는 엔지니어링 방법론이다.</p><br><h2 id=문제-정의>문제 정의 <a class=anchor href=#%eb%ac%b8%ec%a0%9c-%ec%a0%95%ec%9d%98 aria-label="이 절로 링크">#</a></h2><p>각 제품팀이 RAG 컴포넌트를 파편화하여 개별 구현함으로 인해 발생하는 전사적인 기술 부채와 인프라 중복 투자가 발생할 수 있는 문제가 존재하고, 시스템 응답 지연 시간이나 검색 품질을 중앙에서 통제하고 개선할 수 없는 한계가 존재했다.</p><p>예를들면 A팀은 구형 텍스트 임베딩 모델을 사용하고 B팀은 최신 모델을 사용하면서 부서별로 검색 품질이 제각각이 되거나 A팀은 한 달동안 개발한 PDF 문서 파싱 및 벡터화된 로직을 B팀은 전혀 사용할 수 없어 동일한 코드를 처음부터 다시 작성해야하는 문제다.</p><h3 id=문제-해결-방식>문제 해결 방식 <a class=anchor href=#%eb%ac%b8%ec%a0%9c-%ed%95%b4%ea%b2%b0-%eb%b0%a9%ec%8b%9d aria-label="이 절로 링크">#</a></h3><ul><li><strong>컴포넌트의 논리적 분리 (Decoupling)</strong>: 전체 RAG 과정을 Ingestion(문서 청킹 임베딩), Retrieval(벡터 검색 및 재랭킹), Generation (프롬프트 주입 후 LLM 호출)의 독립된 모듈로 분리하고 각 모듈 인터페이스를 통해서만 통신하게 하여, 추후 검색 엔진이나 LLM이 변경되어도 다른 모듈에 영향을 주지 않도록 결합도를 낮춘다.</li><li><strong>통합 추상화 레이어 (Facade API) 제공</strong>: 플랫폼 팀은 복잡한 내부 로직을 캡슐화 해야한다. 타 제품 팀 개발자들은 내부 HNSW가 도는지, 어떤 임베딩 모델이 도는지 알 필요 없이, 사내 SDK나 REST API를 통해 <code>PlatformRAG.ask(query="question", domain="wiki")</code>라는 한 줄의 코드로 표준화된 RAG 결과를 반환받는다.</li></ul><p>플랫폼 팀이 구축한 공통 RAG 인프라를 여러 팀이 호출하여 사용하는 데이터 및 제어 흐름이다.</p><pre tabindex=0><code class=language-mermaid data-lang=mermaid>graph TD
+    ClientA[A팀 Application: CS 챗봇] --&gt;|REST API| RAG_API[RAG Platform API Gateway]
+    ClientB[B팀 Application: 사내 위키] --&gt;|REST API| RAG_API
+    
+    subgraph &#34;Modular RAG Platform (Core)&#34;
+        RAG_API --&gt; Router[Domain Router]
+        Router --&gt; Retriever[Retrieval Module]
+        Router --&gt; Generator[Generation Module]
+        
+        Retriever --&gt; Embedder[Embedding Service]
+        Retriever --&gt; ReRanker[Cross-Encoder Re-ranker]
+        
+        Generator --&gt; PromptMgr[Prompt Template Manager]
+        Generator --&gt; LLM_Gateway[LLM Gateway - Step 1]
+    end
+    
+    subgraph &#34;Shared Infrastructure&#34;
+        Embedder --&gt; Triton[Triton Server: BGE-m3]
+        Retriever --&gt; VectorDB[(ES 8.x Vector Index)]
+        LLM_Gateway --&gt; SaaS_LLM[OpenAI / vLLM]
+    end
+</code></pre><ol><li><strong>라우팅 및 권한 확인</strong>: 타 팀의 요청이 들어오면 <code>Domain Router</code>가 해당 팀이 접근 권한이 있는 데이터 인덱스 <code>index_cs_history</code> or <code>index_wiki</code>를 식별한다.</li><li><strong>Retrieval(검색)</strong>: Retrieval Module은 질문을 텍스트 임베딩 서비스 Triton으로 보내 벡터로 변환한 뒤 중앙 공유 Vector DB(Elasticsearch)에서 관련 문서를 추출한다. 필요시 Re-ranker를 거쳐 문서의 우선순위를 재정렬한다.</li><li><strong>Generation (생성)</strong>: Generation Module은 검색된 문서들과 사용자의 질문을 Prompt Template Manager에게 전달하여 시스템 프롬프트를 조립하고 LLM Gateway로 요청을 넘겨 최종 답변을 생성한다.</li></ol><h3 id=example>Example <a class=anchor href=#example aria-label="이 절로 링크">#</a></h3><p>플랫폼 백엔드 내부에서 각 기능을 독립된 클래스 모듈로 분리하고 이를 DI 형태로 조립하여 사용하는 설계 원리를 보면</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-py data-lang=py><span class=line><span class=cl><span class=kn>from</span> <span class=nn>typing</span> <span class=kn>import</span> <span class=n>List</span><span class=p>,</span> <span class=n>Dict</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>BaseRetriever</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>retrieve</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>query</span><span class=p>:</span> <span class=nb>str</span><span class=p>,</span> <span class=n>top_k</span><span class=p>:</span> <span class=nb>int</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=n>List</span><span class=p>[</span><span class=nb>str</span><span class=p>]:</span>
+</span></span><span class=line><span class=cl>        <span class=k>raise</span> <span class=ne>NotImplementedError</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>BaseGenerator</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>generate</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>context</span><span class=p>:</span> <span class=n>List</span><span class=p>[</span><span class=nb>str</span><span class=p>],</span> <span class=n>query</span><span class=p>:</span> <span class=nb>str</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=nb>str</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>raise</span> <span class=ne>NotImplementedError</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 구체적 모듈 구현 elasticsearch</span>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>ElaticsearchRetriever</span><span class=p>(</span><span class=n>BaseRetriever</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>es_client</span><span class=p>,</span> <span class=n>index_name</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>es</span> <span class=o>=</span> <span class=n>es_client</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>index</span> <span class=o>=</span> <span class=n>index_name</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>retrieve</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>query</span><span class=p>:</span> <span class=nb>str</span><span class=p>,</span> <span class=n>top_k</span><span class=p>:</span> <span class=nb>int</span> <span class=o>=</span> <span class=mi>3</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=n>List</span><span class=p>[</span><span class=nb>str</span><span class=p>]:</span>
+</span></span><span class=line><span class=cl>        <span class=c1># 내부적으로 임베딩 및 ES k-NN 검색 수행 로직 (생략)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;[</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>index</span><span class=si>}</span><span class=s2>] 인덱스에서 &#39;</span><span class=si>{</span><span class=n>query</span><span class=si>}</span><span class=s2>&#39; 관련 문서 검색 중...&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=p>[</span><span class=s2>&#34;문서 내용 1&#34;</span><span class=p>,</span> <span class=s2>&#34;문서 내용 2&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 3. 구체적인 모듈 구현 (LLM Gateway 연동 모듈)</span>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>GatewayGenerator</span><span class=p>(</span><span class=n>BaseGenerator</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>gateway_url</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>gateway_url</span> <span class=o>=</span> <span class=n>gateway_url</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>generate</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>context</span><span class=p>:</span> <span class=n>List</span><span class=p>[</span><span class=nb>str</span><span class=p>],</span> <span class=n>query</span><span class=p>:</span> <span class=nb>str</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=nb>str</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>prompt</span> <span class=o>=</span> <span class=sa>f</span><span class=s2>&#34;Context: </span><span class=si>{</span><span class=n>context</span><span class=si>}</span><span class=se>\n</span><span class=s2>Question: </span><span class=si>{</span><span class=n>query</span><span class=si>}</span><span class=se>\n</span><span class=s2>Answer:&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;LLM Gateway로 컨텍스트 및 질문 전송하여 답변 생성 중...&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=c1># API 호출 로직 (생략)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=s2>&#34;RAG 기반 최종 답변입니다.&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 4. 파이프라인 조립기 (Orchestrator)</span>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>ModularRAGPipeline</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>retriever</span><span class=p>:</span> <span class=n>BaseRetriever</span><span class=p>,</span> <span class=n>generator</span><span class=p>:</span> <span class=n>BaseGenerator</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>retriever</span> <span class=o>=</span> <span class=n>retriever</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>generator</span> <span class=o>=</span> <span class=n>generator</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>run</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>query</span><span class=p>:</span> <span class=nb>str</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=nb>str</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=c1># 모듈 1: 검색</span>
+</span></span><span class=line><span class=cl>        <span class=n>context</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>retriever</span><span class=o>.</span><span class=n>retrieve</span><span class=p>(</span><span class=n>query</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=c1># 모듈 2: 생성</span>
+</span></span><span class=line><span class=cl>        <span class=n>answer</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>generator</span><span class=o>.</span><span class=n>generate</span><span class=p>(</span><span class=n>context</span><span class=p>,</span> <span class=n>query</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>answer</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 내부 시스템에서의 조립 예시</span>
+</span></span><span class=line><span class=cl><span class=c1># wiki_retriever = ElasticsearchRetriever(es, &#34;wiki_data&#34;)</span>
+</span></span><span class=line><span class=cl><span class=c1># llm_gen = GatewayGenerator(&#34;http://llm-gateway:4000&#34;)</span>
+</span></span><span class=line><span class=cl><span class=c1># wiki_rag_pipeline = ModularRAGPipeline(wiki_retriever, llm_gen)</span>
+</span></span></code></pre></div><p>RAG 파이프라인 복잡성을 완전히 걷어내고, 사내 타 개발팀이 rest api를 통해 직관저그올 RAG플랫폼을 사용하는 형태 코드도 보자</p><p>타 팀은 내부 아키텍처를 몰라도 도메인 이름과 쿼리만으로 고품질 RAG 시스템을 즉시 서비스에 연동할 수 있다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-py data-lang=py><span class=line><span class=cl><span class=kn>from</span> <span class=nn>fastapi</span> <span class=kn>import</span> <span class=n>FastAPI</span><span class=p>,</span> <span class=n>HTTPException</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>pydantic</span> <span class=kn>import</span> <span class=n>BaseModel</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>app</span> <span class=o>=</span> <span class=n>FastAPI</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>RAGRequest</span><span class=p>(</span><span class=n>BaseModel</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>domain</span><span class=p>:</span> <span class=nb>str</span>  <span class=c1># 접근하려는 데이터셋 (예: &#34;hr_wiki&#34;, &#34;cs_manual&#34;)</span>
+</span></span><span class=line><span class=cl>    <span class=n>query</span><span class=p>:</span> <span class=nb>str</span>
+</span></span><span class=line><span class=cl>    <span class=n>top_k</span><span class=p>:</span> <span class=nb>int</span> <span class=o>=</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@app.post</span><span class=p>(</span><span class=s2>&#34;/api/v1/rag/ask&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>platform_rag_ask</span><span class=p>(</span><span class=n>request</span><span class=p>:</span> <span class=n>RAGRequest</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;사내 공통 RAG 처리 엔드포인트&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># 1. 도메인별 설정된 파이프라인 로드 (라우팅)</span>
+</span></span><span class=line><span class=cl>    <span class=n>pipeline</span> <span class=o>=</span> <span class=n>get_pipeline_for_domain</span><span class=p>(</span><span class=n>request</span><span class=o>.</span><span class=n>domain</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>pipeline</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>raise</span> <span class=n>HTTPException</span><span class=p>(</span><span class=n>status_code</span><span class=o>=</span><span class=mi>404</span><span class=p>,</span> <span class=n>detail</span><span class=o>=</span><span class=s2>&#34;등록되지 않은 도메인입니다.&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># 2. 캡슐화된 RAG 파이프라인 실행</span>
+</span></span><span class=line><span class=cl>    <span class=n>answer</span> <span class=o>=</span> <span class=n>pipeline</span><span class=o>.</span><span class=n>run</span><span class=p>(</span><span class=n>query</span><span class=o>=</span><span class=n>request</span><span class=o>.</span><span class=n>query</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># 3. 메타데이터(참고 문서 등)와 함께 결과 반환</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;status&#34;</span><span class=p>:</span> <span class=s2>&#34;success&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;domain&#34;</span><span class=p>:</span> <span class=n>request</span><span class=o>.</span><span class=n>domain</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;answer&#34;</span><span class=p>:</span> <span class=n>answer</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;metadata&#34;</span><span class=p>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;retrieved_docs_count&#34;</span><span class=p>:</span> <span class=n>request</span><span class=o>.</span><span class=n>top_k</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=c1># 실제 서비스에서는 추적을 위한 trace_id 등을 포함</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;trace_id&#34;</span><span class=p>:</span> <span class=s2>&#34;req-12345&#34;</span> 
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span></code></pre></div><p>그리고 실무에서는 redis 젖아 조회 로직을 직접 구현하지 않고도 LangGraph가 제공하는 <code>Checkpointer</code> 객체 (RedisSaver, PostgreSaver등) 컴파일 시점에 주입하여 모든 io를 프레임워크에 위임한다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-py data-lang=py><span class=line><span class=cl><span class=kn>from</span> <span class=nn>langgraph.graph</span> <span class=kn>import</span> <span class=n>StateGraph</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>langgraph.checkpoint.postgres</span> <span class=kn>import</span> <span class=n>PostgresSaver</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>psycopg_pool</span> <span class=kn>import</span> <span class=n>ConnectionPool</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 1. State와 Node 정의 (이전과 동일)</span>
+</span></span><span class=line><span class=cl><span class=n>workflow</span> <span class=o>=</span> <span class=n>StateGraph</span><span class=p>(</span><span class=n>AgentState</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>workflow</span><span class=o>.</span><span class=n>add_node</span><span class=p>(</span><span class=s2>&#34;llm_node&#34;</span><span class=p>,</span> <span class=n>llm_reasoning_node</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1># ... 노드 및 엣지 연결 생략 ...</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 2. 프로덕션용 Checkpointer 연결 (PostgreSQL 예시)</span>
+</span></span><span class=line><span class=cl><span class=c1># DB 커넥션 풀을 생성하고 프레임워크에 주입합니다.</span>
+</span></span><span class=line><span class=cl><span class=n>pool</span> <span class=o>=</span> <span class=n>ConnectionPool</span><span class=p>(</span><span class=s2>&#34;postgresql://user:pass@host/db&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>checkpointer</span> <span class=o>=</span> <span class=n>PostgresSaver</span><span class=p>(</span><span class=n>pool</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 3. 그래프 컴파일 (이 시점에 상태 자동 저장 로직이 내장됨)</span>
+</span></span><span class=line><span class=cl><span class=n>app</span> <span class=o>=</span> <span class=n>workflow</span><span class=o>.</span><span class=n>compile</span><span class=p>(</span><span class=n>checkpointer</span><span class=o>=</span><span class=n>checkpointer</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 4. 실무 API 호출 방식</span>
+</span></span><span class=line><span class=cl><span class=c1># 개발자는 단순히 thread_id만 config로 넘기면, </span>
+</span></span><span class=line><span class=cl><span class=c1># DB에서 상태를 불러오고, 노드 실행 후 다시 덮어쓰는 전 과정이 자동화됩니다.</span>
+</span></span><span class=line><span class=cl><span class=n>config</span> <span class=o>=</span> <span class=p>{</span><span class=s2>&#34;configurable&#34;</span><span class=p>:</span> <span class=p>{</span><span class=s2>&#34;thread_id&#34;</span><span class=p>:</span> <span class=s2>&#34;thread_12345&#34;</span><span class=p>}}</span>
+</span></span><span class=line><span class=cl><span class=n>final_state</span> <span class=o>=</span> <span class=n>app</span><span class=o>.</span><span class=n>invoke</span><span class=p>({</span><span class=s2>&#34;messages&#34;</span><span class=p>:</span> <span class=p>[</span><span class=s2>&#34;고객 데이터 조회해줘&#34;</span><span class=p>]},</span> <span class=n>config</span><span class=o>=</span><span class=n>config</span><span class=p>)</span>
+</span></span></code></pre></div></div><footer class=article-footer><span><code>AI/llmagent/rag_pipeline.md</code></span></footer><nav class=pager aria-label="이전/다음 노트"><a class=prev href=/ko/AI/llmagent/multitenant.html rel=prev><span class=dir>← 이전</span>멀티 테넌트(Multi-tenant) LLM 플랫폼 환경과 자원 격리</a>
+<a class=next href=/ko/AI/llmagent/README.html rel=next><span class=dir>다음 →</span>LLM Platform Engineering</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>

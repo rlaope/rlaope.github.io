@@ -1,0 +1,267 @@
+<!doctype html><html lang=ko dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>병렬화 전략 — TP, PP, EP, DP · rlaope</title><meta name=description content="병렬화 전략 — TP, PP, EP, DP — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/ko/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/ko/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/ko/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="병렬화 전략 — TP, PP, EP, DP"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/ko/MLOps/np.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/ko/MLOps/np.html><link rel=stylesheet href=/ko/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/ko/index.html><img class=brand-logo src=/ko/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><span class=on aria-current=true>한국어</span><span class=sep>/</span><a href=https://rlaope.github.io/MLOps/np.html hreflang=en title="View in English">English</a></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/ko/graph.html title="지식 그래프" aria-label="지식 그래프"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub 저장소"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=ko><header class=article-header><nav class=crumbs aria-label=경로><a href=/ko/index.html>rlaope</a><span class=sep>/</span><a href=/ko/MLOps/index.html>MLOps</a></nav><h1 class=article-title>병렬화 전략 — TP, PP, EP, DP</h1><p class=meta><span>7,171 단어</span><span class=sep>·</span><span>15 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/MLOps/np.md rel=noopener>원문(.md)</a></p></header><div class=prose><p>GPU 한 장에 모델을 올려 서비스한다고 가정해보자, 곧 아래와 같은 문제들을 맞이할 것이다.</p><ol><li><strong>가중치가 안 들어감</strong>: DeepSeek-V4-Flash라 치면 FP8로 284GB인데, H200 한장은 141GB이다. 로드 자체가 실패한다.</li><li><strong>들어가도 KV 캐시가 없다:</strong> Qwen3.6-27B는 27GB라 141GB에 들어가지만 남는 114GB로 몇 명을 받을 수 있을까? 32K 컨텍스트 한 명당 KV가 6GB라면 19명을 받을 수 있다. 200명이 쓰는 사내 서비스라면 이는 부족하다/</li><li><strong>한 명당 속도도 느리다:</strong> 토큰 하나를 만들렴녀 27GB를 전부 읽어야 하는데, H200 대역폭 4.8TB/s로 5.6ms가 걸린다.</li></ol><p>3번문제에서 gpu를 네 장 쓰면 각자 6.75GB만 읽으면 되니 1.4ms정도로 줄어든다.</p><p>그런데 나누는것은 공짜가 아니기에 나눈 조각들이 계산 결과를 서로 맞춰야하고 그 통신에 시간도 든다.</p><pre tabindex=0><code>스텝당 통신량 41 MB일 때
+  같은 노드 안 (NVLink 1,800 GB/s)   → 0.023 ms
+  노드를 넘어 (InfiniBand 50 GB/s)   → 0.82 ms
+</code></pre><p>디코드 한 스텝이 수 밀리초인데 통신에만 0.82ms를 쓰게된다면 나눠서 얻은 이득이 사라지기도 한다/</p><p>즉 <strong>어떻게 나누느냐에 따라 통신량과 통신 시점이 달라지고 네 가지 방법이 갈린다.</strong></p><pre tabindex=0><code>자르는 대상        약어    통신 시점
+─────────────────────────────────────
+행렬 조각내기      TP     층마다
+층을 깊이로 자르기  PP     구간 경계
+전문가 통째로 배정  EP     MoE 층마다
+안 자르고 요청 분배 DP     없음
+</code></pre><p>오늘은 이것들을 하나씩 알아보자</p><br><h2 id=tp-텐서-병렬>TP 텐서 병렬 <a class=anchor href=#tp-%ed%85%90%ec%84%9c-%eb%b3%91%eb%a0%ac aria-label="이 절로 링크">#</a></h2><p><strong>행렬을 조각내서 여러 gpu가 나눠 계산하고 결과를 합치는 방식이다.</strong></p><pre tabindex=0><code>원래:   Y = X @ W          W가 [5120 × 20480] 크기
+
+TP=4:   W를 세로로 4등분 → W1, W2, W3, W4  (각 [5120 × 5120])
+        GPU0이 X @ W1을 계산
+        GPU1이 X @ W2를 계산
+        GPU2가 X @ W3을 계산
+        GPU3이 X @ W4를 계산
+        → 네 결과를 이어 붙여 Y 완성          ← 여기서 통신
+</code></pre><p>어텐션은 헤드 단위로 자른다. 헤드 4개를 4장에 16개씩 배분한다. 어텐션은 원래 여러개의 헤드를 각자 다른 관점으로 문장을 보는 부조고, 헤드끼리는 독립적이다. 헤드가 64개면 4장에 16개씩 나눠주면 된다.</p><blockquote><p>주의 - 헤드수가 TP크기로 나누어 떨어져야한다 헤드가 8개인 모델에 TP=16을 주면 실행이 실패한다.</p></blockquote><h3 id=장점>장점 <a class=anchor href=#%ec%9e%a5%ec%a0%90 aria-label="이 절로 링크">#</a></h3><p>이렇게 되면 토큰 하나를 만드는 계산이 여러 gpu에 흩어져 <strong>개별 사용자가 체감하는 속도가 빨라진다.</strong></p><p>토큰과 토큰 사이의 간격을 **ITL(Inter-Token Latency)**라고 부르는데 이 값이 직접적으로 줄어든다.</p><h3 id=trade-off>Trade Off <a class=anchor href=#trade-off aria-label="이 절로 링크">#</a></h3><p>층을 지날때마다 통신하기 때문에 모델이 80층이라면 토큰 하나당 80번의 통신을 하는것이다.</p><pre tabindex=0><code>스텝당 통신량이 약 41 MB일 때
+  NVLink (1,800 GB/s)     →  0.023 ms
+  InfiniBand (50 GB/s)    →  0.82 ms
+</code></pre><p>토큰 하나를 만드는데 몇 밀리초가 걸리는데 통신에만 0.82ms를 쓰면 나눠서 얻은 이득이 통신레이턴시로 사라진다.</p><p><code>--tp-size</code>를 얼마로 설정할 것인가?</p><p>GPU가 8장이라 치면 두 가지 선택지가 있다.</p><pre tabindex=0><code>선택 A: TP8 인스턴스 하나
+  8장이 한 팀이 되어 모든 요청을 처리
+  요청 하나가 들어오면 8장이 함께 그 토큰을 만듦
+
+선택 B: TP2 인스턴스 넷
+  2장씩 짝지어 네 개의 독립된 팀
+  요청이 들어오면 라우터가 한 팀에 배정
+  각 팀은 자기 요청만 처리
+</code></pre><p>실제로 재보면 A -> B로 바꿨다고 치자</p><pre tabindex=0><code>                  TP8 × 1     TP2 × 4      변화
+전체 처리량        3,285       4,419      +34.5%
+첫 토큰까지 시간     511 ms      362 ms     -29.2%
+토큰 간 간격        12.6 ms     17.9 ms    +42.0%
+</code></pre><p><strong>처리량과 응답 시작은 좋아지고 토큰 간 간격이 나빠진다.</strong></p><h4 id=처리량이-오르는-이유>처리량이 오르는 이유 <a class=anchor href=#%ec%b2%98%eb%a6%ac%eb%9f%89%ec%9d%b4-%ec%98%a4%eb%a5%b4%eb%8a%94-%ec%9d%b4%ec%9c%a0 aria-label="이 절로 링크">#</a></h4><ol><li><strong>통신 상대가 줄어</strong> TP8은 층마다 8장의 결과를 맞춰야하지만 TP2장은 2장만 맞추면 돼서 주고받을 상대가 적어 그만큼 빨리 끝나게 된다</li><li><strong>GPU를 채우기 쉬워진다.</strong> gpu는 여러 요청을 한번에 묶어서 배치처리할때 효율이 좋은데 TP8은 대기열이 하나라 요청이 몰려야 배치가 커진다. TP2는 넷은 대기열이 네 개이고 각자 알아서 배치를 채우기에 한팀이 무거운 요청을 처리하는 동안 다른팀은 계속 일할 수 있다.</li></ol><h4 id=첫-토큰이-빨라지는-이유><strong>첫 토큰이 빨라지는 이유</strong> <a class=anchor href=#%ec%b2%ab-%ed%86%a0%ed%81%b0%ec%9d%b4-%eb%b9%a8%eb%9d%bc%ec%a7%80%eb%8a%94-%ec%9d%b4%ec%9c%a0 aria-label="이 절로 링크">#</a></h4><p><strong>대기열이 네 개로 나뉘었기 때문이다.</strong> TP8에는 누군가 파일 전체를 붙여넣어 긴 요청을 처리중이면 뒤에 짧은 질문도 기다려야하지만 TP2 넷이면 그 요청은 한팀만 붙잡고 나머지세팀은 다른 요청을 받는다</p><h4 id=토큰간-간격이-나빠지는-이유>토큰간 간격이 나빠지는 이유 <a class=anchor href=#%ed%86%a0%ed%81%b0%ea%b0%84-%ea%b0%84%ea%b2%a9%ec%9d%b4-%eb%82%98%eb%b9%a0%ec%a7%80%eb%8a%94-%ec%9d%b4%ec%9c%a0 aria-label="이 절로 링크">#</a></h4><p><strong>ITL이 나빠지는 이유:</strong> 토큰 하나에 투입되는 gpu가 8장에서 2장으로 줄었으니 앞서 계산했듯 가중치를 8등분해 각자 3.4GB를 읽고 2등분하면 13.5GB를 읽는다 읽을양이 네배이므로 토큰 하나를 만드는 시간이 길어진다.</p><h3 id=정하는-기준>정하는 기준 <a class=anchor href=#%ec%a0%95%ed%95%98%eb%8a%94-%ea%b8%b0%ec%a4%80 aria-label="이 절로 링크">#</a></h3><p>서비스가 요구하는 응답 속도부터 정하자.</p><pre tabindex=0><code>사람이 읽는 속도는 초당 10~15토큰 정도
+-&gt; 토큰간 간격이 50ms(초당 20토큰) 이하면 읽는것보다 빠르다고 느낀다.
+
+위 실측에서 TP2 x 4는 17ms
+-&gt; 50ms 기준에 여유가 크므로 TP2를 선택하고 처리량을 챙긴다
+
+만약 기준이 15ms처럼 빡빡하면
+-&gt; TP2로 17.9ms를 매핑하고 TP4, TP8을 고른다.
+</code></pre><ul><li><strong>응답 속도 기준이 빡빡하면</strong> -> TP를 크게, 요청 하나에 gpu를 많이 투입한다.</li><li><strong>응답 속도에 여유가 있다</strong> -> TP를 줄이고 인스턴스를 늘린다 같은 하드웨어로 많은 손님을 받기</li><li><strong>모르겠다</strong> -> 둘 다 띄워서 재봐야지;</li></ul><p><code>--tp-size 2</code> (인스턴스 네 개를 각각 다른 gpu에 띄우고 라우터로 묶는다.)</p><br><h2 id=pp---파이프라인-병렬>PP - 파이프라인 병렬 <a class=anchor href=#pp---%ed%8c%8c%ec%9d%b4%ed%94%84%eb%9d%bc%ec%9d%b8-%eb%b3%91%eb%a0%ac aria-label="이 절로 링크">#</a></h2><p>트랜스포머 모델은 동일한 구조의 레이어를 수직으로 쌓은것이다</p><pre tabindex=0><code>입력 토큰
+   ↓
+[레이어 1]   ← 어텐션 + FFN. 각각 큰 가중치 행렬을 가짐
+   ↓
+[레이어 2]   ← 같은 구조, 다른 값
+   ↓
+  ...
+   ↓
+[레이어 80]
+   ↓
+출력 토큰
+</code></pre><p>토큰은 레이어를 순서대로 통과하고 레이어 5의 입력은 레이어 4의 출력을 건너뛸수없다.</p><pre tabindex=0><code>        레이어 1  ─────────────────────────
+        레이어 2  ─────────────────────────
+        레이어 3  ─────────────────────────    ← PP: 여기를 가로로 자름
+        레이어 4  ─────────────────────────
+          ...
+        레이어 80 ─────────────────────────
+                  │    │    │    │
+                  └────┴────┴────┘
+                  TP: 각 레이어를 세로로 자름
+</code></pre><p>TP는 레이어 안을 자르고 PP는 레이어 사이를 자르게 된다.</p><p>PP는 아래와 같이 가로로 자르게 된다.</p><pre tabindex=0><code>GPU0            GPU1            GPU2            GPU3
+[레이어 1~20]  → [레이어 21~40] → [레이어 41~60] → [레이어 61~80]
+                ↑               ↑               ↑
+              통신 1회         통신 1회         통신 1회
+
+각 GPU가 자기 레이어만 온전히 가짐
+토큰 하나 만드는 데 통신 3번
+</code></pre><p>이렇게 되니까 통신횟수가 80번이 아닌 3번정도로 처리가 된다. 오가는 양도 다르다.</p><p>TP는 레이어마다 계산결과를 합쳐야하지만 PP는 20레이어를 통과한 중간상태 텐서 하나만 넘기면 된다.</p><h3 id=추론에선-잘-안쓰이는-이유>추론에선 잘 안쓰이는 이유 <a class=anchor href=#%ec%b6%94%eb%a1%a0%ec%97%90%ec%84%a0-%ec%9e%98-%ec%95%88%ec%93%b0%ec%9d%b4%eb%8a%94-%ec%9d%b4%ec%9c%a0 aria-label="이 절로 링크">#</a></h3><p>통신이 훨 적은데 PP가 주력이 아닌 이유가 있다.</p><h4 id=pp는-gpu들이-순서대로-일한다>PP는 GPU들이 순서대로 일한다. <a class=anchor href=#pp%eb%8a%94-gpu%eb%93%a4%ec%9d%b4-%ec%88%9c%ec%84%9c%eb%8c%80%eb%a1%9c-%ec%9d%bc%ed%95%9c%eb%8b%a4 aria-label="이 절로 링크">#</a></h4><pre tabindex=0><code>토큰 하나를 만드는 과정
+
+시간 →
+GPU0: [L1~20 계산]
+GPU1:              [L21~40 계산]
+GPU2:                            [L41~60 계산]
+GPU3:                                          [L61~80 계산]
+
+GPU0이 일할 때 GPU1,2,3은 놀고 있음
+</code></pre><p>TP는 4장이 동시에 일했지만 PP는 4장이 차례로 일하기에 한 시점에 한장만 바쁘다</p><h3 id=이걸-매우는-방법>이걸 매우는 방법 <a class=anchor href=#%ec%9d%b4%ea%b1%b8-%eb%a7%a4%ec%9a%b0%eb%8a%94-%eb%b0%a9%eb%b2%95 aria-label="이 절로 링크">#</a></h3><p>여러 요청을 겹쳐 흘려보내버리면 빈자리가 채워진다</p><pre tabindex=0><code>시간 →
+GPU0: [요청1][요청2][요청3][요청4][요청5]
+GPU1:       [요청1][요청2][요청3][요청4]
+GPU2:             [요청1][요청2][요청3]
+GPU3:                   [요청1][요청2]
+      └버블┘                        └버블┘
+       처음                          끝
+</code></pre><p>중간 구간은 4장이 다 바쁘고 앞뒤의 빈구간을 <strong>파이프라인 버블</strong>이라고 한다.</p><blockquote><p>비유: 공장 조립 라인에서 제품 하나만 만들면 앞공정이 끝날때까지 뒷공정은논다 제품을 계속 투입해야 모든 공정이 동시에 돌아간다.</p></blockquote><h3 id=학습에서는-되는데-추론에서는-어려운이유>학습에서는 되는데 추론에서는 어려운이유 <a class=anchor href=#%ed%95%99%ec%8a%b5%ec%97%90%ec%84%9c%eb%8a%94-%eb%90%98%eb%8a%94%eb%8d%b0-%ec%b6%94%eb%a1%a0%ec%97%90%ec%84%9c%eb%8a%94-%ec%96%b4%eb%a0%a4%ec%9a%b4%ec%9d%b4%ec%9c%a0 aria-label="이 절로 링크">#</a></h3><p>학습은 처리할 데이터가 미리 다 있기에 배치를 잘게 쪼개 파이프라인에 계속 밀어넣으면 버블이 전체 몇 %로 줄어들지만 <strong>추론</strong>은 요청이 언제 올지 모른다.</p><p>새벽 3시에 사용자 한 명이 접속하면 파이프라인에 밀어 넣을 다른 요청이 없고 gpu 4장중 1장만일한다. TP였다면 그 한 명의 요청을 4장이 나눠 처리해 4배 빨랐을텐데</p><p>그리고 요청마다 출력 길이가 다르다. 한 요청이 500토큰을 뽑는동안 다른 요청은 50토큰에서 끝나므로 파이프라인 흐름이 계속 흐트러진다.</p><p>그래서 PP를 고를 상황은 아래와 같다.</p><pre tabindex=0><code>모델이 기계 한 대(GPU 8장)에 안 들어간다
+        ↓
+기계를 넘어가야 하는데 TP는 통신 때문에 안 됨
+        ↓
+선택지 두 개
+  A. PP로 레이어를 나눠 기계 간 확장
+  B. MoE 모델이라면 EP로 전문가를 나눔  ← 대개 이쪽이 나음
+</code></pre><p><strong>PP가 유효한 경우는 MoE가 아닌 초대형 dense 모델을 여러 기계에 올려야할때나 학습할때다</strong></p><p>학습을 처리할 데이터가 <strong>미리 전부 있기에</strong> 배치 하나를 마이크로배치로 잘게 쪼개 파이프라인에 계속 밀어넣을 수 있다.</p><pre tabindex=0><code>배치 1024개를 마이크로배치 64개로 분할, P=4
+
+버블 = 3 / (64 + 3) = 4.5%
+</code></pre><p>95.5% 의 시간동안 4장이 전부 일한다.</p><p>여기에 학습만의 이점이 하나 더 있다. <strong>역전파가 파이프라인을 한번 더 채운다.</strong> 순전파가 gpu0 -> 3으로 흐르는동안 역전파 gpu3 -> 0 으로 거슬러 올라가므로 두 흐름이 서로 빈틈을 메운다</p><pre tabindex=0><code>GPU3: [순전파 4][역전파 4][순전파 8][역전파 8] ...
+GPU0: [순전파 1][순전파 5][역전파 1][순전파 9] ...
+       ↑ 순전파와 역전파가 교차하며 빈자리를 채움
+</code></pre><p>추론에는 역전파가 없으므로 이 이점이 없다.</p><h4 id=프리필>프리필 <a class=anchor href=#%ed%94%84%eb%a6%ac%ed%95%84 aria-label="이 절로 링크">#</a></h4><p>프리필 에서는사용자가 넣은 프롬프트 전체를 한꺼번에 읽는 단계라 3,000토큰짜리 요청이면 3,000을 동시에 처리한다.</p><p>토큰이 많다는것은 쪼갤거리가 많다는 뜻이고 3,000토큰을 512토큰씩 6조각으로 분할해 P=4 보면</p><pre tabindex=0><code>버블 = 3 / (6 + 3) = 33%
+</code></pre><p>33%는 학습의 4.5% 버블량보다 훨 높다. 조각수가 적기 때문에 다만 실제 서비스에 여러 요청이 들어오므로 M이 커진다.</p><pre tabindex=0><code>동시 요청 20개 × 요청당 6조각 = M 120
+
+버블 = 3 / (120 + 3) = 2.4%
+</code></pre><p>즉 트래픽이 충분하면 프리필에서 PP가 쓸만하긴하다. 문제는 트래픽 적으면 급격하게 나빠진다는 점이다.</p><h4 id=디코드>디코드 <a class=anchor href=#%eb%94%94%ec%bd%94%eb%93%9c aria-label="이 절로 링크">#</a></h4><p>디코드는 토큰을 하나씩 만드는 단계라 PP의 근본적 한계가 나오는데</p><p><strong>같은 요청의 연속 토큰은 겹칠 수 없음</strong></p><pre tabindex=0><code>요청 A의 100번째 토큰을 만드는 중
+
+GPU0: [L1~20] → GPU1: [L21~40] → GPU2: [L41~60] → GPU3: [L61~80]
+                                                          ↓
+                                                    100번째 토큰 완성
+                                                          ↓
+                                        이제야 101번째를 시작할 수 있음
+</code></pre><p>101번째 토큰의 입력이 100번째 토큰이기 때문에 100번째가 gpu3에 다들어가야 101번째를 gpu0에 넣을수있어 파이프라인을 채우려면 다른 요청이 있어야한다.</p><p>그래서 두 지표가 갈리는데</p><pre tabindex=0><code>동시 요청 40개일 때
+
+처리량   : 40개 요청이 각 단계를 채움 → 4장이 다 바쁨. 괜찮음
+토큰 간 간격 : 요청 하나의 토큰 하나가 GPU0→1→2→3을 다 거쳐야 함
+              = 전체 계산 시간 + 전송 3회
+              → 1장이 모델 전체를 갖고 있을 때보다 오히려 느림
+</code></pre><p><strong>PP는 요청 하나의 속도를 전혀 개선하지 못하고</strong> 이유는 계산을 나눠 동시에 하는게아니라 순서대로 하기 때문이다.</p><p>TP는 4장이 동시에 계산해 토큰 하나를 4배 빨리 만드는데 PP는 4장이 차례로 0레이어씩 처리해서 결국 80레이어분의 시간이 다 돈다.</p><p>여기서 전송 지연이 3번 더해진다.</p><p>MoE 모델이면 EP가 PP보다 낫다. EP는 전문가를 나눠도 gpu들이 동시에 일하므로 버블이 없다</p><br><h2 id=ep---전문가-병렬>EP - 전문가 병렬 <a class=anchor href=#ep---%ec%a0%84%eb%ac%b8%ea%b0%80-%eb%b3%91%eb%a0%ac aria-label="이 절로 링크">#</a></h2><h3 id=moe>MoE <a class=anchor href=#moe aria-label="이 절로 링크">#</a></h3><p>일반 모델은 토큰마다 가중치 전부를 쓰는데 MoE는 전문가라 부르는 FFN 모듈을 수백개 두고 토큰마다 몇개만 골라 쓴다.</p><pre tabindex=0><code>MoE 레이어 하나의 내부
+
+        [토큰]
+           ↓
+       [라우터]  ← 점수 계산 → 상위 8개 선택
+           ↓
+   ┌──┬──┬──┬──┬─ ... ─┬──┐   전문가 256개
+   │  │██│  │██│       │  │   (██ = 이번에 켜진 것)
+   └──┴──┴──┴──┴───────┴──┘
+           ↓
+       [결과 합산]
+</code></pre><p>DeepSeek-V4-Flash는 전문가 256개중 8개를 쓰고 총 284B중 13B만 계산에 참여한다.</p><h3 id=ep가-하는-일>EP가 하는 일 <a class=anchor href=#ep%ea%b0%80-%ed%95%98%eb%8a%94-%ec%9d%bc aria-label="이 절로 링크">#</a></h3><p>전문가를 통째로 gpu에 배정한다</p><pre tabindex=0><code>EP=32
+  GPU0:  전문가 0~7     GPU1: 전문가 8~15   ...   GPU31: 전문가 248~255
+
+토큰이 전문가 17, 93, 201... 8개 선택
+  ↓ all-to-all — 각 토큰을 담당 GPU로 전송
+  ↓ 각 GPU가 자기 전문가로 계산
+  ↓ all-to-all — 결과를 원래 자리로 회수
+</code></pre><p>TP와 비교하면 같은 MoE 레이어를 TP로 나누면 이렇게 된다.</p><pre tabindex=0><code>TP=32
+  전문가 0의 가중치를 32조각으로 잘라 32장에 분산
+  전문가 1의 가중치를 32조각으로 잘라 32장에 분산
+  ... 256개 전부 그렇게
+
+토큰이 전문가 8개를 선택
+  → 그 8개의 조각이 32장에 흩어져 있음
+  → 32장 전부가 계산에 동원됨
+  → 레이어마다 32장 전체 all-reduce
+</code></pre><p>토큰이실제로 쓰는것은 256개중 8개인데 TP는 32장을 전부 부르게 된다.</p><p>MoE는 일부만 켠다는 설계인데 TP가 그 점을 무효화는 샘이 된다.</p><pre tabindex=0><code>              TP=32                    EP=32
+전문가 배치    조각내서 전 GPU에         통째로 한 GPU에
+동원되는 GPU   항상 32장                 선택된 8개를 가진 곳만
+오가는 것      계산 결과 (all-reduce)    토큰 (all-to-all)
+GPU당 가중치   256개 전부의 1/32         8개 전체
+</code></pre><p>마지막 줄이 결정적인데 총량은 같은데 성격이 다르게 된다.</p><h3 id=장점-1>장점 <a class=anchor href=#%ec%9e%a5%ec%a0%90-1 aria-label="이 절로 링크">#</a></h3><h4 id=kv-캐시-공간>KV 캐시 공간 <a class=anchor href=#kv-%ec%ba%90%ec%8b%9c-%ea%b3%b5%ea%b0%84 aria-label="이 절로 링크">#</a></h4><pre tabindex=0><code>GPU 한 장의 141GB를 어떻게 쓰는가
+
+TP=32:  가중치 조각 + 활성값 + KV 캐시
+EP=32:  가중치 조각 + 활성값 + KV 캐시
+        ↑ 총량은 비슷하지만
+</code></pre><p>실제 차이는 통신에서 온다 TP는 레이어마다 32장 전체가 결과를 맞춰야하는데 이 통신중 gpu는 계산을 못한다.</p><p>EP는 참여 범위가 좁고 오가는 데이터도 작아 그 대기 시간이 줄어든다.</p><p>실측에서 TP만 쓴 구성 대비 처리량이 66% 올랐고 공개 벤치마크는 최대 5배까지 보고된다.</p><h3 id=tradeoff-all-to-all>TradeOff all to all <a class=anchor href=#tradeoff-all-to-all aria-label="이 절로 링크">#</a></h3><p>모든 gpu가 모든 gpu와 주고받는다. 토큰이 어느 전문가로 갈지 미리 알 수 없기 때문이다.</p><pre tabindex=0><code>32장이 서로에게 → 32 × 31 = 992개의 통신 경로
+</code></pre><p>이게 MoE 서빙의 최대 병목이고 DeepEP같은 전용 통신 라이브러리가 나온 이유다.</p><h4 id=부하-편중>부하 편중 <a class=anchor href=#%eb%b6%80%ed%95%98-%ed%8e%b8%ec%a4%91 aria-label="이 절로 링크">#</a></h4><p>이론상 전문가 256개가 균등하게 뽑혀야하는데 실제로는 그렇지 않다</p><pre tabindex=0><code>실측 예시
+  전문가 47번  : 평균의 7.2배
+  전문가 231번 : 평균의 0.23배
+</code></pre><p>47번을 맡은 gpu만 계속 바쁘고 231번을 맡는 gpu는 논다.</p><p>그리고 moe레이어는 모든 gpu가 긑나야 다음 레이어로 넘어가므로 가장 느린 gpu가 전체 속도를 결정하게 된다.</p><pre tabindex=0><code>GPU5  (47번 담당): ████████████████  ← 이 시간만큼 전원 대기
+GPU28 (231번 담당): ██
+                     └ 놀고 있음 ┘
+</code></pre><h3 id=프리필과-디코드>프리필과 디코드 <a class=anchor href=#%ed%94%84%eb%a6%ac%ed%95%84%ea%b3%bc-%eb%94%94%ec%bd%94%eb%93%9c aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>프리필: 토큰이 수천 개 들어와 GPU가 이미 꽉 참
+        → EP의 이점(가중치 부담 분산)이 크지 않음
+        → all-to-all 비용만 붙어서 손해인 경우가 많음
+        → 프리필 노드는 EP를 안 쓰는 구성이 흔함
+
+디코드: 배치를 키워야 하고, 키우려면 KV 공간이 필요
+        → EP로 가중치 부담을 흩뿌리는 것이 직접적인 이득
+        → 대규모 EP는 디코드 쪽에 배치
+</code></pre><h3 id=tp-vs-ep>TP vs EP <a class=anchor href=#tp-vs-ep aria-label="이 절로 링크">#</a></h3><h4 id=tp>TP <a class=anchor href=#tp aria-label="이 절로 링크">#</a></h4><pre tabindex=0><code>        GPU0      GPU1      GPU2      GPU3
+전문가0  [W0의 1/4][W0의 1/4][W0의 1/4][W0의 1/4]
+전문가1  [W1의 1/4][W1의 1/4][W1의 1/4][W1의 1/4]
+전문가2  [W2의 1/4][W2의 1/4][W2의 1/4][W2의 1/4]
+전문가3  [W3의 1/4][W3의 1/4][W3의 1/4][W3의 1/4]
+
+모든 GPU가 모든 전문가의 조각을 조금씩 가짐
+</code></pre><h4 id=ep>EP <a class=anchor href=#ep aria-label="이 절로 링크">#</a></h4><pre tabindex=0><code>        GPU0      GPU1      GPU2      GPU3
+전문가0  [  W0   ]
+전문가1            [  W1   ]
+전문가2                      [  W2   ]
+전문가3                                [  W3   ]
+
+각 GPU가 자기 전문가의 가중치를 온전히 가짐
+</code></pre><p>토큰이 하나 들어오게 되었고 전문가가 1번만 선택했다고 가정해보자</p><p>TP에서는</p><pre tabindex=0><code>필요한 것: W1 전체
+W1이 있는 곳: GPU0, GPU1, GPU2, GPU3에 1/4씩
+
+  GPU0: W1의 1/4로 부분 계산  ┐
+  GPU1: W1의 1/4로 부분 계산  ├→ all-reduce로 합산 → 결과
+  GPU2: W1의 1/4로 부분 계산  │
+  GPU3: W1의 1/4로 부분 계산  ┘
+
+4장 전부 동원. 통신은 all-reduce 1회.
+</code></pre><p>EP에서는</p><pre tabindex=0><code>필요한 것: W1 전체
+W1이 있는 곳: GPU1
+
+  GPU0: 놀음 (또는 다른 토큰 처리)
+  GPU1: W1으로 전체 계산 → 결과
+  GPU2: 놀음
+  GPU3: 놀음
+
+1장만 동원. 통신은 토큰을 GPU1에 보내고 결과를 받는 것.
+</code></pre><p>같은 계산을 4장에서 하냐 vs 1장에서 온전히 하느냐의 차이다</p><pre tabindex=0><code>TP: 계산 결과가 오간다
+    각 GPU가 만든 부분합을 서로 더해야 함
+    → 히든 차원 크기의 벡터가 오감
+
+EP: 토큰이 오간다
+    &#34;이 토큰을 처리해 줘&#34;라고 보내고 결과를 받음
+    → 토큰 임베딩이 오감
+</code></pre><p>크기 자체는 비슷하지만 패턴이 다르다 TP all-reduce는 모든 gpu가 같은 값을 갖게 만드는 연산이고 EP의 all to all은 각자 다른 목적지로 보내는 연산이다.</p><h4 id=moe의-희소성이-살아남느냐-죽느냐의-차이임>MoE의 희소성이 살아남느냐 죽느냐의 차이임 <a class=anchor href=#moe%ec%9d%98-%ed%9d%ac%ec%86%8c%ec%84%b1%ec%9d%b4-%ec%82%b4%ec%95%84%eb%82%a8%eb%8a%90%eb%83%90-%ec%a3%bd%eb%8a%90%eb%83%90%ec%9d%98-%ec%b0%a8%ec%9d%b4%ec%9e%84 aria-label="이 절로 링크">#</a></h4><p>MoE는 전문가 256개를 8개만 켜서 계산을 아끼자 이런 설계인데</p><pre tabindex=0><code>TP로 나누면
+  토큰이 8개 전문가를 골랐다
+  → 그 8개가 32장에 조각조각 흩어져 있음
+  → 32장 전부가 깨어나서 계산
+  → 3%만 쓰기로 한 설계가 무의미해짐
+
+EP로 나누면
+  토큰이 8개 전문가를 골랐다
+  → 그 8개를 가진 GPU들만 일함
+  → 나머지는 다른 토큰을 처리
+  → 희소성이 유지됨
+</code></pre><p>결과적으로 차이는</p><pre tabindex=0><code>all-reduce (TP)
+  각 GPU가 부분합을 갖고 있음 → 전부 더해서 → 모두가 같은 값을 갖게 됨
+
+  GPU0: [a0]  ┐
+  GPU1: [a1]  ├→ 합산 → 모두가 [a0+a1+a2+a3] 보유
+  GPU2: [a2]  │
+  GPU3: [a3]  ┘
+
+all-to-all (EP)
+  각 GPU가 각 GPU에게 서로 다른 데이터를 보냄
+
+  GPU0: [→G0][→G1][→G2][→G3]
+  GPU1: [→G0][→G1][→G2][→G3]      각자 다른 목적지, 다른 내용
+  GPU2: [→G0][→G1][→G2][→G3]
+  GPU3: [→G0][→G1][→G2][→G3]
+</code></pre><p>데이터의 양을 비교해보면</p><pre tabindex=0><code>all-reduce  : GPU당 약 2S(N-1)/N 바이트 이동  → N이 크면 약 2S
+all-to-all  : GPU당 약 S(N-1)/N 바이트 이동   → N이 크면 약 S
+</code></pre><br><h2 id=dp---데이터-병렬>DP - 데이터 병렬 <a class=anchor href=#dp---%eb%8d%b0%ec%9d%b4%ed%84%b0-%eb%b3%91%eb%a0%ac aria-label="이 절로 링크">#</a></h2><h3 id=앞의-셋과-발상이-다름>앞의 셋과 발상이 다름 <a class=anchor href=#%ec%95%9e%ec%9d%98-%ec%85%8b%ea%b3%bc-%eb%b0%9c%ec%83%81%ec%9d%b4-%eb%8b%a4%eb%a6%84 aria-label="이 절로 링크">#</a></h3><p>TP, PP, EP는 전부 모델을 자르는 방식이고 DP는 모델을 자르지 않는다.</p><pre tabindex=0><code>TP: 모델 조각 4개 × 요청 전부
+PP: 레이어 구간 4개 × 요청 전부
+DP: 모델 전체 × 요청 1/4씩
+</code></pre><p>gpu마다 모델 전체를 복사해두고 서로 다른 요청을 맡긴다 통신이 전혀 없다는 것이 최대 장점이고 모델이 한 장에 들어가야한다는 전제조건이 필요하다.</p><p>즉 메모리는 빵빵하고 요청을 병렬로 처리하는 스케일아웃같은 느낌</p><h3 id=llm-서빙에서-dp-어텐션을-가리킴>LLM 서빙에서 DP 어텐션을 가리킴 <a class=anchor href=#llm-%ec%84%9c%eb%b9%99%ec%97%90%ec%84%9c-dp-%ec%96%b4%ed%85%90%ec%85%98%ec%9d%84-%ea%b0%80%eb%a6%ac%ed%82%b4 aria-label="이 절로 링크">#</a></h3><p>모델 전체를 복제하는 순수 DP는 큰 모델에서 못쓰고 그래서 실무에서는 <code>--dp-size</code>가 나오면 대개 어텐션 레이어만 DP로 돌리는것을 뜻한다.</p><pre tabindex=0><code>레이어를 종류별로 다르게 처리
+
+어텐션 레이어 (DP=8)
+  GPU 0~3 : 요청 그룹 A의 어텐션을 온전히 처리   ← 자기 KV만 보유
+  GPU 4~7 : 요청 그룹 B
+  ...       그룹끼리 통신 없음
+
+MoE 레이어 (EP=32)
+  같은 32장이 이번엔 전문가를 나눠 담당
+</code></pre><p>어텐션만 때어내는 이유는 최신 모델 일부는 kv캐시를 압축해서 저장하는데 원래 크기의 몇분의 일로 줄여두는 방식이다</p><p>그런데 어텐션을 TP로 나누면 문제가 생긴다</p><pre tabindex=0><code>TP로 어텐션을 나눌 때
+  어텐션 헤드를 GPU에 분배
+  → 각 GPU가 자기 헤드로 계산하려면 KV가 필요
+  → 압축된 KV는 헤드별로 깔끔하게 안 나뉨
+  → 여러 GPU가 같은 KV를 중복 보관하게 됨
+
+압축해서 아낀 메모리를 복제로 도로 날림
+</code></pre><p>DP로 처리하면 gpu마다 자기가 맡은 요청의kv를 들고있으므로 복제가 없다</p><p>대신 요청이 적을때</p><pre tabindex=0><code>동시 요청 4개, DP=8인 경우
+  그룹 0~3에 요청 하나씩 배정
+  그룹 4~7은 할 일 없음  → GPU 절반이 놂
+
+같은 상황에서 TP=32라면
+  요청 4개를 32장이 나눠 처리 → 전부 일함
+</code></pre><p>DP는 요청이 정말 많을때만 유효하고 트래픽적은 시간대에는 오히려 TP가 낫다.</p><br><h2 id=정리>정리 <a class=anchor href=#%ec%a0%95%eb%a6%ac aria-label="이 절로 링크">#</a></h2><div class=table-wrap><table><thead><tr><th>항목</th><th>TP</th><th>PP</th><th>EP</th><th>DP (어텐션)</th></tr></thead><tbody><tr><td>자르는 곳</td><td>레이어 <strong>안</strong></td><td>레이어 <strong>사이</strong></td><td>전문가 단위</td><td>안 자름 (요청 분배)</td></tr><tr><td>GPU가 가진 것</td><td>모든 레이어의 조각</td><td>일부 레이어의 전체</td><td>일부 전문가의 전체</td><td>자기 요청의 KV</td></tr><tr><td>통신 시점</td><td>레이어마다</td><td>구간 경계</td><td>MoE 레이어마다</td><td>없음</td></tr><tr><td>통신 패턴</td><td>all-reduce</td><td>순차 전달</td><td>all-to-all</td><td>—</td></tr><tr><td>GPU 동작</td><td>동시에</td><td>차례로</td><td>동시에</td><td>각자 독립</td></tr><tr><td>요청 1개일 때</td><td>전부 일함</td><td>1장만</td><td>일부만</td><td>1그룹만</td></tr><tr><td>적용 범위</td><td>같은 기계 안</td><td>기계 간</td><td>MoE 필수</td><td>대배치</td></tr></tbody></table></div></div><footer class=article-footer><span><code>MLOps/np.md</code></span></footer><nav class=pager aria-label="이전/다음 노트"><a class=prev href=/ko/MLOps/llm_performance/serving.html rel=prev><span class=dir>← 이전</span>Production Model Serving과 Capacity Planning</a>
+<a class=next href=/ko/MLOps/nv.html rel=next><span class=dir>다음 →</span>NVLink, NVSwitch</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>

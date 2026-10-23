@@ -1,0 +1,143 @@
+<!doctype html><html lang=ko dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>테넌트별 요청 분리 권한 인가 미들웨어 개발 · rlaope</title><meta name=description content="테넌트별 요청 분리 권한 인가 미들웨어 개발 — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/ko/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/ko/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/ko/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="테넌트별 요청 분리 권한 인가 미들웨어 개발"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/ko/AI/llm_gateway/lg2.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/ko/AI/llm_gateway/lg2.html><link rel=stylesheet href=/ko/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/ko/index.html><img class=brand-logo src=/ko/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><span class=on aria-current=true>한국어</span><span class=sep>/</span><a href=https://rlaope.github.io/AI/llm_gateway/lg2.html hreflang=en title="View in English">English</a></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/ko/graph.html title="지식 그래프" aria-label="지식 그래프"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub 저장소"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=ko><header class=article-header><nav class=crumbs aria-label=경로><a href=/ko/index.html>rlaope</a><span class=sep>/</span><a href=/ko/AI/index.html>AI</a></nav><h1 class=article-title>테넌트별 요청 분리 권한 인가 미들웨어 개발</h1><p class=meta><span>2,577 단어</span><span class=sep>·</span><span>6 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/AI/llm_gateway/lg2.md rel=noopener>원문(.md)</a></p></header><div class=prose><p>질문으로 시작해보자, 단일 api 서버에 마케팅팀, 개발팀, 재무요청 팀의 요청이 동시에 인입될때 서버는 어떻게 각 요청의 소유자를 정확히 식별하고, A팀이 B팀의 데이터 접근을 막도록 원천적으로 통제할 수 있을까</p><p>대규모 트래픽을 처리하는 단일 서버 환경에서 여러 고객사나 부서가 시스템을 공유하는 것을 멀티 테넌시라고 한다. 이 환경에서 각 테넌트의 요청을 논리적으로 분리하기 위해 미들웨어와 헤더검증 기술이 사용된다.</p><ul><li><strong>인증과 인가</strong>: 인증은 api key를 통해 요청자가 누구인지를 확인하는 과정이고 인가는 식별된 테넌트가 해당 엔드포인트나 리소스에 접근할 권한이 있는지를 제어하는 과정이다.</li><li><strong>미들웨어</strong>: 운영체제의 interrupt 처리나 네트워크 계층의 프록시처럼 클라이언트의 http 요청이 최종 라우터에 도달하기 전과 후에 개입하여 패킷을 가로채고 조작하는 소프트웨어 계층이다.</li><li><strong>컨텍스트 격리</strong>: 비동기 이벤트 루프 기반의 fastapi 환경에서는 수많은 요청이 단일 스레드에서 동시에 처리된다. 이때 특정 테넌트의 정보가 다른 테넌트의 요청과 섞이지 않도록 각 요청 객체 생명주기에 종속된 독립적인 메모리 공간 request.state를 할당하여 데이터를 격리한다.</li></ul><br><h2 id=문제-정의>문제 정의 <a class=anchor href=#%eb%ac%b8%ec%a0%9c-%ec%a0%95%ec%9d%98 aria-label="이 절로 링크">#</a></h2><p>멀티 테넌트 환경의 api 서버를 설계할 때, 권한 검증을 잘못 구현하면 심각한 아키텍처 결함과 보안 취약점이 발생한다.</p><ul><li><strong>횡단 관심사 Cross cutting Concerns의 파편화</strong>: 수십, 수백개의 api 엔드포인트마다 api key를 읽고 테넌트를 검증하는 코드를 중복해서 작성하면, 코드의 결합도가 극도로 높아진다. 새로운 부서가 추가되거나 인증 로직이 변경될 때 모든 api를 수정해야하는 유지보수 불능 상태에 빠지게 된다.</li><li><strong>데이터 오염의 위험</strong>: 전역 변수나 싱글톤 패턴을 잘못 사용하여 현재 요청의 테넌트 id를 사용할 경우 비동기 환경 특성상 컨텍스트 스위칭이 발생하면서 a팀 요청에 b팀 식별자가 덮어씌워지는 보안 사고가 발생할 수 있다.</li><li><strong>인가 우회 취약점</strong>: 비즈니스 로직 내부에서 테넌트 분리를 처리하다 보면, 개발자가 실수로 특정 엔드포인트에 검증 로직이 누락되어 다른 테넌트 리소스에 무단 접근하는 경로가 노출될 수 있다. (Insecure Direct Object Reference)</li></ul><h3 id=해결-방식>해결 방식 <a class=anchor href=#%ed%95%b4%ea%b2%b0-%eb%b0%a9%ec%8b%9d aria-label="이 절로 링크">#</a></h3><ul><li><strong>미들웨어를 통한 관점 지향 프로그램 aop 적용</strong>: 테넌트 식별 및 인증 로직을 개별 api 컨트롤러에서 완전히 뜯어내어, 애플리케이션 진입점인 ASGI(Asynchronous Server Gateway Interface) 미들웨어 계층으로 격상시킨다. 이를 통해 라우터는 도달하는 모든 트래픽은 이미 검증이 완료된 상태임을 아키텍처 레벨에서 보장한다.</li><li><strong>HTTP Header 기반의 식별자 전달</strong>: 보안 표준에 따라 api key나 토큰은 URL이 아닌 http header(X-API-Key)에 담아 전송하도록 강제하여 로깅 시스템에 중요 정보가 남는 것을 방지한다.</li><li><strong>Request State를 활용한 안전한 메타데이터 전파</strong>: 미들웨어에서 추출한 테넌트 식별자 부서명 등을 request.state 객체에 바인딩하고 이 객체는 해당 http 요청이 시작되어 응답이 반환될 때까지만 유지되는 격리된 생명주기를 가지므로 동시성 환경에서도 안전하다.</li></ul><br><h2 id=상세-동작-원리-및-구조화>상세 동작 원리 및 구조화 <a class=anchor href=#%ec%83%81%ec%84%b8-%eb%8f%99%ec%9e%91-%ec%9b%90%eb%a6%ac-%eb%b0%8f-%ea%b5%ac%ec%a1%b0%ed%99%94 aria-label="이 절로 링크">#</a></h2><p>다음은 클라이언트의 요청이 fast api 서버로 들어와 미들웨어를 거쳐 최종 비즈니스 로직에 도달하기까지의 권한 인가 흐름이다.</p><pre tabindex=0><code class=language-mermaid data-lang=mermaid>sequenceDiagram
+    participant Client as Client (Tenant A)
+    participant Middleware as ASGI Middleware
+    participant State as Request State Memory
+    participant DB as Redis / DB (Key Store)
+    participant Router as Endpoint (Business Logic)
+
+    Client-&gt;&gt;Middleware: HTTP GET /data (Header: X-API-Key=sk-123)
+    Middleware-&gt;&gt;Middleware: 헤더 존재 여부 파싱
+    
+    alt 헤더 누락 또는 유효하지 않은 Key
+        Middleware--&gt;&gt;Client: 401 Unauthorized / 403 Forbidden
+    else 유효한 Key
+        Middleware-&gt;&gt;DB: API Key 기반 Tenant 정보 조회
+        DB--&gt;&gt;Middleware: Return Tenant Info (ID: tenant-a, Role: admin)
+        
+        Note over Middleware,State: 비동기 컨텍스트 격리
+        Middleware-&gt;&gt;State: request.state.tenant_id = &#34;tenant-a&#34;
+        Middleware-&gt;&gt;State: request.state.role = &#34;admin&#34;
+        
+        Middleware-&gt;&gt;Router: await call_next(request) (트래픽 포워딩)
+        Router-&gt;&gt;State: request.state.tenant_id 조회
+        State--&gt;&gt;Router: &#34;tenant-a&#34; 반환
+        Router-&gt;&gt;Router: Tenant A 전용 데이터베이스 쿼리 및 로직 수행
+        Router--&gt;&gt;Middleware: HTTP 200 Response
+        Middleware--&gt;&gt;Client: HTTP 200 OK (Response)
+    end
+</code></pre><ol><li><strong>Request Interception (가로채기)</strong>: 클라이언트가 요청을 보내면 Uvicorn 같은 ASGI 서버가 이를 받아 FastAPI 앱으로 넘긴다. 이때 최전선에 배치된 미들웨어가 가장 먼저 요청 객체 Request를 가로챈다.</li><li><strong>Header Parsing & Verfication</strong>: 미들웨어는 http 헤더 딕셔너리 X-API-Key를 추출한다. 내부 캐시나 DB를 조회하여 해당 키가 유효한지, 어느 테넌트 부서에 할당된 키인지 식별하고 실패할 경우 라우터로 트래픽을 넘기지 않고 즉시 HTTP 401/403 예외를 클라이언트에게 반환하여 토잇ㄴ을 차단한다.</li><li><strong>State Injection (상태 주입)</strong>: 검증이 완료되면, 해당 요청의 고유한 메모리 영역인 <code>request.state</code> 공간에 테넌트의 고유 식별자 tenant_id와 Role을 데이터에 주입한다.</li><li><strong>Forwarding & Execution (위임 및 실행)</strong>: call_next(request) 함수를 호출하여 검증이 끝난 요청 객체를 하위 라우터 비즈니스 로직에 포워딩하고 라우터 개발자는 더 이상 인증 코드를 짤 필요없이 <code>request.state.tenant_id</code> 를 꺼내어 해당 부서의 데이터만 필터링하는 핵심 로직에만 집중하게 된다.</li></ol><h3 id=example>Example <a class=anchor href=#example aria-label="이 절로 링크">#</a></h3><p>의존성 주입을 활용해서 기초 테넌트를 분리하는 예시를 보자</p><p>미들웨어를 적용하기 이전에 FastAPI의 설계 철학인 Depends를 활용해 엔드포인트 레벨에서 HTTP Header를 검사하고 테넌트를 식별하는 직관적인 뼈대 코드다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-py data-lang=py><span class=line><span class=cl><span class=kn>from</span> <span class=nn>fastapi</span> <span class=kn>import</span> <span class=n>FastAPI</span><span class=p>,</span> <span class=n>Depends</span><span class=p>,</span> <span class=n>HTTPException</span><span class=p>,</span> <span class=n>Security</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>fastapi.security.api_key</span> <span class=kn>import</span> <span class=n>APIKeyHeader</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>app</span> <span class=o>=</span> <span class=n>FastAPI</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 1. 검사할 HTTP Header Key 이름 지정</span>
+</span></span><span class=line><span class=cl><span class=n>API_KEY_NAME</span> <span class=o>=</span> <span class=s2>&#34;X-API-Key&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>api_key_header</span> <span class=o>=</span> <span class=n>APIKeyHeader</span><span class=p>(</span><span class=n>name</span><span class=o>=</span><span class=n>API_KEY_NAME</span><span class=p>,</span> <span class=n>auto_error</span><span class=o>=</span><span class=kc>False</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 2. 임시 테넌트 데이터베이스 (API Key -&gt; 부서명 매핑)</span>
+</span></span><span class=line><span class=cl><span class=n>TENANT_DB</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;key-marketing-101&#34;</span><span class=p>:</span> <span class=s2>&#34;Marketing_Department&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;key-dev-202&#34;</span><span class=p>:</span> <span class=s2>&#34;Development_Department&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 3. 인증 및 식별 로직 (의존성 함수)</span>
+</span></span><span class=line><span class=cl><span class=k>async</span> <span class=k>def</span> <span class=nf>get_current_tenant</span><span class=p>(</span><span class=n>api_key</span><span class=p>:</span> <span class=nb>str</span> <span class=o>=</span> <span class=n>Security</span><span class=p>(</span><span class=n>api_key_header</span><span class=p>)):</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>api_key</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>TENANT_DB</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>raise</span> <span class=n>HTTPException</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=n>status_code</span><span class=o>=</span><span class=mi>401</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=n>detail</span><span class=o>=</span><span class=s2>&#34;Invalid or missing API Key&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 식별된 테넌트(부서) 이름 반환</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>TENANT_DB</span><span class=p>[</span><span class=n>api_key</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 4. 비즈니스 로직 (엔드포인트)</span>
+</span></span><span class=line><span class=cl><span class=nd>@app.get</span><span class=p>(</span><span class=s2>&#34;/api/v1/dashboard&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>async</span> <span class=k>def</span> <span class=nf>get_dashboard_data</span><span class=p>(</span><span class=n>tenant_name</span><span class=p>:</span> <span class=nb>str</span> <span class=o>=</span> <span class=n>Depends</span><span class=p>(</span><span class=n>get_current_tenant</span><span class=p>)):</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 엔드포인트는 이미 검증된 tenant_name만 넘겨받아 해당 부서의 데이터만 반환합니다.</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;message&#34;</span><span class=p>:</span> <span class=s2>&#34;Access Granted&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;tenant&#34;</span><span class=p>:</span> <span class=n>tenant_name</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;data&#34;</span><span class=p>:</span> <span class=sa>f</span><span class=s2>&#34;Confidential data for </span><span class=si>{</span><span class=n>tenant_name</span><span class=si>}</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span></code></pre></div><p>BaseHTTPMiddleware를 상속한 전역 인가 파이프라인</p><p>프로덕션 환경에서 모든 요청이 빠짐없이 검증되도록 BaseHTTPMiddleware를 통해 전역 수준에서 트래픽을 통제하고 request.state를 통해 데이터를 격리한다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-py data-lang=py><span class=line><span class=cl><span class=kn>from</span> <span class=nn>fastapi</span> <span class=kn>import</span> <span class=n>FastAPI</span><span class=p>,</span> <span class=n>Request</span><span class=p>,</span> <span class=n>HTTPException</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>fastapi.responses</span> <span class=kn>import</span> <span class=n>JSONResponse</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>starlette.middleware.base</span> <span class=kn>import</span> <span class=n>BaseHTTPMiddleware</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>time</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>app</span> <span class=o>=</span> <span class=n>FastAPI</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 실무 환경을 가정한 가상의 비동기 DB 조회 함수</span>
+</span></span><span class=line><span class=cl><span class=k>async</span> <span class=k>def</span> <span class=nf>fetch_tenant_from_db</span><span class=p>(</span><span class=n>api_key</span><span class=p>:</span> <span class=nb>str</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=nb>dict</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=c1># (실제로는 Redis나 RDBMS에서 API Key 조회 및 캐싱 수행)</span>
+</span></span><span class=line><span class=cl>    <span class=n>mock_db</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;sk-finance-prod&#34;</span><span class=p>:</span> <span class=p>{</span><span class=s2>&#34;tenant_id&#34;</span><span class=p>:</span> <span class=s2>&#34;T_FIN_001&#34;</span><span class=p>,</span> <span class=s2>&#34;role&#34;</span><span class=p>:</span> <span class=s2>&#34;admin&#34;</span><span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;sk-hr-prod&#34;</span><span class=p>:</span> <span class=p>{</span><span class=s2>&#34;tenant_id&#34;</span><span class=p>:</span> <span class=s2>&#34;T_HR_002&#34;</span><span class=p>,</span> <span class=s2>&#34;role&#34;</span><span class=p>:</span> <span class=s2>&#34;viewer&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>mock_db</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>api_key</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 1. 전역 인가 미들웨어 클래스 정의</span>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>TenantAuthMiddleware</span><span class=p>(</span><span class=n>BaseHTTPMiddleware</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>async</span> <span class=k>def</span> <span class=nf>dispatch</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>request</span><span class=p>:</span> <span class=n>Request</span><span class=p>,</span> <span class=n>call_next</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=c1># 2. 인증을 우회해야 하는 공개 엔드포인트(Health Check 등) 예외 처리</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>request</span><span class=o>.</span><span class=n>url</span><span class=o>.</span><span class=n>path</span> <span class=ow>in</span> <span class=p>[</span><span class=s2>&#34;/health&#34;</span><span class=p>,</span> <span class=s2>&#34;/docs&#34;</span><span class=p>,</span> <span class=s2>&#34;/openapi.json&#34;</span><span class=p>]:</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=k>await</span> <span class=n>call_next</span><span class=p>(</span><span class=n>request</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1># 3. HTTP Header에서 API Key 추출</span>
+</span></span><span class=line><span class=cl>        <span class=n>api_key</span> <span class=o>=</span> <span class=n>request</span><span class=o>.</span><span class=n>headers</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s2>&#34;X-API-Key&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=ow>not</span> <span class=n>api_key</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=n>JSONResponse</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>                <span class=n>status_code</span><span class=o>=</span><span class=mi>401</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                <span class=n>content</span><span class=o>=</span><span class=p>{</span><span class=s2>&#34;detail&#34;</span><span class=p>:</span> <span class=s2>&#34;Missing X-API-Key header&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1># 4. API Key 검증 및 테넌트 식별</span>
+</span></span><span class=line><span class=cl>        <span class=n>tenant_info</span> <span class=o>=</span> <span class=k>await</span> <span class=n>fetch_tenant_from_db</span><span class=p>(</span><span class=n>api_key</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=ow>not</span> <span class=n>tenant_info</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=n>JSONResponse</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>                <span class=n>status_code</span><span class=o>=</span><span class=mi>403</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                <span class=n>content</span><span class=o>=</span><span class=p>{</span><span class=s2>&#34;detail&#34;</span><span class=p>:</span> <span class=s2>&#34;Invalid API Key or Revoked Access&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1># 5. [핵심] 식별된 테넌트 데이터를 request.state에 격리하여 주입</span>
+</span></span><span class=line><span class=cl>        <span class=c1># 이 변수는 현재 요청의 생명주기 동안에만 스레드-안전하게 유지됩니다.</span>
+</span></span><span class=line><span class=cl>        <span class=n>request</span><span class=o>.</span><span class=n>state</span><span class=o>.</span><span class=n>tenant_id</span> <span class=o>=</span> <span class=n>tenant_info</span><span class=p>[</span><span class=s2>&#34;tenant_id&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=n>request</span><span class=o>.</span><span class=n>state</span><span class=o>.</span><span class=n>role</span> <span class=o>=</span> <span class=n>tenant_info</span><span class=p>[</span><span class=s2>&#34;role&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=n>request</span><span class=o>.</span><span class=n>state</span><span class=o>.</span><span class=n>request_time</span> <span class=o>=</span> <span class=n>time</span><span class=o>.</span><span class=n>time</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1># 6. 다음 계층(라우터 또는 다음 미들웨어)으로 요청 포워딩</span>
+</span></span><span class=line><span class=cl>        <span class=n>response</span> <span class=o>=</span> <span class=k>await</span> <span class=n>call_next</span><span class=p>(</span><span class=n>request</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>response</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 미들웨어 앱에 등록</span>
+</span></span><span class=line><span class=cl><span class=n>app</span><span class=o>.</span><span class=n>add_middleware</span><span class=p>(</span><span class=n>TenantAuthMiddleware</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 비즈니스 로직 엔드포인트</span>
+</span></span><span class=line><span class=cl><span class=nd>@app.get</span><span class=p>(</span><span class=s2>&#34;/api/v1/billing&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>async</span> <span class=k>def</span> <span class=nf>get_billing_info</span><span class=p>(</span><span class=n>request</span><span class=p>:</span> <span class=n>Request</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 7. 컨트롤러는 미들웨어가 주입한 request.state 값을 꺼내어 사용</span>
+</span></span><span class=line><span class=cl>    <span class=n>tenant_id</span> <span class=o>=</span> <span class=n>request</span><span class=o>.</span><span class=n>state</span><span class=o>.</span><span class=n>tenant_id</span>
+</span></span><span class=line><span class=cl>    <span class=n>role</span> <span class=o>=</span> <span class=n>request</span><span class=o>.</span><span class=n>state</span><span class=o>.</span><span class=n>role</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># 인가(Authorization) 확인: 관리자 권한인지 체크</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>role</span> <span class=o>!=</span> <span class=s2>&#34;admin&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>raise</span> <span class=n>HTTPException</span><span class=p>(</span><span class=n>status_code</span><span class=o>=</span><span class=mi>403</span><span class=p>,</span> <span class=n>detail</span><span class=o>=</span><span class=s2>&#34;Admin role required for billing access&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>    <span class=c1># 테넌트 분리 로직: DB 쿼리 시 무조건 WHERE tenant_id = request.state.tenant_id 조건을 붙이도록 강제됨</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;status&#34;</span><span class=p>:</span> <span class=s2>&#34;success&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;tenant_id&#34;</span><span class=p>:</span> <span class=n>tenant_id</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;billing_data&#34;</span><span class=p>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>            <span class=p>{</span><span class=s2>&#34;month&#34;</span><span class=p>:</span> <span class=s2>&#34;April&#34;</span><span class=p>,</span> <span class=s2>&#34;amount&#34;</span><span class=p>:</span> <span class=mi>10000</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span></code></pre></div></div><footer class=article-footer><span><code>AI/llm_gateway/lg2.md</code></span></footer><nav class=pager aria-label="이전/다음 노트"><a class=prev href=/ko/AI/llm_gateway/lg1.html rel=prev><span class=dir>← 이전</span>LiteLLM 프록시 서버 구성</a>
+<a class=next href=/ko/AI/llm_gateway/lg3.html rel=next><span class=dir>다음 →</span>Token Bucket 기반 Rate Limiting</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>

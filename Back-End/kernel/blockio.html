@@ -1,0 +1,214 @@
+<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Block IO (Buffer Head, BIO Struct, Scheduler) · rlaope</title><meta name=description content="Block IO (Buffer Head, BIO Struct, Scheduler) — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="Block IO (Buffer Head, BIO Struct, Scheduler)"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/Back-End/kernel/blockio.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/Back-End/kernel/blockio.html><link rel=stylesheet href=/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/index.html><img class=brand-logo src=/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><a href=https://rlaope.github.io/ko/Back-End/kernel/blockio.html hreflang=ko title="한국어로 보기">한국어</a><span class=sep>/</span><span class=on aria-current=true>English</span></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/graph.html title="Knowledge graph" aria-label="Knowledge graph"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub repository"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=en><header class=article-header><nav class=crumbs aria-label=Path><a href=/index.html>rlaope</a><span class=sep>/</span><a href=/Back-End/index.html>Back-End</a></nav><h1 class=article-title>Block IO (Buffer Head, BIO Struct, Scheduler)</h1><p class=meta><span>1,480 단어</span><span class=sep>·</span><span>7 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/Back-End/kernel/blockio.md rel=noopener>원문(.md)</a></p></header><div class=prose><h3 id=buffer-head>Buffer Head <a class=anchor href=#buffer-head aria-label="이 절로 링크">#</a></h3><p>Block devices refer to hardware devices like flash memory that allow random access to fixed-size data. The minimum unit that a block device physically accesses is a sector (512 bytes), and the logical access unit is a block, which is a multiple of the sector size.</p><p>For a block on disk to appear in memory, a buffer acting as an object is required. The kernel stores and represents control information about which block device and which block a buffer corresponds to using the <code>buffer_head</code> structure, defined in <code>&lt;linux/buffer_head.h></code>.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=c1>// https://github.com/torvalds/linux/blob/f2e8a57ee9036c7d5443382b6c3c09b51a92ec7e/include/linux/buffer_head.h#L59
+</span></span></span><span class=line><span class=cl><span class=cm>/*
+</span></span></span><span class=line><span class=cl><span class=cm>* Historically, a buffer_head was used to map a single block
+</span></span></span><span class=line><span class=cl><span class=cm>* within a page, and of course as the unit of I/O through the
+</span></span></span><span class=line><span class=cl><span class=cm>* filesystem and block layers.  Nowadays the basic I/O unit
+</span></span></span><span class=line><span class=cl><span class=cm>* is the bio, and buffer_heads are used for extracting block
+</span></span></span><span class=line><span class=cl><span class=cm>* mappings (via a get_block_t call), for tracking state within
+</span></span></span><span class=line><span class=cl><span class=cm>* a page (via a page_mapping) and for wrapping bio submission
+</span></span></span><span class=line><span class=cl><span class=cm>* for backward compatibility reasons (e.g. submit_bh).
+</span></span></span><span class=line><span class=cl><span class=cm>*/</span>
+</span></span><span class=line><span class=cl><span class=k>struct</span> <span class=n>buffer_head</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kt>unsigned</span> <span class=kt>long</span> <span class=n>b_state</span><span class=p>;</span>		<span class=cm>/* Represents the current state of the buffer and holds one of several flag values. (see above) */</span>
+</span></span><span class=line><span class=cl>  <span class=k>struct</span> <span class=n>buffer_head</span> <span class=o>*</span><span class=n>b_this_page</span><span class=p>;</span><span class=cm>/* circular list of page&#39;s buffers */</span>
+</span></span><span class=line><span class=cl>  <span class=k>union</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>struct</span> <span class=n>page</span> <span class=o>*</span><span class=n>b_page</span><span class=p>;</span>	<span class=cm>/* the page this bh is mapped to */</span>
+</span></span><span class=line><span class=cl>    <span class=k>struct</span> <span class=n>folio</span> <span class=o>*</span><span class=n>b_folio</span><span class=p>;</span>	<span class=cm>/* the folio this bh is mapped to */</span>
+</span></span><span class=line><span class=cl>  <span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=kt>sector_t</span> <span class=n>b_blocknr</span><span class=p>;</span>		<span class=cm>/* start block number */</span>
+</span></span><span class=line><span class=cl>  <span class=kt>size_t</span> <span class=n>b_size</span><span class=p>;</span>			<span class=cm>/* Length (size) of the block */</span>
+</span></span><span class=line><span class=cl>  <span class=kt>char</span> <span class=o>*</span><span class=n>b_data</span><span class=p>;</span>			<span class=cm>/* The block pointed to by the buffer */</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>struct</span> <span class=n>block_device</span> <span class=o>*</span><span class=n>b_bdev</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=kt>bh_end_io_t</span> <span class=o>*</span><span class=n>b_end_io</span><span class=p>;</span>		<span class=cm>/* I/O completion */</span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=o>*</span><span class=n>b_private</span><span class=p>;</span>		<span class=cm>/* reserved for b_end_io */</span>
+</span></span><span class=line><span class=cl>  <span class=k>struct</span> <span class=n>list_head</span> <span class=n>b_assoc_buffers</span><span class=p>;</span> <span class=cm>/* associated with another mapping */</span>
+</span></span><span class=line><span class=cl>  <span class=k>struct</span> <span class=n>address_space</span> <span class=o>*</span><span class=n>b_assoc_map</span><span class=p>;</span>	<span class=cm>/* mapping this buffer is
+</span></span></span><span class=line><span class=cl><span class=cm>              associated with */</span>
+</span></span><span class=line><span class=cl>  <span class=kt>atomic_t</span> <span class=n>b_count</span><span class=p>;</span>		<span class=cm>/* Represents the usage count of the buffer. It is incremented/decremented by get_bh() and put_bh() functions. */</span>
+</span></span><span class=line><span class=cl>  <span class=kt>spinlock_t</span> <span class=n>b_uptodate_lock</span><span class=p>;</span>	<span class=cm>/* Used by the first bh in a page, to
+</span></span></span><span class=line><span class=cl><span class=cm>          * serialise IO completion of other
+</span></span></span><span class=line><span class=cl><span class=cm>          * buffers in the page */</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></div><p>Before kernel version 2.6, the buffer head was much larger and played a more significant role, responsible for all block I/O operations. However, performing block I/O with buffer heads was a large and difficult task, and performing I/O from a page perspective proved simpler and offered better performance. Furthermore, using a large buffer head data structure to describe buffers smaller than a page was inefficient.</p><br><h3 id=bio-structure>bio Structure <a class=anchor href=#bio-structure aria-label="이 절로 링크">#</a></h3><p>As the functionality of the massive buffer head was simplified, the <code>bio</code> structure in <code>&lt;linux/bio.h></code> took over the block I/O operations.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=c1>// https://litux.nl/mirror/kerneldevelopment/0672327201/ch13lev1sec3.html
+</span></span></span><span class=line><span class=cl><span class=k>struct</span> <span class=n>bio</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kt>sector_t</span>             <span class=n>bi_sector</span><span class=p>;</span>         <span class=cm>/* associated sector on disk */</span>
+</span></span><span class=line><span class=cl>        <span class=k>struct</span> <span class=n>bio</span>           <span class=o>*</span><span class=n>bi_next</span><span class=p>;</span>          <span class=cm>/* list of requests */</span>
+</span></span><span class=line><span class=cl>        <span class=k>struct</span> <span class=n>block_device</span>  <span class=o>*</span><span class=n>bi_bdev</span><span class=p>;</span>          <span class=cm>/* associated block device */</span>
+</span></span><span class=line><span class=cl>        <span class=kt>unsigned</span> <span class=kt>long</span>        <span class=n>bi_flags</span><span class=p>;</span>          <span class=cm>/* status and command flags */</span>
+</span></span><span class=line><span class=cl>        <span class=kt>unsigned</span> <span class=kt>long</span>        <span class=n>bi_rw</span><span class=p>;</span>             <span class=cm>/* read or write? */</span>
+</span></span><span class=line><span class=cl>        <span class=kt>unsigned</span> <span class=kt>short</span>       <span class=n>bi_vcnt</span><span class=p>;</span>           <span class=cm>/* number of bio_vecs off */</span>
+</span></span><span class=line><span class=cl>        <span class=kt>unsigned</span> <span class=kt>short</span>       <span class=n>bi_idx</span><span class=p>;</span>            <span class=cm>/* current index in bi_io_vec */</span>
+</span></span><span class=line><span class=cl>        <span class=kt>unsigned</span> <span class=kt>short</span>       <span class=n>bi_phys_segments</span><span class=p>;</span>  <span class=cm>/* number of segments after coalescing */</span>
+</span></span><span class=line><span class=cl>        <span class=kt>unsigned</span> <span class=kt>short</span>       <span class=n>bi_hw_segments</span><span class=p>;</span>    <span class=cm>/* number of segments after remapping */</span>
+</span></span><span class=line><span class=cl>        <span class=kt>unsigned</span> <span class=kt>int</span>         <span class=n>bi_size</span><span class=p>;</span>           <span class=cm>/* I/O count */</span>
+</span></span><span class=line><span class=cl>        <span class=kt>unsigned</span> <span class=kt>int</span>         <span class=n>bi_hw_front_size</span><span class=p>;</span>  <span class=cm>/* size of the first mergeable segment */</span>
+</span></span><span class=line><span class=cl>        <span class=kt>unsigned</span> <span class=kt>int</span>         <span class=n>bi_hw_back_size</span><span class=p>;</span>   <span class=cm>/* size of the last mergeable segment */</span>
+</span></span><span class=line><span class=cl>        <span class=kt>unsigned</span> <span class=kt>int</span>         <span class=n>bi_max_vecs</span><span class=p>;</span>       <span class=cm>/* maximum bio_vecs possible */</span>
+</span></span><span class=line><span class=cl>        <span class=k>struct</span> <span class=n>bio_vec</span>       <span class=o>*</span><span class=n>bi_io_vec</span><span class=p>;</span>        <span class=cm>/* bio_vec list */</span>
+</span></span><span class=line><span class=cl>        <span class=kt>bio_end_io_t</span>         <span class=o>*</span><span class=n>bi_end_io</span><span class=p>;</span>        <span class=cm>/* I/O completion method */</span>
+</span></span><span class=line><span class=cl>        <span class=kt>atomic_t</span>             <span class=n>bi_cnt</span><span class=p>;</span>            <span class=cm>/* usage counter */</span>
+</span></span><span class=line><span class=cl>        <span class=kt>void</span>                 <span class=o>*</span><span class=n>bi_private</span><span class=p>;</span>       <span class=cm>/* owner-private method */</span>
+</span></span><span class=line><span class=cl>        <span class=kt>bio_destructor_t</span>     <span class=o>*</span><span class=n>bi_destructor</span><span class=p>;</span>    <span class=cm>/* destructor method */</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></div><p>The <code>bio</code> structure uses a scatter-gather I/O method, allowing individual buffers to be represented as a linked list of segments called <code>bio_io_vec</code>, even if they are not contiguous in memory.</p><br><h3 id=request-queue>Request Queue <a class=anchor href=#request-queue aria-label="이 절로 링크">#</a></h3><p>Block devices store pending block I/O requests in a request queue. The request queue is represented using the <code>request_queue</code> structure in <code>&lt;linux/blkdev.h></code>.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=c1>// https://github.com/torvalds/linux/blob/f2e8a57ee9036c7d5443382b6c3c09b51a92ec7e/include/linux/blkdev.h#L378
+</span></span></span><span class=line><span class=cl><span class=k>struct</span> <span class=n>request_queue</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>request</span>		<span class=o>*</span><span class=n>last_merge</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>elevator_queue</span>	<span class=o>*</span><span class=n>elevator</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>percpu_ref</span>	<span class=n>q_usage_counter</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>blk_queue_stats</span>	<span class=o>*</span><span class=n>stats</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>rq_qos</span>		<span class=o>*</span><span class=n>rq_qos</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>mutex</span>		<span class=n>rq_qos_mutex</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>const</span> <span class=k>struct</span> <span class=n>blk_mq_ops</span>	<span class=o>*</span><span class=n>mq_ops</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=cm>/* sw queues */</span>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>blk_mq_ctx</span> <span class=n>__percpu</span>	<span class=o>*</span><span class=n>queue_ctx</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=kt>unsigned</span> <span class=kt>int</span>		<span class=n>queue_depth</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=cm>/* hw dispatch queues */</span>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>xarray</span>		<span class=n>hctx_table</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kt>unsigned</span> <span class=kt>int</span>		<span class=n>nr_hw_queues</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=cm>/*
+</span></span></span><span class=line><span class=cl><span class=cm>	 * The queue owner gets to use this for whatever they like.
+</span></span></span><span class=line><span class=cl><span class=cm>	 * ll_rw_blk doesn&#39;t touch it.
+</span></span></span><span class=line><span class=cl><span class=cm>	 */</span>
+</span></span><span class=line><span class=cl>	<span class=kt>void</span>			<span class=o>*</span><span class=n>queuedata</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=cm>/*
+</span></span></span><span class=line><span class=cl><span class=cm>	 * various queue flags, see QUEUE_* below
+</span></span></span><span class=line><span class=cl><span class=cm>	 */</span>
+</span></span><span class=line><span class=cl>	<span class=kt>unsigned</span> <span class=kt>long</span>		<span class=n>queue_flags</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=cm>/*
+</span></span></span><span class=line><span class=cl><span class=cm>	 * Number of contexts that have called blk_set_pm_only(). If this
+</span></span></span><span class=line><span class=cl><span class=cm>	 * counter is above zero then only RQF_PM requests are processed.
+</span></span></span><span class=line><span class=cl><span class=cm>	 */</span>
+</span></span><span class=line><span class=cl>	<span class=kt>atomic_t</span>		<span class=n>pm_only</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=cm>/*
+</span></span></span><span class=line><span class=cl><span class=cm>	 * ida allocated id for this queue.  Used to index queues from
+</span></span></span><span class=line><span class=cl><span class=cm>	 * ioctx.
+</span></span></span><span class=line><span class=cl><span class=cm>	 */</span>
+</span></span><span class=line><span class=cl>	<span class=kt>int</span>			<span class=n>id</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=kt>spinlock_t</span>		<span class=n>queue_lock</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>gendisk</span>		<span class=o>*</span><span class=n>disk</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=kt>refcount_t</span>		<span class=n>refs</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=cm>/*
+</span></span></span><span class=line><span class=cl><span class=cm>	 * mq queue kobject
+</span></span></span><span class=line><span class=cl><span class=cm>	 */</span>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>kobject</span> <span class=o>*</span><span class=n>mq_kobj</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=cp>#ifdef  CONFIG_BLK_DEV_INTEGRITY
+</span></span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>blk_integrity</span> <span class=n>integrity</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=cp>#endif	</span><span class=cm>/* CONFIG_BLK_DEV_INTEGRITY */</span><span class=cp>
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=cp>#ifdef CONFIG_PM
+</span></span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>device</span>		<span class=o>*</span><span class=n>dev</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>enum</span> <span class=n>rpm_status</span>		<span class=n>rpm_status</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=cp>#endif
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=cm>/*
+</span></span></span><span class=line><span class=cl><span class=cm>	 * queue settings
+</span></span></span><span class=line><span class=cl><span class=cm>	 */</span>
+</span></span><span class=line><span class=cl>	<span class=kt>unsigned</span> <span class=kt>long</span>		<span class=n>nr_requests</span><span class=p>;</span>	<span class=cm>/* Max # of requests */</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=kt>unsigned</span> <span class=kt>int</span>		<span class=n>dma_pad_mask</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=cp>#ifdef CONFIG_BLK_INLINE_ENCRYPTION
+</span></span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>blk_crypto_profile</span> <span class=o>*</span><span class=n>crypto_profile</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>kobject</span> <span class=o>*</span><span class=n>crypto_kobject</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=cp>#endif
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=kt>unsigned</span> <span class=kt>int</span>		<span class=n>rq_timeout</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>timer_list</span>	<span class=n>timeout</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>work_struct</span>	<span class=n>timeout_work</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=kt>atomic_t</span>		<span class=n>nr_active_requests_shared_tags</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>blk_mq_tags</span>	<span class=o>*</span><span class=n>sched_shared_tags</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>list_head</span>	<span class=n>icq_list</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=cp>#ifdef CONFIG_BLK_CGROUP
+</span></span></span><span class=line><span class=cl>	<span class=nf>DECLARE_BITMAP</span>		<span class=p>(</span><span class=n>blkcg_pols</span><span class=p>,</span> <span class=n>BLKCG_MAX_POLS</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>blkcg_gq</span>		<span class=o>*</span><span class=n>root_blkg</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>list_head</span>	<span class=n>blkg_list</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>mutex</span>		<span class=n>blkcg_mutex</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=cp>#endif
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>queue_limits</span>	<span class=n>limits</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=kt>unsigned</span> <span class=kt>int</span>		<span class=n>required_elevator_features</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=kt>int</span>			<span class=n>node</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=cp>#ifdef CONFIG_BLK_DEV_IO_TRACE
+</span></span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>blk_trace</span> <span class=n>__rcu</span>	<span class=o>*</span><span class=n>blk_trace</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=cp>#endif
+</span></span></span><span class=line><span class=cl>	<span class=cm>/*
+</span></span></span><span class=line><span class=cl><span class=cm>	 * for flush operations
+</span></span></span><span class=line><span class=cl><span class=cm>	 */</span>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>blk_flush_queue</span>	<span class=o>*</span><span class=n>fq</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>list_head</span>	<span class=n>flush_list</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>list_head</span>	<span class=n>requeue_list</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kt>spinlock_t</span>		<span class=n>requeue_lock</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>delayed_work</span>	<span class=n>requeue_work</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>mutex</span>		<span class=n>sysfs_lock</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>mutex</span>		<span class=n>sysfs_dir_lock</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=cm>/*
+</span></span></span><span class=line><span class=cl><span class=cm>	 * for reusing dead hctx instance in case of updating
+</span></span></span><span class=line><span class=cl><span class=cm>	 * nr_hw_queues
+</span></span></span><span class=line><span class=cl><span class=cm>	 */</span>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>list_head</span>	<span class=n>unused_hctx_list</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kt>spinlock_t</span>		<span class=n>unused_hctx_lock</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=kt>int</span>			<span class=n>mq_freeze_depth</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=cp>#ifdef CONFIG_BLK_DEV_THROTTLING
+</span></span></span><span class=line><span class=cl>	<span class=cm>/* Throttle data */</span>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>throtl_data</span> <span class=o>*</span><span class=n>td</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=cp>#endif
+</span></span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>rcu_head</span>		<span class=n>rcu_head</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kt>wait_queue_head_t</span>	<span class=n>mq_freeze_wq</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=cm>/*
+</span></span></span><span class=line><span class=cl><span class=cm>	 * Protect concurrent access to q_usage_counter by
+</span></span></span><span class=line><span class=cl><span class=cm>	 * percpu_ref_kill() and percpu_ref_reinit().
+</span></span></span><span class=line><span class=cl><span class=cm>	 */</span>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>mutex</span>		<span class=n>mq_freeze_lock</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=kt>int</span>			<span class=n>quiesce_depth</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>blk_mq_tag_set</span>	<span class=o>*</span><span class=n>tag_set</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>list_head</span>	<span class=n>tag_set_list</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>dentry</span>		<span class=o>*</span><span class=n>debugfs_dir</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>dentry</span>		<span class=o>*</span><span class=n>sched_debugfs_dir</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>dentry</span>		<span class=o>*</span><span class=n>rqos_debugfs_dir</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=cm>/*
+</span></span></span><span class=line><span class=cl><span class=cm>	 * Serializes all debugfs metadata operations using the above dentries.
+</span></span></span><span class=line><span class=cl><span class=cm>	 */</span>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>mutex</span>		<span class=n>debugfs_mutex</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=kt>bool</span>			<span class=n>mq_sysfs_init_done</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></div><p>The <code>request_queue</code> structure contains multiple <code>request</code> structures, which represent block I/O requests. Each <code>request</code> contains one or more <code>BIO</code> structures as members, and each <code>BIO</code> structure points to a <code>bio_vec</code> array, which can contain multiple segments.</p><br><h3 id=io-scheduler>I/O Scheduler <a class=anchor href=#io-scheduler aria-label="이 절로 링크">#</a></h3><p>The kernel does not immediately send block I/O requests to the queue upon receiving them. Instead, it uses an I/O scheduler to merge and sort pending block I/O requests that can be combined, thereby minimizing disk seek time and significantly improving system performance.</p><ul><li>If the sectors that request A and request B intend to access are adjacent, it is efficient to combine them into a single I/O request. This allows multiple requests to be processed with a single command.</li><li>When there are no requests that can be merged, it is more efficient to sort and add a request near other requests that access physically close sectors, rather than simply appending it to the end of the request queue.</li></ul><blockquote><p>I/O scheduler algorithms are quite similar to the <strong>elevator algorithm</strong> in our daily lives, so much so that they were actually called the Linux Elevator until kernel version 2.4.</p></blockquote><ul><li><p><strong>Deadline</strong></p><ul><li>Most users are more sensitive to read performance than write performance. If a single read request remains unprocessed, the overall system latency will increase tremendously.</li><li>As the name suggests, it sets an expiration time for each request. Read requests have a 0.5-second deadline, and write requests have a 5-second deadline.</li><li>The Deadline scheduler uses FIFO queues for requests. When a request at the head of either the write FIFO or read FIFO queue expires, that request is processed with the highest priority.</li></ul></li><li><p><strong>Anticipatory</strong></p><ul><li>While the Deadline scheduler ensures excellent read performance, this comes at the cost of overall performance degradation.</li><li>The Anticipatory scheduler operates heuristically based on the Deadline scheduler.</li><li>When a read request occurs, the scheduler typically processes it and then immediately moves to another request. However, with the Anticipatory scheduler, it does nothing for several milliseconds, during which other read requests from the user continue to arrive, get merged, and sorted.</li><li>After the waiting period, the scheduler resumes processing the previous requests.</li><li>This strategy of doing nothing for several milliseconds, anticipating that more requests will arrive to process many read requests at once, surprisingly significantly increases performance.</li><li>In particular, the scheduler uses various I/O pattern statistics and heuristics to predict the behavior of application file systems, processing read requests and significantly reducing wasted seek time.</li><li>This scheduler is ideal for servers.</li></ul></li><li><p><strong>Completely Fair Queueing</strong></p><ul><li>It is currently the default I/O scheduler in Linux, showing the best and highest performance under various load conditions.</li><li>It stores, merges, and sorts I/O requests in queues allocated per process.</li><li>Between each request queue, a pre-configured number of requests (default 4) are dequeued and processed in a round-robin fashion.</li></ul></li><li><p><strong>Noop</strong></p><ul><li>This scheduler is for block devices that allow perfectly random access, such as flash memory.</li><li>It only merges requests and performs no sorting or other operations to save seek time.</li></ul></li></ul></div><footer class=article-footer><span><code>Back-End/kernel/blockio.md</code></span></footer><nav class=pager aria-label="Previous/next note"><a class=prev href=/Back-End/kafka/replica.html rel=prev><span class=dir>← Previous</span>How Kafka Replication Works</a>
+<a class=next href=/Back-End/kernel/kernel.html rel=next><span class=dir>Next →</span>Kernel</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>

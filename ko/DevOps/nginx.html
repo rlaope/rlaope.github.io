@@ -1,0 +1,110 @@
+<!doctype html><html lang=ko dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Nginx · rlaope</title><meta name=description content="Nginx — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/ko/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/ko/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/ko/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="Nginx"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/ko/DevOps/nginx.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/ko/DevOps/nginx.html><link rel=stylesheet href=/ko/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/ko/index.html><img class=brand-logo src=/ko/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><span class=on aria-current=true>한국어</span><span class=sep>/</span><a href=https://rlaope.github.io/DevOps/nginx.html hreflang=en title="View in English">English</a></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/ko/graph.html title="지식 그래프" aria-label="지식 그래프"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub 저장소"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=ko><header class=article-header><nav class=crumbs aria-label=경로><a href=/ko/index.html>rlaope</a><span class=sep>/</span><a href=/ko/DevOps/index.html>DevOps</a></nav><h1 class=article-title>Nginx</h1><p class=meta><span>1,097 단어</span><span class=sep>·</span><span>3 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/DevOps/nginx.md rel=noopener>원문(.md)</a></p></header><div class=prose><h3 id=아파치와의-관계>아파치와의 관계 <a class=anchor href=#%ec%95%84%ed%8c%8c%ec%b9%98%ec%99%80%ec%9d%98-%ea%b4%80%ea%b3%84 aria-label="이 절로 링크">#</a></h3><p>아파치는 1996년 부터 단 한번도 1등을 놓친적 없을 정도로, 사랑받는 웹서버이다.</p><p>하지만 오래된 만큼 신기술에 호환되지 않는 경우도 있을 수 있다.</p><p>현재 국내에선 아파치와 nginx 모두 많이 사용되고 있다.</p><h3 id=특징>특징 <a class=anchor href=#%ed%8a%b9%ec%a7%95 aria-label="이 절로 링크">#</a></h3><p>아파치와 다르게 비동기 이벤트 기반 구조를 가지고 있다.</p><p>동시접속 처리에 특화되어 있다.</p><ol><li>Event-Driven 처리 기반 구조</li></ol><p>Event-Driven 처리 기반 구조는 여러 개의 커넥션을 모두 Event-Handler를 통해 비동기 방식으로 처리해 먼저 처리되는 것부터 로직이 진행되도록 한다.</p><p>이러한 기법의 주 사용 목적은 대화형 프로그램을 만드는 데 사용하는데 PCP 처리와 유사하다.</p><h3 id=http-서버의-역할>HTTP 서버의 역할 <a class=anchor href=#http-%ec%84%9c%eb%b2%84%ec%9d%98-%ec%97%ad%ed%95%a0 aria-label="이 절로 링크">#</a></h3><p>http 프로토콜을 준수한다.</p><h3 id=리버스-프록시로서의-역할>리버스 프록시로서의 역할 <a class=anchor href=#%eb%a6%ac%eb%b2%84%ec%8a%a4-%ed%94%84%eb%a1%9d%ec%8b%9c%eb%a1%9c%ec%84%9c%ec%9d%98-%ec%97%ad%ed%95%a0 aria-label="이 절로 링크">#</a></h3><p>클라이언트가 프록시 서버에 요청을 보내면, 프록시 서버가 배후 서버(reverse server)로 부터 데이터를 가져오는 역할을 한다.</p><p>직접 app 서버에 요청하는 경우, 프로세스 한개는 응답/대기 상태가 되어야 하는데, Reverse Proxy를 통해 요청을 배분해 줄 수 있다.</p><h3 id=기본-원리>기본 원리 <a class=anchor href=#%ea%b8%b0%eb%b3%b8-%ec%9b%90%eb%a6%ac aria-label="이 절로 링크">#</a></h3><p>nginx는 하나의 master process와 여러개의 worker process로 구성되어 있다.</p><p>master process는 worker process를 관리하는 프로세스다.</p><p>worker process는 실질적으로 요청을 처리하는 프로세스다</p><br><h2 id=nginx-적용하기>Nginx 적용하기 <a class=anchor href=#nginx-%ec%a0%81%ec%9a%a9%ed%95%98%ea%b8%b0 aria-label="이 절로 링크">#</a></h2><h3 id=설치>설치 <a class=anchor href=#%ec%84%a4%ec%b9%98 aria-label="이 절로 링크">#</a></h3><p>ubuntu</p><pre tabindex=0><code>sudo apt-get install nginx
+</code></pre><p>아래 명령어를 통해 설치를 확인한다.</p><pre tabindex=0><code>nginx -v
+</code></pre><h3 id=명령어>명령어 <a class=anchor href=#%eb%aa%85%eb%a0%b9%ec%96%b4 aria-label="이 절로 링크">#</a></h3><p>버전 확인</p><pre tabindex=0><code>nginx -v
+</code></pre><p>재시작</p><pre tabindex=0><code>sudo service nginx restart
+</code></pre><p>중지</p><pre tabindex=0><code>sudo service nginx stop
+nginx -s stop
+</code></pre><p>설정 반영</p><pre tabindex=0><code>sudo service nginx reload
+nginx -s reload
+</code></pre><p>설정 체크</p><pre tabindex=0><code>nginx -t
+</code></pre><h3 id=설정>설정 <a class=anchor href=#%ec%84%a4%ec%a0%95 aria-label="이 절로 링크">#</a></h3><p>nginx.conf</p><pre tabindex=0><code class=language-conf data-lang=conf>user       www www; # 워커프로세스의 권한을 지정. 되도록 root는 사용하지 말자.
+worker_processes  5;  # 요청을 처리할 때 몇개의 프로세스를 사용할지. 보통 auto
+error_log  logs/error.log;	# 로그를 위치
+pid        logs/nginx.pid;	# 프로세스 id 설정
+worker_rlimit_nofile 8192;	# worker processes를 위해 열 수 있는 파일 개수 제한
+
+events {					# connection 관련 처리
+  worker_connections  4096;  # 하나의 프로세스에서 처리할 최대 connection 수
+}
+
+http {			# 웹 트래픽 처리 블록
+  include    conf/mime.types;
+  include    /etc/nginx/proxy.conf;
+  include    /etc/nginx/fastcgi.conf;
+  index    index.html index.htm index.php;	# 서버에 접속했을 때 index로 보여줄 이름 설정
+
+  default_type application/octet-stream;	# response의 default mime.type 값 지정
+  log_format   main &#39;$remote_addr - $remote_user [$time_local]  $status &#39;	# 로그형식 지정
+    &#39;&#34;$request&#34; $body_bytes_sent &#34;$http_referer&#34; &#39;
+    &#39;&#34;$http_user_agent&#34; &#34;$http_x_forwarded_for&#34;&#39;;
+  access_log   logs/access.log  main;		# 접속 로그 관리 파일 설정
+  sendfile     on;			# sendfile() 설정 관리
+  server_names_hash_bucket_size 128; # 최대 호스트 개수
+  keepalive_timeout   65;	# 서버 연결 유지를 위한 지속시간 설정
+
+  server {	# 가상 서버 설정. IP 기반 설정, 도메인 기반 설정 가능
+    listen       80;	# 80포트 요청을 들음
+    server_name  domain1.com www.domain1.com;	# 가상 서버 이름 섲렁
+    access_log   logs/domain1.access.log  main;	# 요청에 대한 로그를 찍어줄 곳
+    root         html;		# root 디렉토리
+
+    location ~ \.php$ {	# 요청 URI에 따른 구성 설정
+      fastcgi_pass   127.0.0.1:1025;
+    }
+  }
+
+  server {
+    listen       80;
+    server_name  domain2.com www.domain2.com;
+    access_log   logs/domain2.access.log  main;
+
+    # 정적 파일
+    location ~ ^/(images|javascript|js|css|flash|media|static)/  {
+      root    /var/www/virtual/big.server.com/htdocs;
+      expires 30d;
+    }
+
+    location / {
+      proxy_pass      http://127.0.0.1:8080;
+    }
+  }
+
+  upstream big_server_com {
+    server 127.0.0.3:8000 weight=5;
+    server 127.0.0.3:8001 weight=5;
+    server 192.168.0.1:8000;
+    server 192.168.0.1:8001;
+  }
+
+  server { # simple load balancing
+    listen          80;
+    server_name     big.server.com;
+    access_log      logs/big.server.access.log main;
+
+    location / {
+      proxy_pass      http://big_server_com;
+    }
+  }
+}
+
+upstream smoothbear {
+        server localhost:8082 weight=5 max_fails=3 fail_timeout=10s;	# 서버의 8082 포트로 보내준다는 의미. 
+        keepalive 100;		# keepalive가 꺼져있다면 매 요청마다 핸드쉐이크가 발생하기 때문에, 최대 몇개의 커넥션을 유지할건지 설정
+}
+
+server {
+        listen 80;
+        server_name api.smooth-bear.live;
+
+        location ~ /\.ht {
+                deny all;
+        }
+
+        location / {
+                proxy_pass http://smoothbear;
+                proxy_redirect off;
+                proxy_set_header Host $host;
+                proxy_set_header   X-Real-IP $remote_addr;
+                proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+}
+</code></pre></div><footer class=article-footer><span><code>DevOps/nginx.md</code></span></footer><nav class=pager aria-label="이전/다음 노트"><a class=prev href=/ko/DevOps/msa_monitoring.html rel=prev><span class=dir>← 이전</span>MicroService Monitoring System (cc. Loki/Grafana)</a>
+<a class=next href=/ko/DevOps/prometheus_grafana.html rel=next><span class=dir>다음 →</span>Prometheus, Grafana</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>

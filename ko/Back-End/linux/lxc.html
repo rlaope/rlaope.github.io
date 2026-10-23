@@ -1,0 +1,93 @@
+<!doctype html><html lang=ko dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>LXC(Linux Container) · rlaope</title><meta name=description content="LXC(Linux Container) — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/ko/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/ko/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/ko/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="LXC(Linux Container)"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/ko/Back-End/linux/lxc.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/ko/Back-End/linux/lxc.html><link rel=stylesheet href=/ko/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/ko/index.html><img class=brand-logo src=/ko/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><span class=on aria-current=true>한국어</span><span class=sep>/</span><a href=https://rlaope.github.io/Back-End/linux/lxc.html hreflang=en title="View in English">English</a></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/ko/graph.html title="지식 그래프" aria-label="지식 그래프"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub 저장소"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=ko><header class=article-header><nav class=crumbs aria-label=경로><a href=/ko/index.html>rlaope</a><span class=sep>/</span><a href=/ko/Back-End/index.html>Back-End</a></nav><h1 class=article-title>LXC(Linux Container)</h1><p class=meta><span>1,581 단어</span><span class=sep>·</span><span>4 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/Back-End/linux/lxc.md rel=noopener>원문(.md)</a></p></header><div class=prose><p>LXC와 비슷한 기술로 <code>chroot</code>라는 것이 존재한다.</p><p>chroot는 프로세스의 루트 디렉토리를 변경하는 것으로 이를 통해서 프로세스가 엑세스할 수 있는 디렉토리를 제한하거나 시스템 라이브러리와 관련된 라이브러리를 로드할 수 있다.</p><p>그러나 chroot에서 제어할 수 있는 파일이나 디렉토리에 대한 엑세스만으로 네트워크 및 프로세스등을 컨트롤할 수는 없다. 또한 FreeBSD에는 chroot를 발전시킨 툴로 jail이라는 기능이 탑재되어 있다.</p><p><strong>jail은 파일 시스템에 대한 엑세스 뿐만 아니라 프로세스 및 장치 등의 자원에 대해서도 제어가 가능하다.</strong></p><p>LXC가 jail과 유사한 개념으로 구현되어있다. <strong>cgroups는 OS가 관리하는 다양한 리소스를 중앙에서 제어하기 위한 도구</strong>다. 리소스를 그룹화하고 각 그룹에 대해 우선 순위 및 사용 가능한 리소스를 제한하거나 그룹을 분리하는 등의 기능을 제공한다.</p><p>cgroups에서 관리하는 대상은 파일 시스템이나 프로세스뿐만 아니라 cpu 리소스, 메모리, 각종 디바이스, 네트워크 패킷, 네트워크 인터페이스 등이다. cgroups의 사용 예로는 chroot와 같이 특정 디렉토리를 루트 디렉토리로 인식하도록 해서 cgroups의 namespace 기능을 사용해 다양한 자원을 격리함으로써 가상 환경을 구현한다.</p><p>컨테이너마다 분할되는 자원은 다음과 같은 것들이 존재한다.</p><ul><li><strong>프로세스 테이블</strong>: 컨테이너 마다 별도의 프로세스 테이블을 관리해, <strong>컨테이너의 프로세스에서 다른 컨테이너의 프로세스가 보이지 않도록 한다.</strong></li><li><strong>파일 시스템</strong>: 컨테이너마다 특정 디렉토리를 루트 파일 시스템으로 보이게 한다. <code>chroot</code>와 동일한 개념</li><li><strong>네트워크</strong>: 네트워크 namespace(nents)의 기능은 컨테이너마다 별도의 네트워크 설정을 구성한다. veth라는 가상 NIC 장치를 이용해 veth의 한쪽을 컨테이너 내부 네임스페이스에 할당한다.</li><li><strong>cpu, memory 장치(/dev 다음 장치 파일)</strong>: cgroups의 기능은 컨테이너에서 사용할 수 있는 범위를 제한한다.</li></ul><figure><img src="https://www.redhat.com/rhdc/managed-files/styles/wysiwyg_full_width/private/virtualization-vs-containers.png.webp?itok=vvjopbiw" alt loading=lazy decoding=async referrerpolicy=no-referrer></figure><p>Linux 컨테이너를 살펴보면 os의 내부는 물리적 자원을 관리하는 커널 공간과 사용자 프로세스를 실행하는 사용자 공간으로 나뉜다.</p><p>컨테이너형 가상화는 사용자 공간을 여러 공간으로 나누어 각각의 사용자 프로세스에서 보이는 리소스를 제한하는 것이다. 이와 같이 여러 <strong>사용자 프로세스를 정리하여 분리한 공간이 바로 컨테이너다.</strong></p><blockquote><p>LXC(Linux Containers)는 단일 컨트롤 호스트 상에서 여러 개의 고립된 리눅스 시스템(컨테이너)들을 실행하기 위한 운영 시스템 레벨 가상화 방법이다. 리눅스 커널은 cgroups를 절충하여 가상화 머신을 시작할 필요 없이 자원 할당(cpu, memory, block i/o, network)을 한다. cgroups는 또한 애플리케이션 입장에서 프로세스 트리, 네트워크, 사용자 id, 마운트된 파일 시스템 등의 운영 환경을 완전히 고립시키기 위해서 namespace isolation을 제공한다. LXC는 cgroups + namespace의 애플리케이션을 위한 고립된 환경을 제공하는 것이다. Docker 또한 실행 드라이버의 하나로 LXC를 사용할 수 있으며 이를 통해 이미지 관리와 개발 서비스를 제공한다.</p></blockquote><br><h3 id=실습>실습 <a class=anchor href=#%ec%8b%a4%ec%8a%b5 aria-label="이 절로 링크">#</a></h3><p>Download lxc</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ubuntu@master: sudo apt update
+</span></span><span class=line><span class=cl>ubuntu@master: sudo apt install lxc
+</span></span></code></pre></div><p>lxc 현재 사용할 수 있는 기능 확인</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ubuntu@master: sudo lxc-checkconfig
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># test 컨테이너 생성</span>
+</span></span><span class=line><span class=cl>sudo lxc-create -n <span class=nb>test</span> -t download
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Distribution:
+</span></span><span class=line><span class=cl>ubuntu
+</span></span><span class=line><span class=cl>Release:
+</span></span><span class=line><span class=cl>bionic
+</span></span><span class=line><span class=cl>Architecture:
+</span></span><span class=line><span class=cl>i386
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Downloading the image index
+</span></span><span class=line><span class=cl>Downloading the rootfs
+</span></span><span class=line><span class=cl>Downloading the metadata
+</span></span><span class=line><span class=cl>The image cache is now ready
+</span></span><span class=line><span class=cl>Unpacking the rootfs
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>---
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>You just created an Ubuntu bionic i386 <span class=o>(</span>20230118_07:43<span class=o>)</span> container.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>To <span class=nb>enable</span> SSH, run: apt install openssh-server
+</span></span><span class=line><span class=cl>No default root or user password are <span class=nb>set</span> by LXC.
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 컨테이너 백그라운드 실행</span>
+</span></span><span class=line><span class=cl>ubuntu@master: sudo lxc-start -n <span class=nb>test</span> -d
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 컨테이너 확인</span>
+</span></span><span class=line><span class=cl>ubuntu@master: sudo lxc-ls --fancy
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 컨테이너 root 접속</span>
+</span></span><span class=line><span class=cl>ubuntu@master: sudo lxc-attach -n <span class=nb>test</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># test 계정 생성</span>
+</span></span><span class=line><span class=cl>ubuntu@master: sudo adduser <span class=nb>test</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># visudo 테스트 계정에 루트 권한 부여</span>
+</span></span><span class=line><span class=cl>ubuntu@master: visudo
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>test</span> <span class=nv>ALL</span><span class=o>=(</span>ALL:ALL<span class=o>)</span> ALL
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 컨테이너에 테스트 계정으로 접속</span>
+</span></span><span class=line><span class=cl>ubuntu@master: sudo lxc-console -n <span class=nb>test</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># openssh 설치</span>
+</span></span><span class=line><span class=cl>test@test:~$: sudo apt install openssh-server
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># sshd active 확인</span>
+</span></span><span class=line><span class=cl>test@test:~$: sudo systemctl status sshd
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 네트워크 도구 설치</span>
+</span></span><span class=line><span class=cl>test@test:~$: sudo apt install net-tools
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 컨테이너 ip 확인</span>
+</span></span><span class=line><span class=cl>test@test:~$: ifconfig
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># NAT로 eth0의 9999포트로 들어오는 tcp 패킷을 10.0.1.95 22번 포트로 전송</span>
+</span></span><span class=line><span class=cl>ubuntu@master: sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport <span class=m>9999</span> -j DNAT --to 10.0.1.95:22
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ubuntu@master: ssh test@10.0.1.95  
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>The authenticity of host <span class=s1>&#39;10.0.1.95 (10.0.1.95)&#39;</span> can<span class=s1>&#39;t be established.  
+</span></span></span><span class=line><span class=cl><span class=s1>ED25519 key fingerprint is SHA256:oO9Yns7H//bnnuDBSAODiHW3UxsuHw6kEG1MJonKTXg.  
+</span></span></span><span class=line><span class=cl><span class=s1>This key is not known by any other names  
+</span></span></span><span class=line><span class=cl><span class=s1>Are you sure you want to continue connecting (yes/no/[fingerprint])? yes  
+</span></span></span><span class=line><span class=cl><span class=s1>Warning: Permanently added &#39;</span>10.0.1.95<span class=s1>&#39; (ED25519) to the list of known hosts.  
+</span></span></span><span class=line><span class=cl><span class=s1>test@10.0.1.95&#39;</span>s password:  
+</span></span><span class=line><span class=cl>Welcome to Ubuntu 18.04.6 LTS <span class=o>(</span>GNU/Linux 5.15.0-56-generic i686<span class=o>)</span>  
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>* Documentation: https://help.ubuntu.com  
+</span></span><span class=line><span class=cl>* Management: https://landscape.canonical.com  
+</span></span><span class=line><span class=cl>* Support: https://ubuntu.com/advantage  
+</span></span><span class=line><span class=cl>Last login: Fri Jan <span class=m>20</span> 12:35:17 <span class=m>2023</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 컨테이너 중지  </span>
+</span></span><span class=line><span class=cl>sudo lxc-stop -n <span class=nb>test</span>  
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl><span class=c1># 컨테이너 삭제  </span>
+</span></span><span class=line><span class=cl>sudo lxc-destroy -n <span class=nb>test</span>  
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl><span class=c1># 컨테이너 확인  </span>
+</span></span><span class=line><span class=cl>sudo lxc-ls
+</span></span></code></pre></div></div><footer class=article-footer><span><code>Back-End/linux/lxc.md</code></span></footer><nav class=pager aria-label="이전/다음 노트"><a class=prev href=/ko/Back-End/kyd.html rel=prev><span class=dir>← 이전</span>KISS, YAGNI, DRY</a>
+<a class=next href=/ko/Back-End/linux/nmap.html rel=next><span class=dir>다음 →</span>Nmap의 기능</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>

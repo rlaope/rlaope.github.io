@@ -1,0 +1,184 @@
+<!doctype html><html lang=ko dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>LangGraph 기반 Agent DAG · rlaope</title><meta name=description content="LangGraph 기반 Agent DAG — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/ko/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/ko/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/ko/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="LangGraph 기반 Agent DAG"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/ko/AI/agent_state/st1.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/ko/AI/agent_state/st1.html><link rel=stylesheet href=/ko/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/ko/index.html><img class=brand-logo src=/ko/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><span class=on aria-current=true>한국어</span><span class=sep>/</span><a href=https://rlaope.github.io/AI/agent_state/st1.html hreflang=en title="View in English">English</a></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/ko/graph.html title="지식 그래프" aria-label="지식 그래프"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub 저장소"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=ko><header class=article-header><nav class=crumbs aria-label=경로><a href=/ko/index.html>rlaope</a><span class=sep>/</span><a href=/ko/AI/index.html>AI</a></nav><h1 class=article-title>LangGraph 기반 Agent DAG</h1><p class=meta><span>3,384 단어</span><span class=sep>·</span><span>7 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/AI/agent_state/st1.md rel=noopener>원문(.md)</a></p></header><div class=prose><p>질문으로 시작해보자 LLM 기반 에이전트가 복잡한 태스크를 수행할 때, 무한루프에 빠지거나 이전 단계의 컨텍스트를 잃어버리는 문제를 어떻게 프레임워크 레벨에서 통제할 수 있을까?</p><p>LangGraph는 LLM을 활용한 에이전트 애플리케이션의 state를 관리하고, 실행 흐름을 그래프 이론에 기반하여 제어하기 위해 LangChain 생태계에서 파생된 오케스트레이션 프레임워크다.</p><ul><li><strong>State(상태스키마)</strong>: 상태 스키마로 그래프 내의 모든 노드가 공유하고 수정할 수 있는 전역 데이터 구조다 <code>TypedDict</code>, <code>Pydantic</code>을 사용하여 엄격한 타입으로 정의되며, 에이전트의 기억 역할을 수행한다.</li><li><strong>Node(노드)</strong>: 그래프의 정점으로 실제 연산이나 LLM 호출을 수행하는 파이썬 함수다. 현재의 state를 입력으로 받아 작업으로 처리한 후, state의 특정 필드를 업데이트하는 딕셔너리를 반환한다.</li><li><strong>Edge(엣지)</strong>: 노드 간 제어 흐름을 정의하는 간선이다. 실행 순서를 하드코딩하는 일반 엣지와, state의 조건에 따라 동적으로 다음 노드를 결정하는 조건부 엣지로 나뉜다.</li><li><strong>DAG(Directed Acyclic Graph)</strong>: 순환이 발생하지 않고 한 방향으로만 흐르는 방향성 그래프다. 에이전트의 실행이 무한 반복에 빠지지 않고 반드시 종료 지점에 도달함을 아키텍처적으로 보장할 때 사용된다.</li></ul><br><h2 id=문제-정의>문제 정의 <a class=anchor href=#%eb%ac%b8%ec%a0%9c-%ec%a0%95%ec%9d%98 aria-label="이 절로 링크">#</a></h2><p>단순한 LangChain의 chain이나 기존 <code>AgentExecutor</code>를 사용할 경우, 실무 수준의 복잡한 에이전트 시스템에서 다음과 같은 한계에 직면한다.</p><ul><li><strong>블랙박스화된 실행 흐름:</strong> 기존 에이전트 프레임워크는 프롬프트와 도구를 던져주면 내부에서 알아서 동작하는 블랙박스 구조다. 이는 예외 상황 발생시 디버깅을 불가능하게 만들고, 특정 로직에서 개발자가 원하는 방향으로 제어권을 강제하기 어렵게 만든다.</li><li><strong>상태 유실 및 컨텍스트 관리의 한계:</strong> 여러 단계의 추론, 도구 호출, 데이터 정제가 혼합된 파이프라인에서 중간 결과물을 완전하게 보관하고 다음 단계로 전달하는 명시적인 전역 메모리 메커니즘이 부족하다.</li><li><strong>비결정적 동작과 무한 루프의 위험:</strong> LLM이 스스로 다음 행동을 결정하는 구조에는 환각현상으로 인해 잘못된 도구를 계속 반복해서 호출하거나 종료 조건에 도달하지 못하는 통제 불능 상태가발생할 수 있다.</li></ul><h3 id=해결-방식>해결 방식 <a class=anchor href=#%ed%95%b4%ea%b2%b0-%eb%b0%a9%ec%8b%9d aria-label="이 절로 링크">#</a></h3><ul><li><strong>상태 기반 오케스트레이션:</strong> 에이전트의 모든 입출력을 중앙 집중화된 state 객체로 통일한다. 각 노드는 서로의 존재를 알 필요 없이 오직 state 객체만을 읽고 쓰며 동작하므로 시스템의 결합도를 낮추고 모듈화를 촉진한다.</li><li><strong>명시적 그래프 선언 (Declarative Graph Construction)</strong>: 태스크의 분기 처리, 예외 상황에서 대한 폴백, 그리고 종료 조건을 노드와 엣지로 명시적으로 선언, 이를 통해 LLM의 비결정적 추론 능력을 활용하면서도, 전체적인 실행 궤적은 개발자가 설계한 DAG 내에서만 움직이도록 통제한다.</li></ul><br><h2 id=상세-동작-원리-및-구조화>상세 동작 원리 및 구조화 <a class=anchor href=#%ec%83%81%ec%84%b8-%eb%8f%99%ec%9e%91-%ec%9b%90%eb%a6%ac-%eb%b0%8f-%ea%b5%ac%ec%a1%b0%ed%99%94 aria-label="이 절로 링크">#</a></h2><p>에이전트의 실행 흐름이 LangGrahp 엔진 내부에서 어떻게 초기화되고, 노드간의 데이터 병합이 되며 조건에 따라 라우팅 되는지 메모리 제어 흐름 관점에서 나열해보면</p><pre tabindex=0><code class=language-mermaid data-lang=mermaid>graph TD
+    Start((START)) --&gt; Extractor[node_extract: 텍스트 전처리]
+    Extractor --&gt; Classifier[node_classify: 카테고리 분류]
+
+    Classifier -- &#34;조건부 엣지 (route_by_category)&#34; --&gt; Router{최신 State 평가}
+
+    Router -- &#34;Category == A&#34; --&gt; NodeA[node_handle_a: A 로직 처리]
+    Router -- &#34;Category == B&#34; --&gt; NodeB[node_handle_b: B 로직 처리]
+
+    NodeA --&gt; End((END))
+    NodeB --&gt; End((END))
+    
+    classDef default fill:#f9f9f9,stroke:#333,stroke-width:2px;
+    classDef endpoint fill:#ffccdc,stroke:#cc0044,stroke-width:3px;
+    class Start,End endpoint;
+</code></pre><ol><li><strong>상태 초기화 및 그래프 컴파일 (initiaization & compile)</strong>: 개발자가 <code>StateGraph</code> 객체를 인스턴스화할 때, 상태를 구성할 데이터 스키마를 주입한다. 이후 모든 노드와 엣지를 등록하고 <code>.compile()</code> 메서드를 호출하면, LangGraph 내부 엔진은 노드 간의 연결 유효성을 검증하고 실행 가능한 그래프 런타임을 메모리에 구축한다.</li><li><strong>시작 노드 진입 (START Node Entry)</strong>: 클라이언트가 <code>invoke()</code> 메서드와 함께 초기 입력값을 전달하면 그래프의 내장된 START 지점과 연결된 첫 번째 비즈니스 노드가 트리거된다. 입력값은 즉시 state 스키마에 바인딩되어 전역 상태 객체로 인스턴스화 된다.</li><li><strong>노드 실행 및 상태 병합 (exectuion & state reducer)</strong>: 첫 번째 노드 (파이썬 함수)가 실행되며 현재 state 객체를 인자로 받는다. 로직 llm 호출등 처리가 완료되면 노드는 전체 state를 반환할 필요 없이 업데이트가 필요한 필드만을 딕셔너리 형태로 반환한다. LangGraph 엔진은 내부적으로 리듀서 함수를 가동하여, 기존 state에 노드가 반환한 새로운 데이터를 병합(또는 overwrite, append) 하여 최신 state를 생성한다.</li><li><strong>조건부 엣지 평가 (Conditional Edge Evaluation)</strong>: 노드의 실행이 끝나면, 엔진은 해당 노드에 연결된 간선을 확인하고 만약 일반 엣지라면 지정된 다음 노드로 즉시 제어권을 넘긴다. 반면 조건부 엣지가 등록되어 있다면, 엔진은 라우팅 함수를 호출한다. 라우팅 함수는 최신 상태의 state를 읽어들여 (ex.LLM이 판별한 카테고리 값 같은) 평가한 뒤, 분기해야할 다음 목적지 노드 이름을 문자열로 반환한다.</li><li><strong>종료 조건 도달 (Terminaiton to End)</strong>: 라우팅 또는 엣지를 통해 제어 흐름이 그래프의 내장된 END 지점에 도달하게 되면 메인 이벤트 루프가 중단되고 LangGraph는 실행이 완료된 시점의 최정 state 객체를 클라이언트에게 반환하며 전체 생명주기를 종료한다 DAG 구조이므로 이 흐름은 역방향이나 무한 순환을 허용하지 않는다.</li></ol><h3 id=example>Example <a class=anchor href=#example aria-label="이 절로 링크">#</a></h3><p>LLM을 배제하고 데이터를 순차적이고 분기적으로 처리하는 방향성 비순환 그래프 즉 DAG의 뼈대와 state 역할의 본질을 이해해보자.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-py data-lang=py><span class=line><span class=cl><span class=kn>from</span> <span class=nn>typing</span> <span class=kn>import</span> <span class=n>TypedDict</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>langgraph.graph</span> <span class=kn>import</span> <span class=n>StateGraph</span><span class=p>,</span> <span class=n>START</span><span class=p>,</span> <span class=n>END</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 1. 전역 상태(State) 스키마 정의</span>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>AgentState</span><span class=p>(</span><span class=n>TypedDict</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>input_text</span><span class=p>:</span> <span class=nb>str</span>
+</span></span><span class=line><span class=cl>    <span class=n>processed_data</span><span class=p>:</span> <span class=nb>str</span>
+</span></span><span class=line><span class=cl>    <span class=n>category</span><span class=p>:</span> <span class=nb>str</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 2. 개별 노드(Node) 함수 정의</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>node_extract</span><span class=p>(</span><span class=n>state</span><span class=p>:</span> <span class=n>AgentState</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 입력 텍스트를 처리하고 상태 업데이트 반환</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>{</span><span class=s2>&#34;processed_data&#34;</span><span class=p>:</span> <span class=n>state</span><span class=p>[</span><span class=s2>&#34;input_text&#34;</span><span class=p>]</span><span class=o>.</span><span class=n>strip</span><span class=p>()</span><span class=o>.</span><span class=n>upper</span><span class=p>()}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>node_classify</span><span class=p>(</span><span class=n>state</span><span class=p>:</span> <span class=n>AgentState</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 처리된 데이터를 기반으로 카테고리 분류 (LLM 모사)</span>
+</span></span><span class=line><span class=cl>    <span class=n>data</span> <span class=o>=</span> <span class=n>state</span><span class=p>[</span><span class=s2>&#34;processed_data&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=n>category</span> <span class=o>=</span> <span class=s2>&#34;A&#34;</span> <span class=k>if</span> <span class=s2>&#34;URGENT&#34;</span> <span class=ow>in</span> <span class=n>data</span> <span class=k>else</span> <span class=s2>&#34;B&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>{</span><span class=s2>&#34;category&#34;</span><span class=p>:</span> <span class=n>category</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>node_handle_a</span><span class=p>(</span><span class=n>state</span><span class=p>:</span> <span class=n>AgentState</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>{</span><span class=s2>&#34;processed_data&#34;</span><span class=p>:</span> <span class=n>state</span><span class=p>[</span><span class=s2>&#34;processed_data&#34;</span><span class=p>]</span> <span class=o>+</span> <span class=s2>&#34; [HANDLED AS A]&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>node_handle_b</span><span class=p>(</span><span class=n>state</span><span class=p>:</span> <span class=n>AgentState</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>{</span><span class=s2>&#34;processed_data&#34;</span><span class=p>:</span> <span class=n>state</span><span class=p>[</span><span class=s2>&#34;processed_data&#34;</span><span class=p>]</span> <span class=o>+</span> <span class=s2>&#34; [HANDLED AS B]&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 3. 라우팅 함수 (조건부 엣지용)</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>route_by_category</span><span class=p>(</span><span class=n>state</span><span class=p>:</span> <span class=n>AgentState</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=nb>str</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>state</span><span class=p>[</span><span class=s2>&#34;category&#34;</span><span class=p>]</span> <span class=o>==</span> <span class=s2>&#34;A&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=s2>&#34;node_a&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=s2>&#34;node_b&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 4. StateGraph 선언 및 구축 (DAG 구성)</span>
+</span></span><span class=line><span class=cl><span class=n>workflow</span> <span class=o>=</span> <span class=n>StateGraph</span><span class=p>(</span><span class=n>AgentState</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 노드 등록</span>
+</span></span><span class=line><span class=cl><span class=n>workflow</span><span class=o>.</span><span class=n>add_node</span><span class=p>(</span><span class=s2>&#34;extractor&#34;</span><span class=p>,</span> <span class=n>node_extract</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>workflow</span><span class=o>.</span><span class=n>add_node</span><span class=p>(</span><span class=s2>&#34;classifier&#34;</span><span class=p>,</span> <span class=n>node_classify</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>workflow</span><span class=o>.</span><span class=n>add_node</span><span class=p>(</span><span class=s2>&#34;node_a&#34;</span><span class=p>,</span> <span class=n>node_handle_a</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>workflow</span><span class=o>.</span><span class=n>add_node</span><span class=p>(</span><span class=s2>&#34;node_b&#34;</span><span class=p>,</span> <span class=n>node_handle_b</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 엣지 연결 (제어 흐름 정의)</span>
+</span></span><span class=line><span class=cl><span class=n>workflow</span><span class=o>.</span><span class=n>add_edge</span><span class=p>(</span><span class=n>START</span><span class=p>,</span> <span class=s2>&#34;extractor&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>workflow</span><span class=o>.</span><span class=n>add_edge</span><span class=p>(</span><span class=s2>&#34;extractor&#34;</span><span class=p>,</span> <span class=s2>&#34;classifier&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 조건부 엣지 등록 (classifier 노드 종료 후 route_by_category 함수 평가)</span>
+</span></span><span class=line><span class=cl><span class=n>workflow</span><span class=o>.</span><span class=n>add_conditional_edges</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;classifier&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>route_by_category</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;node_a&#34;</span><span class=p>:</span> <span class=s2>&#34;node_a&#34;</span><span class=p>,</span> <span class=c1># 라우팅 반환값이 &#34;node_a&#34;일 때 이동할 노드</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;node_b&#34;</span><span class=p>:</span> <span class=s2>&#34;node_b&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 분기된 흐름을 END 노드로 수렴 (비순환 보장)</span>
+</span></span><span class=line><span class=cl><span class=n>workflow</span><span class=o>.</span><span class=n>add_edge</span><span class=p>(</span><span class=s2>&#34;node_a&#34;</span><span class=p>,</span> <span class=n>END</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>workflow</span><span class=o>.</span><span class=n>add_edge</span><span class=p>(</span><span class=s2>&#34;node_b&#34;</span><span class=p>,</span> <span class=n>END</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 그래프 컴파일</span>
+</span></span><span class=line><span class=cl><span class=n>app</span> <span class=o>=</span> <span class=n>workflow</span><span class=o>.</span><span class=n>compile</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 실행</span>
+</span></span><span class=line><span class=cl><span class=n>initial_state</span> <span class=o>=</span> <span class=p>{</span><span class=s2>&#34;input_text&#34;</span><span class=p>:</span> <span class=s2>&#34; This is an urgent message &#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=n>result</span> <span class=o>=</span> <span class=n>app</span><span class=o>.</span><span class=n>invoke</span><span class=p>(</span><span class=n>initial_state</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1># 출력: {&#39;input_text&#39;: &#39; This is an urgent message &#39;, &#39;processed_data&#39;: &#39;THIS IS AN URGENT MESSAGE [HANDLED AS A]&#39;, &#39;category&#39;: &#39;A&#39;}</span>
+</span></span></code></pre></div><p>LLM을 연동하여 실제 문서 검토 에이전트를 구축한다고 해보자.</p><p>Pydantic의 구조화된 출력 (Structured Output)을 활용하여 라우팅 안정성을 확보하고, 리듀서를 사용하여 메시지 기록이 덮어씌워지지 않고 누적되도록 최적화된 구성이다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-py data-lang=py><span class=line><span class=cl><span class=kn>import</span> <span class=nn>operator</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>typing</span> <span class=kn>import</span> <span class=n>TypedDict</span><span class=p>,</span> <span class=n>Annotated</span><span class=p>,</span> <span class=n>Sequence</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>pydantic</span> <span class=kn>import</span> <span class=n>BaseModel</span><span class=p>,</span> <span class=n>Field</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>langchain_core.messages</span> <span class=kn>import</span> <span class=n>BaseMessage</span><span class=p>,</span> <span class=n>HumanMessage</span><span class=p>,</span> <span class=n>AIMessage</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>langchain_openai</span> <span class=kn>import</span> <span class=n>ChatOpenAI</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>langgraph.graph</span> <span class=kn>import</span> <span class=n>StateGraph</span><span class=p>,</span> <span class=n>START</span><span class=p>,</span> <span class=n>END</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 1. Pydantic을 활용한 LLM 구조화 출력 스키마 정의 (라우팅용)</span>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>OutputFormat</span><span class=p>(</span><span class=n>BaseModel</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>is_valid</span><span class=p>:</span> <span class=nb>bool</span> <span class=o>=</span> <span class=n>Field</span><span class=p>(</span><span class=o>...</span><span class=p>,</span> <span class=n>description</span><span class=o>=</span><span class=s2>&#34;문서가 요구사항을 충족하는지 여부&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>reason</span><span class=p>:</span> <span class=nb>str</span> <span class=o>=</span> <span class=n>Field</span><span class=p>(</span><span class=o>...</span><span class=p>,</span> <span class=n>description</span><span class=o>=</span><span class=s2>&#34;판단 사유&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 2. 리듀서(Annotated + operator.add)가 적용된 프로덕션 State 스키마</span>
+</span></span><span class=line><span class=cl><span class=c1># messages 리스트는 새로운 반환값이 들어올 때마다 기존 리스트에 append 됨</span>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>GraphState</span><span class=p>(</span><span class=n>TypedDict</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>document</span><span class=p>:</span> <span class=nb>str</span>
+</span></span><span class=line><span class=cl>    <span class=n>messages</span><span class=p>:</span> <span class=n>Annotated</span><span class=p>[</span><span class=n>Sequence</span><span class=p>[</span><span class=n>BaseMessage</span><span class=p>],</span> <span class=n>operator</span><span class=o>.</span><span class=n>add</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=n>is_valid</span><span class=p>:</span> <span class=nb>bool</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 3. LLM 초기화 (구조화된 출력 강제)</span>
+</span></span><span class=line><span class=cl><span class=n>llm</span> <span class=o>=</span> <span class=n>ChatOpenAI</span><span class=p>(</span><span class=n>model</span><span class=o>=</span><span class=s2>&#34;gpt-4o&#34;</span><span class=p>,</span> <span class=n>temperature</span><span class=o>=</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>evaluator_llm</span> <span class=o>=</span> <span class=n>llm</span><span class=o>.</span><span class=n>with_structured_output</span><span class=p>(</span><span class=n>OutputFormat</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 4. 노드 정의</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>document_analyzer_node</span><span class=p>(</span><span class=n>state</span><span class=p>:</span> <span class=n>GraphState</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;문서를 분석하고 유효성을 평가하는 노드&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>doc</span> <span class=o>=</span> <span class=n>state</span><span class=p>[</span><span class=s2>&#34;document&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=n>prompt</span> <span class=o>=</span> <span class=sa>f</span><span class=s2>&#34;다음 문서를 평가하여 완성도를 판단하세요. 문서: </span><span class=si>{</span><span class=n>doc</span><span class=si>}</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># LLM 추론 및 구조화된 결과 파싱</span>
+</span></span><span class=line><span class=cl>    <span class=n>result</span><span class=p>:</span> <span class=n>OutputFormat</span> <span class=o>=</span> <span class=n>evaluator_llm</span><span class=o>.</span><span class=n>invoke</span><span class=p>(</span><span class=n>prompt</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=n>ai_message</span> <span class=o>=</span> <span class=n>AIMessage</span><span class=p>(</span><span class=n>content</span><span class=o>=</span><span class=sa>f</span><span class=s2>&#34;평가 완료. 사유: </span><span class=si>{</span><span class=n>result</span><span class=o>.</span><span class=n>reason</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># 상태 업데이트: 메시지 누적 및 유효성 플래그 세팅</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>{</span><span class=s2>&#34;messages&#34;</span><span class=p>:</span> <span class=p>[</span><span class=n>ai_message</span><span class=p>],</span> <span class=s2>&#34;is_valid&#34;</span><span class=p>:</span> <span class=n>result</span><span class=o>.</span><span class=n>is_valid</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>success_handler_node</span><span class=p>(</span><span class=n>state</span><span class=p>:</span> <span class=n>GraphState</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;유효한 문서일 때 후속 처리를 담당하는 노드&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>{</span><span class=s2>&#34;messages&#34;</span><span class=p>:</span> <span class=p>[</span><span class=n>AIMessage</span><span class=p>(</span><span class=n>content</span><span class=o>=</span><span class=s2>&#34;[System] 문서가 승인되어 데이터베이스에 저장되었습니다.&#34;</span><span class=p>)]}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>rejection_handler_node</span><span class=p>(</span><span class=n>state</span><span class=p>:</span> <span class=n>GraphState</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;유효하지 않은 문서일 때 피드백을 생성하는 노드&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>{</span><span class=s2>&#34;messages&#34;</span><span class=p>:</span> <span class=p>[</span><span class=n>AIMessage</span><span class=p>(</span><span class=n>content</span><span class=o>=</span><span class=s2>&#34;[System] 문서가 반려되었습니다. 작성자에게 피드백을 전송합니다.&#34;</span><span class=p>)]}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 5. 라우팅 로직</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>route_based_on_validity</span><span class=p>(</span><span class=n>state</span><span class=p>:</span> <span class=n>GraphState</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=nb>str</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;State의 is_valid 플래그를 검사하여 분기&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>state</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s2>&#34;is_valid&#34;</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=s2>&#34;success&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=s2>&#34;rejection&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 6. DAG 그래프 빌드</span>
+</span></span><span class=line><span class=cl><span class=n>builder</span> <span class=o>=</span> <span class=n>StateGraph</span><span class=p>(</span><span class=n>GraphState</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>builder</span><span class=o>.</span><span class=n>add_node</span><span class=p>(</span><span class=s2>&#34;analyzer&#34;</span><span class=p>,</span> <span class=n>document_analyzer_node</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>builder</span><span class=o>.</span><span class=n>add_node</span><span class=p>(</span><span class=s2>&#34;success&#34;</span><span class=p>,</span> <span class=n>success_handler_node</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>builder</span><span class=o>.</span><span class=n>add_node</span><span class=p>(</span><span class=s2>&#34;rejection&#34;</span><span class=p>,</span> <span class=n>rejection_handler_node</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>builder</span><span class=o>.</span><span class=n>add_edge</span><span class=p>(</span><span class=n>START</span><span class=p>,</span> <span class=s2>&#34;analyzer&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 유효성에 따른 분기 (조건부 엣지)</span>
+</span></span><span class=line><span class=cl><span class=n>builder</span><span class=o>.</span><span class=n>add_conditional_edges</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;analyzer&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>route_based_on_validity</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;success&#34;</span><span class=p>:</span> <span class=s2>&#34;success&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;rejection&#34;</span><span class=p>:</span> <span class=s2>&#34;rejection&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>builder</span><span class=o>.</span><span class=n>add_edge</span><span class=p>(</span><span class=s2>&#34;success&#34;</span><span class=p>,</span> <span class=n>END</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>builder</span><span class=o>.</span><span class=n>add_edge</span><span class=p>(</span><span class=s2>&#34;rejection&#34;</span><span class=p>,</span> <span class=n>END</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 런타임 컴파일</span>
+</span></span><span class=line><span class=cl><span class=n>agent_app</span> <span class=o>=</span> <span class=n>builder</span><span class=o>.</span><span class=n>compile</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 실행 예시</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>run_agent</span><span class=p>(</span><span class=n>doc_text</span><span class=p>:</span> <span class=nb>str</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>inputs</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;document&#34;</span><span class=p>:</span> <span class=n>doc_text</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;messages&#34;</span><span class=p>:</span> <span class=p>[</span><span class=n>HumanMessage</span><span class=p>(</span><span class=n>content</span><span class=o>=</span><span class=s2>&#34;초기 문서 제출&#34;</span><span class=p>)]</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># stream()을 사용하여 노드 실행 시점마다 실시간으로 상태 변경을 추적(Observability)</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>event</span> <span class=ow>in</span> <span class=n>agent_app</span><span class=o>.</span><span class=n>stream</span><span class=p>(</span><span class=n>inputs</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=n>node_name</span><span class=p>,</span> <span class=n>state_update</span> <span class=ow>in</span> <span class=n>event</span><span class=o>.</span><span class=n>items</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>            <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;--- [Node: </span><span class=si>{</span><span class=n>node_name</span><span class=si>}</span><span class=s2>] Executed ---&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=nb>print</span><span class=p>(</span><span class=n>state_update</span><span class=p>[</span><span class=s2>&#34;messages&#34;</span><span class=p>][</span><span class=o>-</span><span class=mi>1</span><span class=p>]</span><span class=o>.</span><span class=n>content</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;-&#34;</span> <span class=o>*</span> <span class=mi>40</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># run_agent(&#34;이 문서는 완벽하게 작성된 최종 보고서입니다.&#34;)</span>
+</span></span></code></pre></div><h3 id=dag>DAG <a class=anchor href=#dag aria-label="이 절로 링크">#</a></h3><p>DAG는 방향성 비순환 그래프 Directed Acyclic Graph 데이터나 작업의 흐름이 한쪽 방향으로만 전진하고 절대 왔던 길로 되돌아가는 무한루프가 발생하지 않는 논리적 구조를 뜻한다.</p><p>데이터 파이프라인이나 ai 에이전트의 워크플로우를 설계할 대 작업은 반드시 안전하게 종료 지점에 도달하도록 보장하기 위해 DAG를 채택한다.</p></div><footer class=article-footer><span><code>AI/agent_state/st1.md</code></span></footer><nav class=pager aria-label="이전/다음 노트"><a class=prev href=/ko/AI/agent_state/README.html rel=prev><span class=dir>← 이전</span>상태 머신 기반 Agent 파이프라인 코어 로직 구현</a>
+<a class=next href=/ko/AI/agent_state/st2.html rel=next><span class=dir>다음 →</span>Stateless 프로토콜에서 Agent 문맥 식별 라우터</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>

@@ -1,0 +1,144 @@
+<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Regular Expressions · rlaope</title><meta name=description content="Regular Expressions — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="Regular Expressions"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/Front-End/JS/%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/Front-End/JS/%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D.html><link rel=stylesheet href=/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/index.html><img class=brand-logo src=/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><a href=https://rlaope.github.io/ko/Front-End/JS/%ec%a0%95%ea%b7%9c%ed%91%9c%ed%98%84%ec%8b%9d.html hreflang=ko title="한국어로 보기">한국어</a><span class=sep>/</span><span class=on aria-current=true>English</span></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/graph.html title="Knowledge graph" aria-label="Knowledge graph"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub repository"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=en><header class=article-header><nav class=crumbs aria-label=Path><a href=/index.html>rlaope</a><span class=sep>/</span><a href=/Front-End/index.html>Front-End</a></nav><h1 class=article-title>Regular Expressions</h1><p class=meta><span>700 단어</span><span class=sep>·</span><span>2 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/Front-End/JS/%ec%a0%95%ea%b7%9c%ed%91%9c%ed%98%84%ec%8b%9d.md rel=noopener>원문(.md)</a></p></header><div class=prose><h2 id=what-are-regular-expressions>What are Regular Expressions? <a class=anchor href=#what-are-regular-expressions aria-label="이 절로 링크">#</a></h2><ul><li>A type of formal language (pattern) that can be used to search and replace strings.</li><li>From simple character searches to complex character matching functions like email and password validation, regular expression patterns can perform these tasks quickly.</li></ul><h3 id=role-of-regular-expressions>Role of Regular Expressions <a class=anchor href=#role-of-regular-expressions aria-label="이 절로 링크">#</a></h3><ol><li>Character Search</li><li>Character Replacement</li><li>Character Extraction</li></ol><h3 id=test-site>Test Site <a class=anchor href=#test-site aria-label="이 절로 링크">#</a></h3><p><a href=https://regexr.com/ rel=noopener>https://regexr.com/</a></p><br><h2 id=creating-js-regular-expressions>Creating JS Regular Expressions <a class=anchor href=#creating-js-regular-expressions aria-label="이 절로 링크">#</a></h2><hr><h3 id=constructor-function-method>Constructor Function Method <a class=anchor href=#constructor-function-method aria-label="이 절로 링크">#</a></h3><p>You can use it by calling the <code>RegExp</code> constructor function.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kr>const</span> <span class=nx>regexp1</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>RegExp</span><span class=p>(</span><span class=s2>&#34;abc&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=c1>// new RegExp(pattern)
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>regexp2</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>RegExp</span><span class=p>(</span><span class=s2>&#34;^abc&#34;</span><span class=p>,</span><span class=s2>&#34;gi&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=c1>// new RegExp(pattern , flags)
+</span></span></span></code></pre></div><h3 id=literal-method>Literal Method <a class=anchor href=#literal-method aria-label="이 절로 링크">#</a></h3><p>Regular expressions use patterns enclosed by <code>/</code> as literals.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kr>const</span> <span class=nx>regexp1</span> <span class=o>=</span> <span class=sr>/^abc/</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=c1>// /pattern/
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>regexp2</span> <span class=o>=</span> <span class=sr>/^abc/gi</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=c1>// /pattern/flags
+</span></span></span></code></pre></div><p><code>gi</code> : Case-insensitive</p><br><h2 id=regular-expression-methods>Regular Expression Methods <a class=anchor href=#regular-expression-methods aria-label="이 절로 링크">#</a></h2><div class=table-wrap><table><thead><tr><th>Method</th><th>Syntax</th><th>Description</th></tr></thead><tbody><tr><td>test</td><td><code>regex.test(string)</code></td><td>Match status (Boolean)</td></tr><tr><td>match</td><td><code>string.match(regex)</code></td><td>Returns an array of matching characters</td></tr><tr><td>replace</td><td><code>string.replace(regex, replacement)</code></td><td>Replaces matching characters</td></tr></tbody></table></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kd>let</span> <span class=nx>str</span> <span class=o>=</span> <span class=sb>`
+</span></span></span><span class=line><span class=cl><span class=sb>010-1234-5678
+</span></span></span><span class=line><span class=cl><span class=sb>s22043@gsm.hs.kr
+</span></span></span><span class=line><span class=cl><span class=sb>The quick brown fox jumps over the lazy dog.
+</span></span></span><span class=line><span class=cl><span class=sb>abbcccdddd
+</span></span></span><span class=line><span class=cl><span class=sb>`</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>regexp</span> <span class=o>=</span> <span class=sr>/fox/gi</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>regexp</span><span class=p>.</span><span class=nx>test</span><span class=p>(</span><span class=nx>str</span><span class=p>))</span> <span class=c1>// true
+</span></span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>str</span><span class=p>.</span><span class=nx>replace</span><span class=p>(</span><span class=nx>regexp</span><span class=p>,</span><span class=s1>&#39;AAA&#39;</span><span class=p>))</span> <span class=c1>// fox &gt;&gt; AAA
+</span></span></span></code></pre></div><br><h2 id=flags-options>Flags (Options) <a class=anchor href=#flags-options aria-label="이 절로 링크">#</a></h2><div class=table-wrap><table><thead><tr><th>Flag</th><th>Description</th></tr></thead><tbody><tr><td>g</td><td>Global match</td></tr><tr><td>i</td><td>Case-insensitive match (English)</td></tr><tr><td>m</td><td>Multiline match</td></tr></tbody></table></div><p>g, gi</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kd>let</span> <span class=nx>str</span> <span class=o>=</span> <span class=sb>`
+</span></span></span><span class=line><span class=cl><span class=sb>010-1234-5678
+</span></span></span><span class=line><span class=cl><span class=sb>s22043@gsm.hs.kr
+</span></span></span><span class=line><span class=cl><span class=sb>The quick brown fox jumps over the lazy dog.
+</span></span></span><span class=line><span class=cl><span class=sb>abbcccdddd
+</span></span></span><span class=line><span class=cl><span class=sb>the apple
+</span></span></span><span class=line><span class=cl><span class=sb>`</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>regexp</span> <span class=o>=</span> <span class=sr>/the/</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=nx>regexp</span><span class=p>))</span> <span class=c1>// Matches only one word containing lowercase &#39;the&#39;
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>regexp2</span> <span class=o>=</span><span class=sr>/the/g</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=nx>regexp</span><span class=p>))</span> <span class=c1>// Outputs all lowercase &#39;the&#39;
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>regexp3</span> <span class=o>=</span> <span class=sr>/the/gi</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=nx>regexp</span><span class=p>))</span> <span class=c1>// Outputs all &#39;the&#39;, including uppercase &#39;The&#39;
+</span></span></span></code></pre></div><p>m</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kd>let</span> <span class=nx>str</span> <span class=o>=</span> <span class=sb>`
+</span></span></span><span class=line><span class=cl><span class=sb>010-1234-5678
+</span></span></span><span class=line><span class=cl><span class=sb>s22043@gsm.hs.kr
+</span></span></span><span class=line><span class=cl><span class=sb>The quick brown fox jumps over the lazy dog.
+</span></span></span><span class=line><span class=cl><span class=sb>abbcccdddd
+</span></span></span><span class=line><span class=cl><span class=sb>the apple
+</span></span></span><span class=line><span class=cl><span class=sb>`</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/\.$/gim</span><span class=p>))</span> <span class=c1>// [&#34;.&#34;]
+</span></span></span></code></pre></div><blockquote><p><code>$</code> Returns only the first sentence that matches the regular expression.</p></blockquote><blockquote><p><code>\</code> (Escape character) refers to a character whose original function changes when preceded by a backslash.</p></blockquote><br><h2 id=patterns-expressions>Patterns (Expressions) <a class=anchor href=#patterns-expressions aria-label="이 절로 링크">#</a></h2><div class=table-wrap><table><thead><tr><th>Pattern</th><th>Description</th></tr></thead><tbody><tr><td>^ab</td><td>Matches 'ab' at the <code>start</code> of a line</td></tr><tr><td>ab$</td><td>Matches 'ab' at the <code>end</code> of a line</td></tr><tr><td>.</td><td>Matches any single character</td></tr><tr><td>a</td><td>b</td></tr><tr><td>ab?</td><td>Matches 'ab' or 'a' (b is optional)</td></tr><tr><td>{3}</td><td>Matches exactly 3 consecutive occurrences</td></tr><tr><td>{3 ,}</td><td>Matches 3 or more consecutive occurrences</td></tr><tr><td>{3 , 5}</td><td>Matches 3 to 5 consecutive occurrences</td></tr></tbody></table></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kd>let</span> <span class=nx>str</span> <span class=o>=</span> <span class=sb>`
+</span></span></span><span class=line><span class=cl><span class=sb>010-1234-5678
+</span></span></span><span class=line><span class=cl><span class=sb>s22043@gsm.hs.kr
+</span></span></span><span class=line><span class=cl><span class=sb>The quick brown fox jumps over the lazy dog.
+</span></span></span><span class=line><span class=cl><span class=sb>abbcccdddd
+</span></span></span><span class=line><span class=cl><span class=sb>the apple
+</span></span></span><span class=line><span class=cl><span class=sb>d
+</span></span></span><span class=line><span class=cl><span class=sb>https://local.1234
+</span></span></span><span class=line><span class=cl><span class=sb>http://local.12345`</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/d$/g</span><span class=p>)</span>  
+</span></span><span class=line><span class=cl><span class=p>)</span> <span class=c1>// [&#34;d&#34;] 
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/d$/gm</span><span class=p>)</span>  
+</span></span><span class=line><span class=cl><span class=p>)</span> <span class=c1>// [&#34;d&#34;] [&#34;d&#34;] 
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/^t/gim</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>)</span> <span class=c1>// [&#34;t&#34;] , [&#34;T&#34;]
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/./g</span><span class=p>)</span> <span class=c1>// An array of all characters is returned.
+</span></span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/.a..e/g</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>)</span> <span class=c1>// [&#34;apple&#34;]
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/fox|dog/g</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>)</span> <span class=c1>// [&#34;fox&#34;] , [&#34;dog&#34;] if &#39;g&#39; is absent, only &#39;fox&#39; is output
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/https?/g</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>)</span> <span class=c1>// [&#34;https&#34;] ,[&#34;http&#34;]
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/d{2}/g</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>)</span> <span class=c1>// dd dd &lt;&lt; is an array
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/\b\w{2,3}\b/g</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=c1>// Outputs only words consisting of 2 to 3 characters, regardless of English letters or numbers
+</span></span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span></code></pre></div><div class=table-wrap><table><thead><tr><th>Pattern</th><th>Description</th></tr></thead><tbody><tr><td>[abc]</td><td>a or b or c</td></tr><tr><td>[a-z]</td><td>Matches characters in the range from a to z (lowercase English letters)</td></tr><tr><td>[A-Z]</td><td>Matches characters in the range from A to Z (uppercase English letters)</td></tr><tr><td>[0-9]</td><td>Matches characters in the range from 0 to 9 (numbers)</td></tr><tr><td>[가-힣]</td><td>Matches characters in the range from '가' to '힣' (Korean characters)</td></tr><tr><td>\w</td><td>Matches 63 characters (Word, 52 uppercase/lowercase English letters + 10 numbers + _)</td></tr><tr><td>\b</td><td>Word boundary (matches positions that are not part of a 63-character word)</td></tr><tr><td>\d</td><td>Matches a digit</td></tr><tr><td>\s</td><td>Matches whitespace</td></tr><tr><td>(?=)</td><td>Positive lookahead</td></tr><tr><td>(?&lt;=)</td><td>Positive lookbehind</td></tr></tbody></table></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kd>let</span> <span class=nx>str</span> <span class=o>=</span> <span class=sb>`
+</span></span></span><span class=line><span class=cl><span class=sb>010-1234-5678
+</span></span></span><span class=line><span class=cl><span class=sb>s22043@gsm.hs.kr
+</span></span></span><span class=line><span class=cl><span class=sb>The quick brown fox jumps over the lazy dog.
+</span></span></span><span class=line><span class=cl><span class=sb>abbcccdddd
+</span></span></span><span class=line><span class=cl><span class=sb>the apple
+</span></span></span><span class=line><span class=cl><span class=sb>d
+</span></span></span><span class=line><span class=cl><span class=sb>https://local.1234
+</span></span></span><span class=line><span class=cl><span class=sb>http://local.12345`</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>h</span> <span class=o>=</span> <span class=sb>` the hello  world    ! `</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/[fox]/g</span><span class=p>)</span> <span class=c1>// Both &#39;f&#39; and &#39;o&#39; are found
+</span></span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/[0-9]{1,}/g</span><span class=p>)</span> <span class=c1>// All 0-9 characters, one or more, are found
+</span></span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/\w/g</span><span class=p>)</span> <span class=c1>// All English characters are output
+</span></span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/\bf\w{1,}/g</span><span class=p>)</span> <span class=c1>// Breaks at a boundary that is not f ~ 63 characters. [&#34;fox&#34;]
+</span></span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>h</span><span class=p>.</span><span class=nx>replace</span><span class=p>(</span><span class=sr>/\s/g</span><span class=p>,</span><span class=s1>&#39;&#39;</span><span class=p>)</span> <span class=c1>// Can be applied to delete whitespace characters
+</span></span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span></code></pre></div><p>Positive Lookahead, Positive Lookbehind</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kd>let</span> <span class=nx>str</span> <span class=o>=</span> <span class=sb>`
+</span></span></span><span class=line><span class=cl><span class=sb>010-1234-5678
+</span></span></span><span class=line><span class=cl><span class=sb>s22043@gsm.hs.kr
+</span></span></span><span class=line><span class=cl><span class=sb>The quick brown fox jumps over the lazy dog.
+</span></span></span><span class=line><span class=cl><span class=sb>abbcccdddd
+</span></span></span><span class=line><span class=cl><span class=sb>the apple
+</span></span></span><span class=line><span class=cl><span class=sb>d
+</span></span></span><span class=line><span class=cl><span class=sb>https://local.1234
+</span></span></span><span class=line><span class=cl><span class=sb>http://local.12345`</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/.{1,}(?=@)/g</span><span class=p>)</span> <span class=c1>// Array of one or more characters before &#39;@&#39; [&#34;s22043&#34;]
+</span></span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=nx>str</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=sr>/(?&lt;=@).{1,}/g</span><span class=p>)</span> <span class=c1>// [&#34;gmail.com&#34;]
+</span></span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span></code></pre></div></div><footer class=article-footer><span><code>Front-End/JS/정규표현식.md</code></span></footer><nav class=pager aria-label="Previous/next note"><a class=prev href=/Front-End/JS/typeString.html rel=prev><span class=dir>← Previous</span>Strings</a>
+<a class=next href=/Front-End/React/classcompo.html rel=next><span class=dir>Next →</span>Class Components</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>

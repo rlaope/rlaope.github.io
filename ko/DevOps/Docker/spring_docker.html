@@ -1,0 +1,168 @@
+<!doctype html><html lang=ko dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Spring 프로젝트 Docker를 사용해 배포해보기 · rlaope</title><meta name=description content="Spring 프로젝트 Docker를 사용해 배포해보기 — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/ko/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/ko/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/ko/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="Spring 프로젝트 Docker를 사용해 배포해보기"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/ko/DevOps/Docker/spring_docker.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/ko/DevOps/Docker/spring_docker.html><link rel=stylesheet href=/ko/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/ko/index.html><img class=brand-logo src=/ko/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><span class=on aria-current=true>한국어</span><span class=sep>/</span><a href=https://rlaope.github.io/DevOps/Docker/spring_docker.html hreflang=en title="View in English">English</a></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/ko/graph.html title="지식 그래프" aria-label="지식 그래프"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub 저장소"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=ko><header class=article-header><nav class=crumbs aria-label=경로><a href=/ko/index.html>rlaope</a><span class=sep>/</span><a href=/ko/DevOps/index.html>DevOps</a></nav><h1 class=article-title>Spring 프로젝트 Docker를 사용해 배포해보기</h1><p class=meta><span>2,157 단어</span><span class=sep>·</span><span>5 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/DevOps/Docker/spring_docker.md rel=noopener>원문(.md)</a></p></header><div class=prose><h3 id=예제를-위해-요구사항>예제를 위해 요구사항 <a class=anchor href=#%ec%98%88%ec%a0%9c%eb%a5%bc-%ec%9c%84%ed%95%b4-%ec%9a%94%ea%b5%ac%ec%82%ac%ed%95%ad aria-label="이 절로 링크">#</a></h3><ul><li>Docker container를 렉 없이 올리기 위해 충분히 큰 용량의 ec2가 필요하다 따라서 t2.medium 기준으로 ec2를 마련했다.</li><li>자신은 렉이 많이 걸려도 상관없고 돈을 최대한 절약하기를 원한다고 하면 프리티어 단계에서 제공하는 t2.micro를 사용해도 상관 없다.</li></ul><h3 id=ec2-환경-설정>EC2 환경 설정 <a class=anchor href=#ec2-%ed%99%98%ea%b2%bd-%ec%84%a4%ec%a0%95 aria-label="이 절로 링크">#</a></h3><p>우선 ec2가 생성 되었다면, update부터 시켜주고 git을 설치한다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># ec2 업데이트</span>
+</span></span><span class=line><span class=cl>$ sudo yum update -y
+</span></span><span class=line><span class=cl><span class=c1># git 설치하기</span>
+</span></span><span class=line><span class=cl>$ sudo yum install git
+</span></span></code></pre></div><p>다음으로 jdk를 설치해준다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># aws coreetto 다운로드</span>
+</span></span><span class=line><span class=cl>sudo curl -L https://corretto.aws/downloads/latest/amazon-corretto-11-x64-linux-jdk.rpm -o jdk11.rpm
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># jdk11 설치</span>
+</span></span><span class=line><span class=cl>sudo yum localinstall jdk11.rpm -y
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># jdk version 선택</span>
+</span></span><span class=line><span class=cl>sudo /usr/sbin/alternatives --config java
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># java 버전 확인</span>
+</span></span><span class=line><span class=cl>java --version
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 다운받은 설치키트 제거</span>
+</span></span><span class=line><span class=cl>rm -rf jdk11.rpm
+</span></span></code></pre></div><p>위의 커맨드를 모두 입력하고 java --version을 통해 아래와같이 뜬다면 성공한겁니다.</p><pre tabindex=0><code>openjdk 11.0.15 2022-04-19 LTS
+OpenJDK Runtime Environment Corretto-11.0.15.9.1 (build 11.0.15+9-LTS)
+OpenJDK 64-Bit Server VM Corretto-11.0.15.9.1 (build 11.0.15+9-LTS, mixed mode)
+</code></pre><br><h3 id=dockerfile-작성>Dockerfile 작성 <a class=anchor href=#dockerfile-%ec%9e%91%ec%84%b1 aria-label="이 절로 링크">#</a></h3><p>스프링 프로젝트 파일에 Dockerfile을 작성해준다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-Dockerfile data-lang=Dockerfile><span class=line><span class=cl><span class=k>FROM</span><span class=w> </span><span class=s>openjdk:11-jdk</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=c># JAR_FILE 변수 정의 -&gt; 기본적으로 jar file이 2개이기 때문에 이름을 특정해야함</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>ARG</span> <span class=nv>JAR_FILE</span><span class=o>=</span>./build/libs/DevopsTestKotlin-0.0.1-SNAPSHOT.jar<span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=c># JAR 파일 메인 디렉토리에 복사</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>COPY</span> <span class=si>${</span><span class=nv>JAR_FILE</span><span class=si>}</span> app.jar<span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=c># 시스템 진입점 정의</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>ENTRYPOINT</span> <span class=p>[</span><span class=s2>&#34;java&#34;</span><span class=p>,</span><span class=s2>&#34;-jar&#34;</span><span class=p>,</span><span class=s2>&#34;/app.jar&#34;</span><span class=p>]</span><span class=err>
+</span></span></span></code></pre></div><ul><li><p><code>FROM openjdk:11-jdk</code></p><ul><li>Docker를 올릴 때 jdk11 버전을 이용해서 올리겠다고 선언하는 커맨드다</li></ul></li><li><p><code>ARG JAR_FILE=./build/libs/DevopsTestKotlin-0.0.1-SNAPSHOT.jar</code></p><ul><li>JAR 파일의 위치를 환경변수의 형태로 선언하는 것이다.</li><li>프로젝트를 빌드하게 되면 build/libs/xxxx.jar 의 형태로 jar file이 생성되어있을거다. 그 파일의 위치를 변수로 저장한다.</li></ul></li><li><p><code>COPY ${JAR_FILE} app.jar</code></p><ul><li>프로젝트의 jar 파일 위치를 참조하여 jar 파일을 가져와서 컨테이너의 루트 디렉토리에 app.jar의 이름으로 복사하는 커맨드입니다.</li></ul></li><li><p><code>ENTRYPOINT ["java","-jar","/app.jar"]</code></p><ul><li>도커파일이 도커엔진을 통해 컨테이너로 올라갈 때, 도커 컨테이너의 <strong>시스템 진입점이 어디인지</strong> 선언하는 커맨드다</li><li>위의 커맨드에서는 java -jar 명령어를 이용해 컨테이너의 루트에 위치한 app.jar을 실행하라는 뜻의 커멘드입니다.</li><li>위의 Dockerfile의 작성이 완료되었다면, git commit and push를 해준다음 ec2에 코드를 옮겨주면 된다.</li></ul></li></ul><br><h3 id=docker-compose-작성>docker-compose 작성 <a class=anchor href=#docker-compose-%ec%9e%91%ec%84%b1 aria-label="이 절로 링크">#</a></h3><p>일단 ec2에 프로젝트가 복사가 되었다는 전제로 시작하겠다.</p><p>springboot 프로젝트를 nginx를 이용해 배포할 예정이다. nginx의 이미지와 함께 사용을 하기 위해 docker-compose.yml 파일을 작성해 docker-compose로 올려보겠다. 일단 docker와 docker-compose에 ec2애 설치한다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ sudo yum install docker
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 버전 확인</span>
+</span></span><span class=line><span class=cl>sudo docker --version
+</span></span></code></pre></div><p>다음과 같이 뜨면 정상이다.</p><pre tabindex=0><code>Docker version &lt;version&gt; , build f0df350
+</code></pre><p>다음으로, docker-compose를 설치하겠습니다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo curl -L <span class=s2>&#34;https://github.com/docker/compose/releases/download/1.28.2/docker-compose-</span><span class=k>$(</span>uname -s<span class=k>)</span><span class=s2>-</span><span class=k>$(</span>uname -m<span class=k>)</span><span class=s2>&#34;</span> -o /usr/local/bin/docker-compose
+</span></span><span class=line><span class=cl>sudo chmod +x /usr/local/bin/docker-compose
+</span></span><span class=line><span class=cl>sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>### 버전 확인</span>
+</span></span><span class=line><span class=cl>docker-compose --version
+</span></span></code></pre></div><pre tabindex=0><code>docker-compose version &lt;version&gt; , build 67630359
+</code></pre><p>여기까지 끝났다면, docker-compose.yml 프로젝트의 루트 디렉토리를 생성하고 다음과 같이 작성을 한다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yml data-lang=yml><span class=line><span class=cl><span class=nt>version</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;3&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>services</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>web</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>nginx</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>ports</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>80</span><span class=p>:</span><span class=m>80</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>./nginx/conf.d:/etc/nginx/conf.d</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>depends_on</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>spring</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>spring</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>build</span><span class=p>:</span><span class=w> </span><span class=l>.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>ports</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>8080</span><span class=p>:</span><span class=m>8080</span><span class=w>
+</span></span></span></code></pre></div><p>위의 docker-compose 파일을 해석해보겠습니다.</p><p>nginx 이미지의 경우 인바운드로 들어오는 80번 포트를 docker container 내부에 꽂히는 80번 포트로 포워딩해주는 기능을 수행합니다. 이는 Http 요청을 nginx 내부로 그대로 흘리겠다는 뜻으로 해석할 수 있습니다.</p><p>그리고 volumes를 통해서 ec2에 있는 nginx 설정 파일을 컨테이너의 /etc/nginx/conf.d 폴더로 옮겨서 실행시키는 것도 볼수 있습니다.</p><p>그런데 depends_on 이라는 속성이 보이는데, 이는 nginx가 실행되는 시점은 spring이 컨테이너로 올라간 다음에 올리겠다는 뜻 입니다.</p><p>그리고 spring은 매우 간단합니다. 현재 디렉토리에 있는 Docker image를 빌드시키고, 8080번 포트로 인바운드 들어오는 신호를 컨테이너 내부의 8080번 포트로 그대로 꽂아주겠다는 의미입니다.</p><p>그런데, 저희는 아직 nginx의 설정 파일을 건든적이 없으며, 작성한 적도 없습니다. 따라서 nginx의 설정 파일인 conf.d를 작성하겠습니다.</p><p>우선 아래의 커맨드를 통해서 nginx/conf.d 폴더 내부에 app.conf를 생성하겠습니다.</p><pre tabindex=0><code>mkdir nginx
+mkdir nginx/conf.d
+cd nginx/conf.d
+sudo vim app.conf
+</code></pre><p>그리고 app.conf에 다음과 같이 작성한다.</p><pre tabindex=0><code>server {
+    listen 80;
+    access_log off;
+
+    location / {
+        proxy_pass http://spring:8080;
+        proxy_set_header Host $host:$server_port;
+        proxy_set_header X-Forwarded-Host $server_name;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+</code></pre><p>대충 위의 내용을 해석하겠습니다.</p><p>일단은 nginx는 외부의 80번 포트의 신호를 읽어냅니다. 그리고 신호를 pass 시킬때는 spring의 8080번 포트로 포워딩시켜서 패스시킵니다. 그리고 이렇게 포워딩 된 신호는 spring 입장에서는 인바운드에 해당하기 때문에 위에서 docker-compose.yml을 작성한대로 spring은 그에 해당하는 신호를 8080번 포트로 포워딩시켜서 container 내부로 꽂아버립니다.</p><p>그리고 그 아래 3개의 라인은 모두 proxy에 header를 채우는 코드들입니다.</p><br><h3 id=프로젝트를-올려보자>프로젝트를 올려보자. <a class=anchor href=#%ed%94%84%eb%a1%9c%ec%a0%9d%ed%8a%b8%eb%a5%bc-%ec%98%ac%eb%a0%a4%eb%b3%b4%ec%9e%90 aria-label="이 절로 링크">#</a></h3><p>아래의 커맨드를 통해 프로젝트를 빌드시켜보자</p><pre tabindex=0><code># gradlew의 권한 변경
+sudo chmod + ./gradlew
+
+# 빌드
+./gradlew build
+</code></pre><p>그리고 도커를 실행시킨다.</p><pre tabindex=0><code>sudo systemctl start docker
+</code></pre><p>도커가 정상 작동하고 있는지 확인한다.</p><pre tabindex=0><code>systemctl status docker
+</code></pre><pre tabindex=0><code>docker.service - Docker Application Container Engine
+   Loaded: loaded (/usr/lib/systemd/system/docker.service; disabled; vendor preset: disabled)
+   Active: active (running) since 수 2022-04-20 17:48:42 UTC; 51s ago
+     Docs: https://docs.docker.com
+  Process: 3380 ExecStartPre=/usr/libexec/docker/docker-setup-runtimes.sh (code=exited, status=0/SUCCESS)
+  Process: 3379 ExecStartPre=/bin/mkdir -p /run/docker (code=exited, status=0/SUCCESS)
+ Main PID: 3384 (dockerd)
+    Tasks: 8
+   Memory: 119.3M
+   CGroup: /system.slice/docker.service
+           └─3384 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock --default-ulimit nofile=32768:65536
+</code></pre><p>이제 docker-compose를 통해 프로젝트를 올린다.</p><pre tabindex=0><code># docker-compose를 백그라운드에서 동작시키기
+docker-compose up --build -d
+</code></pre><pre tabindex=0><code>Building with native build. Learn about native build in Compose here: https://docs.docker.com/go/compose-native-build/
+Creating network &#34;order-example-kotlin_default&#34; with the default driver
+Building spring
+Sending build context to Docker daemon  45.52MB
+Step 1/4 : FROM openjdk:11-jdk
+11-jdk: Pulling from library/openjdk
+6aefca2dc61d: Pulling fs layer
+967757d56527: Pulling fs layer
+c357e2c68cb3: Pulling fs layer
+c766e27afb21: Pulling fs layer
+a747e81e6111: Pulling fs layer
+2859d18181fd: Pulling fs layer
+3c6d59134c80: Pulling fs layer
+c766e27afb21: Waiting
+a747e81e6111: Waiting
+3c6d59134c80: Waiting
+2859d18181fd: Waiting
+c357e2c68cb3: Verifying Checksum
+c357e2c68cb3: Download complete
+967757d56527: Verifying Checksum
+967757d56527: Download complete
+6aefca2dc61d: Verifying Checksum
+6aefca2dc61d: Download complete
+a747e81e6111: Verifying Checksum
+a747e81e6111: Download complete
+2859d18181fd: Verifying Checksum
+2859d18181fd: Download complete
+c766e27afb21: Verifying Checksum
+c766e27afb21: Download complete
+3c6d59134c80: Verifying Checksum
+3c6d59134c80: Download complete
+6aefca2dc61d: Pull complete
+967757d56527: Pull complete
+c357e2c68cb3: Pull complete
+c766e27afb21: Pull complete
+a747e81e6111: Pull complete
+2859d18181fd: Pull complete
+3c6d59134c80: Pull complete
+Digest: sha256:95b2daeb07a18121a4309a053ff99aa741888528e5da068beef36db092a03e25
+Status: Downloaded newer image for openjdk:11-jdk
+ ---&gt; e67a33049aa6
+Step 2/4 : ARG JAR_FILE=./build/libs/DevopsTestKotlin-0.0.1-SNAPSHOT.jar
+ ---&gt; Running in a1ebd6481830
+Removing intermediate container a1ebd6481830
+ ---&gt; e448756e884e
+Step 3/4 : COPY ${JAR_FILE} app.jar
+ ---&gt; 1c1a9cfead2f
+Step 4/4 : ENTRYPOINT [&#34;java&#34;,&#34;-jar&#34;,&#34;/app.jar&#34;]
+ ---&gt; Running in 7dfbfc10fc7e
+Removing intermediate container 7dfbfc10fc7e
+ ---&gt; e1bfd62d0398
+Successfully built e1bfd62d0398
+Successfully tagged order-example-kotlin_spring:latest
+Pulling web (nginx:)...
+latest: Pulling from library/nginx
+1fe172e4850f: Pull complete
+35c195f487df: Pull complete
+213b9b16f495: Pull complete
+a8172d9e19b9: Pull complete
+f5eee2cb2150: Pull complete
+93e404ba8667: Pull complete
+Digest: sha256:694f2ecdb88498325d70dbcb4016e90ab47b5a8e6cd97aaeec53f71f62536f99
+Status: Downloaded newer image for nginx:latest
+Creating order-example-kotlin_spring_1 ... done
+Creating order-example-kotlin_web_1    ... done
+</code></pre><p>그 후 정상적으로 동작하고 있는지 HTTP 요청으로 테스트를 해보면된다.</p></div><footer class=article-footer><span><code>DevOps/Docker/spring_docker.md</code></span></footer><nav class=pager aria-label="이전/다음 노트"><a class=prev href=/ko/DevOps/Docker/ns.html rel=prev><span class=dir>← 이전</span>Namespace, Container + runc syscall tracking</a>
+<a class=next href=/ko/DevOps/Docker/swarm.html rel=next><span class=dir>다음 →</span>Docker Swarm</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>

@@ -1,0 +1,145 @@
+<!doctype html><html lang=ko dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>스택 (Stack) · rlaope</title><meta name=description content="스택 (Stack) — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/ko/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/ko/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/ko/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="스택 (Stack)"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/ko/Data-Structure/%EC%84%A0%ED%98%95/stack/stack.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/ko/Data-Structure/%EC%84%A0%ED%98%95/stack/stack.html><link rel=stylesheet href=/ko/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/ko/index.html><img class=brand-logo src=/ko/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><span class=on aria-current=true>한국어</span><span class=sep>/</span><a href=https://rlaope.github.io/Data-Structure/%ec%84%a0%ed%98%95/stack/stack.html hreflang=en title="View in English">English</a></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/ko/graph.html title="지식 그래프" aria-label="지식 그래프"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub 저장소"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=ko><header class=article-header><nav class=crumbs aria-label=경로><a href=/ko/index.html>rlaope</a><span class=sep>/</span><a href=/ko/Data-Structure/index.html>Data-Structure</a></nav><h1 class=article-title>스택 (Stack)</h1><p class=meta><span>886 단어</span><span class=sep>·</span><span>2 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/Data-Structure/%ec%84%a0%ed%98%95/stack/stack.md rel=noopener>원문(.md)</a></p></header><div class=prose><ul><li>스택은 삽입과 삭제가 한쪽 끝에서만 발생하는 <code>선형 리스트</code>다.</li></ul><blockquote><p>LIFO (Last In, First Out) 방식</p></blockquote><ul><li>스택의 연산에는 push pot peek 연산이 있다.<ul><li><code>push</code> : 스택의 연산에 자료 삽입</li><li><code>pop</code> : 자료를 삭제</li><li><code>peek</code> : 현재 스택의 top 포인터가 가리키는 자료의 내용을 조사하는 peek 연산자가 있다.</li></ul></li></ul><h3 id=스택-구현>스택 구현 <a class=anchor href=#%ec%8a%a4%ed%83%9d-%ea%b5%ac%ed%98%84 aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;stdio.h&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;stdlib.h&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 파일명 : stack.c
+</span></span></span><span class=line><span class=cl><span class=c1>// 목표 : 배열과 연결리스트를 사용해서
+</span></span></span><span class=line><span class=cl><span class=c1>// 스택(push, pop, peek)의 기능을 구현
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 1.배열 기반 구현
+</span></span></span><span class=line><span class=cl><span class=cp>#define STACK_SIZE 10
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=n>topIdx</span> <span class=o>=</span> <span class=o>-</span><span class=mi>1</span><span class=p>;</span> <span class=c1>// 스택의 맨 위 데이터가 어디에 저장? 
+</span></span></span><span class=line><span class=cl><span class=kt>int</span> <span class=n>arrStack</span><span class=p>[</span><span class=n>STACK_SIZE</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kt>void</span> <span class=nf>init</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=n>topIdx</span> <span class=o>=</span> <span class=o>-</span><span class=mi>1</span><span class=p>;</span> <span class=c1>// 스택이 비어있다고 정의
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kt>void</span> <span class=nf>push</span><span class=p>(</span><span class=kt>int</span> <span class=n>data</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span><span class=p>(</span><span class=n>topIdx</span> <span class=o>&lt;</span> <span class=n>STACK_SIZE</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=n>arrStack</span><span class=p>[</span><span class=o>++</span><span class=n>topIdx</span><span class=p>]</span> <span class=o>=</span> <span class=n>data</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>pop</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=c1>// topIdx 값이 1 감소 + topIdx가 가리키고 있던 값 반환
+</span></span></span><span class=line><span class=cl>	<span class=k>if</span><span class=p>(</span><span class=n>topIdx</span> <span class=o>&gt;=</span> <span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=n>arrStack</span><span class=p>[</span><span class=n>topIdx</span><span class=o>--</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=nf>printf</span><span class=p>(</span><span class=s>&#34;꺼낼 데이터가 없음&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>		<span class=nf>exit</span><span class=p>(</span><span class=o>-</span><span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>peek</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=n>arrStack</span><span class=p>[</span><span class=n>topIdx</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nf>push</span><span class=p>(</span><span class=mi>1</span><span class=p>);</span> <span class=nf>push</span><span class=p>(</span><span class=mi>2</span><span class=p>);</span> <span class=nf>push</span><span class=p>(</span><span class=mi>3</span><span class=p>);</span> <span class=nf>push</span><span class=p>(</span><span class=mi>4</span><span class=p>);</span> <span class=nf>push</span><span class=p>(</span><span class=mi>5</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>	<span class=nf>push</span><span class=p>(</span><span class=mi>11</span><span class=p>);</span> <span class=nf>push</span><span class=p>(</span><span class=mi>22</span><span class=p>);</span> <span class=nf>push</span><span class=p>(</span><span class=mi>33</span><span class=p>);</span> <span class=nf>push</span><span class=p>(</span><span class=mi>44</span><span class=p>);</span> <span class=nf>push</span><span class=p>(</span><span class=mi>55</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>	<span class=nf>push</span><span class=p>(</span><span class=mi>111</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nf>printf</span><span class=p>(</span><span class=s>&#34;pop() 연산 수행 : %d 꺼냄</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>,</span> <span class=nf>pop</span><span class=p>());</span>
+</span></span><span class=line><span class=cl>	<span class=nf>printf</span><span class=p>(</span><span class=s>&#34;pop() 연산 수행 : %d 꺼냄</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>,</span> <span class=nf>pop</span><span class=p>());</span>
+</span></span><span class=line><span class=cl>	<span class=nf>printf</span><span class=p>(</span><span class=s>&#34;pop() 연산 수행 : %d 꺼냄</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>,</span> <span class=nf>pop</span><span class=p>());</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nf>printf</span><span class=p>(</span><span class=s>&#34;peek() 연산으로 맨위 데이터 확인: %d&#34;</span><span class=p>,</span> <span class=nf>peek</span><span class=p>());</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><h3 id=연결리스트-기반-스택-구현>연결리스트 기반 스택 구현 <a class=anchor href=#%ec%97%b0%ea%b2%b0%eb%a6%ac%ec%8a%a4%ed%8a%b8-%ea%b8%b0%eb%b0%98-%ec%8a%a4%ed%83%9d-%ea%b5%ac%ed%98%84 aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;stdio.h&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;stdlib.h&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 연결리스트 기반 스택
+</span></span></span><span class=line><span class=cl><span class=k>typedef</span> <span class=k>struct</span> <span class=n>_node</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=kt>int</span> <span class=n>data</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=n>_node</span><span class=o>*</span> <span class=n>next</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span> <span class=n>Node</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>Node</span><span class=o>*</span> <span class=n>top</span> <span class=o>=</span> <span class=nb>NULL</span><span class=p>;</span> <span class=c1>// 연결리스트를 스택으로 쓰기 위해 사용 (연결리스트의 head와 비슷한 역할 수행)
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kt>void</span> <span class=nf>init</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=p>(</span><span class=n>top</span> <span class=o>!=</span> <span class=nb>NULL</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=n>Node</span><span class=o>*</span> <span class=n>delNode</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>		<span class=k>while</span> <span class=p>(</span><span class=n>top</span> <span class=o>!=</span> <span class=nb>NULL</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=n>delNode</span> <span class=o>=</span> <span class=n>top</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>			<span class=n>top</span> <span class=o>=</span> <span class=n>top</span><span class=o>-&gt;</span><span class=n>next</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>			<span class=nf>free</span><span class=p>(</span><span class=n>delNode</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kt>void</span> <span class=nf>push</span><span class=p>(</span><span class=kt>int</span> <span class=n>data</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=n>Node</span><span class=o>*</span> <span class=n>newNode</span> <span class=o>=</span> <span class=p>(</span><span class=n>Node</span><span class=o>*</span><span class=p>)</span><span class=nf>malloc</span><span class=p>(</span><span class=k>sizeof</span><span class=p>(</span><span class=n>Node</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>	<span class=n>newNode</span><span class=o>-&gt;</span><span class=n>data</span> <span class=o>=</span> <span class=n>data</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=n>newNode</span><span class=o>-&gt;</span><span class=n>next</span> <span class=o>=</span> <span class=nb>NULL</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=c1>// 1. 무 -&gt; 유
+</span></span></span><span class=line><span class=cl>	
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=p>(</span><span class=n>top</span> <span class=o>==</span> <span class=nb>NULL</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=n>top</span> <span class=o>=</span> <span class=n>newNode</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=n>newNode</span><span class=o>-&gt;</span><span class=n>next</span> <span class=o>=</span> <span class=n>top</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>		<span class=n>top</span> <span class=o>=</span> <span class=n>newNode</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=cm>/* 중복된 코드를 제거한 효율적인 코드 (짧은)
+</span></span></span><span class=line><span class=cl><span class=cm>	* if(top != NULL)
+</span></span></span><span class=line><span class=cl><span class=cm>	*	newNode -&gt;next =top;
+</span></span></span><span class=line><span class=cl><span class=cm>	  top = newNode;
+</span></span></span><span class=line><span class=cl><span class=cm>	*/</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>pop</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=p>(</span><span class=n>top</span> <span class=o>==</span> <span class=nb>NULL</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nf>printf</span><span class=p>(</span><span class=s>&#34;꺼낼 데이터가 없습니다.</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=o>-</span><span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=n>Node</span><span class=o>*</span> <span class=n>delNode</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>		<span class=kt>int</span> <span class=n>returnData</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>		<span class=n>delNode</span> <span class=o>=</span> <span class=n>top</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=n>top</span> <span class=o>=</span> <span class=n>top</span><span class=o>-&gt;</span><span class=n>next</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>		<span class=n>returnData</span> <span class=o>=</span> <span class=n>delNode</span><span class=o>-&gt;</span><span class=n>data</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>		<span class=nf>free</span><span class=p>(</span><span class=n>delNode</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=n>returnData</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>peek</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=p>(</span><span class=n>top</span> <span class=o>==</span> <span class=nb>NULL</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nf>printf</span><span class=p>(</span><span class=s>&#34;꺼낼 데이터가 없어서 -1 리턴함</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=o>-</span><span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>else</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=n>top</span><span class=o>-&gt;</span><span class=n>data</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nf>init</span><span class=p>();</span> <span class=c1>// 스택 초기화
+</span></span></span><span class=line><span class=cl>	<span class=nf>push</span><span class=p>(</span><span class=mi>10</span><span class=p>);</span> <span class=nf>push</span><span class=p>(</span><span class=mi>20</span><span class=p>);</span> <span class=nf>push</span><span class=p>(</span><span class=mi>30</span><span class=p>);</span> <span class=nf>push</span><span class=p>(</span><span class=mi>40</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nf>printf</span><span class=p>(</span><span class=s>&#34;pop실행 : %d 반환</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>,</span> <span class=nf>pop</span><span class=p>());</span>
+</span></span><span class=line><span class=cl>	<span class=nf>printf</span><span class=p>(</span><span class=s>&#34;pop실행 : %d 반환</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>,</span> <span class=nf>pop</span><span class=p>());</span>
+</span></span><span class=line><span class=cl>	<span class=nf>push</span><span class=p>(</span><span class=mi>100</span><span class=p>);</span> <span class=nf>push</span><span class=p>(</span><span class=mi>200</span><span class=p>);</span> <span class=nf>push</span><span class=p>(</span><span class=mi>300</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nf>printf</span><span class=p>(</span><span class=s>&#34;pop()실행 : %d 반환</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>,</span> <span class=nf>pop</span><span class=p>());</span>
+</span></span><span class=line><span class=cl>	<span class=nf>printf</span><span class=p>(</span><span class=s>&#34;peek()실행 : %d 반환</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>,</span> <span class=nf>peek</span><span class=p>());</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nf>init</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>	<span class=nf>printf</span><span class=p>(</span><span class=s>&#34;pop()실행 : %d 반환</span><span class=se>\n</span><span class=s> &#34;</span><span class=p>,</span><span class=nf>pop</span><span class=p>());</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><h3 id=스택의-활용-예시>스택의 활용 예시 <a class=anchor href=#%ec%8a%a4%ed%83%9d%ec%9d%98-%ed%99%9c%ec%9a%a9-%ec%98%88%ec%8b%9c aria-label="이 절로 링크">#</a></h3><ul><li>괄호의 연산<ul><li>괄호의 모양이 같아야한다.</li><li>괄호의 열리고 닫히는 순서가 같아야한다.</li><li>괄호의 갯수가 같아야한다.</li></ul></li></ul></div><footer class=article-footer><span><code>Data-Structure/선형/stack/stack.md</code></span></footer><nav class=pager aria-label="이전/다음 노트"><a class=prev href=/ko/Data-Structure/%EC%84%A0%ED%98%95/queue/queue.html rel=prev><span class=dir>← 이전</span>큐 queue</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>

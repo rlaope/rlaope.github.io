@@ -1,0 +1,110 @@
+<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Nginx · rlaope</title><meta name=description content="Nginx — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="Nginx"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/DevOps/nginx.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/DevOps/nginx.html><link rel=stylesheet href=/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/index.html><img class=brand-logo src=/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><a href=https://rlaope.github.io/ko/DevOps/nginx.html hreflang=ko title="한국어로 보기">한국어</a><span class=sep>/</span><span class=on aria-current=true>English</span></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/graph.html title="Knowledge graph" aria-label="Knowledge graph"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub repository"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=en><header class=article-header><nav class=crumbs aria-label=Path><a href=/index.html>rlaope</a><span class=sep>/</span><a href=/DevOps/index.html>DevOps</a></nav><h1 class=article-title>Nginx</h1><p class=meta><span>609 단어</span><span class=sep>·</span><span>2 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/DevOps/nginx.md rel=noopener>원문(.md)</a></p></header><div class=prose><h3 id=relationship-with-apache>Relationship with Apache <a class=anchor href=#relationship-with-apache aria-label="이 절로 링크">#</a></h3><p>Apache has been a beloved web server, never losing its top spot since 1996.</p><p>However, being old, it may sometimes not be compatible with new technologies.</p><p>Currently, both Apache and Nginx are widely used in Korea.</p><h3 id=features>Features <a class=anchor href=#features aria-label="이 절로 링크">#</a></h3><p>Unlike Apache, it has an asynchronous event-driven architecture.</p><p>It is specialized in handling concurrent connections.</p><ol><li>Event-Driven Processing Architecture</li></ol><p>An Event-Driven processing architecture handles multiple connections asynchronously through an Event-Handler, allowing logic to proceed for whichever connection is processed first.</p><p>The primary purpose of this technique is to create interactive programs, similar to PCP processing.</p><h3 id=role-of-an-http-server>Role of an HTTP Server <a class=anchor href=#role-of-an-http-server aria-label="이 절로 링크">#</a></h3><p>Complies with the HTTP protocol.</p><h3 id=role-as-a-reverse-proxy>Role as a Reverse Proxy <a class=anchor href=#role-as-a-reverse-proxy aria-label="이 절로 링크">#</a></h3><p>When a client sends a request to the proxy server, the proxy server retrieves data from the backend server (reverse server).</p><p>If requests are sent directly to the app server, one process must be in a response/waiting state, but a Reverse Proxy can distribute requests.</p><h3 id=basic-principle>Basic Principle <a class=anchor href=#basic-principle aria-label="이 절로 링크">#</a></h3><p>Nginx consists of one master process and multiple worker processes.</p><p>The master process is responsible for managing worker processes.</p><p>Worker processes are responsible for actually handling requests.</p><br><h2 id=applying-nginx>Applying Nginx <a class=anchor href=#applying-nginx aria-label="이 절로 링크">#</a></h2><h3 id=installation>Installation <a class=anchor href=#installation aria-label="이 절로 링크">#</a></h3><p>ubuntu</p><pre tabindex=0><code>sudo apt-get install nginx
+</code></pre><p>Verify the installation using the command below.</p><pre tabindex=0><code>nginx -v
+</code></pre><h3 id=commands>Commands <a class=anchor href=#commands aria-label="이 절로 링크">#</a></h3><p>Check version</p><pre tabindex=0><code>nginx -v
+</code></pre><p>Restart</p><pre tabindex=0><code>sudo service nginx restart
+</code></pre><p>Stop</p><pre tabindex=0><code>sudo service nginx stop
+nginx -s stop
+</code></pre><p>Apply configuration</p><pre tabindex=0><code>sudo service nginx reload
+nginx -s reload
+</code></pre><p>Check configuration</p><pre tabindex=0><code>nginx -t
+</code></pre><h3 id=configuration>Configuration <a class=anchor href=#configuration aria-label="이 절로 링크">#</a></h3><p>nginx.conf</p><pre tabindex=0><code class=language-conf data-lang=conf>user       www www; # Specifies the permissions for worker processes. Avoid using root if possible.
+worker_processes  5;  # How many processes to use when handling requests. Usually auto
+error_log  logs/error.log;	# Location of logs
+pid        logs/nginx.pid;	# Sets the process ID
+worker_rlimit_nofile 8192;	# Limits the number of files that can be opened for worker processes
+
+events {					# Connection-related processing
+  worker_connections  4096;  # Maximum number of connections a single process can handle
+}
+
+http {			# Web traffic processing block
+  include    conf/mime.types;
+  include    /etc/nginx/proxy.conf;
+  include    /etc/nginx/fastcgi.conf;
+  index    index.html index.htm index.php;	# Sets the name of the index file to display when connecting to the server
+
+  default_type application/octet-stream;	# Specifies the default mime.type value for the response
+  log_format   main &#39;$remote_addr - $remote_user [$time_local]  $status &#39;	# Specifies the log format
+    &#39;&#34;$request&#34; $body_bytes_sent &#34;$http_referer&#34; &#39;
+    &#39;&#34;$http_user_agent&#34; &#34;$http_x_forwarded_for&#34;&#39;;
+  access_log   logs/access.log  main;		# Sets the access log management file
+  sendfile     on;			# Manages sendfile() settings
+  server_names_hash_bucket_size 128; # Maximum number of hosts
+  keepalive_timeout   65;	# Sets the duration for maintaining server connections
+
+  server {	# Virtual server settings. IP-based and domain-based settings are possible
+    listen       80;	# Listens for requests on port 80
+    server_name  domain1.com www.domain1.com;	# Sets the virtual server name
+    access_log   logs/domain1.access.log  main;	# Location to log requests
+    root         html;		# Root directory
+
+    location ~ \.php$ {	# Configures settings based on the requested URI
+      fastcgi_pass   127.0.0.1:1025;
+    }
+  }
+
+  server {
+    listen       80;
+    server_name  domain2.com www.domain2.com;
+    access_log   logs/domain2.access.log  main;
+
+    # 정적 파일
+    location ~ ^/(images|javascript|js|css|flash|media|static)/  {
+      root    /var/www/virtual/big.server.com/htdocs;
+      expires 30d;
+    }
+
+    location / {
+      proxy_pass      http://127.0.0.1:8080;
+    }
+  }
+
+  upstream big_server_com {
+    server 127.0.0.3:8000 weight=5;
+    server 127.0.0.3:8001 weight=5;
+    server 192.168.0.1:8000;
+    server 192.168.0.1:8001;
+  }
+
+  server { # simple load balancing
+    listen          80;
+    server_name     big.server.com;
+    access_log      logs/big.server.access.log main;
+
+    location / {
+      proxy_pass      http://big_server_com;
+    }
+  }
+}
+
+upstream smoothbear {
+        server localhost:8082 weight=5 max_fails=3 fail_timeout=10s;	# Means sending to port 8082 of the server.
+        keepalive 100;		# If keepalive is off, a handshake occurs for every request, so this sets the maximum number of connections to maintain.
+}
+
+server {
+        listen 80;
+        server_name api.smooth-bear.live;
+
+        location ~ /\.ht {
+                deny all;
+        }
+
+        location / {
+                proxy_pass http://smoothbear;
+                proxy_redirect off;
+                proxy_set_header Host $host;
+                proxy_set_header   X-Real-IP $remote_addr;
+                proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+}
+</code></pre></div><footer class=article-footer><span><code>DevOps/nginx.md</code></span></footer><nav class=pager aria-label="Previous/next note"><a class=prev href=/DevOps/msa_monitoring.html rel=prev><span class=dir>← Previous</span>MicroService Monitoring System (cc. Loki/Grafana)</a>
+<a class=next href=/DevOps/prometheus_grafana.html rel=next><span class=dir>Next →</span>Prometheus, Grafana</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>

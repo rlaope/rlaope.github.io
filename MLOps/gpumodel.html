@@ -1,0 +1,461 @@
+<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>How a Model Loads onto a GPU · rlaope</title><meta name=description content="How a Model Loads onto a GPU — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="How a Model Loads onto a GPU"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/MLOps/gpumodel.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/MLOps/gpumodel.html><link rel=stylesheet href=/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/index.html><img class=brand-logo src=/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><a href=https://rlaope.github.io/ko/MLOps/gpumodel.html hreflang=ko title="한국어로 보기">한국어</a><span class=sep>/</span><span class=on aria-current=true>English</span></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/graph.html title="Knowledge graph" aria-label="Knowledge graph"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub repository"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=en><header class=article-header><nav class=crumbs aria-label=Path><a href=/index.html>rlaope</a><span class=sep>/</span><a href=/MLOps/index.html>MLOps</a></nav><h1 class=article-title>How a Model Loads onto a GPU</h1><p class=meta><span>5,182 단어</span><span class=sep>·</span><span>11 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/MLOps/gpumodel.md rel=noopener>원문(.md)</a></p></header><div class=prose><p><strong>Let's explore when processes, drivers, containers, and serving engines interact.</strong></p><p>By looking at <code>nvidia-smi</code> output, we can determine what's happening, which processes are consuming how much memory, why that amount of memory is being used, and whether the GPU is active or idle.</p><p>When the GPU isn't visible inside a container, how can we pinpoint which layer is broken—is it the driver, the container toolkit, or the image?</p><p>Let's gain the ability to sequentially interpret serving engine startup logs, from weight loading to KV cache preemption and graph capture, to understand what each step does and where it might have stalled.</p><br><h2 id=using-a-gpu>Using a GPU <a class=anchor href=#using-a-gpu aria-label="이 절로 링크">#</a></h2><h3 id=gpus-3-layer-access-structure>GPU's 3-Layer Access Structure <a class=anchor href=#gpus-3-layer-access-structure aria-label="이 절로 링크">#</a></h3><p>In Linux, a GPU is a <strong>device file</strong>.</p><p>For a process to use a GPU means opening that file and pushing commands into it.</p><pre tabindex=0><code>$ ls -l /dev/nvidia*
+crw-rw-rw- 1 root root 195,   0  /dev/nvidia0        ← GPU 0
+crw-rw-rw- 1 root root 195, 255  /dev/nvidiactl      ← For control
+crw-rw-rw- 1 root root 234,   0  /dev/nvidia-uvm     ← Unified memory
+crw-rw-rw- 1 root root 234,   1  /dev/nvidia-uvm-tools
+</code></pre><p>Three layers are built on top of this file.</p><pre tabindex=0><code>┌──────────────────────────────────────┐
+│ Application    vLLM, SGLang, PyTorch  │
+├──────────────────────────────────────┤
+│ CUDA Runtime   libcudart.so           │  Distributed with the app
+│               cuBLAS, cuDNN, etc.     │  Version tied to the app
+├──────────────────────────────────────┤
+│ Driver API     libcuda.so             │  Included with driver installation
+│                                       │  Only one exists on the host
+├──────────────────────────────────────┤
+│ Kernel Driver   nvidia.ko              │  Kernel module
+├──────────────────────────────────────┤
+│ Device File    /dev/nvidia*            │
+└──────────────────────────────────────┘
+</code></pre><p>There's a boundary in the middle: <code>libcuda.so</code> belongs to the driver and only one exists on the host.</p><p><code>libcudart.so</code> and the applications above it are portable.</p><h3 id=cuda-context>CUDA Context <a class=anchor href=#cuda-context aria-label="이 절로 링크">#</a></h3><p>When a process first attempts to use a GPU, the driver creates a <strong>CUDA context</strong>.</p><p>One context is created per process and per GPU. The information held by a context includes:</p><pre tabindex=0><code>GPU virtual address space      Where pointers returned by cudaMalloc reside
+Loaded kernel code             GPU functions this process will use
+Streams and events             Asynchronous task queues
+Memory allocation ledger       What was allocated and how much
+</code></pre><p><strong>Isolation between processes is maintained.</strong> This means process B cannot dereference a GPU pointer received by process A. If a process dies, its context disappears, and all GPU memory it held is reclaimed.</p><p>Context creation itself is costly, consuming hundreds of MB of GPU memory and taking hundreds of milliseconds. Therefore, a serving process creates it once during startup and continues to use it.</p><h3 id=when-multiple-processes-attach-to-one-gpu>When Multiple Processes Attach to One GPU <a class=anchor href=#when-multiple-processes-attach-to-one-gpu aria-label="이 절로 링크">#</a></h3><p>By default, multiple processes can create contexts on the same GPU. However, they <strong>do not compute simultaneously.</strong> The driver time-shares contexts by switching between them.</p><pre tabindex=0><code>Default (Time-sharing)    Process A [compute] → Context switch → Process B [compute] → ...
+                          Incurs switching overhead, each allocates memory separately
+
+MPS                       Kernels from multiple processes run concurrently within a single context
+                          No switching overhead. Weaker isolation
+
+MIG                       Splits the GPU at a hardware level
+                          Memory and compute units are physically isolated. Strong isolation
+                          RTX PRO 6000 server edition supports up to 4 instances of 24GB
+</code></pre><p><strong>For serving, typically none of these are used.</strong> Instead, one serving process is assigned to one GPU, and that process batches requests internally, as batching is more efficient than context switching.</p><br><h2 id=order-of-gpu-acquisition-by-a-process>Order of GPU Acquisition by a Process <a class=anchor href=#order-of-gpu-acquisition-by-a-process aria-label="이 절로 링크">#</a></h2><h3 id=startup-sequence>Startup Sequence <a class=anchor href=#startup-sequence aria-label="이 절로 링크">#</a></h3><p>When a serving process starts, the following events occur in sequence:</p><pre tabindex=0><code>1. Process start
+   Load libcuda.so, open /dev/nvidiactl
+
+2. Device enumeration
+   Query how many devices are visible, and their compute capability and memory
+
+3. Context creation
+   Open /dev/nvidia0, secure GPU virtual address space
+   → From this point, the process appears in nvidia-smi
+
+4. Weight loading
+   Disk → Host memory → GPU memory
+   Read safetensors via mmap and copy layer by layer
+
+5. Memory profiling
+   Perform a forward pass with dummy input to measure peak activation usage
+
+6. KV cache pool preemption
+   (Total memory × utilization) − weights − activations = KV share
+   Allocate that entire amount and redistribute internally in blocks
+
+7. CUDA graph capture
+   Pre-record kernel execution sequences for frequently used batch sizes
+
+8. HTTP server start
+   Bind socket, start accepting requests
+</code></pre><h3 id=reading-startup-logs>Reading Startup Logs <a class=anchor href=#reading-startup-logs aria-label="이 절로 링크">#</a></h3><p>Key lines from vLLM startup logs:</p><pre tabindex=0><code class=language-log data-lang=log>INFO  Loading model weights took 52.3021 GB
+      → Step 4. Actual amount of weights consumed
+
+INFO  Memory profiling results:
+      total_gpu_memory=95.00GiB
+      model_weights=52.30GiB
+      non_torch_memory=0.85GiB      ← Context, kernel code, etc.
+      PyTorch_activation_peak=3.12GiB
+      gpu_memory_utilization=0.90
+      → Step 5. Breakdown of what consumes how much
+
+INFO  GPU KV cache size: 29,184 tokens
+INFO  Maximum concurrency for 32,768 tokens per request: 0.89x
+      → Step 6. How many tokens can be held with the remaining share
+      → 0.89x is a warning that even one 32K request cannot be fully accommodated
+
+INFO  Capturing CUDA graphs: 100%|██████| 35/35
+      → Step 7. Recording for 35 types of batch sizes
+
+INFO  Starting vLLM API server on http://0.0.0.0:8000
+      → Step 8. Now accepting requests
+</code></pre><p>If <code>Maximum concurrency</code> is less than 1.0, the configuration is incorrect. This value is <strong>the KV cache share divided by the length required by one request</strong>, indicating how many maximum-context requests this server can handle concurrently.</p><pre tabindex=0><code>KV cache tokens ÷ max-model-len = Maximum concurrency
+
+29,184 ÷ 32,768 = 0.89x
+</code></pre><p>The state falls into three categories based on the value:</p><pre tabindex=0><code>Less than 1.0   Cannot accommodate even one max-length request
+                → Such requests will be rejected or truncated
+                → Short requests might run for a while, but it will crash when a long request arrives
+
+1.0 to 2.0      One request can be accommodated, but concurrent processing is virtually impossible
+                → No batching, so the GPU is idle and throughput is low
+
+4.0 or more     Multiple requests can be processed concurrently. Batching becomes meaningful
+</code></pre><p>It's dangerous because the server can sometimes start even if it's less than 1.0. If most actual requests are 2K tokens, it will run without issues for a while, but then fail the first time a 30K request comes in.</p><p>This is a typical anti-pattern that goes unnoticed in development but surfaces in production.</p><p>You need to reduce the context length, apply quantization, or add more GPUs.</p><pre tabindex=0><code>Increase the numerator   Quantize to reduce weights and secure KV share     Significant effect
+                         Increase --gpu-memory-utilization                  Small effect
+                         Use FP8 for KV cache itself                        Approx. 2x
+                         Add GPUs for TP                                    Linear
+
+Decrease the denominator --max-model-len                                   Check actual required length
+</code></pre><h3 id=nvidia-smi>nvidia-smi <a class=anchor href=#nvidia-smi aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>$ nvidia-smi
++-----------------------------------------------------------------------+
+| NVIDIA-SMI 580.178.04    Driver Version: 580.178.04  CUDA Version: 13.0|
+|-----------------------------------------+----------------------------+
+| GPU  Name              Persistence-M    | Bus-Id        Disp.A       |
+| Fan  Temp  Perf  Pwr:Usage/Cap          |         Memory-Usage       |
+|                                         |          GPU-Util  Compute M|
+|=========================================+============================|
+|   0  RTX PRO 6000 Blackwell         Off | 00000000:01:00.0 Off       |
+| 30%   62C    P0    412W / 600W          |  87234MiB / 97887MiB       |
+|                                         |       94%      Default     |
++-----------------------------------------+----------------------------+
+
++-----------------------------------------------------------------------+
+| Processes:                                                            |
+|  GPU   PID   Type   Process name                        GPU Memory    |
+|=======================================================================|
+|    0  12847     C   /usr/bin/python3                     87180MiB     |
++-----------------------------------------------------------------------+
+</code></pre><ul><li><strong>CUDA Version:</strong> This is the maximum CUDA version supported by the driver, not the installed toolkit version. It's common to misunderstand this as the toolkit version.</li><li><strong>Memory Usage:</strong> Even when run inside a container, it's shown based on the entire host. It includes memory used by other containers.</li><li><strong>GPU-Util:</strong> This is the ratio of time during the last sampling interval that at least one kernel was running. It doesn't indicate how many cores were active; even if one kernel runs continuously using only one SM, it will show 100%.</li><li><strong>Compute M:</strong> If "Default," multiple processes can create contexts. If "Exclusive_Process," only one is allowed.</li><li><strong>Processes:</strong> This is a list of processes that have created a CUDA context on the GPU. Each row is one process, and the last column is the GPU memory consumed by that process. Due to different PID namespaces inside containers, this list might appear empty or show PIDs that don't match the host. The Type column indicates usage: C for compute (CUDA), G for graphics, C+G for both. Serving processes are shown as C.</li></ul><p>Do not misunderstand the meaning of GPU-Util. If it's 94% but throughput is low, it's likely that cores are idle, and separate metrics are needed to see actual utilization.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Including SM occupancy and memory bandwidth</span>
+</span></span><span class=line><span class=cl>nvidia-smi dmon -s pucvmet -d <span class=m>1</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Items</span>
+</span></span><span class=line><span class=cl><span class=c1>#   sm    SM active ratio</span>
+</span></span><span class=line><span class=cl><span class=c1>#   mem   Memory bandwidth usage ratio</span>
+</span></span><span class=line><span class=cl><span class=c1>#   pwr   Power</span>
+</span></span><span class=line><span class=cl><span class=c1>#   mclk/pclk  Memory/core clock</span>
+</span></span></code></pre></div><br><h2 id=deploying-with-containers>Deploying with Containers <a class=anchor href=#deploying-with-containers aria-label="이 절로 링크">#</a></h2><h3 id=problem---no-driver-inside-the-container>Problem - No Driver Inside the Container <a class=anchor href=#problem---no-driver-inside-the-container aria-label="이 절로 링크">#</a></h3><p>Containers share the kernel with the host but isolate the filesystem, so there are no <code>/dev/nvidia*</code> or <code>libcuda.so</code> files inside the container.</p><p>The method of putting the driver into the image cannot be used. <code>libcuda.so</code> must exactly match the host's kernel module version, and embedding it in the image would break it the moment the host driver is updated.</p><h3 id=solution>Solution <a class=anchor href=#solution aria-label="이 절로 링크">#</a></h3><p>The NVIDIA Container Toolkit injects the host's device nodes and driver libraries into the container at container startup.</p><pre tabindex=0><code>Host                            Container (after injection)
+/dev/nvidia0            ──────→  /dev/nvidia0
+/dev/nvidiactl          ──────→  /dev/nvidiactl
+/dev/nvidia-uvm         ──────→  /dev/nvidia-uvm
+libcuda.so.580.178.04   ──────→  /usr/lib/.../libcuda.so
+nvidia-smi              ──────→  /usr/bin/nvidia-smi
+
+What the image brings
+  libcudart.so, cuBLAS, cuDNN, PyTorch, serving engine
+</code></pre><p>The driver layer is injected from the host, and the runtime layer is included in the image.</p><p>Therefore, including the CUDA toolkit in the image is normal, but including the driver is incorrect.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Install toolkit</span>
+</span></span><span class=line><span class=cl>curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey <span class=se>\
+</span></span></span><span class=line><span class=cl>  <span class=p>|</span> sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+</span></span><span class=line><span class=cl>curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list <span class=se>\
+</span></span></span><span class=line><span class=cl>  <span class=p>|</span> sed <span class=s1>&#39;s#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g&#39;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  <span class=p>|</span> sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+</span></span><span class=line><span class=cl>sudo apt update <span class=o>&amp;&amp;</span> sudo apt install -y nvidia-container-toolkit
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Register runtime with Docker</span>
+</span></span><span class=line><span class=cl>sudo nvidia-ctk runtime configure --runtime<span class=o>=</span>docker
+</span></span><span class=line><span class=cl>sudo systemctl restart docker
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Verify</span>
+</span></span><span class=line><span class=cl>docker run --rm --gpus all nvidia/cuda:12.9.2-base-ubuntu22.04 nvidia-smi
+</span></span></code></pre></div><p>Every time the driver is updated, you must re-run <code>nvidia-ctk runtime configure</code> and restart Docker. If you don't, <code>--gpus</code> calls will start failing. This is a constant maintenance item for this stack.</p><h3 id=cdi-the-recent-standard-path>CDI, the Recent Standard Path <a class=anchor href=#cdi-the-recent-standard-path aria-label="이 절로 링크">#</a></h3><p>The <code>--gpus</code> flag operates as a Docker-specific hook. Nowadays, there's a shift towards CDA (Container Device Inference), a vendor-neutral specification used by Kubernetes, Podman, and Docker.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Generate CDI specification (regenerate if driver settings change)</span>
+</span></span><span class=line><span class=cl>sudo nvidia-ctk cdi generate --output<span class=o>=</span>/etc/cdi/nvidia.yaml
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Usage</span>
+</span></span><span class=line><span class=cl>docker run --rm --device nvidia.com/gpu<span class=o>=</span><span class=m>0</span> &lt;image&gt; nvidia-smi
+</span></span></code></pre></div><p>The specification file describes which nodes and libraries are needed to use this device, and a CDI-aware runtime reads and injects them. If generated in <code>/var/run/cdi</code>, it will be deleted on reboot, so <code>/etc/cdi</code> is preferable.</p><h3 id=deployment---starting-the-serving-container>Deployment - Starting the Serving Container <a class=anchor href=#deployment---starting-the-serving-container aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>docker run --rm -d <span class=se>\ </span><span class=c1># --rm is included for one-time verification</span>
+</span></span><span class=line><span class=cl>  --gpus <span class=s1>&#39;&#34;device=0&#34;&#39;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  --ipc<span class=o>=</span>host <span class=se>\
+</span></span></span><span class=line><span class=cl>  --shm-size<span class=o>=</span>16g <span class=se>\
+</span></span></span><span class=line><span class=cl>  -p 8000:8000 <span class=se>\
+</span></span></span><span class=line><span class=cl>  -v /models:/models:ro <span class=se>\
+</span></span></span><span class=line><span class=cl>  -e <span class=nv>HF_HOME</span><span class=o>=</span>/models/hf <span class=se>\
+</span></span></span><span class=line><span class=cl>  vllm/vllm-openai:latest <span class=se>\
+</span></span></span><span class=line><span class=cl>    --model /models/Qwen3.6-27B <span class=se>\
+</span></span></span><span class=line><span class=cl>    --max-model-len <span class=m>32768</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>    --gpu-memory-utilization 0.90
+</span></span></code></pre></div><pre tabindex=0><code># Docker standard flags
+-d                      Run in background. If not attached, the terminal will be occupied
+--name vllm             Assign a name. Used for referencing, e.g., docker logs vllm
+--restart unless-stopped  Automatically restart if the process dies
+-p 8000:8000            Map host port 8000 to container port 8000
+-v /models:/models:ro   Mount host directory as read-only
+-e HF_HOME=...          Environment variable. Here, the model cache location
+</code></pre><p><code>--rm</code> is not used in serving. It's a flag to automatically delete the container when it stops, but it's included here for testing purposes. Since <code>docker logs</code> also won't be available, use it only for one-time verification.</p><ul><li><code>--ipc=host</code>, <code>--shm-size</code>: Tensor parallelism or data loaders use inter-process shared memory. Docker's default 64MB is insufficient, causing startup failures.</li><li><code>-v /models:ro</code>: If weights are put into the image, the image becomes tens of GBs. Mount it as a volume and set it to read-only.</li><li><code>gpus '"device=0"'</code>: Injects only card 0 into the container. The double quotes are because the shell consumes one layer. If using <code>--gpus all</code>, quotes are not needed.</li></ul><br><h2 id=request-flow>Request Flow <a class=anchor href=#request-flow aria-label="이 절로 링크">#</a></h2><p>Let's examine the flow from HTTP to the GPU. There's one process, but two types of work run within it: one for receiving sockets and one for issuing commands to the GPU.</p><pre tabindex=0><code>Client
+   │ HTTP POST /v1/chat/completions
+   ▼
+[Socket → HTTP Parser]           CPU thread
+   │ Tokenization
+   ▼
+[Scheduler Queue]                CPU
+   │ Selects requests from the waiting queue to include in the current step
+   │ KV cache block allocation
+   ▼
+[Batch Composition]              Groups multiple requests into one
+   │
+   ▼
+[Kernel Launch]                  CPU pushes commands to the GPU stream
+   │                            ← Asynchronous. CPU returns immediately
+   ▼
+[GPU Execution]                  Executes kernels accumulated in the stream sequentially
+   │
+   ▼
+[Result Synchronization]         CPU reads the results
+   │ Detokenization
+   ▼
+[Streaming Response]             Sends tokens one by one via SSE
+</code></pre><p><strong>The asynchronous nature of kernel launch is central to the architecture.</strong> The CPU pushes GPU commands and immediately returns to prepare the next batch.</p><p>While the GPU computes the current batch, if the CPU finishes scheduling the next batch, the GPU continues working without pause.</p><p>Conversely, if the CPU is slow, the GPU waits for commands and idles. This phenomenon is more pronounced with smaller models. If one kernel takes 3ms and scheduling takes 3ms, the GPU only works half the time.</p><h3 id=concept---stream>Concept - Stream <a class=anchor href=#concept---stream aria-label="이 절로 링크">#</a></h3><p>A stream is a command queue sent to the GPU. Kernels placed in the same stream execute sequentially, while kernels in different streams can overlap.</p><pre tabindex=0><code>Stream 0  [KernelA][KernelB][KernelC]        Order guaranteed
+Stream 1        [CopyD][KernelE]             Can run concurrently with Stream 0
+</code></pre><p>Serving engines typically separate compute and copy streams to prevent computation from halting while weights or KV are being moved.</p><h3 id=pitfall-port-open-but-not-ready>Pitfall: Port Open but Not Ready <a class=anchor href=#pitfall-port-open-but-not-ready aria-label="이 절로 링크">#</a></h3><p>Although the HTTP server is the last step in the startup sequence, the first request is still slow. This is because an uncaptured batch size might arrive, or an unused kernel might be JIT-compiled.</p><pre tabindex=0><code>First request   Several seconds. JIT compilation and cache miss
+10-30 requests  Gradually stabilizes
+After that      Normal performance
+</code></pre><p><strong>If you don't warm up during benchmarking, this phase will contaminate the results.</strong> Pushing traffic immediately after a health check passes during deployment will cause initial latency spikes.</p><br><h2 id=differences-when-running-training>Differences When Running Training <a class=anchor href=#differences-when-running-training aria-label="이 절로 링크">#</a></h2><h3 id=changes-in-memory-configuration>Changes in Memory Configuration <a class=anchor href=#changes-in-memory-configuration aria-label="이 절로 링크">#</a></h3><p>Serving and training use GPU memory differently.</p><pre tabindex=0><code>Serving                         Training
+─────────────────────────────────────────────────
+Weights                         Weights
+Activations (small)             Activations (all stored for backpropagation)
+KV Cache (most)                 Gradients (same size as weights)
+                                Optimizer state (2x weights for Adam)
+</code></pre><p><strong>Full fine-tuning with Adam requires four times the weights.</strong></p><p>This includes the weights themselves, gradients, and the first and second moments of the optimizer. To tune a 27B model with BF16, it would require 54GB x 4 = 216GB, which cannot be done with a single 96GB card.</p><p>Therefore, LoRA is typically used on a single card. By freezing the original weights and training only a small adapter, the gradients and optimizer state are reduced to the size of the adapter.</p><pre tabindex=0><code>27B model, 96GB card
+
+Full fine-tuning (Adam, BF16)    216GB  Impossible
+LoRA (BF16 base)                 Approx. 60GB  Possible
+QLoRA (4-bit base)               Approx. 25GB  Plenty of room
+</code></pre><h3 id=differences-in-execution-patterns>Differences in Execution Patterns <a class=anchor href=#differences-in-execution-patterns aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>Serving    Requests arrive sporadically. Batch composition constantly changes
+           Latency is the metric. Scheduler is complex
+
+Training   Data is pre-available. Batches are fixed
+           Throughput is the only metric. Pipeline can be fully utilized
+</code></pre><p>This is why pipeline parallelism is useful in training but less so in inference: if there's pre-split data to push, GPU idle periods can be filled.</p><h3 id=deployment---training-container>Deployment - Training Container <a class=anchor href=#deployment---training-container aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>docker run --rm -it <span class=se>\
+</span></span></span><span class=line><span class=cl>  --gpus all <span class=se>\
+</span></span></span><span class=line><span class=cl>  --ipc<span class=o>=</span>host --shm-size<span class=o>=</span>32g <span class=se>\
+</span></span></span><span class=line><span class=cl>  --ulimit <span class=nv>memlock</span><span class=o>=</span>-1 --ulimit <span class=nv>stack</span><span class=o>=</span><span class=m>67108864</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  -v /data:/data -v /out:/out <span class=se>\
+</span></span></span><span class=line><span class=cl>  nvcr.io/nvidia/pytorch:26.07-py3 <span class=se>\
+</span></span></span><span class=line><span class=cl>  bash
+</span></span></code></pre></div><pre tabindex=0><code>--rm -it              One-time interactive shell to be discarded. Not a persistent process like serving
+--gpus all            Inject all visible cards. Training typically uses multiple cards together
+--ipc=host            Shared memory between worker processes. Used by data loaders
+--shm-size=32g        Larger than serving (16g). Data loader workers stage batches here
+--ulimit memlock=-1   Lift page-locked memory limit
+--ulimit stack=64MB   Increase thread stack size
+-v /data -v /out      Dataset input and checkpoint output
+</code></pre><p><code>--ulimit memlock</code> is a training-specific item. For the GPU to directly read CPU memory, those pages must not be swapped to disk; this memory is called page-locked (pinned) memory. Communication libraries and data loaders allocate a large amount of this, and the default Linux limit of 64KB is immediately hit.</p><pre tabindex=0><code>$ ulimit -l
+64                    ← In KB. 64KB
+
+Symptom   NCCL initialization failure, or &#34;cannot allocate pinned memory&#34;
+Cause     Requirement exceeds limit
+Action    Set to -1 to lift the limit
+</code></pre><p><code>stack</code> is increased because worker threads sometimes need more than the default 8MB for deep recursion or large local variables. 67108864 is 64MB.</p><br><h2 id=diagnostics>Diagnostics <a class=anchor href=#diagnostics aria-label="이 절로 링크">#</a></h2><h3 id=troubleshooting-steps-by-symptom>Troubleshooting Steps by Symptom <a class=anchor href=#troubleshooting-steps-by-symptom aria-label="이 절로 링크">#</a></h3><p><strong>If the GPU is not visible in the container:</strong></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>nvidia-smi                                    <span class=c1># Check host driver</span>
+</span></span><span class=line><span class=cl>docker info <span class=p>|</span> grep -i runtime                 <span class=c1># Check NVIDIA runtime registration</span>
+</span></span><span class=line><span class=cl>docker run --rm --gpus all nvidia/cuda:12.9.2-base-ubuntu22.04 nvidia-smi
+</span></span></code></pre></div><p>The cause varies depending on where it breaks in these three steps: if the first step fails, it's the driver; if the second, it's the toolkit configuration; if the third, it's the image or CDI specification. If the driver was recently updated, re-run <code>nvidia-ctk runtime configure</code>.</p><p><strong>If "out of memory" appears:</strong></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>nvidia-smi --query-compute-apps<span class=o>=</span>pid,used_memory --format<span class=o>=</span>csv
+</span></span></code></pre></div><p>Sometimes a dead process holds onto memory. If memory isn't reclaimed even after deleting the container, there's a zombie process on the host.</p><p><strong>If it's slow but gpu-util is high:</strong></p><p>When checking the <code>sm</code> column with <code>nvidia-smi dmon -s pum</code>, if <code>gpu-util</code> is in the 90% range but <code>sm</code> is low, it means the GPU is not being fully utilized. The batch size might be too small, or the CPU-side scheduling is a bottleneck.</p><p><strong>If it gets slower over time:</strong></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>nvidia-smi -q -d PERFORMANCE <span class=p>|</span> grep -A5 <span class=s2>&#34;Clocks Throttle&#34;</span>
+</span></span></code></pre></div><p>If <code>SW Power Cap</code> or <code>HW Thermal Slowdown</code> is Active, it means power or thermal limits have been hit. This is common when using a 600W card with insufficient case airflow.</p><p><strong>Xid Error:</strong></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo dmesg <span class=p>|</span> grep -i xid
+</span></span></code></pre></div><p>Xid is a hardware error code that the driver logs in the kernel log. Each number has a different meaning, and repeated occurrences likely indicate a hardware or driver issue.</p><h4 id=things-to-know-when-using-rtx-pro-6000-blackwell>Things to Know When Using RTX PRO 6000 Blackwell <a class=anchor href=#things-to-know-when-using-rtx-pro-6000-blackwell aria-label="이 절로 링크">#</a></h4><p>Workstation-grade Blackwell has a compute capability of sm_120, which differs from datacenter Blackwell (sm_100). A higher number does not imply backward compatibility.</p><pre tabindex=0><code>Kernels compiled for sm_100 do not run on sm_120
+→ Framework takes a slower fallback path or execution fails
+→ Cases reported where NVFP4 MoE kernels fall back to Marlin backend
+</code></pre><p>The card's specifications are as follows:</p><pre tabindex=0><code>Memory        96GB GDDR7 ECC, 512-bit
+Bandwidth     1,792 GB/s (workstation) / 1,597 GB/s (server)
+TDP           400~600W configurable
+MIG           Server edition supports up to 4 instances of 24GB
+Usable        Approx. 86GB, excluding driver overhead
+</code></pre><p><strong>It is safer to first check if the official serving image properly supports sm_120.</strong></p><p>If an 8B model loaded with FP8 consumes over 90GB, it indicates that the quantization kernel has fallen back, and the image or build options need to be changed.</p><br><h2 id=virtual-lab-serving>Virtual Lab: Serving <a class=anchor href=#virtual-lab-serving aria-label="이 절로 링크">#</a></h2><p>Let's conduct a practical exercise based on the content so far.</p><pre tabindex=0><code>Equipment   Ubuntu 24.04, RTX PRO 6000 Blackwell 96GB (1 card), RAM 128GB
+Goal        Deploy Qwen3.6-27B on port 8000 and verify requests are processed
+</code></pre><h3 id=step-1---initial-state>Step 1 - Initial State <a class=anchor href=#step-1---initial-state aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ nvidia-smi
+</span></span><span class=line><span class=cl>Command <span class=s1>&#39;nvidia-smi&#39;</span> not found
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ lspci <span class=p>|</span> grep -i nvidia
+</span></span><span class=line><span class=cl>01:00.0 VGA compatible controller: NVIDIA Corporation Device 2bb1 <span class=o>(</span>rev a1<span class=o>)</span>
+</span></span></code></pre></div><p>The card is installed, but there's no driver. This is the state if <code>lspci</code> shows it but <code>nvidia-smi</code> is missing.</p><p>First, let's look at the available drivers.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ ubuntu-drivers devices
+</span></span><span class=line><span class=cl>vendor   : NVIDIA Corporation
+</span></span><span class=line><span class=cl>model    : RTX PRO <span class=m>6000</span> Blackwell
+</span></span><span class=line><span class=cl>driver   : nvidia-driver-580-server - distro non-free recommended
+</span></span><span class=line><span class=cl>driver   : nvidia-driver-580        - distro non-free
+</span></span><span class=line><span class=cl>driver   : nvidia-driver-575-server - distro non-free
+</span></span></code></pre></div><pre tabindex=0><code>580        Driver branch number. Higher means newer and supports new GPUs
+           Blackwell series requires 570 or higher for recognition
+
+-server    Datacenter variant
+            · Display output related components are omitted
+            · Branch is maintained for longer
+            (The non-server version is for desktops. Includes graphics stack)
+
+recommended  What the distribution recommends for this card
+</code></pre><p>If you're only deploying serving on a headless server, you should use <code>-server</code>. If you're using a monitor or also using it as a workstation, choose the non-server version.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ sudo apt update <span class=o>&amp;&amp;</span> sudo apt install -y nvidia-driver-580-server
+</span></span><span class=line><span class=cl>$ sudo reboot
+</span></span></code></pre></div><h3 id=step-2---driver-verification>Step 2 - Driver Verification <a class=anchor href=#step-2---driver-verification aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ nvidia-smi
+</span></span><span class=line><span class=cl>+-----------------------------------------------------------------------+
+</span></span><span class=line><span class=cl><span class=p>|</span> NVIDIA-SMI 580.178.04    Driver Version: 580.178.04  CUDA Version: 13.0<span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>-----------------------------------------+----------------------------+
+</span></span><span class=line><span class=cl><span class=p>|</span>   <span class=m>0</span>  RTX PRO <span class=m>6000</span> Blackwell         Off <span class=p>|</span> 00000000:01:00.0 Off       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> 30%   38C    P8     22W / 600W          <span class=p>|</span>      4MiB / 97887MiB       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>                                         <span class=p>|</span>        0%      Default     <span class=p>|</span>
+</span></span><span class=line><span class=cl>+-----------------------------------------+----------------------------+
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ ls /dev/nvidia*
+</span></span><span class=line><span class=cl>/dev/nvidia0  /dev/nvidiactl  /dev/nvidia-uvm  /dev/nvidia-uvm-tools
+</span></span></code></pre></div><p>Device files have appeared. 4MiB is consumed by the driver itself, and no context has been created yet.</p><p>Enable persistence mode. If not enabled, the driver unloads when no processes are running, slowing down the next startup by a few seconds.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ sudo nvidia-smi -pm <span class=m>1</span>
+</span></span><span class=line><span class=cl>Enabled persistence mode <span class=k>for</span> GPU 00000000:01:00.0.
+</span></span></code></pre></div><h3 id=step-3---docker-and-toolkit>Step 3 - Docker and Toolkit <a class=anchor href=#step-3---docker-and-toolkit aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ sudo apt install -y docker.io
+</span></span><span class=line><span class=cl>$ curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey     <span class=p>|</span> sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+</span></span><span class=line><span class=cl>$ curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list     <span class=p>|</span> sed <span class=s1>&#39;s#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g&#39;</span>     <span class=p>|</span> sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+</span></span><span class=line><span class=cl>$ sudo apt update <span class=o>&amp;&amp;</span> sudo apt install -y nvidia-container-toolkit
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ sudo nvidia-ctk runtime configure --runtime<span class=o>=</span>docker
+</span></span><span class=line><span class=cl>INFO<span class=o>[</span>0000<span class=o>]</span> Loading config from /etc/docker/daemon.json
+</span></span><span class=line><span class=cl>INFO<span class=o>[</span>0000<span class=o>]</span> Wrote updated config to /etc/docker/daemon.json
+</span></span><span class=line><span class=cl>INFO<span class=o>[</span>0000<span class=o>]</span> It is recommended that docker daemon be restarted.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ sudo systemctl restart docker
+</span></span><span class=line><span class=cl>$ docker run --rm --gpus all nvidia/cuda:12.9.2-base-ubuntu22.04 nvidia-smi
+</span></span></code></pre></div><p>If the last command produces the same output as the host, injection is successful.</p><h3 id=step-4---first-attempt-insufficient-shared-memory>Step 4 - First Attempt, Insufficient Shared Memory <a class=anchor href=#step-4---first-attempt-insufficient-shared-memory aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ docker run -d --name vllm <span class=se>\
+</span></span></span><span class=line><span class=cl>    --gpus <span class=s1>&#39;&#34;device=0&#34;&#39;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>    -p 8000:8000 <span class=se>\
+</span></span></span><span class=line><span class=cl>    -v /models:/models:ro <span class=se>\
+</span></span></span><span class=line><span class=cl>    vllm/vllm-openai:latest <span class=se>\
+</span></span></span><span class=line><span class=cl>      --model /models/Qwen3.6-27B <span class=se>\
+</span></span></span><span class=line><span class=cl>      --max-model-len <span class=m>32768</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ docker logs -f vllm
+</span></span><span class=line><span class=cl>INFO  Starting vLLM engine...
+</span></span><span class=line><span class=cl>INFO  Loading safetensors checkpoint shards: 0% Completed
+</span></span><span class=line><span class=cl>ERROR RuntimeError: unable to open shared memory object &lt;/torch_shm_1a2b&gt;
+</span></span><span class=line><span class=cl>      in read-write mode: No space left on device <span class=o>(</span>28<span class=o>)</span>
+</span></span></code></pre></div><p>Docker's default <code>/dev/shm</code> is 64MB, which is insufficient for weight loading or inter-worker shared memory communication, causing it to fail here.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ docker run -d --name vllm <span class=se>\
+</span></span></span><span class=line><span class=cl>    --gpus <span class=s1>&#39;&#34;device=0&#34;&#39;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>    --ipc<span class=o>=</span>host --shm-size<span class=o>=</span>16g <span class=se>\
+</span></span></span><span class=line><span class=cl>    -p 8000:8000 <span class=se>\
+</span></span></span><span class=line><span class=cl>    -v /models:/models:ro <span class=se>\
+</span></span></span><span class=line><span class=cl>    vllm/vllm-openai:latest <span class=se>\
+</span></span></span><span class=line><span class=cl>      --model /models/Qwen3.6-27B <span class=se>\
+</span></span></span><span class=line><span class=cl>      --max-model-len <span class=m>32768</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ docker logs -f vllm
+</span></span><span class=line><span class=cl>INFO  Loading safetensors checkpoint shards: 100% Completed
+</span></span><span class=line><span class=cl>INFO  Loading model weights took 54.12 GB
+</span></span><span class=line><span class=cl>INFO  Memory profiling results:
+</span></span><span class=line><span class=cl>        <span class=nv>total_gpu_memory</span><span class=o>=</span>95.00GiB
+</span></span><span class=line><span class=cl>        <span class=nv>model_weights</span><span class=o>=</span>54.12GiB
+</span></span><span class=line><span class=cl>        <span class=nv>non_torch_memory</span><span class=o>=</span>0.91GiB
+</span></span><span class=line><span class=cl>        <span class=nv>PyTorch_activation_peak</span><span class=o>=</span>4.38GiB
+</span></span><span class=line><span class=cl>        <span class=nv>gpu_memory_utilization</span><span class=o>=</span>0.90
+</span></span><span class=line><span class=cl>INFO  GPU KV cache size: 8,192 tokens
+</span></span><span class=line><span class=cl>INFO  Maximum concurrency <span class=k>for</span> 32,768 tokens per request: 0.25x
+</span></span><span class=line><span class=cl>ERROR ValueError: To serve at least one request with <span class=m>32768</span> tokens,
+</span></span><span class=line><span class=cl>      more KV cache is needed than available.
+</span></span></code></pre></div><p>Startup proceeded to step 5 (profiling) but stopped at step 6.</p><pre tabindex=0><code>Total           95.00 GB
+Utilization 0.90  Only 85.50 GB used
+  Weights       54.12
+  Context, etc. 0.91
+  Peak activations 4.38
+  ────────────────────
+  KV share      26.09 GB  →  8,192 tokens
+
+One request requires 32,768 tokens
+8,192 ÷ 32,768 = 0.25x  →  Cannot accommodate even one request
+</code></pre><p>With BF16, weights alone consume 54GB. There are three options:</p><pre tabindex=0><code>Reduce context length        --max-model-len 8192   → Barely one request
+Increase utilization         0.90 → 0.95            → Approx. 4.7GB additional. Insufficient
+Reduce weights               FP8 quantization       → 54GB → 27GB
+</code></pre><p>The third option is the only one with a meaningful impact.</p><h3 id=step-6---quantization>Step 6 - Quantization <a class=anchor href=#step-6---quantization aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ docker run -d --name vllm <span class=se>\
+</span></span></span><span class=line><span class=cl>    --gpus <span class=s1>&#39;&#34;device=0&#34;&#39;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>    --ipc<span class=o>=</span>host --shm-size<span class=o>=</span>16g <span class=se>\
+</span></span></span><span class=line><span class=cl>    -p 8000:8000 <span class=se>\
+</span></span></span><span class=line><span class=cl>    -v /models:/models:ro <span class=se>\
+</span></span></span><span class=line><span class=cl>    vllm/vllm-openai:latest <span class=se>\
+</span></span></span><span class=line><span class=cl>      --model /models/Qwen3.6-27B-FP8 <span class=se>\
+</span></span></span><span class=line><span class=cl>      --max-model-len <span class=m>32768</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>      --gpu-memory-utilization 0.92
+</span></span></code></pre></div><pre tabindex=0><code>INFO  Loading model weights took 27.31 GB
+INFO  Memory profiling results:
+        total_gpu_memory=95.00GiB
+        model_weights=27.31GiB
+        non_torch_memory=0.89GiB
+        PyTorch_activation_peak=4.41GiB
+        gpu_memory_utilization=0.92
+INFO  GPU KV cache size: 176,128 tokens
+INFO  Maximum concurrency for 32,768 tokens per request: 5.37x
+INFO  Capturing CUDA graphs: 100%|██████████| 35/35 [00:47&lt;00:00]
+INFO  init engine took 94.22 seconds
+INFO  Starting vLLM API server on http://0.0.0.0:8000
+</code></pre><p>With weights halved, the KV share increased from 26GB to 60GB, and tokens increased from 8,192 to 176,128, a 21x increase. <code>5.31x</code> means it can handle five 32K requests concurrently.</p><p>Of <code>init engine took 94.22 seconds</code>, 47 seconds were for graph capture. This time needs to be considered in environments with frequent restarts.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ nvidia-smi
+</span></span><span class=line><span class=cl><span class=p>|</span>   <span class=m>0</span>  RTX PRO <span class=m>6000</span> Blackwell         Off <span class=p>|</span> 00000000:01:00.0 Off       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span> 30%   41C    P0     78W / 600W          <span class=p>|</span>  87920MiB / 97887MiB       <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>                                         <span class=p>|</span>        0%      Default     <span class=p>|</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>+-----------------------------------------------------------------------+
+</span></span><span class=line><span class=cl><span class=p>|</span>  GPU   PID   Type   Process name                        GPU Memory    <span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>    <span class=m>0</span>  <span class=m>31204</span>     C   /usr/bin/python3                     87908MiB     <span class=p>|</span>
+</span></span><span class=line><span class=cl>+-----------------------------------------------------------------------+
+</span></span></code></pre></div><pre tabindex=0><code>87.9 GB occupied    Weights 27 + KV pool 60 + remainder. Already allocated even without requests
+GPU-Util 0%         Memory is allocated, but no computation is happening
+Power 78W           Idle. Will rise to 400W range under load
+</code></pre><p><strong>The KV pool is preempted entirely and then redistributed internally. It's normal for 87GB to appear allocated even without requests.</strong></p><h3 id=step-8---sending-requests>Step 8 - Sending Requests <a class=anchor href=#step-8---sending-requests aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ curl -s localhost:8000/v1/models <span class=p>|</span> jq -r <span class=s1>&#39;.data[].id&#39;</span>
+</span></span><span class=line><span class=cl>/models/Qwen3.6-27B-FP8
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ <span class=nb>time</span> curl -s localhost:8000/v1/chat/completions <span class=se>\
+</span></span></span><span class=line><span class=cl>    -H <span class=s1>&#39;Content-Type: application/json&#39;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>    -d <span class=s1>&#39;{&#34;model&#34;:&#34;/models/Qwen3.6-27B-FP8&#34;,
+</span></span></span><span class=line><span class=cl><span class=s1>         &#34;messages&#34;:[{&#34;role&#34;:&#34;user&#34;,&#34;content&#34;:&#34;파이썬으로 피보나치 함수를 짜줘&#34;}],
+</span></span></span><span class=line><span class=cl><span class=s1>         &#34;max_tokens&#34;:200}&#39;</span> <span class=p>|</span> jq -r <span class=s1>&#39;.choices[0].message.content&#39;</span> <span class=p>|</span> head -3
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>def fib<span class=o>(</span>n<span class=o>)</span>:
+</span></span><span class=line><span class=cl>    <span class=k>if</span> n &lt;<span class=o>=</span> 1:
+</span></span><span class=line><span class=cl>        <span class=k>return</span> n
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>real    0m4.812s
+</span></span></code></pre></div><p>4.8 seconds is not normal. Sending it again yields:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ <span class=nb>time</span> curl -s ... <span class=p>|</span> jq -r <span class=s1>&#39;.choices[0].message.content&#39;</span> &gt; /dev/null
+</span></span><span class=line><span class=cl>real    0m2.103s
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ <span class=nb>time</span> curl -s ... <span class=p>|</span> jq -r <span class=s1>&#39;.choices[0].message.content&#39;</span> &gt; /dev/null
+</span></span><span class=line><span class=cl>real    0m2.088s
+</span></span></code></pre></div><p>The extra 2.7 seconds in the first request are due to JIT compilation and cache warming. This period should be excluded when designing benchmarks or health checks.</p><h3 id=step-9---applying-load-and-observing>Step 9 - Applying Load and Observing <a class=anchor href=#step-9---applying-load-and-observing aria-label="이 절로 링크">#</a></h3><p>Open a monitor in one terminal.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ nvidia-smi dmon -s pucm -d <span class=m>2</span>
+</span></span><span class=line><span class=cl><span class=c1># gpu   pwr  gtemp   sm   mem   enc   dec  mclk  pclk</span>
+</span></span><span class=line><span class=cl>    <span class=m>0</span>    <span class=m>76</span>     <span class=m>41</span>     <span class=m>0</span>     <span class=m>0</span>     <span class=m>0</span>     <span class=m>0</span>  <span class=m>1500</span>  <span class=m>2100</span>
+</span></span></code></pre></div><p>Apply load in another terminal.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ python -m vllm.entrypoints.openai.api_server --help &gt; /dev/null 2&gt;<span class=p>&amp;</span><span class=m>1</span>
+</span></span><span class=line><span class=cl>$ vllm bench serve --backend openai --port <span class=m>8000</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>    --model /models/Qwen3.6-27B-FP8 <span class=se>\
+</span></span></span><span class=line><span class=cl>    --dataset-name random --random-input-len <span class=m>2048</span> --random-output-len <span class=m>512</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>    --num-prompts <span class=m>300</span> --max-concurrency <span class=m>24</span>
+</span></span></code></pre></div><pre tabindex=0><code># gpu   pwr  gtemp   sm   mem   enc   dec  mclk  pclk
+    0   412     63    97    71     0     0  1500  2610
+    0   428     65    98    73     0     0  1500  2610
+    0   419     66    96    70     0     0  1500  2595
+</code></pre><p>The <code>sm 97</code> and <code>mem 71</code> values indicate that SM is almost saturated and memory bandwidth is around 70%, meaning the GPU is being properly utilized. If <code>sm</code> is around 30% but <code>gpu util</code> shows 100%, it signals that the kernel is not fully utilizing the GPU.</p><p>Benchmark results:</p><pre tabindex=0><code>============ Serving Benchmark Result ============
+Successful requests:                     300
+Request throughput (req/s):              3.41
+Output token throughput (tok/s):         1746.2
+Median TTFT (ms):                        387.4
+Median ITL (ms):                         13.2
+==================================================
+</code></pre><h3 id=step-10---verifying-sm_120-fallback>Step 10 - Verifying sm_120 Fallback <a class=anchor href=#step-10---verifying-sm_120-fallback aria-label="이 절로 링크">#</a></h3><p>Having confirmed that it runs, the remaining question is whether it's performing optimally.</p><p>Workstation Blackwell GPUs can sometimes cause kernels to fall back to slower paths.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ docker logs vllm 2&gt;<span class=p>&amp;</span><span class=m>1</span> <span class=p>|</span> grep -iE <span class=s2>&#34;backend|fallback|marlin|capability&#34;</span>
+</span></span><span class=line><span class=cl>INFO  Detected device capability: 12.0 <span class=o>(</span>sm_120<span class=o>)</span>
+</span></span><span class=line><span class=cl>INFO  Using MarlinLinearKernel <span class=k>for</span> FP8 quantization
+</span></span><span class=line><span class=cl>WARNING  Native FP8 kernels unavailable <span class=k>for</span> sm_120, falling back
+</span></span></code></pre></div><p>If this log appears, it means a generic path is being used instead of a dedicated kernel, and the card is only delivering a fraction of its potential performance. Three things to check:</p><pre tabindex=0><code>□ Is the image version a release that supports sm_120?
+□ Is the quantization format (FP8 / NVFP4 / AWQ) appropriate for that combination?
+□ Was 12.0 included in TORCH_CUDA_ARCH_LIST during source build?
+</code></pre><p><strong>It's convenient to have one criterion for judgment:</strong> if an 8B-class model loaded with FP8 doesn't consume more than 20GB.</p><h3 id=summary---what-was-filtered-out-in-the-lab>Summary - What was Filtered Out in the Lab <a class=anchor href=#summary---what-was-filtered-out-in-the-lab aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>Symptom                        Cause                     Check Point
+──────────────────────────────────────────────────────────────
+Shared memory error            Docker default shm 64MB   --ipc=host or --shm-size
+Maximum concurrency 0.25x      Weights encroaching KV share  Breakdown in profiling logs
+First request 4.8 seconds      JIT compilation, cache miss  Compare with second request
+Slow despite high GPU-Util     Kernel not fully utilizing GPU  &#39;sm&#39; column in dmon
+FP8 consuming too much memory  sm_120 kernel fallback    &#39;backend&#39; line in startup logs
+</code></pre><br><h2 id=command-collection>Command Collection <a class=anchor href=#command-collection aria-label="이 절로 링크">#</a></h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Devices and Drivers</span>
+</span></span><span class=line><span class=cl>nvidia-smi                                    <span class=c1># Overall status</span>
+</span></span><span class=line><span class=cl>nvidia-smi -L                                 <span class=c1># List of GPUs and UUIDs</span>
+</span></span><span class=line><span class=cl>nvidia-smi -q -d MEMORY,POWER,TEMPERATURE     <span class=c1># Detailed information by item</span>
+</span></span><span class=line><span class=cl>nvidia-smi topo -m                            <span class=c1># GPU connection topology</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Real-time Monitoring</span>
+</span></span><span class=line><span class=cl>nvidia-smi dmon -s pucvmet -d <span class=m>1</span>               <span class=c1># 1-second interval</span>
+</span></span><span class=line><span class=cl>nvidia-smi --query-gpu<span class=o>=</span>timestamp,utilization.gpu,memory.used,power.draw <span class=se>\
+</span></span></span><span class=line><span class=cl>  --format<span class=o>=</span>csv -l <span class=m>1</span>                           <span class=c1># Log to CSV</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Processes</span>
+</span></span><span class=line><span class=cl>nvidia-smi --query-compute-apps<span class=o>=</span>pid,process_name,used_memory --format<span class=o>=</span>csv
+</span></span><span class=line><span class=cl>sudo fuser -v /dev/nvidia*                    <span class=c1># Processes holding device files</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Containers</span>
+</span></span><span class=line><span class=cl>docker run --rm --gpus all &lt;image&gt; nvidia-smi
+</span></span><span class=line><span class=cl>sudo nvidia-ctk runtime configure --runtime<span class=o>=</span>docker
+</span></span><span class=line><span class=cl>sudo nvidia-ctk cdi generate --output<span class=o>=</span>/etc/cdi/nvidia.yaml
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Power Limit (when wanting to increase performance per watt)</span>
+</span></span><span class=line><span class=cl>sudo nvidia-smi -pl <span class=m>450</span>                       <span class=c1># Watts</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Persistence Mode (reduces startup delay)</span>
+</span></span><span class=line><span class=cl>sudo nvidia-smi -pm <span class=m>1</span>
+</span></span></code></pre></div></div><footer class=article-footer><span><code>MLOps/gpumodel.md</code></span></footer><nav class=pager aria-label="Previous/next note"><a class=prev href=/MLOps/gpu_thread.html rel=prev><span class=dir>← Previous</span>GPU Thread Execution Model</a>
+<a class=next href=/MLOps/hbm.html rel=next><span class=dir>Next →</span>HBM, Roofline Model</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>

@@ -1,0 +1,47 @@
+<!doctype html><html lang=ko dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>수치 기반 사고(Observability + Capacity Planning) · rlaope</title><meta name=description content="수치 기반 사고(Observability + Capacity Planning) — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/ko/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/ko/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/ko/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="수치 기반 사고(Observability + Capacity Planning)"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/ko/Back-End/backend/think.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/ko/Back-End/backend/think.html><link rel=stylesheet href=/ko/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/ko/index.html><img class=brand-logo src=/ko/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><span class=on aria-current=true>한국어</span><span class=sep>/</span><a href=https://rlaope.github.io/Back-End/backend/think.html hreflang=en title="View in English">English</a></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/ko/graph.html title="지식 그래프" aria-label="지식 그래프"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub 저장소"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=ko><header class=article-header><nav class=crumbs aria-label=경로><a href=/ko/index.html>rlaope</a><span class=sep>/</span><a href=/ko/Back-End/index.html>Back-End</a></nav><h1 class=article-title>수치 기반 사고(Observability + Capacity Planning)</h1><p class=meta><span>1,613 단어</span><span class=sep>·</span><span>4 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/Back-End/backend/think.md rel=noopener>원문(.md)</a></p></header><div class=prose><p>아래와 같은 면접 질의응답이 있다고 치자.</p><p>면접관: 만약 유저의 트래픽을 클라우드 워치로 추적해 지표 알림을 설정한다고 칩시다 몇%일때 어떤 설정을 업데이트해야될까요?</p><p>+ 여기서 내가 휴리스틱하게 80%요, 80퍼가 차면 api gateway기능 캐싱을 통해 증가세 억제하지 않을까요. 라고 답을하면</p><p>면접관: 80퍼면 너무 늦지 않나.. 다른 방법은요?</p><p>나: 음.. 그럼 70%? 30퍼때 캐싱기능을 업데이트하고 70%일때 lambda provisioned concurrency를 on 하던가...</p><p>면접관: 왜 30퍼고 왜 70인데요? 구체적인 근거점요.</p><h3 id=수치-기반-사고>수치 기반 사고 <a class=anchor href=#%ec%88%98%ec%b9%98-%ea%b8%b0%eb%b0%98-%ec%82%ac%ea%b3%a0 aria-label="이 절로 링크">#</a></h3><p>자 위에 면접 내용을 보자 개처참하다. 저런 답을 하면 안된다.</p><p>성능을 고려할때 트래픽이 많은 프로젝트라면 더더욱더 휴리스틱을 버려야한다.</p><p>즉 이런 질문에서는 퍼센트(임계치)의 값을 말하는 것이 아닌, 결정 과정(근거 공식)을 말해야한다.</p><p>면접관은 실제 수치를 묻는것이 아니라 그 임계치는 논리적으로 어떻게 어떤 데이터로 결정했는가를 묻는것이다.</p><pre tabindex=0><code>임계치는 사전에 계산된 최대 처리량(capacity) 기준을 ㅗ정합니다.
+
+과거 2~4주간의 **피크 트래픽**, **처리시간**, api gateway/lambda 단일 인스턴스당 **처리량**을 수집한 이후
+
+피크 대비 여유 버퍼 (보통 20~30퍼센트)를 두고 임계치를 정합니다.
+
+cloud watch 알람의 임계치는 고정 값이 아니라 capacity 대비 사용률 = (현재 처리량 / 사전 계산된 최대 처리량) 으로 설정합니다.
+</code></pre><p>위와 같이 대답해야 일단은 면접관이 오 일단 답을 하긴하네라고 생각한다.</p><h3 id=퍼센트-기준은-이렇게-설명해라>퍼센트 기준은 이렇게 설명해라 <a class=anchor href=#%ed%8d%bc%ec%84%bc%ed%8a%b8-%ea%b8%b0%ec%a4%80%ec%9d%80-%ec%9d%b4%eb%a0%87%ea%b2%8c-%ec%84%a4%eb%aa%85%ed%95%b4%eb%9d%bc aria-label="이 절로 링크">#</a></h3><p>퍼센트는 근거가 있어야한다. 예시로 이런 기준을 제시할 수 있다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-matlab data-lang=matlab><span class=line><span class=cl><span class=o>-</span> <span class=mi>60</span><span class=c>%: 상승 추세 감지(Scaling 예열 단계)</span>
+</span></span><span class=line><span class=cl><span class=o>-</span> <span class=mi>75</span><span class=c>%: Lambda Provisioned Concurrency:사전 warm-up 시작</span>
+</span></span><span class=line><span class=cl><span class=o>-</span> <span class=mi>85</span><span class=c>%: api gateway cache 확대 or TTL 조정 검토</span>
+</span></span><span class=line><span class=cl><span class=o>-</span> <span class=mi>90</span><span class=c>%: 긴급 알람, 자동 확장 쿼터 점검</span>
+</span></span></code></pre></div><p>그리고 반드시 아래를 붙인다.</p><pre tabindex=0><code>이 수치는 절대값이 아니라
+해당 시스템의 TPS, Lambda Duration, Cold Start 발생률, 
+과거 버스트 트래픽 패턴을 기반으로 산출해야합니다.
+</code></pre><h3 id=알람-대응-전략은-시간--예열-관점에서-말해야됨>알람 대응 전략은 시간 + 예열 관점에서 말해야됨 <a class=anchor href=#%ec%95%8c%eb%9e%8c-%eb%8c%80%ec%9d%91-%ec%a0%84%eb%9e%b5%ec%9d%80-%ec%8b%9c%ea%b0%84--%ec%98%88%ec%97%b4-%ea%b4%80%ec%a0%90%ec%97%90%ec%84%9c-%eb%a7%90%ed%95%b4%ec%95%bc%eb%90%a8 aria-label="이 절로 링크">#</a></h3><p>면접관이 80이면 늦지않아요? 라고 말한 이유는</p><p>프로비저닝 동시성은 예열 시간이 필요하기 때문이다</p><p>따라서</p><pre tabindex=0><code>Provisioning Concurrency는 적용되기까지 몇 분의 예열 시간이 필요하기 때문에
+실제 부하가 오기 전에는 트래픽 추세(Slope)를 감지하여 선제적으로 확장해야합니다.
+
+그래서 절대값(80퍼센트)이 아니라 단기 이동 평균의 기울기(예: 1분 5분 15분 baseline을 비교)를 이용한 Early Signal을 활용합니다.
+</code></pre><h3 id=총총>총총 <a class=anchor href=#%ec%b4%9d%ec%b4%9d aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>임계치 퍼센트는 고정된 숫자가 아니라,
+사전에 계산한 시스템 최대 처리량을 기준으로 동적으로 설정합니다.
+
+저는 먼저 Lambda의 평균 처리시간(Duration), 동시성(Concurrency), API Gateway의 RPS,
+그리고 지난 2~4주 피크 트래픽을 기반으로 ‘Max Capacity’를 구합니다.
+
+CloudWatch 지표는 이 Max 대비 사용률로 설정합니다.
+예열이 필요한 Provisioned Concurrency는 트래픽 증가 기울기가 일정 기준 이상이거나
+Capacity의 약 60~70%를 넘기기 시작할 때 사전 예열을 걸고,
+
+캐싱은 CPU·메모리보다 RPS 증가율이 빠르게 치솟을 때,
+즉 75~85% 부근에서 TTL 조정이나 온오프를 고려합니다.
+
+중요한 점은 퍼센트 자체가 아니라,
+과거 트래픽 패턴과 최대 처리량 계산을 기준으로
+‘언제 예열이 필요하고 언제 지연이 발생하는지’를 근거로 임계치를 설정한다는 것입니다.
+</code></pre><blockquote><p>Lambda Concurrency: 동시에 실행중인 람다 함수 인스턴스 개수라고 함 즉, 한 시점에 몇개 람다 함수가 동시에 실행되고 있는지 숫자로 나타낸 지표로 요청이 들어올대마다 람다는 새로운 실행 환경을 실행하거나(콜드 스타트) 기존 환경을 재사용함 따라서 트래픽이 증가하면 동시에 실행되는 람다수가 급증하고 이게 Concurrency</p><pre tabindex=0><code>예: 1초 동안 200개의 요청이 들어오고,
+각 요청의 평균 처리 시간이 0.5초이면,
+동시에 약 100개의 Lambda가 실행됨.
+</code></pre><p>Concurrency가 많아지면 Quota(한도)를 넘게될수있으며 넘으면 스로틀링됨. 그래서 Provisioned Concurrency로 해결할 수 있는데 이는 콜드 스타트를 방지하는 기능임. 자세한건 aws lambda에서 알아보겟다</p></blockquote></div><footer class=article-footer><span><code>Back-End/backend/think.md</code></span></footer><nav class=pager aria-label="이전/다음 노트"><a class=prev href=/ko/Back-End/backend/test_cov.html rel=prev><span class=dir>← 이전</span>IntelliJ 테스트 커버리지 확인하기</a>
+<a class=next href=/ko/Back-End/backend/timesync.html rel=next><span class=dir>다음 →</span>분산 시스템에서 시간 동기화 문제</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>

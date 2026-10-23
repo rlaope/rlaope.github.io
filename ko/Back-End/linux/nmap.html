@@ -1,0 +1,48 @@
+<!doctype html><html lang=ko dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Nmap의 기능 · rlaope</title><meta name=description content="Nmap의 기능 — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/ko/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/ko/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/ko/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="Nmap의 기능"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/ko/Back-End/linux/nmap.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/ko/Back-End/linux/nmap.html><link rel=stylesheet href=/ko/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/ko/index.html><img class=brand-logo src=/ko/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><span class=on aria-current=true>한국어</span><span class=sep>/</span><a href=https://rlaope.github.io/Back-End/linux/nmap.html hreflang=en title="View in English">English</a></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/ko/graph.html title="지식 그래프" aria-label="지식 그래프"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub 저장소"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=ko><header class=article-header><nav class=crumbs aria-label=경로><a href=/ko/index.html>rlaope</a><span class=sep>/</span><a href=/ko/Back-End/index.html>Back-End</a></nav><h1 class=article-title>Nmap의 기능</h1><p class=meta><span>889 단어</span><span class=sep>·</span><span>2 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/Back-End/linux/nmap.md rel=noopener>원문(.md)</a></p></header><div class=prose><p>nmap 명령어는 네트워크 매핑에서 사용되는 도구이며, 가장 인기 있는 윤리적 해킹 도구중 하나다.</p><p>nmap은 주변 네트워크를 찾는 데 사용되며 네트워크 관리자는 항상 네트워크를 매핑해야하므로 nmap을 가장 유용하게 활용할 수 있다.</p><p>nmap을 통해 특정 네트워크 장치를 빠르게 찾을 수 있으며, 모든 웹서비스와 DNS 서버를 포함하는 시스템에서 실행중인 서비스를 찾는데 유용하다. 열린 포트가 있는 장치를 찾는 데 도움을 주며 보안을 강화하기 위해 장치를 살펴볼 수도 있다.</p><br><h3 id=nmap의-기능>Nmap의 기능 <a class=anchor href=#nmap%ec%9d%98-%ea%b8%b0%eb%8a%a5 aria-label="이 절로 링크">#</a></h3><ul><li>OS 감지: OS, OS Version, 기타 세부 정보를 감지하는 nmap os 스캔을 할 수 있다.</li><li>서비스 감지: Nmap-services-probe-file에 있는 여러 서비스 프로브는 네트워크 서비스 및 해당 애플리케이션에서 응답을 얻는데 사용된다.</li><li>호스트 검색: 네트워크 호스트가 tcp, udp 프로토콜을 사용해 네트워크의 다른 호스트에 대한 데이터를 수집하는데 사용된다.</li><li>대상 사양: 대상 사양 기능을 사용해 nmap에서 스캔하려는 대상 ip 주소를 지정할 수 잇다.</li><li>Ipv6 지원: ipv6는 인터넷 프로토콜 버전 6을 의미하며 네트워크 스캔을 위해 nmap에서 사용할 수 있다.</li><li>NSE 기능: NSE는 Nmap Scription Engine에 약자이며 호스트 검색, 네트워크 스캐닝 및 대상 지정에 사용할 수 있는 Nmap기능을 제공한다.</li><li>TLS/SSL 스캐닝: Nmap의 도움으로 TLS 배포 문제를 빠르게 분석할 수 있다.</li></ul><br><h3 id=gateway-주소-얻기>Gateway 주소 얻기 <a class=anchor href=#gateway-%ec%a3%bc%ec%86%8c-%ec%96%bb%ea%b8%b0 aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>route -n get default  
+</span></span><span class=line><span class=cl>route -n get default <span class=p>|</span> grep <span class=s1>&#39;gateway&#39;</span> <span class=p>|</span> awk <span class=s1>&#39;{print $2}&#39;</span>
+</span></span></code></pre></div><br><h3 id=nmap-사용-예시>nmap 사용 예시 <a class=anchor href=#nmap-%ec%82%ac%ec%9a%a9-%ec%98%88%ec%8b%9c aria-label="이 절로 링크">#</a></h3><p>nmap의 다양한 옵션들은 <a href=https://nmap.org/book/man.html rel=noopener>nmap 공식 문서</a>에서 확인해볼 수 있다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>nmap -sP xxx.xxx.xxx.xxx  
+</span></span><span class=line><span class=cl>- 대상 호스트가 살아있음을 알 수 있다.  
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>namp -sP -PT80 xxx.xxx.xxx.xxx  
+</span></span><span class=line><span class=cl>- 특정 포트<span class=o>(</span>80<span class=o>)</span>을 검색  
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>nmap -sT xxx.xxx.xxx.xxx  
+</span></span><span class=line><span class=cl>- 지정된 포트가 아니라 대상호스트의 열린 포트를 모두 검색  
+</span></span><span class=line><span class=cl>- 대상 호스트의 열린 포트를 알 수는 있지만 로그가 남으므로 위험  
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>nmap -sS xxx.xxx.xxx.xxx  
+</span></span><span class=line><span class=cl>- 스텔스 스캔으로 감시를 피함  
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>nmap -sU localhost  
+</span></span><span class=line><span class=cl>- UDP port 스캔입니다. 시간이 많이 걸릴 수도 있다.  
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>nmap -sS -O xxx.xxx.xxx.xxx  
+</span></span><span class=line><span class=cl>- -O 옵션으로 운영체제를 알아볼 수 있다.  
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>nmap -v xxx.xxx.xxx.xxx  
+</span></span><span class=line><span class=cl>- 좀 더 자세하게 정보를 보여준다.  
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>nmap xxx.xxx.xxx.xxx/xx  
+</span></span><span class=line><span class=cl>- xxx.xxx.xxx.xxx/xx 네트워크 전체를 스캔한다.  
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>nmap xxx.xxx.xxx.xxx-xxx  
+</span></span><span class=line><span class=cl>- 연속되어 있는 여러 개의 호스트를 검색  
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>nmap -O xxx.xxx.xxx.xxx  
+</span></span><span class=line><span class=cl>- 해당 호스트의 포트 스캔과 운영체제를 보여준다.  
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>namp -sR -p 1-40000 xxx.xxx.xxx.xxx  
+</span></span><span class=line><span class=cl>- 해당 호스트의 <span class=m>1</span> ~ <span class=m>40000</span> 포트에서 RPC 포트를 찾아 보여준다.  
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>nmap -sU -PT xxx.xxx.xxx.xxx/xx  
+</span></span><span class=line><span class=cl>- 해당 네트워크의 호스트들을 TCP ACK 패킷을 보내어 응답을 기다리고 열려진 UDP 포트를 보여준다.
+</span></span></code></pre></div></div><footer class=article-footer><span><code>Back-End/linux/nmap.md</code></span></footer><nav class=pager aria-label="이전/다음 노트"><a class=prev href=/ko/Back-End/linux/lxc.html rel=prev><span class=dir>← 이전</span>LXC(Linux Container)</a>
+<a class=next href=/ko/Back-End/netty/elg.html rel=next><span class=dir>다음 →</span>EventLoopGroup</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>

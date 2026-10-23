@@ -1,0 +1,50 @@
+<!doctype html><html lang=ko dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Presto · rlaope</title><meta name=description content="Presto — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/ko/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/ko/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/ko/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="Presto"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/ko/DevOps/aws/presto.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/ko/DevOps/aws/presto.html><link rel=stylesheet href=/ko/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/ko/index.html><img class=brand-logo src=/ko/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><span class=on aria-current=true>한국어</span><span class=sep>/</span><a href=https://rlaope.github.io/DevOps/aws/presto.html hreflang=en title="View in English">English</a></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/ko/graph.html title="지식 그래프" aria-label="지식 그래프"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub 저장소"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=ko><header class=article-header><nav class=crumbs aria-label=경로><a href=/ko/index.html>rlaope</a><span class=sep>/</span><a href=/ko/DevOps/index.html>DevOps</a></nav><h1 class=article-title>Presto</h1><p class=meta><span>1,173 단어</span><span class=sep>·</span><span>3 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/DevOps/aws/presto.md rel=noopener>원문(.md)</a></p></header><div class=prose><p>Presto는 분산 sql 퀄 엔진이다. 저장 엔진아니고 인덱스는 없다.</p><p>데이터는 s3, hfds, mysql, kafka등에 있고 읽어서 계산만 한다.</p><h3 id=쿼리-실행-흐름>쿼리 실행 흐름 <a class=anchor href=#%ec%bf%bc%eb%a6%ac-%ec%8b%a4%ed%96%89-%ed%9d%90%eb%a6%84 aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>SQL
+ ↓
+Logical Plan
+ ↓ (Optimizer)
+Physical Plan
+ ↓
+Distributed Execution
+</code></pre><p>Optimizer 단계에서는 Predicate Pushdown, Partition Pruning, Vectorized Execution 이 세계가 결정된다.</p><h3 id=predicate-pushdown>Predicate Pushdown <a class=anchor href=#predicate-pushdown aria-label="이 절로 링크">#</a></h3><p>대부분의 쿼리 엔진은 필터링을 최대한 소스에 가깝게 적용하고자한다. 소스에 가깝게 필터를 적용한다는 의미는 파일 시스템에서 데이터를 읽어온 이후에 메모리에서 필터링하는것이 아니라 파일을 읽을때부터 꼭 필요한 데이터만 효율적으로 읽겠다는 점이다.</p><p>Parquet와 ORC 포캣의 파일을 각 컬럼별로 다양한 stats 데이터를 보관하고 있다 min, max같은? 이러한 stats 정보가 불필요한 데이터를 건너뛰고 필요한 데이터만 읽을수있도록 filter push down. 하는것이 이 기법이다.</p><p>where 조건을 스캔 이전 단계로 내려서 필요없는 데이터 블록 자체를 읽지 않는 최적화다.</p><pre tabindex=0><code>S3 / Parquet / ORC
+   ↑
+Predicate Pushdown
+   ↑
+Presto Scan Operator
+</code></pre><p>다음 형태 쿼리만 푸시다운의 대상임</p><pre tabindex=0><code>col = 10
+col &gt; 100
+col BETWEEN 10 AND 20
+col LIKE &#39;abc%&#39;
+</code></pre><p>불가능한 조건은 REGEXP_LIKE이나 substr, col + 1 = 10 이런거는 모든 로우를 읽어야 판단이 가능하다.</p><h3 id=partition-pruning>Partition Pruning <a class=anchor href=#partition-pruning aria-label="이 절로 링크">#</a></h3><p>where절을 보고 아예 이 디렉토리는 열 필요가 없다고 판단하는 최적화다.</p><figure><img src=https://miro.medium.com/v2/resize:fit:720/format:webp/1*A2gPlCHCTMiKbrKDlDB4mg.png alt loading=lazy decoding=async referrerpolicy=no-referrer></figure><p>일긍ㄹ때 지정된 파티션만 읽을수 있도록 성능최적화하는 방법이다.</p><p>아테나 기준 파티션구조는</p><pre tabindex=0><code>s3://logs/
+  └── dt=2025-12-15/
+      └── hour=10/
+      └── hour=11/
+</code></pre><pre tabindex=0><code>WHERE dt = &#39;2025-12-15&#39;
+  AND hour = 11
+</code></pre><p>hour = 11만 접근 즉 상수비교, 함수 없을때 사용이 가능하고 푸시다운처럼 전체스캔하는 경우에는 사용이 불가능함.</p><h3 id=vectorized-execution>Vectorized Execution <a class=anchor href=#vectorized-execution aria-label="이 절로 링크">#</a></h3><p>row를 하나씩 처리하지 않고 컬럼 단위로 묶어서 한 번에 계산하는 방식이다.</p><p>Row 기반 vs Vector 기반</p><pre tabindex=0><code># row 기반
+for row in rows:
+  if row.a &gt; 10:
+    sum += row.b
+
+# vector (한번에 로드해서 한번에 다 합침)
+load column a [1024 rows]
+load column b [1024 rows]
+apply mask (a &gt; 10)
+sum masked b
+</code></pre><p>분기를 최소화하고 cpu cache에 효율적이며 simd 활용이 가능하다</p><blockquote><p>SIMD: 같은 연산을 여러 데이터에 한 번에 적용시키는 cpu 실행 방식 즉 cpu 명령어 1번으로 여러개를 동시에 처리함.</p></blockquote><p>REGEXP_LIKE(col, 'a.*b') 이런거에서는 깨지는데 row마다 상태 머신 실행되어 벡터 처리가 불가능해서임 scalar execution으로 강등.</p><pre tabindex=0><code>[Partition Pruning]
+   ↓ (디렉토리 제거)
+
+[Predicate Pushdown]
+   ↓ (파일 / row group 제거)
+
+[Vectorized Execution]
+   ↓ (읽은 데이터 빠르게 계산)
+</code></pre><div class=table-wrap><table><thead><tr><th>항목</th><th>LIKE 'abc%'</th><th>REGEXP_LIKE</th></tr></thead><tbody><tr><td>Partition Pruning</td><td>가능</td><td>불가</td></tr><tr><td>Predicate Pushdown</td><td>가능</td><td>거의 불가</td></tr><tr><td>Vectorized Exec</td><td>가능</td><td>불가</td></tr><tr><td>CPU 비용</td><td>낮음</td><td>높음</td></tr></tbody></table></div><h3 id=like-vs-regex>LIKE vs REGEX <a class=anchor href=#like-vs-regex aria-label="이 절로 링크">#</a></h3><p>기본적으로 LIKE문이 더 빠른데 위에서 본 predicate pushdown, parition pruning, vectorized execution에 크게 의존하고 있기 때문이다.</p><p>Parquet 데이터 포맷에 prefix match, min/max statistics, dictionary encoding에도 유리하며 vectorized 비교도 가능해서다</p><p>regex는 그게 불가능하다 각 row의 문자열 전체를 읽어서 정규직 엔진에 하나씩 넣어야해 cpu 바운드도 크다</p><p>근데 LIKE "%abc" 같은 문법이라면 regex를 더 권장하는데 혹은 완전 정규식이 결과와 일치에 가깝다거나. 그런경우에도 권장한다.</p><p>일단 문자열 고정에 backtracking이 거의 없고 상태머신이 적으며 문자열 길이도 짧다면 좋다.</p><p>와일드카드가 앞에달려 전체스캔을 해야하는 LIKE라면 결국 전체 스캔이기 때문에 regex와 동일한 수준 혹은 더 높은 쿼리시간을 소요한다. 그래서 regex로 범위 지정을 하자 앞뒤로 값을 조건걸어 쿼리하고싶다면</p></div><footer class=article-footer><span><code>DevOps/aws/presto.md</code></span></footer><nav class=pager aria-label="이전/다음 노트"><a class=prev href=/ko/DevOps/aws/natgateway.html rel=prev><span class=dir>← 이전</span>NAT, NAPT 그리고 AWS NAT Gateway</a>
+<a class=next href=/ko/DevOps/aws/rds.html rel=next><span class=dir>다음 →</span>AWS RDS (Relation Database Service)</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>

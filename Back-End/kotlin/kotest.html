@@ -1,0 +1,182 @@
+<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Writing Test Code with Kotest · rlaope</title><meta name=description content="Writing Test Code with Kotest — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="Writing Test Code with Kotest"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/Back-End/kotlin/kotest.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/Back-End/kotlin/kotest.html><link rel=stylesheet href=/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/index.html><img class=brand-logo src=/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><a href=https://rlaope.github.io/ko/Back-End/kotlin/kotest.html hreflang=ko title="한국어로 보기">한국어</a><span class=sep>/</span><span class=on aria-current=true>English</span></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/graph.html title="Knowledge graph" aria-label="Knowledge graph"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub repository"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=en><header class=article-header><nav class=crumbs aria-label=Path><a href=/index.html>rlaope</a><span class=sep>/</span><a href=/Back-End/index.html>Back-End</a></nav><h1 class=article-title>Writing Test Code with Kotest</h1><p class=meta><span>1,078 단어</span><span class=sep>·</span><span>3 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/Back-End/kotlin/kotest.md rel=noopener>원문(.md)</a></p></header><div class=prose><h2 id=kotest>Kotest <a class=anchor href=#kotest aria-label="이 절로 링크">#</a></h2><p>Kotest is a testing framework that allows you to test Kotlin in a Kotlin-idiomatic way, specifically providing the following features:</p><ol><li>It supports Kotlin-specific features provided by Kotlin. (Coroutine, Extension Function, Kotlin DSL, etc.)</li><li>It provides various Assertions in a Kotlin DSL style.</li><li>It offers various Test Layouts, including BDD.</li></ol><blockquote><p>BDD : Behavior Driven Development
+A development methodology derived from TDD, it makes tests easy to understand because test cases are written based on scenarios.
+It primarily uses the Give-When-Then structure as its basic pattern.</p></blockquote><h3 id=advantages>Advantages <a class=anchor href=#advantages aria-label="이 절로 링크">#</a></h3><ul><li>Can improve readability of nested test code.</li><li>Clearer distinction with DSL-like constructs: increased readability.</li><li>Kotlin is multi-platform, allowing for various platform styles.<ul><li>Provides diverse test layouts.</li><li>Scala, Ruby... etc.</li></ul></li></ul><h3 id=dependencies>Dependencies <a class=anchor href=#dependencies aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-kts data-lang=kts><span class=line><span class=cl><span class=n>dependencies</span> <span class=p>{</span>   
+</span></span><span class=line><span class=cl>    <span class=n>testImplementation</span><span class=p>(</span><span class=s2>&#34;io.kotest:kotest-runner-junit5-jvm:</span><span class=si>${KOTEST_VERSION}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>testImplementation</span><span class=p>(</span><span class=s2>&#34;io.kotest:kotest-assertions-core-jvm:</span><span class=si>${KOTEST_VERSION}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>testImplementation</span><span class=p>(</span><span class=s2>&#34;io.mockk:mockk:1.12.8&#34;</span><span class=p>)</span> <span class=c1>// use mocking in unit tests
+</span></span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>tasks</span><span class=p>.</span><span class=n>test</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>useJUnitPlatform</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><h2 id=testing-styles>Testing Styles <a class=anchor href=#testing-styles aria-label="이 절로 링크">#</a></h2><p>Main Test Layouts provided by Kotest</p><h2 id=funspec>FunSpec <a class=anchor href=#funspec aria-label="이 절로 링크">#</a></h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-kt data-lang=kt><span class=line><span class=cl><span class=k>class</span> <span class=nc>CalFunSpec</span><span class=p>:</span> <span class=n>FunSpec</span><span class=p>({</span>
+</span></span><span class=line><span class=cl>    <span class=n>test</span><span class=p>(</span><span class=s2>&#34;1과 2를 더하면 3이 반환된다&#34;</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>val</span> <span class=py>stub</span> <span class=p>=</span> <span class=n>Calculator</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=k>val</span> <span class=py>result</span> <span class=p>=</span> <span class=n>stub</span><span class=p>.</span><span class=n>calculate</span><span class=p>(</span><span class=s2>&#34;1 + 2&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>result</span> <span class=n>sholdBe</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>context</span><span class=p>(</span><span class=s2>&#34;enabled test run&#34;</span><span class=p>){</span>
+</span></span><span class=line><span class=cl>        <span class=n>test</span><span class=p>(</span><span class=s2>&#34;test code run&#34;</span><span class=p>){</span> <span class=c1>// 실행
+</span></span></span><span class=line><span class=cl>            <span class=k>val</span> <span class=py>stub</span> <span class=p>=</span> <span class=n>Calculator</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=k>val</span> <span class=py>result</span> <span class=p>=</span> <span class=n>sutb</span><span class=p>.</span><span class=n>calculate</span><span class=p>(</span><span class=s2>&#34;1 + 2&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=n>result</span> <span class=n>sholdBe</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=n>xtest</span><span class=p>(</span><span class=s2>&#34;test code not run){ // 실행 안함</span>
+</span></span><span class=line><span class=cl>            <span class=k>val</span> <span class=py>stub</span> <span class=p>=</span> <span class=n>Calculator</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=k>val</span> <span class=py>result</span> <span class=p>=</span> <span class=n>sutb</span><span class=p>.</span><span class=n>calculate</span><span class=p>(</span><span class=s2>&#34;1 + 2&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=n>result</span> <span class=n>sholdBe</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>xcontext</span><span class=p>(</span><span class=s2>&#34;disabled test run&#34;</span><span class=p>){</span> <span class=c1>// 하위 모두 미 실행
+</span></span></span><span class=line><span class=cl>        <span class=n>test</span><span class=p>(</span><span class=s2>&#34;test code run but outer context is disabled){</span>
+</span></span><span class=line><span class=cl>            <span class=k>val</span> <span class=py>stub</span> <span class=p>=</span> <span class=n>Calculator</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=k>val</span> <span class=py>result</span> <span class=p>=</span> <span class=n>stub</span><span class=p>.</span><span class=n>caculate</span><span class=p>(</span><span class=s2>&#34;1 + 2&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            
+</span></span><span class=line><span class=cl>            <span class=n>result</span> <span class=n>shouldBe</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=n>xtest</span><span class=p>(</span><span class=s2>&#34;test code not run){</span>
+</span></span><span class=line><span class=cl>            <span class=k>val</span> <span class=py>stub</span> <span class=p>=</span> <span class=n>Calculator</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=k>val</span> <span class=py>result</span> <span class=p>=</span> <span class=n>stub</span><span class=p>.</span><span class=n>caculate</span><span class=p>(</span><span class=s2>&#34;1 + 2&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            
+</span></span><span class=line><span class=cl>            <span class=n>result</span> <span class=n>shouldBe</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl><span class=p>})</span>
+</span></span></code></pre></div><ul><li>You can add a description for the test code as a String after <code>test</code>.</li><li>Since field variables cannot be used, it is mainly used for function testing.</li><li>Similar to JUnit's <code>@Disabled</code>, you can exclude test code from execution using <code>xcontext</code> or <code>xtest</code>.</li></ul><h3 id=describe-spec>Describe Spec <a class=anchor href=#describe-spec aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-kt data-lang=kt><span class=line><span class=cl><span class=k>class</span> <span class=nc>CalDescribeSpec</span> <span class=p>:</span> <span class=n>DescribeSpec</span><span class=p>({</span>
+</span></span><span class=line><span class=cl>    <span class=k>val</span> <span class=py>stub</span> <span class=p>=</span> <span class=n>Calculator</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>describe</span><span class=p>(</span><span class=s2>&#34;calculate&#34;</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>context</span><span class=p>(</span><span class=s2>&#34;식이 주어지면&#34;</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>it</span><span class=p>(</span><span class=s2>&#34;해당 식에 대한 결과 값이 반환 된다&#34;</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=n>calculations</span><span class=p>.</span><span class=n>forAll</span> <span class=p>{</span> <span class=p>(</span><span class=n>expression</span><span class=p>,</span> <span class=k>data</span><span class=p>)</span> <span class=o>-&gt;</span>
+</span></span><span class=line><span class=cl>                    <span class=k>val</span> <span class=py>result</span> <span class=p>=</span> <span class=n>stub</span><span class=p>.</span><span class=n>calculate</span><span class=p>(</span><span class=n>expression</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                    <span class=n>result</span> <span class=n>shouldBe</span> <span class=k>data</span>
+</span></span><span class=line><span class=cl>                <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>})</span>
+</span></span></code></pre></div><ul><li>The Spring framework uses BDD (given, when, then), and Ruby or JS also use similar <code>describe</code>, <code>it</code> keywords to write test code. Supports DCI (Describe, Context, It) layout.</li><li>In the code above, <code>context</code> can be omitted.</li><li>Similar to FunSpec, if you use <code>xdescribe</code> and <code>xit</code>, the corresponding case does not need to be executed.</li></ul><h3 id=behavior-spec>Behavior Spec <a class=anchor href=#behavior-spec aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-kt data-lang=kt><span class=line><span class=cl><span class=k>class</span> <span class=nc>CalBehaviorSpec</span> <span class=p>:</span> <span class=n>BehaviorSepc</span><span class=p>({</span>
+</span></span><span class=line><span class=cl>    <span class=k>val</span> <span class=py>stub</span> <span class=p>=</span> <span class=n>Calculator</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>Given</span><span class=p>(</span><span class=s2>&#34;calculator){</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// before Each라고 생각하기
+</span></span></span><span class=line><span class=cl>        <span class=k>val</span> <span class=py>expression</span> <span class=p>=</span> <span class=s2>&#34;1 + 2&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=n>When</span><span class=p>(</span><span class=s2>&#34;1과 2를 더하면&#34;</span><span class=p>){</span>
+</span></span><span class=line><span class=cl>            <span class=k>val</span> <span class=py>result</span> <span class=p>=</span> <span class=n>stub</span><span class=p>.</span><span class=n>calculate</span><span class=p>(</span><span class=n>expression</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>Then</span><span class=p>(</span><span class=s2>&#34;3이 반환된다&#34;</span><span class=p>){</span>
+</span></span><span class=line><span class=cl>                <span class=n>result</span> <span class=n>shouldBe</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=n>When</span><span class=p>(</span><span class=s2>&#34;1 + 2 결과와 같은 String 입력시 동일한 결과가 나온다.&#34;</span><span class=p>){</span>
+</span></span><span class=line><span class=cl>            <span class=k>val</span> <span class=py>result</span> <span class=p>=</span> <span class=n>stub</span><span class=p>.</span><span class=n>calculate</span><span class=p>(</span><span class=n>expression</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>Then</span><span class=p>(</span><span class=s2>&#34;해당 하는 결과값이 반환된다.&#34;</span><span class=p>){</span>
+</span></span><span class=line><span class=cl>                <span class=n>result</span> <span class=n>shouldBe</span> <span class=n>stub</span><span class=p>.</span><span class=n>calculate</span><span class=p>(</span><span class=s2>&#34;1 + 2&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>})</span>
+</span></span></code></pre></div><ul><li>Provides BDD-style test code.</li><li>It offers the familiar <code>given</code>, <code>when</code>, <code>then</code>.</li><li>You can disable test code using <code>xgiven</code>, <code>xwhen</code>, <code>xthen</code>.</li></ul><h3 id=annotation-spec>Annotation Spec <a class=anchor href=#annotation-spec aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-kt data-lang=kt><span class=line><span class=cl><span class=k>class</span> <span class=nc>AnnotationSpecExample</span> <span class=p>:</span> <span class=n>AnnotationSpec</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nd>@BeforeEach</span>
+</span></span><span class=line><span class=cl>    <span class=k>fun</span> <span class=nf>beforeTest</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>println</span><span class=p>(</span><span class=s2>&#34;Before each test&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nd>@Test</span>
+</span></span><span class=line><span class=cl>    <span class=k>fun</span> <span class=nf>test1</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=mi>1</span> <span class=n>shouldBe</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nd>@Test</span>
+</span></span><span class=line><span class=cl>    <span class=k>fun</span> <span class=nf>test2</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=mi>3</span> <span class=n>shouldBe</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><h2 id=kotest-assertions>Kotest Assertions <a class=anchor href=#kotest-assertions aria-label="이 절로 링크">#</a></h2><h3 id=match>Match <a class=anchor href=#match aria-label="이 절로 링크">#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-kt data-lang=kt><span class=line><span class=cl><span class=c1>// 기본형
+</span></span></span><span class=line><span class=cl><span class=n>name</span> <span class=n>shouldBe</span> <span class=s2>&#34;sam&#34;</span> <span class=c1>// assertThat(name).isEqualTo(&#34;sam&#34;)
+</span></span></span><span class=line><span class=cl><span class=n>name</span> <span class=n>shouldNotBe</span> <span class=k>null</span> <span class=c1>// assertThat(name).isNull()
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 체인형 -&gt; 여러 조건을 chaining 할 수 있습니다
+</span></span></span><span class=line><span class=cl><span class=n>myImageFile</span><span class=p>.</span><span class=n>shouldHaveExtension</span><span class=p>(</span><span class=s2>&#34;.jpg&#34;</span><span class=p>).</span><span class=n>shouldStartWith</span><span class=p>(</span><span class=s2>&#34;https&#34;</span><span class=p>).</span><span class=n>shouldBeLowerCase</span><span class=p>()</span>
+</span></span></code></pre></div><h3 id=inspectors>Inspectors <a class=anchor href=#inspectors aria-label="이 절로 링크">#</a></h3><p>If there is a collection in the test code, perform tests on its elements.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-kt data-lang=kt><span class=line><span class=cl><span class=n>mylist</span><span class=p>.</span><span class=n>forExactly</span><span class=p>(</span><span class=mi>3</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>it</span><span class=p>.</span><span class=n>city</span> <span class=n>shouldBe</span> <span class=s2>&#34;Chicago&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span> <span class=c1>// Exactly 3 elements in mylist have city as Chicago
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>val</span> <span class=py>xs</span> <span class=p>=</span> <span class=n>listOf</span><span class=p>(</span><span class=s2>&#34;sam&#34;</span><span class=p>,</span> <span class=s2>&#34;gareth&#34;</span><span class=p>,</span> <span class=s2>&#34;timothy&#34;</span><span class=p>,</span> <span class=s2>&#34;muhammad&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>xs</span><span class=p>.</span><span class=n>forAtLeast</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span> <span class=p>{</span> <span class=c1>// At least 2 elements must satisfy the lambda expression
+</span></span></span><span class=line><span class=cl>    <span class=k>it</span><span class=p>.</span><span class=n>shouldHaveMinLength</span><span class=p>(</span><span class=mi>7</span><span class=p>)</span> <span class=c1>// true if length is less than or equal to 7, false otherwise
+</span></span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><h3 id=exceptions>Exceptions <a class=anchor href=#exceptions aria-label="이 절로 링크">#</a></h3><p>The test execution results in an Exception.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-kt data-lang=kt><span class=line><span class=cl><span class=n>shouldThrow</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>assertThrows</span> <span class=p>{</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// code in here that you expect to throw an IllegalAccessException
+</span></span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><h2 id=spring-test>Spring Test <a class=anchor href=#spring-test aria-label="이 절로 링크">#</a></h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-kt data-lang=kt><span class=line><span class=cl><span class=nd>@SpringBootTest</span>
+</span></span><span class=line><span class=cl><span class=k>internal</span> <span class=k>class</span> <span class=nc>CalSpringBootBehavioWithMockSpec</span> <span class=p>:</span> <span class=n>BehaviorSpec</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>override</span> <span class=k>fun</span> <span class=nf>extensions</span><span class=p>()</span> <span class=p>=</span> <span class=n>listOf</span><span class=p>(</span><span class=n>SpringExtension</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nd>@Autowired</span>
+</span></span><span class=line><span class=cl>    <span class=k>private</span> <span class=k>lateinit</span> <span class=k>var</span> <span class=py>calculatorService</span><span class=p>:</span> <span class=n>CalculatorService</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nd>@MockkBean</span>
+</span></span><span class=line><span class=cl>    <span class=k>private</span> <span class=k>lateinit</span> <span class=k>var</span> <span class=py>mockComponent</span><span class=p>:</span> <span class=n>MockComponent</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>init</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>this</span><span class=p>.</span><span class=n>Given</span><span class=p>(</span><span class=s2>&#34;calculate&#34;</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>When</span><span class=p>(</span><span class=s2>&#34;식이 주어지면&#34;</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=n>Then</span><span class=p>(</span><span class=s2>&#34;해당 식에 대한 결과값이 반환된다&#34;</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                    <span class=n>calculations</span><span class=p>.</span><span class=n>forAll</span> <span class=p>{</span> <span class=p>(</span><span class=n>expression</span><span class=p>,</span> <span class=k>data</span><span class=p>)</span> <span class=o>-&gt;</span>
+</span></span><span class=line><span class=cl>                        <span class=k>val</span> <span class=py>result</span> <span class=p>=</span> <span class=n>calculatorService</span><span class=p>.</span><span class=n>calculate</span><span class=p>(</span><span class=n>expression</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                        <span class=n>result</span> <span class=n>shouldBe</span> <span class=k>data</span>
+</span></span><span class=line><span class=cl>                    <span class=p>}</span>
+</span></span><span class=line><span class=cl>                <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>this</span><span class=p>.</span><span class=n>Given</span><span class=p>(</span><span class=s2>&#34;Mocking 한 값과 합을 구한다&#34;</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>every</span> <span class=p>{</span> <span class=n>mockComponent</span><span class=p>.</span><span class=n>returnOne</span><span class=p>()</span> <span class=p>}</span> <span class=n>answers</span> <span class=p>{</span> <span class=mi>2</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=n>When</span><span class=p>(</span><span class=s2>&#34;덧셈 로직 실행&#34;</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=k>val</span> <span class=py>result</span> <span class=p>=</span> <span class=n>calculatorService</span><span class=p>.</span><span class=n>calPlus</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                <span class=n>Then</span><span class=p>(</span><span class=s2>&#34;덧셈 결과&#34;</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                    <span class=n>result</span> <span class=n>shouldBe</span> <span class=mi>4</span>
+</span></span><span class=line><span class=cl>                <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>companion</span> <span class=k>object</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>private</span> <span class=k>val</span> <span class=py>calculations</span> <span class=p>=</span> <span class=n>listOf</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;1 + 3 * 5&#34;</span> <span class=n>to</span> <span class=mf>20.0</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;2 - 8 / 3 - 3&#34;</span> <span class=n>to</span> <span class=p>-</span><span class=mf>5.0</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;1 + 2 + 3 + 4 + 5&#34;</span> <span class=n>to</span> <span class=mf>15.0</span>
+</span></span><span class=line><span class=cl>        <span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><ul><li>You need to add the Spring extension by overriding <code>fun extensions() = listOf(SpringExtension)</code>.</li><li>The <code>CalculatorService</code> above has a <code>MockComponent</code>.</li><li>If you want to mock <code>MockComponent</code>, you can use <code>@MockkBean</code> or <code>@SpykBean</code> from <code>springmockk</code> to utilize Spring Boot's <code>@MockBean</code> and <code>@SpyBean</code> functionalities.</li></ul></div><footer class=article-footer><span><code>Back-End/kotlin/kotest.md</code></span></footer><nav class=pager aria-label="Previous/next note"><a class=prev href=/Back-End/kotlin/kopring.html rel=prev><span class=dir>← Previous</span>Using Spring Framework with Kotlin</a>
+<a class=next href=/Back-End/kotlin/kotlin.html rel=next><span class=dir>Next →</span>What is Kotlin and Why Do We Need It?</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>

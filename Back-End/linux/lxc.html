@@ -1,0 +1,93 @@
+<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>LXC (Linux Container) · rlaope</title><meta name=description content="LXC (Linux Container) — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="LXC (Linux Container)"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/Back-End/linux/lxc.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/Back-End/linux/lxc.html><link rel=stylesheet href=/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/index.html><img class=brand-logo src=/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><a href=https://rlaope.github.io/ko/Back-End/linux/lxc.html hreflang=ko title="한국어로 보기">한국어</a><span class=sep>/</span><span class=on aria-current=true>English</span></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/graph.html title="Knowledge graph" aria-label="Knowledge graph"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub repository"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=en><header class=article-header><nav class=crumbs aria-label=Path><a href=/index.html>rlaope</a><span class=sep>/</span><a href=/Back-End/index.html>Back-End</a></nav><h1 class=article-title>LXC (Linux Container)</h1><p class=meta><span>732 단어</span><span class=sep>·</span><span>2 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/Back-End/linux/lxc.md rel=noopener>원문(.md)</a></p></header><div class=prose><p>There's a technology similar to LXC called <code>chroot</code>.</p><p>chroot changes the root directory of a process, which can restrict the directories a process can access or load system-related libraries.</p><p>However, chroot can only control access to files or directories; it cannot control networks or processes. FreeBSD also includes a feature called jail, which is an evolution of chroot.</p><p><strong>Jail can control not only file system access but also resources such as processes and devices.</strong></p><p>LXC is implemented with a concept similar to jail. <strong>cgroups is a tool for centrally controlling various resources managed by the OS.</strong> It groups resources and provides functionalities such as limiting priority and available resources for each group, or isolating groups.</p><p>The targets managed by cgroups include not only file systems and processes but also CPU resources, memory, various devices, network packets, and network interfaces. An example of cgroups usage is to make a specific directory recognized as the root directory, similar to chroot, and then use cgroups' namespace feature to isolate various resources, thereby implementing a virtual environment.</p><p>The resources partitioned for each container include the following:</p><ul><li><strong>Process table</strong>: Each container manages its own separate process table, <strong>preventing processes in one container from being visible to processes in other containers.</strong></li><li><strong>File system</strong>: Each container makes a specific directory appear as its root file system. This is the same concept as <code>chroot</code>.</li><li><strong>Network</strong>: The network namespace (netns) feature configures separate network settings for each container. It uses a virtual NIC device called veth, assigning one end of the veth to the container's internal namespace.</li><li><strong>CPU, memory devices (device files under /dev)</strong>: cgroups' functionality limits the scope of what a container can use.</li></ul><figure><img src="https://www.redhat.com/rhdc/managed-files/styles/wysiwyg_full_width/private/virtualization-vs-containers.png.webp?itok=vvjopbiw" alt loading=lazy decoding=async referrerpolicy=no-referrer></figure><p>Looking at Linux containers, the OS's interior is divided into kernel space, which manages physical resources, and user space, which runs user processes.</p><p>Container-based virtualization divides user space into multiple spaces, limiting the resources visible to each user process. <strong>A container is precisely such a space where multiple user processes are organized and isolated.</strong></p><blockquote><p>LXC (Linux Containers) is an operating system-level virtualization method for running multiple isolated Linux systems (containers) on a single control host. The Linux kernel uses cgroups to allocate resources (CPU, memory, block I/O, network) without needing to start a virtual machine. cgroups also provides namespace isolation to completely isolate the operating environment for applications, including process trees, networks, user IDs, and mounted file systems. LXC provides an isolated environment for applications using cgroups + namespaces. Docker can also use LXC as one of its execution drivers, providing image management and development services through it.</p></blockquote><br><h3 id=practice>Practice <a class=anchor href=#practice aria-label="이 절로 링크">#</a></h3><p>Download lxc</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ubuntu@master: sudo apt update
+</span></span><span class=line><span class=cl>ubuntu@master: sudo apt install lxc
+</span></span></code></pre></div><p>Check currently available lxc features</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ubuntu@master: sudo lxc-checkconfig
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># test 컨테이너 생성</span>
+</span></span><span class=line><span class=cl>sudo lxc-create -n <span class=nb>test</span> -t download
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Distribution:
+</span></span><span class=line><span class=cl>ubuntu
+</span></span><span class=line><span class=cl>Release:
+</span></span><span class=line><span class=cl>bionic
+</span></span><span class=line><span class=cl>Architecture:
+</span></span><span class=line><span class=cl>i386
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Downloading the image index
+</span></span><span class=line><span class=cl>Downloading the rootfs
+</span></span><span class=line><span class=cl>Downloading the metadata
+</span></span><span class=line><span class=cl>The image cache is now ready
+</span></span><span class=line><span class=cl>Unpacking the rootfs
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>---
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>You just created an Ubuntu bionic i386 <span class=o>(</span>20230118_07:43<span class=o>)</span> container.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>To <span class=nb>enable</span> SSH, run: apt install openssh-server
+</span></span><span class=line><span class=cl>No default root or user password are <span class=nb>set</span> by LXC.
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Run container in background</span>
+</span></span><span class=line><span class=cl>ubuntu@master: sudo lxc-start -n <span class=nb>test</span> -d
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Check container</span>
+</span></span><span class=line><span class=cl>ubuntu@master: sudo lxc-ls --fancy
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Access container as root</span>
+</span></span><span class=line><span class=cl>ubuntu@master: sudo lxc-attach -n <span class=nb>test</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Create test account</span>
+</span></span><span class=line><span class=cl>ubuntu@master: sudo adduser <span class=nb>test</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Grant root privileges to test account via visudo</span>
+</span></span><span class=line><span class=cl>ubuntu@master: visudo
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>test</span> <span class=nv>ALL</span><span class=o>=(</span>ALL:ALL<span class=o>)</span> ALL
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Connect to container with test account</span>
+</span></span><span class=line><span class=cl>ubuntu@master: sudo lxc-console -n <span class=nb>test</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Install openssh</span>
+</span></span><span class=line><span class=cl>test@test:~$: sudo apt install openssh-server
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Check sshd status</span>
+</span></span><span class=line><span class=cl>test@test:~$: sudo systemctl status sshd
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Install network tools</span>
+</span></span><span class=line><span class=cl>test@test:~$: sudo apt install net-tools
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Check container IP</span>
+</span></span><span class=line><span class=cl>test@test:~$: ifconfig
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Forward incoming TCP packets on eth0 port 9999 to 10.0.1.95 port 22 using NAT</span>
+</span></span><span class=line><span class=cl>ubuntu@master: sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport <span class=m>9999</span> -j DNAT --to 10.0.1.95:22
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ubuntu@master: ssh test@10.0.1.95  
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>The authenticity of host <span class=s1>&#39;10.0.1.95 (10.0.1.95)&#39;</span> can<span class=s1>&#39;t be established.  
+</span></span></span><span class=line><span class=cl><span class=s1>ED25519 key fingerprint is SHA256:oO9Yns7H//bnnuDBSAODiHW3UxsuHw6kEG1MJonKTXg.  
+</span></span></span><span class=line><span class=cl><span class=s1>This key is not known by any other names  
+</span></span></span><span class=line><span class=cl><span class=s1>Are you sure you want to continue connecting (yes/no/[fingerprint])? yes  
+</span></span></span><span class=line><span class=cl><span class=s1>Warning: Permanently added &#39;</span>10.0.1.95<span class=s1>&#39; (ED25519) to the list of known hosts.  
+</span></span></span><span class=line><span class=cl><span class=s1>test@10.0.1.95&#39;</span>s password:  
+</span></span><span class=line><span class=cl>Welcome to Ubuntu 18.04.6 LTS <span class=o>(</span>GNU/Linux 5.15.0-56-generic i686<span class=o>)</span>  
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>* Documentation: https://help.ubuntu.com  
+</span></span><span class=line><span class=cl>* Management: https://landscape.canonical.com  
+</span></span><span class=line><span class=cl>* Support: https://ubuntu.com/advantage  
+</span></span><span class=line><span class=cl>Last login: Fri Jan <span class=m>20</span> 12:35:17 <span class=m>2023</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Stop container  </span>
+</span></span><span class=line><span class=cl>sudo lxc-stop -n <span class=nb>test</span>  
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl><span class=c1># Delete container  </span>
+</span></span><span class=line><span class=cl>sudo lxc-destroy -n <span class=nb>test</span>  
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl><span class=c1># Check container  </span>
+</span></span><span class=line><span class=cl>sudo lxc-ls
+</span></span></code></pre></div></div><footer class=article-footer><span><code>Back-End/linux/lxc.md</code></span></footer><nav class=pager aria-label="Previous/next note"><a class=prev href=/Back-End/kyd.html rel=prev><span class=dir>← Previous</span>KISS, YAGNI, DRY</a>
+<a class=next href=/Back-End/linux/nmap.html rel=next><span class=dir>Next →</span>Nmap Features</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>
