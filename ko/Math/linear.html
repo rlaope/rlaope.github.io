@@ -1,0 +1,253 @@
+<!doctype html><html lang=ko dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>딥러닝용 선형대수 최소 세트 · rlaope</title><meta name=description content="딥러닝용 선형대수 최소 세트 — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/ko/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/ko/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/ko/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="딥러닝용 선형대수 최소 세트"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/ko/Math/linear.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/ko/Math/linear.html><link rel=stylesheet href=/ko/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/ko/index.html><img class=brand-logo src=/ko/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><span class=on aria-current=true>한국어</span><span class=sep>/</span><a href=https://rlaope.github.io/Math/linear.html hreflang=en title="View in English">English</a></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/ko/graph.html title="지식 그래프" aria-label="지식 그래프"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub 저장소"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=ko><header class=article-header><nav class=crumbs aria-label=경로><a href=/ko/index.html>rlaope</a><span class=sep>/</span><a href=/ko/Math/index.html>Math</a></nav><h1 class=article-title>딥러닝용 선형대수 최소 세트</h1><p class=meta><span>8,930 단어</span><span class=sep>·</span><span>18 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/brains/Math/linear.md rel=noopener>원문(.md)</a></p></header><div class=prose><p>선형대수가 다루는 대상은 사실상 엑셀과 거의 비슷하다.</p><div class=table-wrap><table><thead><tr><th>선형대수</th><th>엑셀로 치면</th><th>딥러닝에서</th></tr></thead><tbody><tr><td>스칼라</td><td>셀 하나</td><td>학습률, 감쇠 α 같은 숫자 하나</td></tr><tr><td>벡터</td><td>한 줄 (행 하나)</td><td>토큰 하나의 임베딩, q / k / v</td></tr><tr><td>행렬</td><td>시트 하나 (표)</td><td>가중치 W, attention 점수표, GDN state</td></tr><tr><td>텐서</td><td>시트 여러 장을 묶은 파일</td><td>(배치, 헤드, 토큰, 차원) 데이터</td></tr></tbody></table></div><p>그리고 이 노트에서 배우는 연산은 결국 세 가지로 정리된다</p><pre tabindex=0><code>내적   : 줄 두 개  → 숫자 하나     (&#34;얼마나 비슷한가&#34;)
+행렬곱 : 표 × 줄   → 새로운 줄     (&#34;변환하기&#34;)
+외적   : 줄 두 개  → 표 하나       (&#34;메모 한 장 만들기&#34;)
+</code></pre><p>attention이나 gdn같은 개념들은 이 세 가지를 조합한 것에 불과하다.</p><br><h2 id=스칼라-벡터-행렬-텐서>스칼라 벡터 행렬 텐서 <a class=anchor href=#%ec%8a%a4%ec%b9%bc%eb%9d%bc-%eb%b2%a1%ed%84%b0-%ed%96%89%eb%a0%ac-%ed%85%90%ec%84%9c aria-label="이 절로 링크">#</a></h2><blockquote><p>모든 데이터에는 shape(모양)이 잇고 shape은 (행 개수, 열 개수) 순서로 읽는다.</p></blockquote><p>스칼라는 숫자 하나 3, 0.9 이런거다 벡터는 숫자를 한줄로 이어놓은 [1, 2, 3] 같은거 (숫자 3개짜리 벡터, shape (3,))</p><p>벡터의 숫자 하나하나를 <strong>원소</strong> 또는 <strong>칸</strong> 이라고 부르고 칸 개수를 <strong>차원</strong> 이라고 부른다. 128차원 벡터는 숫자 128개가 한줄로 있는것이다.</p><p>행렬은 숫자를 표로 늘어놓은 것이다.</p><pre tabindex=0><code>A = [[1, 2, 3],    ← 1행
+     [4, 5, 6]]    ← 2행
+      ↑  ↑  ↑
+     1열 2열 3열
+</code></pre><p>가로줄을 행 row, 새로줄을 열 column 이라고 한다.</p><p>이 행렬은 행 2개, 열 3개라서 shape이 (2, 3)이고 2x3 행렬이라고 읽는다.</p><blockquote><p>헷갈릴 때: 행은 가로, 열은 세로, 행이라는 글자의 가로획, 열이라는 글자의 세로획으로 외운다 순사는 항상 행, 열</p></blockquote><p>텐서는 차원이 3개 이상인 것으로 표를 여러장 쌓은것이라고 보면 된다.</p><h3 id=왜-숫자를-줄로-늘어놓는ㄱ>왜 숫자를 줄로 늘어놓는ㄱ <a class=anchor href=#%ec%99%9c-%ec%88%ab%ec%9e%90%eb%a5%bc-%ec%a4%84%eb%a1%9c-%eb%8a%98%ec%96%b4%eb%86%93%eb%8a%94%e3%84%b1 aria-label="이 절로 링크">#</a></h3><p>컴퓨터는 고양이 라는 단어를 이해하지 못한다. 그래서 단어를 숫자 목록으로 바꾼다.</p><pre tabindex=0><code>고양이 → [0.2, -1.3, 0.7, ..., 0.05]   (4096개)
+</code></pre><p>이게 <strong>임베딩</strong> 이라는 것이고 비슷한 의미의 단어는 비슷한 숫자 목록을 갖도록 학습된다. 그래서 얼마나 비슷한가를 숫자로 계산할 수 있게 되는데 그게 3장의 내적이다.</p><h3 id=딥러닝에서는>딥러닝에서는 <a class=anchor href=#%eb%94%a5%eb%9f%ac%eb%8b%9d%ec%97%90%ec%84%9c%eb%8a%94 aria-label="이 절로 링크">#</a></h3><ul><li>토큰 하나의 hidden state: 길이 4096 같은 벡터 -> shape <code>(4096, )</code></li><li>토큰 n개를 쌓은것: shpae (n, 4096) 행렬</li><li>배치 B개 헤드 H개로 나눈 것: shpae (B, H, n, d) 텐서</li></ul><p><strong>shape</strong>를 먼저 보는 습관이 선형대수 공부에서 중요한데 코드나 논문에서 막히면 각 변수 옆에 shape부터 적어보자. PyTorch에서는 <code>x.shape</code>를 출력하면 된다.</p><br><h2 id=벡터-기본-연산>벡터 기본 연산 <a class=anchor href=#%eb%b2%a1%ed%84%b0-%ea%b8%b0%eb%b3%b8-%ec%97%b0%ec%82%b0 aria-label="이 절로 링크">#</a></h2><blockquote><p>벡터끼리 더하기, 곱하기는 같은 자리까지 한다.</p></blockquote><h3 id=더하기-빼기>더하기, 빼기 <a class=anchor href=#%eb%8d%94%ed%95%98%ea%b8%b0-%eb%b9%bc%ea%b8%b0 aria-label="이 절로 링크">#</a></h3><p>같은 자리끼리 더한다 그래서 길이가 같아야한다.</p><pre tabindex=0><code>[1, 2, 3] + [10, 20, 30] = [1+10, 2+20, 3+30] = [11, 22, 33]
+[5, 5] - [1, 1] = [4, 4]
+</code></pre><h3 id=스칼라배>스칼라배 <a class=anchor href=#%ec%8a%a4%ec%b9%bc%eb%9d%bc%eb%b0%b0 aria-label="이 절로 링크">#</a></h3><p>숫자 하나를 모든 칸에 똑같이 곱한다</p><pre tabindex=0><code>0.9 × [10, 20] = [9, 18]
+</code></pre><p><strong>딥러닝에서는:</strong> GDN의 감쇠 α가 바로 이것이다. "기존 메모리에 0.9를 곱한다."는 "모든 칸을 90%로 줄인다." 즉, "전체를 조금씩 잊는다" 라는 뜻이다.</p><h3 id=원소별-곱-element-wise>원소별 곱 (element-wise) <a class=anchor href=#%ec%9b%90%ec%86%8c%eb%b3%84-%ea%b3%b1-element-wise aria-label="이 절로 링크">#</a></h3><p>같은 자리끼리 곱한다. 기호는 ⊙, 코드에서는 a * b이다.</p><pre tabindex=0><code>[1, 2, 3] ⊙ [4, 5, 6] = [1×4, 2×5, 3×6] = [4, 10, 18]
+</code></pre><p>비유하면 수도꼭지가 여러개있고 두번째 벡터가 각각 첫번째 수도꼭지 벡터에 칸을 얼마나 잠굴지 열지를 정하는것이라고 생각하면 편하다</p><pre tabindex=0><code>물      = [10, 10, 10]
+꼭지    = [1.0, 0.5, 0.0]    (활짝, 반, 잠금)
+통과량  = [10, 5, 0]
+</code></pre><p><strong>딥러닝에서는:</strong> gate는 대부분 이 연산이다. 0~1 사이 숫자가 든 벡터를 원소별로 곱해서 칸마다 통과량을 정한다. GDN 출력 게이트. KDA의 채널별 감쇠가 이 형태다. 스칼라배는 꼭지 하나로 전체를 조절하는거고 원소별곱은 칸마다 따로있는 차이가 있다.</p><br><h2 id=내적-dot-product>내적 dot product <a class=anchor href=#%eb%82%b4%ec%a0%81-dot-product aria-label="이 절로 링크">#</a></h2><blockquote><p>내적은 같은 자리끼리 곱해서 다 더한 숫자 하나고 두 벡터가 얼마나 비슷한 방향인지를 나타내는 것이다.</p></blockquote><h3 id=계산법>계산법 <a class=anchor href=#%ea%b3%84%ec%82%b0%eb%b2%95 aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>a = [1, 2, 3]
+b = [4, 5, 6]
+
+a · b = 1×4 + 2×5 + 3×6
+      = 4 + 10 + 18
+      = 32
+</code></pre><p>원소별 곱을 한 다음 전부 더한 것이다.</p><p>논문에서는 <code>a · b</code>, <code>aᵀb</code>, <code>a^\top b</code>, <code>&lt;a, b></code> 등으로 표기하는데 다 같은 뜻이다. aᵀb라고 쓰는 이유는 아래 전치에서 나온다</p><h3 id=비유하면-영화-추천-점수>비유하면 영화 추천 점수 <a class=anchor href=#%eb%b9%84%ec%9c%a0%ed%95%98%eb%a9%b4-%ec%98%81%ed%99%94-%ec%b6%94%ec%b2%9c-%ec%a0%90%ec%88%98 aria-label="이 절로 링크">#</a></h3><p>영화 하나를 [액션, 로맨스, 코미디] 정도의 숫자로 표현했다고 쳐보자</p><pre tabindex=0><code>영화 특성  = [0.9, 0.1, 0.3]    (액션 위주 영화)
+
+사용자 A 취향 = [5, 1, 0]       (액션 좋아함)
+사용자 B 취향 = [0, 4, 5]       (로맨스, 코미디 좋아함)
+
+A의 점수 = 5×0.9 + 1×0.1 + 0×0.3 = 4.5 + 0.1 + 0   = 4.6
+B의 점수 = 0×0.9 + 4×0.1 + 5×0.3 = 0 + 0.4 + 1.5   = 1.9
+</code></pre><p>취향이 영화 특성이 같은 칸이 둘 다 클수록 점수가 높아진다. 내적은 두 목록이 얼마나 맞아 떨어지는가를 재는 도구다</p><h3 id=방향으로-보기>방향으로 보기 <a class=anchor href=#%eb%b0%a9%ed%96%a5%ec%9c%bc%eb%a1%9c-%eb%b3%b4%ea%b8%b0 aria-label="이 절로 링크">#</a></h3><p>벡터를 화살표라고 생각하기면 내적은 두 화살표가 얼마나 같은 쪽을 가리키는지를 나타낸다.</p><pre tabindex=0><code>[1, 0] · [1, 0]  =  1    같은 방향      → 큼
+[1, 0] · [0, 1]  =  0    직각(90도)     → 0
+[1, 0] · [-1, 0] = -1    반대 방향      → 음수
+</code></pre><p>내적이 0이면 두 벡터가 직교(orthogonal) 한다고 하는데 서로 전혀 상관없는 방향이라는 뜻이고 뒤에서 아주 중요하게 쓰인다</p><h3 id=딥러닝에서>딥러닝에서 <a class=anchor href=#%eb%94%a5%eb%9f%ac%eb%8b%9d%ec%97%90%ec%84%9c aria-label="이 절로 링크">#</a></h3><p>attention 점수가 바로 query, key의 내적이다</p><pre tabindex=0><code>score = q · k
+</code></pre><ul><li><strong>query(q):</strong> 지금 토큰이 내가 찾는 것</li><li><strong>key(k):</strong> 각 토큰이 붙이고 있는 "나는 이런 정보야" 라는 라벨</li><li><strong>value(v):</strong> 실제로 가져갈 내용</li></ul><p>영화 추천과 똑같은 구조로 q가 취향, k가 영화 특성이고 점수가 높은 토큰의 v를 많이가져온다.</p><br><h2 id=길이norm와-정규화>길이(Norm)와 정규화 <a class=anchor href=#%ea%b8%b8%ec%9d%b4norm%ec%99%80-%ec%a0%95%ea%b7%9c%ed%99%94 aria-label="이 절로 링크">#</a></h2><blockquote><p>벡터를 길이 1로 맞추면 크기는 빼고 방향만 비교할 수 있다.</p></blockquote><h3 id=길이>길이 <a class=anchor href=#%ea%b8%b8%ec%9d%b4 aria-label="이 절로 링크">#</a></h3><p>벡터의 길이는 피타고라스 정리와 같다 각 칸의 제곱을 더해서 제곱근을 씌운다. ‖a‖라고 쓰고 L2 노름이라고 부른다.</p><pre tabindex=0><code>a = [3, 4]
+‖a‖ = √(3² + 4²) = √(9 + 16) = √25 = 5
+</code></pre><p>가로3, 세로4인 직각삼각형의 빗변이 5인것과 같다/</p><h3 id=왜-길이를-맞춰야-하나>왜 길이를 맞춰야 하나? <a class=anchor href=#%ec%99%9c-%ea%b8%b8%ec%9d%b4%eb%a5%bc-%eb%a7%9e%ec%b6%b0%ec%95%bc-%ed%95%98%eb%82%98 aria-label="이 절로 링크">#</a></h3><p>내적은 방향뿐 아니라 길이에도 영향을 받는다.</p><pre tabindex=0><code>[1, 1]   · [1, 0] = 1
+[10, 10] · [1, 0] = 10
+</code></pre><p>[1,1]과 [10,10]은 같은 방향인데 내적이 10배 차이가 난다. 숫자가 큰 벡터가 무조건 더 비슷하다고 나오는 문제가 생긴다 그래서 방향만 비교하고 싶을 때는 길이를 1로 맞춘다.</p><h3 id=정규화-l2-normalize>정규화 L2 normalize <a class=anchor href=#%ec%a0%95%ea%b7%9c%ed%99%94-l2-normalize aria-label="이 절로 링크">#</a></h3><p>벡터를 자기 길이로 나눈다.</p><pre tabindex=0><code>[3, 4] / 5 = [0.6, 0.8]
+
+길이 확인: √(0.6² + 0.8²) = √(0.36 + 0.64) = √1 = 1  ✓
+</code></pre><p>방향이 그대로이고 길이만 1이 됏다. 길이 1인 벡터 두 개의 내적은 항상 -1~1 사이이고 이 값을 <strong>코사인 유사도</strong>라고 한다.</p><h3 id=딥러닝에서는-1>딥러닝에서는 <a class=anchor href=#%eb%94%a5%eb%9f%ac%eb%8b%9d%ec%97%90%ec%84%9c%eb%8a%94-1 aria-label="이 절로 링크">#</a></h3><p>GDN에서 q, k에 L2 정규화를 하는 이유가 이것이다 길이를 1로 고정해야</p><ul><li>같은 k로 읽으면 적어 둔 값이 정확히 그대로 나오고</li><li>k 방향 지우기 가 정확히 그 방향만 지우며</li><li>값이 반복 계산중에 폭주하지 않는다.</li></ul><br><h2 id=행렬-x-벡터>행렬 x 벡터 <a class=anchor href=#%ed%96%89%eb%a0%ac-x-%eb%b2%a1%ed%84%b0 aria-label="이 절로 링크">#</a></h2><blockquote><p>행렬 x 벡터는 행마다 내적이고 벡터를 다른 벡터로 바꾸는 변환기다</p></blockquote><h3 id=비유하면-심사위원-여러명>비유하면 심사위원 여러명 <a class=anchor href=#%eb%b9%84%ec%9c%a0%ed%95%98%eb%a9%b4-%ec%8b%ac%ec%82%ac%ec%9c%84%ec%9b%90-%ec%97%ac%eb%9f%ac%eb%aa%85 aria-label="이 절로 링크">#</a></h3><p>지원자 한 명의 점수가 [노래, 춤, 연기] 라고 해보자, 심사위원마다 중요하게 보는 항목이 다르다</p><pre tabindex=0><code>지원자 점수 s = [80, 90, 70]   (노래, 춤, 연기)
+
+심사위원 1 가중치 = [0.5, 0.3, 0.2]   (노래 중시)
+심사위원 2 가중치 = [0.1, 0.1, 0.8]   (연기 중시)
+</code></pre><p>심사위원 가중치를 한 줄로 쌓으면 행렬이 된다</p><pre tabindex=0><code>W = [[0.5, 0.3, 0.2],    ← 심사위원 1
+     [0.1, 0.1, 0.8]]    ← 심사위원 2
+</code></pre><p>각 심사위원의 최종 점수는 <strong>자기 가중치 줄과 지원자 점수의 내적</strong>이다.</p><pre tabindex=0><code>심사위원 1: 0.5×80 + 0.3×90 + 0.2×70 = 40 + 27 + 14 = 81
+심사위원 2: 0.1×80 + 0.1×90 + 0.8×70 =  8 +  9 + 56 = 73
+
+W s = [81, 73]
+</code></pre><p>행렬 x 벡터 = <strong>행마다 내적해서 결과를 세로로 모은 것</strong> 이게 전부다</p><h3 id=shape로-보기>shape로 보기 <a class=anchor href=#shape%eb%a1%9c-%eb%b3%b4%ea%b8%b0 aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>W     : (2, 3)    심사위원 2명, 항목 3개
+s     : (3,)      항목 3개
+W s   : (2,)      심사위원 2명의 점수
+</code></pre><p>길이 3짜리 벡터가 길이 2짜리 벡터로 바뀌었다 행렬의 열 개수 = 입력 길이, 행 개수 = 출력 길이 인 것</p><h3 id=딥러닝에서는-2>딥러닝에서는 <a class=anchor href=#%eb%94%a5%eb%9f%ac%eb%8b%9d%ec%97%90%ec%84%9c%eb%8a%94-2 aria-label="이 절로 링크">#</a></h3><p>이게 선형 변환이라고 하는것이고 PyTorch의 <code>nn.Linear</code>가 정확히 이것이다 (편향 b를 더하는 것만 추가)</p><pre tabindex=0><code>nn.Linear(4096, 1024)
+  → 내부에 (1024, 4096) 행렬 W가 있음
+  → 입력 (4096,) 을 출력 (1024,) 로 바꿈
+</code></pre><p>심사위원 1024명이 입력 4096개 항목을 각자 다른 가중치로 채점한다라고 생각해도 된다 학습이랑 이 가중치들을 조정하는 과정이다</p><p>q,k,v projection도 전부 이거다 같은 hidden state <code>h</code>를 서로 다른 행렬 세개에 통과시켜 q k v를 만든다</p><pre tabindex=0><code>q = W_q h      (&#34;이 토큰은 무엇을 찾는가&#34;로 변환)
+k = W_k h      (&#34;이 토큰은 어떤 라벨인가&#34;로 변환)
+v = W_v h      (&#34;이 토큰이 전달할 내용&#34;으로 변환)
+</code></pre><br><h2 id=전치-transpose>전치 transpose <a class=anchor href=#%ec%a0%84%ec%b9%98-transpose aria-label="이 절로 링크">#</a></h2><blockquote><p>전치는 행과 열을 바꾸는 것, 주로 행렬곱 shape를 맞추려고 쓴다. 기호 ᵀ는 "t번째"의 t와 다르다</p></blockquote><h3 id=뜻>뜻 <a class=anchor href=#%eb%9c%bb aria-label="이 절로 링크">#</a></h3><p>표를 왼쪽 위 -> 오른쪽 아래 대각선을 기준으로 뒤집는 것이다 1행의 1열이 되고 2행이 2열이 된다.</p><pre tabindex=0><code>A = [[1, 2, 3],        Aᵀ = [[1, 4],
+     [4, 5, 6]]              [2, 5],
+                             [3, 6]]
+
+shape: (2, 3)  →  (3, 2)
+</code></pre><p>기호는 <code>Aᵀ</code>, <code>A^\top</code>, <code>A^T</code>, 코드에서는 <code>A.T</code>또는 <code>A.transpose(-1, -2)</code></p><h3 id=왜-필요한가-shape-맞추기>왜 필요한가? shape 맞추기 <a class=anchor href=#%ec%99%9c-%ed%95%84%ec%9a%94%ed%95%9c%ea%b0%80-shape-%eb%a7%9e%ec%b6%94%ea%b8%b0 aria-label="이 절로 링크">#</a></h3><p>행렬곱은 shape가 맞아야만 된다. attention에서 Q, K는 둘다 <code>n, d</code> 인데 이대로는 곱할 수 없다</p><ul><li>n: 토큰 개수, 문장 길이다. 예 토큰 1,000개면 n=1000</li><li>d: 토큰 하나를 나타내는 벡터의 길이 (칸 개수). 예: 128</li></ul><pre tabindex=0><code>Q (n, d) × K (n, d)     → 안 됨
+Q (n, d) × Kᵀ (d, n)    → 됨! 결과 (n, n)
+</code></pre><ul><li>안 되는 이유: 안쪽 숫자가 d와 n이 서로 다르다. Q의 한 행(길이d)와 K의 한 행(길이 n)은 길이가 달라서 내적할 수 없다</li><li>되는이유: 전치하면 안쪽이 d, d로 같아진다 그래서 q의 각 토큰과 k의 각 토큰을 하나씩 짝지어 내적할 수 있고 그 결과가 (n, n) 점수표다</li></ul><p>k를 전치해서 모양을 맞추는 것이다 그래서 attention 식에 <code>QKᵀ</code>가 나오는 것이다</p><h3 id=벡터의-전치>벡터의 전치 <a class=anchor href=#%eb%b2%a1%ed%84%b0%ec%9d%98-%ec%a0%84%ec%b9%98 aria-label="이 절로 링크">#</a></h3><p>수학에서는 벡터를 기본적으로 <strong>세로로 세워 둔 것</strong> (열 벡터, shape <code>(d, 1)</code>) 으로 본다 전치하면 가로로 눕힌것 해애 벡터 shape <code>(1, d)</code>가 되는것이다</p><pre tabindex=0><code>k  = [[3],          kᵀ = [[3, 4, 5]]
+      [4],
+      [5]]
+shape (3, 1)             shape (1, 3)
+</code></pre><p>그래서 내적을 <code>aᵀb</code>라고 쓴다. 가로 (1, d) × 세로 (d, 1) = (1, 1), 즉 숫자 하나가 나오기 때문이다</p><h3 id=자주-헷갈리는것>자주 헷갈리는것 <a class=anchor href=#%ec%9e%90%ec%a3%bc-%ed%97%b7%ea%b0%88%eb%a6%ac%eb%8a%94%ea%b2%83 aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>k_t    아래에 붙은 t  →  &#34;t번째 토큰&#34;   (번호)
+kᵀ     위에 붙은 ᵀ    →  &#34;전치&#34;         (눕히기)
+k_tᵀ   둘 다          →  &#34;t번째 토큰의 k를 눕힌 것&#34;
+</code></pre><br><h2 id=행렬-x-행렬>행렬 x 행렬 <a class=anchor href=#%ed%96%89%eb%a0%ac-x-%ed%96%89%eb%a0%ac aria-label="이 절로 링크">#</a></h2><blockquote><p>(a,b)x(b,c) = (a,c) 안쪽 숫자가 같아야 곱할 수 있고 바깥쪽 숫자 결과가 shape가 된다.</p></blockquote><h3 id=shape-규칙>shape 규칙 <a class=anchor href=#shape-%ea%b7%9c%ec%b9%99 aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>(a, b) × (b, c) = (a, c)
+     ↑    ↑
+     안쪽이 같아야 함
+
+ ↑            ↑
+ 바깥쪽이 결과
+</code></pre><pre tabindex=0><code>(2, 3) × (3, 4) = (2, 4)    가능
+(2, 3) × (2, 4)             불가능 (3 ≠ 2)
+(n, d) × (d, n) = (n, n)    attention 점수표
+</code></pre><p>이 규칙 하나로 논문 식의 대부분을 검산할 수 있다. 식을 읽다가 막히면 각 기호 아래에 shape를 적고 이 규칙으로 맞춰보자</p><h3 id=계산법-1>계산법 <a class=anchor href=#%ea%b3%84%ec%82%b0%eb%b2%95-1 aria-label="이 절로 링크">#</a></h3><p>**행렬 x 행렬 = 행렬 x(벡터)**를 오른쪽 행렬의 열마다 반복한 것이다</p><p>결과의 i행, j열 칸 = 왼쪽 행렬의 i번째 행 x 오른쪽 행렬의 j번째 열(내적)</p><pre tabindex=0><code>A = [[1, 2],      B = [[5, 6],
+     [3, 4]]           [7, 8]]
+
+                 B의 1열   B의 2열
+                 [5, 7]    [6, 8]
+A의 1행 [1, 2]     19        22
+A의 2행 [3, 4]     43        50
+
+계산:
+(1,1) = [1, 2] · [5, 7] = 1×5 + 2×7 =  5 + 14 = 19
+(1,2) = [1, 2] · [6, 8] = 1×6 + 2×8 =  6 + 16 = 22
+(2,1) = [3, 4] · [5, 7] = 3×5 + 4×7 = 15 + 28 = 43
+(2,2) = [3, 4] · [6, 8] = 3×6 + 4×8 = 18 + 32 = 50
+
+AB = [[19, 22],
+      [43, 50]]
+</code></pre><p>가운데 표처럼 왼쪽 행렬은 행을 오른쪽 행렬은 열을 꺼내서 짝지어 내적한다고 기억하면 된다</p><h3 id=순서를-바꾸면-결과가-다르다>순서를 바꾸면 결과가 다르다 <a class=anchor href=#%ec%88%9c%ec%84%9c%eb%a5%bc-%eb%b0%94%ea%be%b8%eb%a9%b4-%ea%b2%b0%ea%b3%bc%ea%b0%80-%eb%8b%a4%eb%a5%b4%eb%8b%a4 aria-label="이 절로 링크">#</a></h3><p>AB != BA 라는 것이다 일반적으로</p><p>숫자는 2x3 = 3x2 이지만 행렬은 그렇지 않다. 위 예시로 BA를 직접 계산해보자 (답은 밑에서 있긴한데) shape가 다르면 아예 한쪽 순서로만 곱할 수 있는 경우도 많다</p><h3 id=딥러닝에서는-토큰-여러개를-한-번에>딥러닝에서는 토큰 여러개를 한 번에 <a class=anchor href=#%eb%94%a5%eb%9f%ac%eb%8b%9d%ec%97%90%ec%84%9c%eb%8a%94-%ed%86%a0%ed%81%b0-%ec%97%ac%eb%9f%ac%ea%b0%9c%eb%a5%bc-%ed%95%9c-%eb%b2%88%ec%97%90 aria-label="이 절로 링크">#</a></h3><p>토큰 하나(벡터)를 변환했을때, 토큰 n개를 행렬 X (n, 4096)로 쌓으면 한 번의 행렬곱으로 전부 변환된다.</p><pre tabindex=0><code>X      : (n, 4096)       토큰 n개
+Wᵀ     : (4096, 1024)
+X Wᵀ   : (n, 1024)       토큰 n개 각각 변환된 결과
+</code></pre><p>gpu가 행렬곱을 엄청나게 빨리하기 때문에 딥러닝 연산을 최대한 큰 행렬곱으로 묶는게 성능의 핵심이다 gdn chunkwise알고리즘같은애들이 하는일이 토큰하나씩 하던 계산을 행렬곱으로 바꾸기 위해서이다.</p><h3 id=비용-계산>비용 계산 <a class=anchor href=#%eb%b9%84%ec%9a%a9-%ea%b3%84%ec%82%b0 aria-label="이 절로 링크">#</a></h3><p><code>(a, b)</code> x <code>(b, c)</code>는 결과가 칸이 a x c개 이고, 곱셈 b번 + 덧셈 약 b번이 필요하다</p><pre tabindex=0><code>연산량 ≈ 2 × a × b × c  FLOPs
+</code></pre><p>토큰 하나의 <code>nn.Linear(4096, 4096)</code>을 적용하면 2 x 4096 x 4096 ≈ 3,355만 FLOPs 이다</p><p>파라미터(가중치칸)가 4096 x 4096개이니 <strong>파라미터 수 x 2 = 토큰당 FLOPs</strong>라는 서빙 어림셈이 여기서 나온다.</p><br><h2 id=외적-outer-product>외적 outer product <a class=anchor href=#%ec%99%b8%ec%a0%81-outer-product aria-label="이 절로 링크">#</a></h2><blockquote><p>외적은 벡터 두 개로 표하나를 만드는 것, k 주소에 v를 적은 메모 한 장</p></blockquote><div class=table-wrap><table><thead><tr><th></th><th>내적</th><th>외적</th></tr></thead><tbody><tr><td>기호</td><td><code>aᵀb</code></td><td><code>a bᵀ</code></td></tr><tr><td>shape</td><td><code>(1, d) × (d, 1)</code></td><td><code>(m, 1) × (1, n)</code></td></tr><tr><td>결과</td><td>숫자 하나 <code>(1, 1)</code></td><td>표 하나 <code>(m, n)</code></td></tr><tr><td>뜻</td><td>얼마나 비슷한가</td><td>둘을 엮은 메모</td></tr></tbody></table></div><h3 id=계산법-2>계산법 <a class=anchor href=#%ea%b3%84%ec%82%b0%eb%b2%95-2 aria-label="이 절로 링크">#</a></h3><p>앞 벡터의 각 칸 x 뒤 벡터 전체를 한줄씩 쌓는것이다 구구단 표를 만드는것과 같다</p><pre tabindex=0><code>v = [1, 2]
+k = [3, 4, 5]
+
+         k:  3    4    5
+v: 1  →  [  3,   4,   5 ]
+v: 2  →  [  6,   8,  10 ]
+
+v kᵀ = [[3, 4,  5],
+        [6, 8, 10]]
+
+shape: (2, 3)
+</code></pre><p>이렇게 벡터 두 개로 만든 행렬을 <strong>rank-1</strong>행렬이라고 부른다 칸은 6개지만 실제 정보는 벡터 두 개 분량밖에 없다는 뜻</p><h3 id=외적은-k주소에-v를-적은-메모>외적은 k주소에 v를 적은 메모 <a class=anchor href=#%ec%99%b8%ec%a0%81%ec%9d%80-k%ec%a3%bc%ec%86%8c%ec%97%90-v%eb%a5%bc-%ec%a0%81%ec%9d%80-%eb%a9%94%eb%aa%a8 aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>k = [0.6, 0.8]   (주소, 길이 1)
+v = [1, 2]       (적을 내용)
+
+M = v kᵀ = [[0.6, 0.8],
+            [1.2, 1.6]]
+</code></pre><p>같은 주소로 k읽기 (M에 k를 곱하기)</p><pre tabindex=0><code>M k = [0.6×0.6 + 0.8×0.8,   1.2×0.6 + 1.6×0.8]
+    = [0.36 + 0.64,          0.72 + 1.28]
+    = [1, 2]
+</code></pre><p>적어둔 v가 그대로 나오게 된다</p><p>다른 주소 q = [-0.8, 0.6]로 읽기 (k와 직교, 내적이 0):</p><pre tabindex=0><code>M q = [0.6×(-0.8) + 0.8×0.6,   1.2×(-0.8) + 1.6×0.6]
+    = [-0.48 + 0.48,            -0.96 + 0.96]
+    = [0, 0]
+</code></pre><p>아무것도 안 나온다 주소가 다르면 이 메모는 안 읽힌다.</p><h3 id=왜-그렇게-되는가>왜 그렇게 되는가 <a class=anchor href=#%ec%99%9c-%ea%b7%b8%eb%a0%87%ea%b2%8c-%eb%90%98%eb%8a%94%ea%b0%80 aria-label="이 절로 링크">#</a></h3><p>괄호 위치를 바꿔보면 바로 보이는데 결합법칙을 아래에서 언급하겟지만</p><pre tabindex=0><code>(v kᵀ) q  =  v (kᵀ q)  =  v × (k와 q의 내적)
+</code></pre><ul><li>k와 q가 같으면 내적이 1->vx1 = v</li><li>직교하면 내적이 0 -> v x 0 = 0</li><li>그 중간이면 -> v가 그만큼 줄어서 ㅏㄴ옴</li></ul><p>attention이 비슷한 key의 value를 가져온다는 말은 행렬로 쓰면 이와 같다 외적으로 메모를 만들고 내적으로 얼마나 꺼낼지를 정하는 것이다</p><br><h2 id=단위-행렬-대각행렬-그리고-지우기>단위 행렬, 대각행렬 그리고 지우기 <a class=anchor href=#%eb%8b%a8%ec%9c%84-%ed%96%89%eb%a0%ac-%eb%8c%80%ea%b0%81%ed%96%89%eb%a0%ac-%ea%b7%b8%eb%a6%ac%ea%b3%a0-%ec%a7%80%ec%9a%b0%ea%b8%b0 aria-label="이 절로 링크">#</a></h2><blockquote><p>I는 아무것도 안하는 행렬, 대각행렬은 칸마다 배율 조절, I -- k kᵀ는 "k 방향만 지우기"</p></blockquote><h3 id=단위행렬-i>단위행렬 I <a class=anchor href=#%eb%8b%a8%ec%9c%84%ed%96%89%eb%a0%ac-i aria-label="이 절로 링크">#</a></h3><p>대각선만 1이고 나머지가 0인 행렬이다 곱해도 아무것도 바뀌지 않는다. 숫자와 1과 같은 역할을 한다</p><pre tabindex=0><code>I = [[1, 0],
+     [0, 1]]
+
+I [3, 4] = [1×3 + 0×4,  0×3 + 1×4] = [3, 4]   ← 그대로
+</code></pre><p>수식에 I가 나오면 원본 그대로라고 읽으면 된다 <code>I - 무엇</code>은 원본에서 무엇을 뺀 것이다.</p><h3 id=대각-행렬>대각 행렬 <a class=anchor href=#%eb%8c%80%ea%b0%81-%ed%96%89%eb%a0%ac aria-label="이 절로 링크">#</a></h3><p>대각선에서만 있는 숫자가 있는 행렬로 곱하면 칸마다 다른 배율로 늘리거나 줄인다 원소별 곱 수도꼭지와 같은효과</p><pre tabindex=0><code>D = [[0.5, 0  ],
+     [0,   0.9]]
+
+D [10, 10] = [5, 9]    ← 첫 칸은 50%, 둘째 칸은 90%
+</code></pre><p>논문에서 <code>diag(β)</code>라고 쓰면 β 벡터를 대각선에 깐 대각 행렬이라고 이해하면 된다</p><h3 id=k-kᵀ-k-방향만-지우는-행렬-이해안해도됨-gdn모르면>k kᵀ: k 방향만 지우는 행렬 (이해안해도됨 gdn모르면) <a class=anchor href=#k-k%e1%b5%80-k-%eb%b0%a9%ed%96%a5%eb%a7%8c-%ec%a7%80%ec%9a%b0%eb%8a%94-%ed%96%89%eb%a0%ac-%ec%9d%b4%ed%95%b4%ec%95%88%ed%95%b4%eb%8f%84%eb%90%a8-gdn%eb%aa%a8%eb%a5%b4%eb%a9%b4 aria-label="이 절로 링크">#</a></h3><p>GDN에서 <code>(I - β k kᵀ)</code> 를 숫자로 보겠다 쉽게 β = 1, k = [1, 0]으로 한다</p><pre tabindex=0><code>k kᵀ = [[1, 0],        (외적, 8장)
+        [0, 0]]
+
+I - k kᵀ = [[1-1, 0-0],    = [[0, 0],
+            [0-0, 1-0]]       [0, 1]]
+</code></pre><p>이 행렬을 아무 벡터에나 곱해보면</p><pre tabindex=0><code>(I - k kᵀ) [3, 4] = [0×3 + 0×4,  0×3 + 1×4] = [0, 4]
+</code></pre><p>k 방향(첫번째 칸) 성분만 사라지고 나머지는 그대로다</p><p>비유하면 손전등을 k방향으로 비췄을때 생기는 그림자 (그 방향 성분)만 지우개로 지우는 거싱고 수학 용어로는 k 방향 성분을 빼는 사영 (projection)이라고 한다</p><p>β = 0.5면 절반만 지운다.</p><pre tabindex=0><code>I - 0.5 k kᵀ = [[0.5, 0],
+                [0,   1]]
+
+[3, 4]  →  [1.5, 4]
+</code></pre><h3 id=고유값-맛보기>고유값 맛보기 <a class=anchor href=#%ea%b3%a0%ec%9c%a0%ea%b0%92-%eb%a7%9b%eb%b3%b4%ea%b8%b0 aria-label="이 절로 링크">#</a></h3><p>어떤 행렬을 곱했을때 <strong>방향은 안바뀌고 길이만 몇 배가 되는 벡터가</strong> 있으면 그 배율을 고유값이라고 한다 <code>I - 0.5 k kᵀ</code> 는 k 방향을 0.5배 그 직각 방향을 1배 하므로 고유값이 0.5와 1이다</p><p>GDN 노트에서 고유값이 1을 넘으면 state가 발산한다는 말이 있는데 이를 이렇게 이해하면된다</p><pre tabindex=0><code>0.9를 1000번 곱하면  → 거의 0       (점점 잊혀짐, 안정)
+1.0을 1000번 곱하면  → 1           (그대로 유지)
+1.1을 1000번 곱하면  → 엄청 큰 수   (폭발, 불안정)
+</code></pre><p>GDN은 토큰마다 이 행렬을 한번씩 곱하므로 수천 토큰을 지나면 배율이 수천번 누적되기에 배율을 1이 넘지않도록 k정규화하고 β 범위를 제한한다.</p><br><h2 id=linear-attention-delta-rule-손으로-돌려보기>linear attention, delta rule 손으로 돌려보기 <a class=anchor href=#linear-attention-delta-rule-%ec%86%90%ec%9c%bc%eb%a1%9c-%eb%8f%8c%eb%a0%a4%eb%b3%b4%ea%b8%b0 aria-label="이 절로 링크">#</a></h2><blockquote><p>외적으로 적고, 행렬 x 벡터로 읽고, 차이만큼 고쳐쓰게 그게 delta rul</p></blockquote><p>여기까지 배운걸로 GDN 노트의 핵심 식을 직접 계산할 수 있다. 2차원으로 작게 해보자</p><h3 id=메모리-두-개-적기-linear-attetnion>메모리 두 개 적기 (linear attetnion) <a class=anchor href=#%eb%a9%94%eb%aa%a8%eb%a6%ac-%eb%91%90-%ea%b0%9c-%ec%a0%81%ea%b8%b0-linear-attetnion aria-label="이 절로 링크">#</a></h3><p>주소 두 개의 값을 하나씩 적는다. 두 주소는 직교한다</p><pre tabindex=0><code>k1 = [1, 0],  v1 = [5, 5]     (&#34;1번 서랍&#34;에 [5, 5])
+k2 = [0, 1],  v2 = [7, 0]     (&#34;2번 서랍&#34;에 [7, 0])
+</code></pre><p>메모 두 장을 만들어서 (외적) 더한다</p><pre tabindex=0><code>v1 k1ᵀ = [[5, 0],      v2 k2ᵀ = [[0, 7],
+          [5, 0]]                [0, 0]]
+
+S = v1 k1ᵀ + v2 k2ᵀ = [[5, 7],
+                       [5, 0]]
+</code></pre><p>이 S가 <strong>state(메모리)</strong> 이다 메모 두 장이 표 하나에 합쳐져있다</p><p>읽어보기 (행렬 x 벡터)</p><pre tabindex=0><code>S k1 = [5×1 + 7×0,  5×1 + 0×0] = [5, 5]   ← v1 그대로
+S k2 = [5×0 + 7×1,  5×0 + 0×1] = [7, 0]   ← v2 그대로
+</code></pre><p>주소끼리 직교하니 서로 섞이지 않게 깔끔하게 저장된다</p><h3 id=직교하지-않는-주소로-읽으면>직교하지 않는 주소로 읽으면 <a class=anchor href=#%ec%a7%81%ea%b5%90%ed%95%98%ec%a7%80-%ec%95%8a%eb%8a%94-%ec%a3%bc%ec%86%8c%eb%a1%9c-%ec%9d%bd%ec%9c%bc%eb%a9%b4 aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>k3 = [0.6, 0.8]  로 읽으면
+
+S k3 = [5×0.6 + 7×0.8,  5×0.6 + 0×0.8]
+     = [3 + 5.6,  3]
+     = [8.6, 3]
+</code></pre><p>v1, v2가 섞인, 어느 것도 아닌 값이 나온다</p><p>이게 문제인 이유는 2차원 공간에서는 서로 직교하는 방향이 2개뿐이라 그러니 3번째 주소부터는 반드시 기존 주소와 겹친다 실제 모델도 d_k = 128 이면 직교 방향이 128개 뿐인데 토큰은 수만개라 그래서 메모가 계속 겹쳐 쌓일때마다 읽을때마다 다른 메모가 섞여나온다. <strong>GDN에서 더하기만 해서는 메모리가 오염된다</strong>라는 문제가 이거다.</p><h3 id=delata-rule로-덮어쓰기>delata rule로 덮어쓰기 <a class=anchor href=#delata-rule%eb%a1%9c-%eb%8d%ae%ec%96%b4%ec%93%b0%ea%b8%b0 aria-label="이 절로 링크">#</a></h3><p>이제 1번 서랍의 값을 [5, 5]에서 [1,1]로 바꾸고 싶다 β = 1</p><p>그냥 linear attention 처럼 새 메모를 더하면 어떻게 될까?</p><pre tabindex=0><code>S + [1,1] k1ᵀ 로 읽으면 → [5, 5] + [1, 1] = [6, 6]    ← 옛 값과 섞임. 실패
+</code></pre><p>delta rule은 <strong>지금 잇는 값과의 차이만큼만 적는다</strong></p><pre tabindex=0><code>1) 지금 있는 값 읽기:   v_old = S k1 = [5, 5]
+2) 원하는 값과 차이:    delta = [1, 1] - [5, 5] = [-4, -4]
+3) 차이를 메모로 적기:  S_new = S + delta k1ᵀ
+
+delta k1ᵀ = [[-4, 0],
+             [-4, 0]]
+
+S_new = [[5 + (-4), 7 + 0],    = [[1, 7],
+         [5 + (-4), 0 + 0]]       [1, 0]]
+</code></pre><pre tabindex=0><code>S_new k1 = [1, 1]   ← 바뀜 ✓
+S_new k2 = [7, 0]   ← 그대로 ✓
+</code></pre><p><strong>1번 서랍만 정확히 바뀌고 2번 서랍은 건드리지 않았다</strong> 이게 delta rule의 핵심인 선택적 덮어쓰기다</p><h3 id=같은-결과를-지우고-쓰기로-보기>같은 결과를 지우고 쓰기로 보기 <a class=anchor href=#%ea%b0%99%ec%9d%80-%ea%b2%b0%ea%b3%bc%eb%a5%bc-%ec%a7%80%ec%9a%b0%ea%b3%a0-%ec%93%b0%ea%b8%b0%eb%a1%9c-%eb%b3%b4%ea%b8%b0 aria-label="이 절로 링크">#</a></h3><p>GDN 노트의 다른 표기 <code>S(I - k kᵀ) + v kᵀ</code> 로 계산해도 답이 같다 이 표기는 먼저 지우고, 그 다음 새로 쓴다로 읽힌다.</p><pre tabindex=0><code>① 지우기: S (I - k1 k1ᵀ)
+
+   [[5, 7],  ×  [[0, 0],   =  [[0, 7],
+    [5, 0]]      [0, 1]]       [0, 0]]
+                                ↑ 1번 서랍이 비워짐
+
+② 쓰기: + v k1ᵀ
+
+   [[1, 0],
+    [1, 0]]
+
+③ 결과:
+
+   [[1, 7],
+    [1, 0]]     ← 10.3과 같음
+</code></pre><h3 id=gdn-까지-가기>GDN 까지 가기 <a class=anchor href=#gdn-%ea%b9%8c%ec%a7%80-%ea%b0%80%ea%b8%b0 aria-label="이 절로 링크">#</a></h3><p>여기에 GDN 감쇠 α를 붙이면 단계가 하나 늘어날 뿐이다.</p><pre tabindex=0><code>0) 잊기:   S = α × S          (2.2 스칼라배, 전체를 조금 흐리게)
+1) 읽기:   v_old = S k        (5장 행렬×벡터)
+2) 차이:   delta = β × (v - v_old)
+3) 쓰기:   S = S + delta kᵀ   (8장 외적)
+4) 출력:   o = S q            (5장 행렬×벡터)
+</code></pre><br><h2 id=결합법칙-곱하는-순서-바꾸기>결합법칙: 곱하는 순서 바꾸기 <a class=anchor href=#%ea%b2%b0%ed%95%a9%eb%b2%95%ec%b9%99-%ea%b3%b1%ed%95%98%eb%8a%94-%ec%88%9c%ec%84%9c-%eb%b0%94%ea%be%b8%ea%b8%b0 aria-label="이 절로 링크">#</a></h2><blockquote><p>AB)C = A(BC). 결과는 같지만 비용이 다를 수 있고, 이게 linear attention이 빠른 이유</p></blockquote><h3 id=규칙>규칙 <a class=anchor href=#%ea%b7%9c%ec%b9%99 aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>(AB)C = A(BC)
+</code></pre><p>행렬 세 개를 곱할때 <strong>어느쪽 둘을 먼저 곱해도 결과는 같다</strong></p><h3 id=ab--ba-와는-다르다>AB ≠ BA 와는 다르다 <a class=anchor href=#ab--ba-%ec%99%80%eb%8a%94-%eb%8b%a4%eb%a5%b4%eb%8b%a4 aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>AB ≠ BA          좌우 순서를 바꾸는 것 → 안 됨
+(AB)C = A(BC)    좌우 순서는 그대로, 괄호 위치만 바꾸는 것 → 됨
+</code></pre><h3 id=결과는-같은데-비용이-다른점>결과는 같은데 비용이 다른점 <a class=anchor href=#%ea%b2%b0%ea%b3%bc%eb%8a%94-%ea%b0%99%ec%9d%80%eb%8d%b0-%eb%b9%84%ec%9a%a9%ec%9d%b4-%eb%8b%a4%eb%a5%b8%ec%a0%90 aria-label="이 절로 링크">#</a></h3><p>간단한 예로 감을 잡아보자 벡터 세 개 짜리 계산이다</p><pre tabindex=0><code>a: (1000, 1)   bᵀ: (1, 1000)   c: (1000, 1)
+
+방법 1: (a bᵀ) c
+   a bᵀ   = (1000, 1000)  ← 칸 100만 개짜리 표를 먼저 만듦
+   × c    = (1000, 1)
+   
+방법 2: a (bᵀ c)
+   bᵀ c   = (1, 1)        ← 숫자 하나 (내적)
+   a × 숫자 = (1000, 1)
+</code></pre><p>답은 같은데 방법 1은 100만칸짜리 표를 만들고 방법 2는 숫자 하나만 만든다 <strong>괄호 위치 하나로 비용이 수천배 차이가 난다</strong></p><h3 id=attention에-적용하기>attention에 적용하기 <a class=anchor href=#attention%ec%97%90-%ec%a0%81%ec%9a%a9%ed%95%98%ea%b8%b0 aria-label="이 절로 링크">#</a></h3><p>토큰 n개, 차원d라고 하자 시퀀스 길이를 T라고 하는 자료도 많은데, 전치 기호 ᵀ와 헷갈리니 여기서는 n을 쓴다.</p><pre tabindex=0><code>Q: (n, d)    K: (n, d)    V: (n, d)
+</code></pre><p>일반 attention은 Q Kᵀ를 먼저 계산한다.</p><pre tabindex=0><code>Q Kᵀ       : (n, d) × (d, n) = (n, n)   ← 토큰 쌍마다 점수 하나
+softmax    : (n, n)                      ← 행마다 합이 1이 되게 (12장)
+× V        : (n, n) × (n, d) = (n, d)
+
+가장 큰 중간 결과: (n, n) 표
+비용 ≈ n × n × d   → 토큰 수의 제곱에 비례
+</code></pre><p>linear attention: softmax를 빼면 괄호를 옮길 수 있다</p><pre tabindex=0><code>(Q Kᵀ) V  =  Q (Kᵀ V)
+
+Kᵀ V       : (d, n) × (n, d) = (d, d)   ← 이게 state S
+Q × (Kᵀ V) : (n, d) × (d, d) = (n, d)
+
+가장 큰 중간 결과: (d, d) 표 (토큰 수와 무관!)
+비용 ≈ n × d × d   → 토큰 수에 비례
+</code></pre><p>n = 100,000, d = 128 이면 n²d는 nd²보다 n/d ≈ 780배 크다</p><h3 id=왜-softmax가-있으면-안되나>왜 softmax가 있으면 안되나 <a class=anchor href=#%ec%99%9c-softmax%ea%b0%80-%ec%9e%88%ec%9c%bc%eb%a9%b4-%ec%95%88%eb%90%98%eb%82%98 aria-label="이 절로 링크">#</a></h3><p>softmax는 (n,n) 점수표를 <strong>각 행 통째로 보고</strong> 숫자를 바꾼다 (12장). 그러려면 (n,n) 표가 미리 완성이 되어있어야한다. 그래서 Q Kᵀ를 먼저 계산할 수 밖에 없고 괄호를 옮길 수 없다.</p><p>softmax를 빼면 모든 연산이 행렬곱 뿐이라 결합법칙을 쓸 수 있게 된다. <strong>softmax를 빼면 괄호를 옮길 수 있다가</strong> linear attention 출발점의 전부다.</p><p>대신 softmax가 해주던 정확히 골라내기 능력이 약해져서 그걸 보완하려고 나온게 gating, delta rule이다.</p><p>참고로 <code>Kᵀ V</code>는 <code>d_k, d_v</code> 모양이고 GDN 에서 언급한 <code>S = Σ v kᵀ</code> 는 <code>(d_v, d_k)</code> 모양이다 서로 전치 관계일 뿐 같은 정보다 논문마다 방향은 다르니 shape로 확인하면 된다</p><br><h2 id=softmax-attention-읽으려면-필요한-것>Softmax (attention 읽으려면 필요한 것) <a class=anchor href=#softmax-attention-%ec%9d%bd%ec%9c%bc%eb%a0%a4%eb%a9%b4-%ed%95%84%ec%9a%94%ed%95%9c-%ea%b2%83 aria-label="이 절로 링크">#</a></h2><blockquote><p>softmax는 점수 목록을 합이 1인 비율로 바꾼다. 큰 점수는 더 크게, 작은 점수는 더 작게.</p></blockquote><p>선형대수는 아니지만 attention 식에 항상 붙어나오니 같이 보자</p><h3 id=계산법-3>계산법 <a class=anchor href=#%ea%b3%84%ec%82%b0%eb%b2%95-3 aria-label="이 절로 링크">#</a></h3><ol><li>각 점수에 exp(지수함수)를 씌운다. exp(x)는 e(약 2.718)를 x번 곱한 값이고, 항상 양수다</li><li>전부 더한다</li><li>각각을 합으로 나눈다.</li></ol><pre tabindex=0><code>점수 = [1, 2, 3]
+
+1) exp:  [e¹, e², e³] ≈ [2.72, 7.39, 20.09]
+2) 합:   2.72 + 7.39 + 20.09 ≈ 30.19
+3) 나누기: [2.72/30.19, 7.39/30.19, 20.09/30.19]
+         ≈ [0.09, 0.24, 0.67]
+
+합 확인: 0.09 + 0.24 + 0.67 = 1.00 ✓
+</code></pre><ul><li>결과가 전부 양수이고 합이 1이다 그래서 비율 또는 확률로 쓸 수 있다</li><li>점수 차이가 1,1 밖에 안나는데 비율은 0.09 / 0.24 / 0.67로 벌어졌다 exp 때문에 큰 점수가 더 독차지한다. 이게 attention이 가장 관련 있는 토큰을 콕 찝어내는 능력의 원천이다.</li></ul><h3 id=attetnion-전체를-말로-읽기>attetnion 전체를 말로 읽기 <a class=anchor href=#attetnion-%ec%a0%84%ec%b2%b4%eb%a5%bc-%eb%a7%90%eb%a1%9c-%ec%9d%bd%ea%b8%b0 aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>attention(Q, K, V) = softmax(Q Kᵀ / √d) V
+</code></pre><ol><li>Q Kᵀ: 모든 query와 모든 key의 내적 → 비슷함 점수표 (n,n)</li><li>/ √d: 차원이 클수록 내적이 커지니 크기를 맞춰 줌 (d = 128이면 √128 ≈ 11.3으로 나눔)</li><li>softmax: 행마다 점수를 비율로 바꿈 → "각 토큰을 몇 %씩 참고할지"</li><li>× V: 그 비율대로 value를 섞어서 가져옴</li></ol><br><h2 id=배치-헤드-그리고-einsum-읽기>배치, 헤드, 그리고 einsum 읽기 <a class=anchor href=#%eb%b0%b0%ec%b9%98-%ed%97%a4%eb%93%9c-%ea%b7%b8%eb%a6%ac%ea%b3%a0-einsum-%ec%9d%bd%ea%b8%b0 aria-label="이 절로 링크">#</a></h2><blockquote><p>앞쪽 차원 (배치, 헤드)는 그냥 반복, einsum에서 사라지는 글자를 곱해서 더하는 축</p></blockquote><h3 id=131-앞쪽-차원은-그냥-반복>13.1 앞쪽 차원은 그냥 반복 <a class=anchor href=#131-%ec%95%9e%ec%aa%bd-%ec%b0%a8%ec%9b%90%ec%9d%80-%ea%b7%b8%eb%83%a5-%eb%b0%98%eb%b3%b5 aria-label="이 절로 링크">#</a></h3><p><code>(B, H, n, d)</code> 텐서끼리 행렬곱 @를 하면 마지막 두 차원만 행렬곱을 하고 앞의 B, H는 그 개수만큼 따로 반복한다</p><pre tabindex=0><code>Q:      (B, H, n, d)
+Kᵀ:     (B, H, d, n)
+Q @ Kᵀ: (B, H, n, n)
+
+→ B × H 번의 (n, d) × (d, n) 행렬곱을 한꺼번에 한 것
+</code></pre><p>시트 여러장 엑셀 파일에서 모든 시트에 같은 수식을 적용한 것과 같다</p><h3 id=einsum>einsum <a class=anchor href=#einsum aria-label="이 절로 링크">#</a></h3><p>GDN 을 보다보면 코드에 <code>torch.einsum('bhkv,bhk->bhv', S, kt)</code> 같은식을 볼 수 잇는데 처음 보면 암호같지만 규칙은 세개</p><ol><li>콤마로 나뉜 글자 묶음이 각 임력 텐서의 축 이름이다</li><li>화살표 오른쪽이 출력 축이다</li><li><strong>입력에는 있는데 출력에서 사라진 글자는, 그 축을 따라 곱해서 더한다 (=내적)</strong></li></ol><p>예시를 하나씩 풀어보자</p><pre tabindex=0><code>torch.einsum(&#39;bhkv,bhk-&gt;bhv&#39;, S, kt)
+
+S  의 축: b h k v
+kt 의 축: b h k
+출력 축 : b h v
+
+사라진 글자: k
+→ &#34;배치(b)마다, 헤드(h)마다, S와 kt를 k 축으로 내적&#34;
+→ &#34;S로 k 주소를 읽는다&#34; (8장의 M k)
+</code></pre><p>자주 나오는 패턴을 정리하면:</p><div class=table-wrap><table><thead><tr><th>einsum</th><th>사라진 글자</th><th>뜻</th></tr></thead><tbody><tr><td><code>'d,d->'</code></td><td>d</td><td>벡터 내적 → 숫자 하나</td></tr><tr><td><code>'k,v->kv'</code></td><td>없음, 새 축 생김</td><td>외적 → 표 만들기</td></tr><tr><td><code>'kv,k->v'</code></td><td>k</td><td>표를 k로 읽기</td></tr><tr><td><code>'nd,md->nm'</code></td><td>d</td><td>Q Kᵀ (attention 점수표)</td></tr><tr><td><code>'bhk,bhv->bhkv'</code></td><td>없음</td><td>배치·헤드별 외적 (GDN의 메모 만들기)</td></tr></tbody></table></div><p>사라지면 내적, 생기면 외적. 이것만 기억하시면 대부분 읽힌다.</p><br><h2 id=서빙과-연결>서빙과 연결 <a class=anchor href=#%ec%84%9c%eb%b9%99%ea%b3%bc-%ec%97%b0%ea%b2%b0 aria-label="이 절로 링크">#</a></h2><p>서빙 메모리 계산은 결국 shape의 칸 개수 x 바이트수다</p><div class=table-wrap><table><thead><tr><th>자료형</th><th>칸 하나당</th></tr></thead><tbody><tr><td>fp32</td><td>4 byte</td></tr><tr><td>bf16, fp16</td><td>2 byte</td></tr><tr><td>fp8, int8</td><td>1 byte</td></tr></tbody></table></div><h3 id=kv-cache>KV Cache <a class=anchor href=#kv-cache aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>토큰 하나, 레이어 하나당 KV cache 바이트
+= 2 (K와 V) × KV head 수 × head dim × 바이트 수
+</code></pre><h3 id=gdn-state>GDN State <a class=anchor href=#gdn-state aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>레이어 하나, 시퀀스 하나당 state 바이트
+= value head 수 × d_k × d_v × 바이트 수
+</code></pre><p>Qwen3-Next의 GDN 레이어: 32 × 128 × 128 × 4 byte(fp32) = 2,097,152 byte = 2 MiB</p></div><footer class=article-footer><span><code>Math/linear.md</code></span></footer><nav class=pager aria-label="이전/다음 노트"><a class=next href=/ko/Math/math1.html rel=next><span class=dir>다음 →</span>연립선형방정식과 행렬</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>

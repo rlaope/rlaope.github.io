@@ -1,0 +1,253 @@
+<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Minimum Linear Algebra Set for Deep Learning · rlaope</title><meta name=description content="Minimum Linear Algebra Set for Deep Learning — rlaope"><meta name=color-scheme content="light dark"><link rel=icon href=/favicon-32.png sizes=32x32 type=image/png><link rel=icon href=/favicon-512.png sizes=512x512 type=image/png><link rel=apple-touch-icon href=/favicon-180.png><script>(function(){try{var e=localStorage.getItem("estudy-theme")||"system";document.documentElement.dataset.theme=e,document.documentElement.dataset.mode=e}catch{document.documentElement.dataset.theme="system",document.documentElement.dataset.mode="system"}})()</script><meta name=generator content="Hugo 0.166.0"><meta property="og:type" content="article"><meta property="og:title" content="Minimum Linear Algebra Set for Deep Learning"><meta property="og:site_name" content="rlaope"><meta property="og:url" content="https://rlaope.github.io/Math/linear.html"><meta property="og:locale" content="ko_KR"><link rel=canonical href=https://rlaope.github.io/Math/linear.html><link rel=stylesheet href=/css/bundle.min.2503a1b4ebe584bcdb0556012b832e5212401bef294a6b824177eba031d6dc6e.css integrity="sha256-JQOhtOvlhLzbBVYBK4MuUhJAG+8pSmuCQXfroDHW3G4="></head><body><a class=skip-link href=#main>본문으로 건너뛰기</a><div class=site><header class=site-header><span class=brand><a href=/index.html><img class=brand-logo src=/logo.png alt width=28 height=28>rlaope</a></span>
+<span class=corner><span class=lang-switch role=group aria-label="언어 / Language"><a href=https://rlaope.github.io/ko/Math/linear.html hreflang=ko title="한국어로 보기">한국어</a><span class=sep>/</span><span class=on aria-current=true>English</span></span>
+<button class="icon-btn theme-btn" id=theme type=button aria-label="테마 전환" title=테마>
+<svg class="ic ic-light" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2m0 14.4v2.2M2.6 12h2.2m14.4.0h2.2M5.4 5.4 7 7M17 17l1.6 1.6m0-13.2L17 7M7 17l-1.6 1.6"/></svg>
+<svg class="ic ic-dark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 14.4A8.4 8.4.0 019.6 4 8.4 8.4.0 1020 14.4z"/></svg>
+<svg class="ic ic-system" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4.6" width="18" height="12.4" rx="1.4"/><path d="M9 20.4h6M12 17v3.4"/></svg>
+</button>
+<a class=icon-btn href=/graph.html title="Knowledge graph" aria-label="Knowledge graph"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.5 7.6 17 12l-6.3 5.4"/><circle cx="6.4" cy="7.6" r="2.1" fill="currentColor" stroke="none"/><circle cx="17.2" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="10.6" cy="17.6" r="2.1" fill="currentColor" stroke="none"/></svg>
+</a><a class=icon-btn href=https://github.com/rlaope/estudy rel=noopener title=GitHub aria-label="GitHub repository"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></span></header><script>(function(){var t=document.documentElement,e=document.getElementById("theme"),i="estudy-theme",n=["system","light","dark"],s={system:"시스템",light:"라이트",dark:"다크"};function o(o){n.indexOf(o)<0&&(o="system"),t.dataset.theme=o,t.dataset.mode=o,e&&(e.title="테마: "+s[o],e.setAttribute("aria-label","테마: "+s[o]+" (클릭하여 전환)"))}o(t.dataset.mode||"system"),e&&e.addEventListener("click",function(){var e=n[(n.indexOf(t.dataset.mode||"system")+1)%n.length];try{localStorage.setItem(i,e)}catch{}o(e)})})()</script><main id=main class=main><article lang=en><header class=article-header><nav class=crumbs aria-label=Path><a href=/index.html>rlaope</a><span class=sep>/</span><a href=/Math/index.html>Math</a></nav><h1 class=article-title>Minimum Linear Algebra Set for Deep Learning</h1><p class=meta><span>5,924 단어</span><span class=sep>·</span><span>12 분</span><span class=sep>·</span><a href=https://github.com/rlaope/estudy/blob/master/brains/Math/linear.md rel=noopener>원문(.md)</a></p></header><div class=prose><p>The objects dealt with in linear algebra are actually quite similar to those in Excel.</p><div class=table-wrap><table><thead><tr><th>Linear Algebra</th><th>In Excel terms</th><th>In Deep Learning</th></tr></thead><tbody><tr><td>Scalar</td><td>A single cell</td><td>A single number like learning rate, decay α</td></tr><tr><td>Vector</td><td>A single row</td><td>Embedding of a single token, q / k / v</td></tr><tr><td>Matrix</td><td>A single sheet (table)</td><td>Weight W, attention score table, GDN state</td></tr><tr><td>Tensor</td><td>A file bundling multiple sheets</td><td>(Batch, head, token, dimension) data</td></tr></tbody></table></div><p>And the operations learned in this note can ultimately be summarized into three types:</p><pre tabindex=0><code>내적   : 줄 두 개  → 숫자 하나     (&#34;얼마나 비슷한가&#34;)
+행렬곱 : 표 × 줄   → 새로운 줄     (&#34;변환하기&#34;)
+외적   : 줄 두 개  → 표 하나       (&#34;메모 한 장 만들기&#34;)
+</code></pre><p>Concepts like attention or GDN are merely combinations of these three.</p><br><h2 id=scalar-vector-matrix-tensor>Scalar Vector Matrix Tensor <a class=anchor href=#scalar-vector-matrix-tensor aria-label="이 절로 링크">#</a></h2><blockquote><p>All data has a shape, and the shape is read in the order of (number of rows, number of columns).</p></blockquote><p>A scalar is a single number like 3 or 0.9. A vector is a sequence of numbers in a single line, like [1, 2, 3] (a vector with 3 numbers, shape (3,)).</p><p>Each number in a vector is called an <strong>element</strong> or <strong>entry</strong>, and the number of entries is called the <strong>dimension</strong>. A 128-dimensional vector is 128 numbers in a single line.</p><p>A matrix is numbers arranged in a table.</p><pre tabindex=0><code>A = [[1, 2, 3],    ← 1행
+     [4, 5, 6]]    ← 2행
+      ↑  ↑  ↑
+     1열 2열 3열
+</code></pre><p>Horizontal lines are called rows, and vertical lines are called columns.</p><p>This matrix has 2 rows and 3 columns, so its shape is (2, 3) and it's read as a 2x3 matrix.</p><blockquote><p>When confused: remember that '행' (row) is horizontal (like the horizontal stroke in the character), and '열' (column) is vertical (like the vertical stroke in the character). The order is always row, column.</p></blockquote><p>A tensor is something with 3 or more dimensions, which can be thought of as multiple tables stacked on top of each other.</p><h3 id=why-arrange-numbers-in-lines>Why arrange numbers in lines? <a class=anchor href=#why-arrange-numbers-in-lines aria-label="이 절로 링크">#</a></h3><p>Computers don't understand the word "cat". So, words are converted into lists of numbers.</p><pre tabindex=0><code>고양이 → [0.2, -1.3, 0.7, ..., 0.05]   (4096개)
+</code></pre><p>This is called <strong>embedding</strong>, and words with similar meanings are trained to have similar lists of numbers. This allows us to numerically calculate how similar they are, which is the dot product from chapter 3.</p><h3 id=in-deep-learning>In Deep Learning <a class=anchor href=#in-deep-learning aria-label="이 절로 링크">#</a></h3><ul><li>Hidden state of a single token: a vector of length 4096, e.g. -> shape <code>(4096, )</code></li><li>Stack of n tokens: a matrix of shape (n, 4096)</li><li>Divided into B batches and H heads: a tensor of shape (B, H, n, d)</li></ul><p>The habit of looking at the <strong>shape</strong> first is important when studying linear algebra. If you get stuck in code or a paper, try writing down the shape next to each variable. In PyTorch, you can print <code>x.shape</code>.</p><br><h2 id=vector-basic-operations>Vector Basic Operations <a class=anchor href=#vector-basic-operations aria-label="이 절로 링크">#</a></h2><blockquote><p>Vector addition and multiplication are performed element-wise.</p></blockquote><h3 id=addition-subtraction>Addition, Subtraction <a class=anchor href=#addition-subtraction aria-label="이 절로 링크">#</a></h3><p>Elements are added/subtracted at the same position, so their lengths must be equal.</p><pre tabindex=0><code>[1, 2, 3] + [10, 20, 30] = [1+10, 2+20, 3+30] = [11, 22, 33]
+[5, 5] - [1, 1] = [4, 4]
+</code></pre><h3 id=scalar-multiplication>Scalar Multiplication <a class=anchor href=#scalar-multiplication aria-label="이 절로 링크">#</a></h3><p>A single number is multiplied by every element.</p><pre tabindex=0><code>0.9 × [10, 20] = [9, 18]
+</code></pre><p><strong>In deep learning:</strong> The decay α in GDN is exactly this. "Multiplying existing memory by 0.9" means "reducing all elements to 90%", which is to say, "gradually forgetting everything".</p><h3 id=element-wise-multiplication>Element-wise Multiplication <a class=anchor href=#element-wise-multiplication aria-label="이 절로 링크">#</a></h3><p>Elements are multiplied at the same position. The symbol is ⊙, and in code, it's <code>a * b</code>.</p><pre tabindex=0><code>[1, 2, 3] ⊙ [4, 5, 6] = [1×4, 2×5, 3×6] = [4, 10, 18]
+</code></pre><p>As an analogy, imagine there are multiple faucets, and the second vector determines how much to close or open each faucet in the first faucet vector.</p><pre tabindex=0><code>물      = [10, 10, 10]
+꼭지    = [1.0, 0.5, 0.0]    (활짝, 반, 잠금)
+통과량  = [10, 5, 0]
+</code></pre><p><strong>In deep learning:</strong> Most gates use this operation. A vector containing numbers between 0 and 1 is multiplied element-wise to determine the pass-through amount for each element. This is seen in GDN output gates and KDA's channel-wise decay. The difference between scalar multiplication and element-wise multiplication is that scalar multiplication adjusts the whole with one 'faucet,' while element-wise multiplication has a separate 'faucet' for each element.</p><br><h2 id=dot-product>Dot Product <a class=anchor href=#dot-product aria-label="이 절로 링크">#</a></h2><p>The dot product is a single number obtained by multiplying corresponding elements and summing them up, and it indicates how similar in direction two vectors are.</p><h3 id=calculation-method>Calculation Method <a class=anchor href=#calculation-method aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>a = [1, 2, 3]
+b = [4, 5, 6]
+
+a · b = 1×4 + 2×5 + 3×6
+      = 4 + 10 + 18
+      = 32
+</code></pre><p>It's the sum of element-wise products.</p><p>In academic papers, it's denoted as <code>a · b</code>, <code>aᵀb</code>, <code>a^\top b</code>, <code>&lt;a, b></code>, all meaning the same thing. The reason for writing <code>aᵀb</code> comes from transposition, which is discussed below.</p><h3 id=analogy-movie-recommendation-score>Analogy: Movie Recommendation Score <a class=anchor href=#analogy-movie-recommendation-score aria-label="이 절로 링크">#</a></h3><p>Let's say a movie is represented by numbers for [Action, Romance, Comedy].</p><pre tabindex=0><code>영화 특성  = [0.9, 0.1, 0.3]    (액션 위주 영화)
+
+사용자 A 취향 = [5, 1, 0]       (액션 좋아함)
+사용자 B 취향 = [0, 4, 5]       (로맨스, 코미디 좋아함)
+
+A의 점수 = 5×0.9 + 1×0.1 + 0×0.3 = 4.5 + 0.1 + 0   = 4.6
+B의 점수 = 0×0.9 + 4×0.1 + 5×0.3 = 0 + 0.4 + 1.5   = 1.9
+</code></pre><p>The score increases as both the preference and movie characteristic values are higher in the same category. The dot product is a tool to measure how well two lists align.</p><h3 id=viewing-as-direction>Viewing as Direction <a class=anchor href=#viewing-as-direction aria-label="이 절로 링크">#</a></h3><p>If you think of vectors as arrows, the dot product indicates how much two arrows point in the same direction.</p><pre tabindex=0><code>[1, 0] · [1, 0]  =  1    같은 방향      → 큼
+[1, 0] · [0, 1]  =  0    직각(90도)     → 0
+[1, 0] · [-1, 0] = -1    반대 방향      → 음수
+</code></pre><p>If the dot product is 0, the two vectors are said to be orthogonal, meaning they are completely unrelated in direction, and this concept is used very importantly later on.</p><h3 id=in-deep-learning-1>In Deep Learning <a class=anchor href=#in-deep-learning-1 aria-label="이 절로 링크">#</a></h3><p>The attention score is precisely the dot product of the query and key.</p><pre tabindex=0><code>score = q · k
+</code></pre><ul><li><strong>query(q):</strong> what the current token is looking for</li><li><strong>key(k):</strong> the label each token carries, saying "I am this kind of information"</li><li><strong>value(v):</strong> the actual content to be retrieved</li></ul><p>In the same structure as movie recommendations, q is the preference, k is the movie characteristic, and a larger amount of v is retrieved from tokens with high scores.</p><br><h2 id=norm-and-normalization>Norm and Normalization <a class=anchor href=#norm-and-normalization aria-label="이 절로 링크">#</a></h2><blockquote><p>If you normalize a vector to length 1, you can compare only its direction, excluding its magnitude.</p></blockquote><h3 id=norm>Norm <a class=anchor href=#norm aria-label="이 절로 링크">#</a></h3><p>The length of a vector is like the Pythagorean theorem. You sum the squares of each component and take the square root. It's written as ‖a‖ and called the L2 norm.</p><pre tabindex=0><code>a = [3, 4]
+‖a‖ = √(3² + 4²) = √(9 + 16) = √25 = 5
+</code></pre><p>It's like the hypotenuse of a right triangle with sides of 3 and 4 being 5./</p><h3 id=why-normalize-the-length>Why Normalize the Length? <a class=anchor href=#why-normalize-the-length aria-label="이 절로 링크">#</a></h3><p>The dot product is affected not only by direction but also by length.</p><pre tabindex=0><code>[1, 1]   · [1, 0] = 1
+[10, 10] · [1, 0] = 10
+</code></pre><p>[1,1] and [10,10] have the same direction, but their dot products differ by a factor of 10. This creates a problem where vectors with larger magnitudes are always considered more similar. Therefore, when you only want to compare directions, you normalize the length to 1.</p><h3 id=normalization-l2-normalize>Normalization: L2 Normalize <a class=anchor href=#normalization-l2-normalize aria-label="이 절로 링크">#</a></h3><p>Divide the vector by its own length.</p><pre tabindex=0><code>[3, 4] / 5 = [0.6, 0.8]
+
+길이 확인: √(0.6² + 0.8²) = √(0.36 + 0.64) = √1 = 1  ✓
+</code></pre><p>The direction remains the same, and only the length becomes 1. The dot product of two vectors with length 1 is always between -1 and 1, and this value is called <strong>cosine similarity</strong>.</p><h3 id=in-deep-learning-2>In Deep Learning <a class=anchor href=#in-deep-learning-2 aria-label="이 절로 링크">#</a></h3><p>This is why L2 normalization is applied to q and k in GDN. Fixing the length to 1 ensures that:</p><ul><li>When read with the same k, the stored value comes out exactly as is.</li><li>Erasing the k direction precisely erases only that direction.</li><li>Values do not explode during iterative calculations.</li></ul><br><h2 id=matrix-x-vector>Matrix x Vector <a class=anchor href=#matrix-x-vector aria-label="이 절로 링크">#</a></h2><blockquote><p>Matrix x vector multiplication is a dot product for each row and a transformation that converts one vector into another.</p></blockquote><h3 id=analogy-multiple-judges>Analogy: Multiple Judges <a class=anchor href=#analogy-multiple-judges aria-label="이 절로 링크">#</a></h3><p>Let's say an applicant's score is [singing, dancing, acting]. Each judge prioritizes different items.</p><pre tabindex=0><code>지원자 점수 s = [80, 90, 70]   (singing, dancing, acting)
+
+심사위원 1 가중치 = [0.5, 0.3, 0.2]   (prioritizes singing)
+심사위원 2 가중치 = [0.1, 0.1, 0.8]   (prioritizes acting)
+</code></pre><p>If you stack the judges' weights row by row, you get a matrix.</p><pre tabindex=0><code>W = [[0.5, 0.3, 0.2],    ← Judge 1
+     [0.1, 0.1, 0.8]]    ← Judge 2
+</code></pre><p>Each judge's final score is the <strong>dot product of their weight row and the applicant's score</strong>.</p><pre tabindex=0><code>Judge 1: 0.5×80 + 0.3×90 + 0.2×70 = 40 + 27 + 14 = 81
+Judge 2: 0.1×80 + 0.1×90 + 0.8×70 =  8 +  9 + 56 = 73
+
+W s = [81, 73]
+</code></pre><p>Matrix x vector = <strong>dot product for each row, with the results collected vertically</strong>. That's all there is to it.</p><h3 id=viewing-by-shape>Viewing by Shape <a class=anchor href=#viewing-by-shape aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>W     : (2, 3)    2 judges, 3 items
+s     : (3,)      3 items
+W s   : (2,)      Scores of 2 judges
+</code></pre><p>A vector of length 3 has been transformed into a vector of length 2. The number of columns in the matrix equals the input length, and the number of rows equals the output length.</p><h3 id=in-deep-learning-3>In Deep Learning <a class=anchor href=#in-deep-learning-3 aria-label="이 절로 링크">#</a></h3><p>This is called a linear transformation, and PyTorch's <code>nn.Linear</code> is exactly this (with the addition of a bias <code>b</code>).</p><pre tabindex=0><code>nn.Linear(4096, 1024)
+  → Internally, there is a (1024, 4096) matrix W
+  → Transforms input (4096,) to output (1024,)
+</code></pre><p>You can think of it as 1024 judges scoring 4096 input items with different weights. Learning is the process of adjusting these weights.</p><p>q, k, v projections are all this too. The same hidden state <code>h</code> is passed through three different matrices to create q, k, and v.</p><pre tabindex=0><code>q = W_q h      (&#34;transforms to what this token is looking for&#34;)
+k = W_k h      (&#34;transforms to what label this token is&#34;)
+v = W_v h      (&#34;transforms to what content this token conveys&#34;)
+</code></pre><br><h2 id=transpose>Transpose <a class=anchor href=#transpose aria-label="이 절로 링크">#</a></h2><blockquote><p>Transposition is swapping rows and columns, primarily used to match shapes for matrix multiplication. The symbol ᵀ is different from 't' for 't-th'.</p></blockquote><h3 id=meaning>Meaning <a class=anchor href=#meaning aria-label="이 절로 링크">#</a></h3><p>It's like flipping a table along its top-left to bottom-right diagonal. The 1st row becomes the 1st column, and the 2nd row becomes the 2nd column.</p><pre tabindex=0><code>A = [[1, 2, 3],        Aᵀ = [[1, 4],
+     [4, 5, 6]]              [2, 5],
+                             [3, 6]]
+
+shape: (2, 3)  →  (3, 2)
+</code></pre><p>The notation is <code>Aᵀ</code>, <code>A^\top</code>, <code>A^T</code>, and in code, it's <code>A.T</code> or <code>A.transpose(-1, -2)</code>.</p><h3 id=why-is-it-needed-to-match-shapes>Why is it needed? To match shapes <a class=anchor href=#why-is-it-needed-to-match-shapes aria-label="이 절로 링크">#</a></h3><p>Matrix multiplication requires matching shapes. In attention, Q and K are both <code>n, d</code>, but they cannot be multiplied as is.</p><ul><li>n: number of tokens, sentence length. e.g., if there are 1,000 tokens, n=1000</li><li>d: length of the vector representing a single token (number of dimensions). e.g., 128</li></ul><pre tabindex=0><code>Q (n, d) × K (n, d)     → Doesn&#39;t work
+Q (n, d) × Kᵀ (d, n)    → Works! Result (n, n)
+</code></pre><ul><li>Reason it doesn't work: The inner dimensions, d and n, are different. A row from Q (length d) and a row from K (length n) have different lengths, so their dot product cannot be computed.</li><li>Reason it works: Transposing makes the inner dimensions d and d, which are the same. This allows each token in q to be paired with each token in k for a dot product, resulting in an (n, n) score matrix.</li></ul><p>We transpose k to match the shapes. This is why <code>QKᵀ</code> appears in the attention formula.</p><h3 id=vector-transposition>Vector Transposition <a class=anchor href=#vector-transposition aria-label="이 절로 링크">#</a></h3><p>In mathematics, vectors are fundamentally considered as <strong>vertically oriented</strong> (column vectors, shape <code>(d, 1)</code>). Transposing them makes them horizontally oriented (row vectors, shape <code>(1, d)</code>).</p><pre tabindex=0><code>k  = [[3],          kᵀ = [[3, 4, 5]]
+      [4],
+      [5]]
+shape (3, 1)             shape (1, 3)
+</code></pre><p>Therefore, the dot product is written as <code>aᵀb</code>. This is because a horizontal vector (1, d) multiplied by a vertical vector (d, 1) results in (1, 1), which is a single scalar value.</p><h3 id=common-confusions>Common Confusions <a class=anchor href=#common-confusions aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>k_t    subscript t  →  &#34;t-th token&#34;   (index)
+kᵀ     superscript ᵀ    →  &#34;transpose&#34;         (horizontal orientation)
+k_tᵀ   both          →  &#34;the k of the t-th token, transposed&#34;
+</code></pre><br><h2 id=matrix-x-matrix>Matrix x Matrix <a class=anchor href=#matrix-x-matrix aria-label="이 절로 링크">#</a></h2><blockquote><p>(a,b)x(b,c) = (a,c) The inner numbers must be the same to multiply, and the outer numbers determine the shape of the result.</p></blockquote><h3 id=shape-rules>Shape Rules <a class=anchor href=#shape-rules aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>(a, b) × (b, c) = (a, c)
+     ↑    ↑
+     안쪽이 같아야 함
+
+ ↑            ↑
+ 바깥쪽이 결과
+</code></pre><pre tabindex=0><code>(2, 3) × (3, 4) = (2, 4)    가능
+(2, 3) × (2, 4)             불가능 (3 ≠ 2)
+(n, d) × (d, n) = (n, n)    attention 점수표
+</code></pre><p>With this one rule, you can verify most equations in papers. If you get stuck while reading an equation, write the shape under each symbol and check it with this rule.</p><h3 id=calculation-method-1>Calculation Method <a class=anchor href=#calculation-method-1 aria-label="이 절로 링크">#</a></h3><p><strong>Matrix x Matrix = Matrix x (Vector)</strong> repeated for each column of the right matrix.</p><p>Cell at row i, column j of the result = i-th row of the left matrix x j-th column of the right matrix (dot product)</p><pre tabindex=0><code>A = [[1, 2],      B = [[5, 6],
+     [3, 4]]           [7, 8]]
+
+                 B의 1열   B의 2열
+                 [5, 7]    [6, 8]
+A의 1행 [1, 2]     19        22
+A의 2행 [3, 4]     43        50
+
+계산:
+(1,1) = [1, 2] · [5, 7] = 1×5 + 2×7 =  5 + 14 = 19
+(1,2) = [1, 2] · [6, 8] = 1×6 + 2×8 =  6 + 16 = 22
+(2,1) = [3, 4] · [5, 7] = 3×5 + 4×7 = 15 + 28 = 43
+(2,2) = [3, 4] · [6, 8] = 3×6 + 4×8 = 18 + 32 = 50
+
+AB = [[19, 22],
+      [43, 50]]
+</code></pre><p>You can remember it as taking the rows from the left matrix and the columns from the right matrix, pairing them up, and performing a dot product, similar to the table in the middle.</p><h3 id=changing-the-order-yields-different-results>Changing the Order Yields Different Results <a class=anchor href=#changing-the-order-yields-different-results aria-label="이 절로 링크">#</a></h3><p>Generally, AB != BA.</p><p>While 2x3 = 3x2 for numbers, this is not true for matrices. Try calculating BA yourself using the example above (the answer is below, but...). If the shapes are different, it's often only possible to multiply in one order.</p><h3 id=in-deep-learning-multiple-tokens-at-once>In Deep Learning, Multiple Tokens at Once <a class=anchor href=#in-deep-learning-multiple-tokens-at-once aria-label="이 절로 링크">#</a></h3><p>When transforming a single token (vector), if you stack n tokens into a matrix X (n, 4096), all of them can be transformed with a single matrix multiplication.</p><pre tabindex=0><code>X      : (n, 4096)       토큰 n개
+Wᵀ     : (4096, 1024)
+X Wᵀ   : (n, 1024)       토큰 n개 각각 변환된 결과
+</code></pre><p>Since GPUs perform matrix multiplication incredibly fast, grouping deep learning operations into the largest possible matrix multiplications is key to performance. Algorithms like GDN's chunkwise approach aim to convert calculations that were done token by token into matrix multiplications.</p><h3 id=cost-calculation>Cost Calculation <a class=anchor href=#cost-calculation aria-label="이 절로 링크">#</a></h3><p>For <code>(a, b)</code> x <code>(b, c)</code>, the result has a x c cells, and it requires b multiplications + approximately b additions per cell.</p><pre tabindex=0><code>연산량 ≈ 2 × a × b × c  FLOPs
+</code></pre><p>Applying <code>nn.Linear(4096, 4096)</code> to a single token results in 2 x 4096 x 4096 ≈ 33.55 million FLOPs.</p><p>Since there are 4096 x 4096 parameters (weight cells), the rough estimate for serving, <strong>number of parameters x 2 = FLOPs per token</strong>, comes from this.</p><br><h2 id=outer-product>Outer product <a class=anchor href=#outer-product aria-label="이 절로 링크">#</a></h2><p>An outer product creates a table from two vectors, like a single memo where <code>v</code> is written at address <code>k</code>.</p><div class=table-wrap><table><thead><tr><th></th><th>Inner Product</th><th>Outer Product</th></tr></thead><tbody><tr><td>Notation</td><td><code>aᵀb</code></td><td><code>a bᵀ</code></td></tr><tr><td>Shape</td><td><code>(1, d) × (d, 1)</code></td><td><code>(m, 1) × (1, n)</code></td></tr><tr><td>Result</td><td>A single scalar <code>(1, 1)</code></td><td>A table <code>(m, n)</code></td></tr><tr><td>Meaning</td><td>How similar they are</td><td>A memo linking the two</td></tr></tbody></table></div><h3 id=calculation-method-2>Calculation Method <a class=anchor href=#calculation-method-2 aria-label="이 절로 링크">#</a></h3><p>It involves multiplying each element of the first vector by the entire second vector, stacking the results row by row. It's like creating a multiplication table.</p><pre tabindex=0><code>v = [1, 2]
+k = [3, 4, 5]
+
+         k:  3    4    5
+v: 1  →  [  3,   4,   5 ]
+v: 2  →  [  6,   8,  10 ]
+
+v kᵀ = [[3, 4,  5],
+        [6, 8, 10]]
+
+shape: (2, 3)
+</code></pre><p>A matrix created from two vectors in this way is called a <strong>rank-1</strong> matrix. This means that although there are 6 elements, the actual information content is only equivalent to two vectors.</p><h3 id=outer-product-as-a-memo-v-written-at-address-k>Outer Product as a Memo: <code>v</code> written at address <code>k</code> <a class=anchor href=#outer-product-as-a-memo-v-written-at-address-k aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>k = [0.6, 0.8]   (address, length 1)
+v = [1, 2]       (content to write)
+
+M = v kᵀ = [[0.6, 0.8],
+            [1.2, 1.6]]
+</code></pre><p>Reading <code>k</code> with the same address (Multiplying <code>M</code> by <code>k</code>)</p><pre tabindex=0><code>M k = [0.6×0.6 + 0.8×0.8,   1.2×0.6 + 1.6×0.8]
+    = [0.36 + 0.64,          0.72 + 1.28]
+    = [1, 2]
+</code></pre><p>The <code>v</code> that was written appears as is.</p><p>Reading with a different address <code>q</code> = [-0.8, 0.6] (Orthogonal to <code>k</code>, inner product is 0):</p><pre tabindex=0><code>M q = [0.6×(-0.8) + 0.8×0.6,   1.2×(-0.8) + 1.6×0.6]
+    = [-0.48 + 0.48,            -0.96 + 0.96]
+    = [0, 0]
+</code></pre><p>Nothing comes out. If the address is different, this memo cannot be read.</p><h3 id=why-this-happens>Why this happens <a class=anchor href=#why-this-happens aria-label="이 절로 링크">#</a></h3><p>It becomes immediately clear if you change the parenthesis placement, though I'll mention the associative property below.</p><pre tabindex=0><code>(v kᵀ) q  =  v (kᵀ q)  =  v × (inner product of k and q)
+</code></pre><ul><li>If <code>k</code> and <code>q</code> are the same, the inner product is 1 -> <code>v</code> x 1 = <code>v</code></li><li>If they are orthogonal, the inner product is 0 -> <code>v</code> x 0 = 0</li><li>If it's in between -> <code>v</code> comes out scaled down proportionally</li></ul><p>The statement that attention brings values from similar keys can be expressed in matrix form as follows: an outer product creates the memo, and an inner product determines how much to retrieve from it.</p><br><h2 id=unit-matrix-diagonal-matrix-and-erasing>Unit Matrix, Diagonal Matrix, and Erasing <a class=anchor href=#unit-matrix-diagonal-matrix-and-erasing aria-label="이 절로 링크">#</a></h2><blockquote><p>I is a matrix that does nothing, a diagonal matrix scales each component, I - k kᵀ "erases only the k direction"</p></blockquote><h3 id=unit-matrix-i>Unit Matrix I <a class=anchor href=#unit-matrix-i aria-label="이 절로 링크">#</a></h3><p>It's a matrix where only the diagonal elements are 1 and the rest are 0. Multiplying by it changes nothing. It plays the same role as the number 1.</p><pre tabindex=0><code>I = [[1, 0],
+     [0, 1]]
+
+I [3, 4] = [1×3 + 0×4,  0×3 + 1×4] = [3, 4]   ← unchanged
+</code></pre><p>When I appears in an equation, you can read it as "the original unchanged." <code>I - something</code> means "something subtracted from the original."</p><h3 id=diagonal-matrix>Diagonal Matrix <a class=anchor href=#diagonal-matrix aria-label="이 절로 링크">#</a></h3><p>It's a matrix with numbers only on the diagonal. When multiplied, it scales each component by a different factor, either increasing or decreasing it. It's like an element-wise multiplication faucet.</p><pre tabindex=0><code>D = [[0.5, 0  ],
+     [0,   0.9]]
+
+D [10, 10] = [5, 9]    ← First component 50%, second component 90%
+</code></pre><p>In papers, if you see <code>diag(β)</code>, you can understand it as a diagonal matrix with the vector β laid out on its diagonal.</p><h3 id=k-kᵀ-matrix-that-erases-only-the-k-direction-no-need-to-understand-if-you-dont-know-gdn>k kᵀ: Matrix that erases only the k direction (no need to understand if you don't know GDN) <a class=anchor href=#k-k%e1%b5%80-matrix-that-erases-only-the-k-direction-no-need-to-understand-if-you-dont-know-gdn aria-label="이 절로 링크">#</a></h3><p>In GDN, I'll treat <code>(I - β k kᵀ)</code> as a number. For simplicity, let β = 1 and k = [1, 0].</p><pre tabindex=0><code>k kᵀ = [[1, 0],        (outer product, Chapter 8)
+        [0, 0]]
+
+I - k kᵀ = [[1-1, 0-0],    = [[0, 0],
+            [0-0, 1-0]]       [0, 1]]
+</code></pre><p>If you multiply this matrix by any vector:</p><pre tabindex=0><code>(I - k kᵀ) [3, 4] = [0×3 + 0×4,  0×3 + 1×4] = [0, 4]
+</code></pre><p>Only the k-direction component (the first component) disappears, and the rest remains unchanged.</p><p>As an analogy, it's like erasing only the shadow (that directional component) created when you shine a flashlight in the k-direction. In mathematical terms, it's a projection that subtracts the k-direction component.</p><p>If β = 0.5, it erases only half.</p><pre tabindex=0><code>I - 0.5 k kᵀ = [[0.5, 0],
+                [0,   1]]
+
+[3, 4]  →  [1.5, 4]
+</code></pre><h3 id=eigenvalue-sneak-peek>Eigenvalue Sneak Peek <a class=anchor href=#eigenvalue-sneak-peek aria-label="이 절로 링크">#</a></h3><p>If there's a vector that, when multiplied by a matrix, <strong>doesn't change direction but only scales in length by some factor</strong>, that scaling factor is called an eigenvalue. <code>I - 0.5 k kᵀ</code> scales the k-direction by 0.5 and its orthogonal direction by 1, so its eigenvalues are 0.5 and 1.</p><p>In GDN notes, it's mentioned that if an eigenvalue exceeds 1, the state diverges. This can be understood as follows:</p><pre tabindex=0><code>0.9를 1000번 곱하면  → 거의 0       (gradually forgotten, stable)
+1.0을 1000번 곱하면  → 1           (remains unchanged)
+1.1을 1000번 곱하면  → 엄청 큰 수   (explodes, unstable)
+</code></pre><p>GDN multiplies this matrix once per token, so after thousands of tokens, the scaling factor accumulates thousands of times. Therefore, k is normalized and the range of β is limited to prevent the scaling factor from exceeding 1.</p><br><h2 id=hand-tracing-linear-attention-and-the-delta-rule>Hand-tracing linear attention and the delta rule <a class=anchor href=#hand-tracing-linear-attention-and-the-delta-rule aria-label="이 절로 링크">#</a></h2><blockquote><p>Write externally, read as matrix x vector, rewrite by the difference – that's the delta rule.</p></blockquote><p>With what we've learned so far, we can directly calculate the core equations from the GDN notes. Let's try it with a small 2D example.</p><h3 id=writing-two-memories-linear-attention>Writing two memories (linear attention) <a class=anchor href=#writing-two-memories-linear-attention aria-label="이 절로 링크">#</a></h3><p>We write the values for two addresses, one by one. The two addresses are orthogonal.</p><pre tabindex=0><code>k1 = [1, 0],  v1 = [5, 5]     (&#34;drawer 1&#34; contains [5, 5])
+k2 = [0, 1],  v2 = [7, 0]     (&#34;drawer 2&#34; contains [7, 0])
+</code></pre><p>We create two memory entries (outer product) and add them.</p><pre tabindex=0><code>v1 k1ᵀ = [[5, 0],      v2 k2ᵀ = [[0, 7],
+          [5, 0]]                [0, 0]]
+
+S = v1 k1ᵀ + v2 k2ᵀ = [[5, 7],
+                       [5, 0]]
+</code></pre><p>This S is the <strong>state (memory)</strong>. The two memory entries are combined into one table.</p><p>Reading (matrix x vector)</p><pre tabindex=0><code>S k1 = [5×1 + 7×0,  5×1 + 0×0] = [5, 5]   ← v1 as is
+S k2 = [5×0 + 7×1,  5×0 + 0×1] = [7, 0]   ← v2 as is
+</code></pre><p>Since the addresses are orthogonal, they are stored cleanly without mixing.</p><h3 id=reading-with-non-orthogonal-addresses>Reading with non-orthogonal addresses <a class=anchor href=#reading-with-non-orthogonal-addresses aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>If we read with k3 = [0.6, 0.8]
+
+S k3 = [5×0.6 + 7×0.8,  5×0.6 + 0×0.8]
+     = [3 + 5.6,  3]
+     = [8.6, 3]
+</code></pre><p>We get a value that is a mix of v1 and v2, not purely one or the other.</p><p>The problem here is that in a 2D space, there are only two orthogonal directions. Therefore, from the third address onwards, it must overlap with existing addresses. In actual models, if <code>d_k = 128</code>, there are only 128 orthogonal directions, but there are tens of thousands of tokens. So, every time memory is stacked and read, other memories get mixed in. This is the problem of <strong>memory contamination when only adding in GDN</strong>.</p><h3 id=overwriting-with-the-delta-rule>Overwriting with the delta rule <a class=anchor href=#overwriting-with-the-delta-rule aria-label="이 절로 링크">#</a></h3><p>Now, we want to change the value in drawer 1 from [5, 5] to [1, 1]. Let β = 1.</p><p>What happens if we just add new memory like in linear attention?</p><pre tabindex=0><code>If we read S + [1,1] k1ᵀ → [5, 5] + [1, 1] = [6, 6]    ← Mixed with old value. Failed.
+</code></pre><p>The delta rule <strong>writes only the difference from the current value</strong>.</p><pre tabindex=0><code>1) Read current value:   v_old = S k1 = [5, 5]
+2) Difference from desired value:    delta = [1, 1] - [5, 5] = [-4, -4]
+3) Write the difference to memory:  S_new = S + delta k1ᵀ
+
+delta k1ᵀ = [[-4, 0],
+             [-4, 0]]
+
+S_new = [[5 + (-4), 7 + 0],    = [[1, 7],
+         [5 + (-4), 0 + 0]]       [1, 0]]
+</code></pre><pre tabindex=0><code>S_new k1 = [1, 1]   ← Changed ✓
+S_new k2 = [7, 0]   ← Unchanged ✓
+</code></pre><p><strong>Only drawer 1 was accurately changed, and drawer 2 was untouched.</strong> This is the core of the delta rule: selective overwriting.</p><h3 id=viewing-the-same-result-as-erase-and-write>Viewing the same result as erase and write <a class=anchor href=#viewing-the-same-result-as-erase-and-write aria-label="이 절로 링크">#</a></h3><p>Calculating with the other notation from the GDN notes, <code>S(I - k kᵀ) + v kᵀ</code>, yields the same answer. This notation reads as "first erase, then write new."</p><pre tabindex=0><code>① Erase: S (I - k1 k1ᵀ)
+
+   [[5, 7],  ×  [[0, 0],   =  [[0, 7],
+    [5, 0]]      [0, 1]]       [0, 0]]
+                                ↑ Drawer 1 is cleared
+
+② Write: + v k1ᵀ
+
+   [[1, 0],
+    [1, 0]]
+
+③ Result:
+
+   [[1, 7],
+    [1, 0]]     ← Same as 10.3
+</code></pre><h3 id=moving-towards-gdn>Moving towards GDN <a class=anchor href=#moving-towards-gdn aria-label="이 절로 링크">#</a></h3><p>Adding the GDN decay α simply adds one more step.</p><pre tabindex=0><code>0) Forget:   S = α × S          (Scalar multiplication by 2.2, slightly blurring everything)
+1) Read:   v_old = S k        (Chapter 5, matrix × vector)
+2) Difference:   delta = β × (v - v_old)
+3) Write:   S = S + delta kᵀ   (Chapter 8, outer product)
+4) Output:   o = S q            (Chapter 5, matrix × vector)
+</code></pre><h2 id=associative-property-changing-the-order-of-multiplication>Associative Property: Changing the Order of Multiplication <a class=anchor href=#associative-property-changing-the-order-of-multiplication aria-label="이 절로 링크">#</a></h2><blockquote><p>AB)C = A(BC). The result is the same, but the cost can differ, and this is why linear attention is fast.</p></blockquote><h3 id=rule>Rule <a class=anchor href=#rule aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>(AB)C = A(BC)
+</code></pre><p>When multiplying three matrices, <strong>the result is the same regardless of which two are multiplied first</strong>.</p><h3 id=different-from-ab--ba>Different from AB ≠ BA <a class=anchor href=#different-from-ab--ba aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>AB ≠ BA          Changing the left-right order → Not allowed
+(AB)C = A(BC)    Left-right order remains, only parenthesis position changes → Allowed
+</code></pre><h3 id=same-result-different-cost>Same Result, Different Cost <a class=anchor href=#same-result-different-cost aria-label="이 절로 링크">#</a></h3><p>Let's get a feel for it with a simple example: a calculation involving three vectors.</p><pre tabindex=0><code>a: (1000, 1)   bᵀ: (1, 1000)   c: (1000, 1)
+
+방법 1: (a bᵀ) c
+   a bᵀ   = (1000, 1000)  ← First creates a table with 1 million cells
+   × c    = (1000, 1)
+   
+방법 2: a (bᵀ c)
+   bᵀ c   = (1, 1)        ← A single number (dot product)
+   a × 숫자 = (1000, 1)
+</code></pre><p>The answer is the same, but Method 1 creates a table with 1 million cells, while Method 2 creates only a single number. <strong>A single change in parenthesis position can lead to a thousand-fold difference in cost.</strong></p><h3 id=applying-to-attention>Applying to Attention <a class=anchor href=#applying-to-attention aria-label="이 절로 링크">#</a></h3><p>Let's say there are n tokens and dimension d. Many resources use T for sequence length, but to avoid confusion with the transpose symbol ᵀ, we'll use n here.</p><pre tabindex=0><code>Q: (n, d)    K: (n, d)    V: (n, d)
+</code></pre><p>Standard attention first calculates Q Kᵀ.</p><pre tabindex=0><code>Q Kᵀ       : (n, d) × (d, n) = (n, n)   ← One score for each token pair
+softmax    : (n, n)                      ← Sum of each row becomes 1 (Chapter 12)
+× V        : (n, n) × (n, d) = (n, d)
+
+Largest intermediate result: (n, n) table
+Cost ≈ n × n × d   → Proportional to the square of the number of tokens
+</code></pre><p>Linear attention: If softmax is removed, parentheses can be moved.</p><pre tabindex=0><code>(Q Kᵀ) V  =  Q (Kᵀ V)
+
+Kᵀ V       : (d, n) × (n, d) = (d, d)   ← This is state S
+Q × (Kᵀ V) : (n, d) × (d, d) = (n, d)
+
+Largest intermediate result: (d, d) table (independent of the number of tokens!)
+Cost ≈ n × d × d   → Proportional to the number of tokens
+</code></pre><p>If n = 100,000 and d = 128, then n²d is n/d ≈ 780 times larger than nd².</p><h3 id=why-softmax-cannot-be-present>Why Softmax Cannot Be Present <a class=anchor href=#why-softmax-cannot-be-present aria-label="이 절로 링크">#</a></h3><p>Softmax changes the numbers in the (n,n) score table by <strong>looking at each row entirely</strong> (Chapter 12). For this to happen, the (n,n) table must be completed beforehand. Therefore, Q Kᵀ must be calculated first, and the parentheses cannot be moved.</p><p>If softmax is removed, all operations are just matrix multiplications, allowing the associative property to be used. <strong>Removing softmax allows parentheses to be moved</strong> — that's the entire starting point of linear attention.</p><p>Instead, the ability to precisely select, which softmax provided, is weakened. Gating and the delta rule were introduced to compensate for this.</p><p>For reference, <code>Kᵀ V</code> has a <code>d_k, d_v</code> shape, and <code>S = Σ v kᵀ</code> mentioned in GDN has a <code>(d_v, d_k)</code> shape. They are just transpositions of each other and contain the same information. Since the orientation differs across papers, it's best to confirm by shape.</p><br><h2 id=softmax-whats-needed-to-understand-attention>Softmax (What's needed to understand attention) <a class=anchor href=#softmax-whats-needed-to-understand-attention aria-label="이 절로 링크">#</a></h2><blockquote><p>Softmax converts a list of scores into proportions that sum to 1. Larger scores become even larger, smaller scores become even smaller.</p></blockquote><p>Although it's not linear algebra, it always appears with the attention equation, so let's look at it together.</p><h3 id=calculation-method-3>Calculation Method <a class=anchor href=#calculation-method-3 aria-label="이 절로 링크">#</a></h3><ol><li>Apply exp (exponential function) to each score. exp(x) is the value of e (approx. 2.718) multiplied by itself x times, and it is always positive.</li><li>Sum all values.</li><li>Divide each value by the sum.</li></ol><pre tabindex=0><code>점수 = [1, 2, 3]
+
+1) exp:  [e¹, e², e³] ≈ [2.72, 7.39, 20.09]
+2) 합:   2.72 + 7.39 + 20.09 ≈ 30.19
+3) 나누기: [2.72/30.19, 7.39/30.19, 20.09/30.19]
+         ≈ [0.09, 0.24, 0.67]
+
+합 확인: 0.09 + 0.24 + 0.67 = 1.00 ✓
+</code></pre><ul><li>The results are all positive and sum to 1, so they can be used as proportions or probabilities.</li><li>Even though the score differences are only 1, 1, the proportions spread out to 0.09 / 0.24 / 0.67. Due to exp, larger scores take a disproportionately larger share. This is the source of attention's ability to pinpoint the most relevant tokens.</li></ul><h3 id=reading-the-entire-attention-mechanism-in-words>Reading the entire attention mechanism in words <a class=anchor href=#reading-the-entire-attention-mechanism-in-words aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>attention(Q, K, V) = softmax(Q Kᵀ / √d) V
+</code></pre><ol><li>Q Kᵀ: Dot product of all queries and all keys → similarity score table (n,n)</li><li>/ √d: Normalizes the scale because the dot product increases with higher dimensions (if d = 128, divide by √128 ≈ 11.3)</li><li>softmax: Converts scores into proportions for each row → "how much percentage of each token to refer to"</li><li>× V: Mixes and retrieves values according to those proportions.</li></ol><br><h2 id=batch-head-and-reading-einsum>Batch, Head, and Reading einsum <a class=anchor href=#batch-head-and-reading-einsum aria-label="이 절로 링크">#</a></h2><blockquote><p>Front dimensions (batch, head) are just repetitions; in einsum, characters that disappear are axes multiplied and summed.</p></blockquote><h3 id=131-front-dimensions-are-just-repetitions>13.1 Front Dimensions Are Just Repetitions <a class=anchor href=#131-front-dimensions-are-just-repetitions aria-label="이 절로 링크">#</a></h3><p>When performing matrix multiplication @ between <code>(B, H, n, d)</code> tensors, only the last two dimensions are multiplied, and the preceding B and H dimensions are repeated independently for their respective counts.</p><pre tabindex=0><code>Q:      (B, H, n, d)
+Kᵀ:     (B, H, d, n)
+Q @ Kᵀ: (B, H, n, n)
+
+→ This is equivalent to performing B × H instances of (n, d) × (d, n) matrix multiplications all at once.
+</code></pre><p>It's like applying the same formula to all sheets in a multi-sheet Excel file.</p><h3 id=einsum>einsum <a class=anchor href=#einsum aria-label="이 절로 링크">#</a></h3><p>When looking at GDN, you might see expressions like <code>torch.einsum('bhkv,bhk->bhv', S, kt)</code> in the code. While it might look like a cipher at first, there are three rules:</p><ol><li>The comma-separated groups of characters are the axis names for each input tensor.</li><li>The right side of the arrow indicates the output axes.</li><li><strong>Characters present in the input but absent in the output are multiplied and summed along that axis (=dot product).</strong></li></ol><p>Let's break down an example.</p><pre tabindex=0><code>torch.einsum(&#39;bhkv,bhk-&gt;bhv&#39;, S, kt)
+
+S axes: b h k v
+kt axes: b h k
+Output axes: b h v
+
+Disappearing character: k
+→ &#34;For each batch (b), for each head (h), take the dot product of S and kt along the k axis&#34;
+→ &#34;Read k address with S&#34; (M k from Chapter 8)
+</code></pre><p>Here's a summary of common patterns:</p><div class=table-wrap><table><thead><tr><th>einsum</th><th>Disappearing Character</th><th>Meaning</th></tr></thead><tbody><tr><td><code>'d,d->'</code></td><td>d</td><td>Vector dot product → single number</td></tr><tr><td><code>'k,v->kv'</code></td><td>None, new axes created</td><td>Outer product → create table</td></tr><tr><td><code>'kv,k->v'</code></td><td>k</td><td>Read table by k</td></tr><tr><td><code>'nd,md->nm'</code></td><td>d</td><td>Q Kᵀ (attention score table)</td></tr><tr><td><code>'bhk,bhv->bhkv'</code></td><td>None</td><td>Batch/head-wise outer product (creating memory in GDN)</td></tr></tbody></table></div><p>If it disappears, it's a dot product; if it appears, it's an outer product. Remembering just this will allow you to understand most cases.</p><br><h2 id=serving-and-connection>Serving and Connection <a class=anchor href=#serving-and-connection aria-label="이 절로 링크">#</a></h2><p>Serving memory calculation ultimately comes down to the number of elements in the shape x number of bytes.</p><div class=table-wrap><table><thead><tr><th>Data Type</th><th>Per Cell</th></tr></thead><tbody><tr><td>fp32</td><td>4 byte</td></tr><tr><td>bf16, fp16</td><td>2 byte</td></tr><tr><td>fp8, int8</td><td>1 byte</td></tr></tbody></table></div><h3 id=kv-cache>KV Cache <a class=anchor href=#kv-cache aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>KV cache bytes per token, per layer
+= 2 (K and V) × number of KV heads × head dim × number of bytes
+</code></pre><h3 id=gdn-state>GDN State <a class=anchor href=#gdn-state aria-label="이 절로 링크">#</a></h3><pre tabindex=0><code>State bytes per layer, per sequence
+= number of value heads × d_k × d_v × number of bytes
+</code></pre><p>Qwen3-Next's GDN layer: 32 × 128 × 128 × 4 byte(fp32) = 2,097,152 byte = 2 MiB</p></div><footer class=article-footer><span><code>Math/linear.md</code></span></footer><nav class=pager aria-label="Previous/next note"><a class=next href=/Math/math1.html rel=next><span class=dir>Next →</span>Systems of Linear Equations and Matrices</a></nav></article></main><footer class=site-footer><span>© 2026 rlaope</span></footer></div></body></html>
